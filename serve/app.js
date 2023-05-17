@@ -21,6 +21,16 @@ app.use(cookieParser())
 app.use(express.static(path.join(root, 'public')))
 app.use(express.static(path.join(root, 'uploads')))
 
+app.use(
+  cors({
+    origin: true,
+    maxAge: 1728000,
+    credentials: true,
+    optionsSuccessStatus: 204,
+    allowedHeaders: 'Content-Type, X-Custom-Header, X-Requested-With, Authorization, Token'
+  })
+)
+
 app.use(jwtMiddleware())
 
 app.use(errorMiddleware())
