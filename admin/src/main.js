@@ -1,4 +1,5 @@
 import '@/plugins/elementUI'
+import '@/plugins/faIcon'
 
 import '@/assets/scss/index.scss'
 
