@@ -13,7 +13,7 @@ export default {
 </script>
 
 <template>
-  <el-menu class="aside-menu" :default-active="menu[0].index">
+  <el-menu class="aside-menu" :default-active="menu[0].index" router>
     <component
       v-for="item in menu"
       :key="item.index"

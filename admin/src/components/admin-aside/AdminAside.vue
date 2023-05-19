@@ -12,16 +12,17 @@ export default {
 </script>
 
 <template>
-  <el-aside class="admin-aside">
+  <div class="admin-aside">
     <AsideLogo />
     <AsideMenu />
-  </el-aside>
+  </div>
 </template>
 
 <style lang="scss" scoped>
 .admin-aside {
   display: flex;
   flex-direction: column;
+  height: 100%;
   color: #303133;
   background-color: #fff;
 }

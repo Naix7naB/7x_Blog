@@ -1,45 +1,45 @@
 export const MENU_CONFIG = [
   {
-    index: 'home',
+    index: '/admin/index',
     icon: 'house',
     title: '首页'
   },
   {
-    index: 'article-management',
+    index: '/admin/article',
     icon: 'file-pen',
-    title: '编写文章',
+    title: '文章管理',
     children: [
       {
-        index: 'article-list',
+        index: '/admin/article/list',
         title: '文章列表'
       },
       {
-        index: 'article-write',
+        index: '/admin/article/write',
         title: '编写文章'
       },
       {
-        index: 'article-tag',
+        index: '/admin/article/tag',
         title: '文章标签'
       },
       {
-        index: 'article-commet',
+        index: '/admin/article/comment',
         title: '文章评论'
       }
     ]
   },
   {
-    index: 'message',
+    index: '/admin/message',
     icon: 'pen-to-square',
-    title: '留言'
+    title: '留言管理'
   },
   {
-    index: 'user',
+    index: '/admin/user',
     icon: 'user',
-    title: '用户'
+    title: '用户管理'
   },
   {
-    index: 'link',
+    index: '/admin/link',
     icon: 'paperclip',
-    title: '友链'
+    title: '友情链接'
   }
 ]
