@@ -1,9 +1,9 @@
 <script>
-import { Layout, AdminAside } from '@/components'
+import { Table } from '@/components'
 
 export default {
   name: 'HomeView',
-  components: { Layout, AdminAside },
+  components: { Table },
   data() {
     return {}
   }
@@ -11,17 +11,14 @@ export default {
 </script>
 
 <template>
-  <Layout>
-    <template #aside>
-      <AdminAside />
-    </template>
-    <template #header>
-      <el-header>header</el-header>
-    </template>
-    <template #main>
-      <el-main>main</el-main>
-    </template>
-  </Layout>
+  <Table>
+    <template #table-header>table-header</template>
+  </Table>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.header {
+  background-color: #fff;
+  box-shadow: 1PX 4PX 16PX rgba($color: $bg-reverse, $alpha: .5);
+}
+</style>
