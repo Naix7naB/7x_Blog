@@ -17,50 +17,82 @@ const routes = [
       {
         name: 'Home',
         path: 'index',
+        meta: {
+          icon: 'house',
+          title: '首页'
+        },
         component: () => import('@/views/HomeView')
       },
       {
         name: 'ArticleManagement',
         path: 'article',
         redirect: '/admin/article/list',
+        meta: {
+          icon: 'file-pen',
+          title: '文章管理'
+        },
         component: () => import('@/views/ArticleManagementView'),
         children: [
           {
             name: 'ArticleList',
             path: 'list',
-            component: () => import('@/views/HomeView')
+            meta: {
+              title: '文章列表'
+            },
+            component: () => import('@/views/ArticleListView')
           },
           {
             name: 'ArticleWrite',
             path: 'write',
-            component: () => import('@/views/HomeView')
+            meta: {
+              title: '编写文章'
+            },
+            component: () => import('@/views/ArticleWriteView')
           },
           {
             name: 'ArticleTag',
             path: 'tag',
-            component: () => import('@/views/HomeView')
+            meta: {
+              title: '文章标签'
+            },
+            component: () => import('@/views/ArticleTagView')
           },
           {
             name: 'ArticleComment',
             path: 'comment',
-            component: () => import('@/views/HomeView')
+            meta: {
+              title: '文章评论'
+            },
+            component: () => import('@/views/ArticleCommentView')
           }
         ]
       },
       {
-        name: 'MessageMangement',
+        name: 'MessageManagement',
         path: 'message',
-        component: () => import('@/views/HomeView')
+        meta: {
+          icon: 'pen-to-square',
+          title: '留言管理'
+        },
+        component: () => import('@/views/MessageManagementView')
       },
       {
         name: 'UserManagement',
         path: 'user',
-        component: () => import('@/views/HomeView')
+        meta: {
+          icon: 'user',
+          title: '用户管理'
+        },
+        component: () => import('@/views/UserManagementView')
       },
       {
         name: 'FriendLink',
         path: 'link',
-        component: () => import('@/views/HomeView')
+        meta: {
+          icon: 'paperclip',
+          title: '友情链接'
+        },
+        component: () => import('@/views/FriendLinkView')
       }
     ]
   }
