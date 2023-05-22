@@ -1,5 +1,7 @@
 import '@/plugins/elementUI'
 import '@/plugins/faIcon'
+import '@/plugins/mavonEditor'
+import '@/plugins/http'
 
 import '@/assets/scss/index.scss'
 
