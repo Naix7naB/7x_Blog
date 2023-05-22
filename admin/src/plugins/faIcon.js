@@ -9,9 +9,21 @@ import {
   faUser,
   faPaperclip,
   faFilePen,
-  faPenToSquare
+  faPenToSquare,
+  faBell,
+  faArrowRightFromBracket,
+  faPlus
 } from '@fortawesome/free-solid-svg-icons'
 
-library.add([faHouse, faUser, faPaperclip, faFilePen, faPenToSquare])
+library.add([
+  faHouse,
+  faUser,
+  faPaperclip,
+  faFilePen,
+  faPenToSquare,
+  faBell,
+  faArrowRightFromBracket,
+  faPlus
+])
 
 Vue.component('fa-icon', FontAwesomeIcon)
