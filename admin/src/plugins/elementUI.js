@@ -31,7 +31,13 @@ import {
   Select,
   Option,
   Upload,
-  Button
+  Button,
+  Checkbox,
+  CheckboxGroup,
+  Radio,
+  RadioGroup,
+  DatePicker,
+  Switch
 } from 'element-ui'
 
 Vue.use(Aside)
@@ -63,3 +69,9 @@ Vue.use(Select)
 Vue.use(Option)
 Vue.use(Upload)
 Vue.use(Button)
+Vue.use(Checkbox)
+Vue.use(CheckboxGroup)
+Vue.use(Radio)
+Vue.use(RadioGroup)
+Vue.use(DatePicker)
+Vue.use(Switch)
