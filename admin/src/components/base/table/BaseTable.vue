@@ -1,5 +1,5 @@
 <script>
-import { tableHeaderData, tableData } from './table.config'
+import { tableHeaderData, tableData } from './baseTable.config'
 
 export default {
   data() {

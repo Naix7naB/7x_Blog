@@ -1,9 +1,9 @@
 <script>
-import { Table } from '@/components'
+import { BaseTable } from '@/components'
 
 export default {
   name: 'HomeView',
-  components: { Table },
+  components: { BaseTable },
   data() {
     return {}
   }
@@ -11,9 +11,9 @@ export default {
 </script>
 
 <template>
-  <Table>
+  <BaseTable>
     <template #table-header>table-header</template>
-  </Table>
+  </BaseTable>
 </template>
 
 <style lang="scss" scoped>
