@@ -5,69 +5,69 @@
 import http from 'axios'
 
 export default class Request {
-  static GET() {
-    return 1
-  }
-  static POST() {
-    return 2
-  }
-  static PUT() {
-    return 3
-  }
-  static DELETE() {
-    return 4
-  }
-
-  /**
-   * @description: 发送请求
-   * @param methodType 请求方式, 如 Request.GET
-   * @param url 请求地址
-   * @param data 上传数据
-   * @param options [可选]其他配置项
-   * @return {Promise} 请求发送后的Promise对象
-   */
-  static request({ methodType, url, data, upType, options = null }) {
-    const config = {
-      url,
-      upType,
-      ...options
+    static GET() {
+        return 1
     }
-    switch (methodType) {
-      case Request.GET:
-        config.method = 'get'
-        config.params = data
-        break
-      case Request.POST:
-        config.method = 'post'
-        config.data = data
-        break
-      case Request.PUT:
-        config.method = 'put'
-        config.data = data
-        break
-      case Request.DELETE:
-        config.method = 'delete'
-        config.data = data
-        break
+    static POST() {
+        return 2
     }
-    return http.request(config)
-  }
+    static PUT() {
+        return 3
+    }
+    static DELETE() {
+        return 4
+    }
 
-  static requestForm({ methodType, url, data, options = null }) {
-    return Request.request({ methodType, url, data, upType: http.upType.form, options })
-  }
+    /**
+     * @description: 发送请求
+     * @param methodType 请求方式, 如 Request.GET
+     * @param url 请求地址
+     * @param data 上传数据
+     * @param options [可选]其他配置项
+     * @return {Promise} 请求发送后的Promise对象
+     */
+    static request({ methodType, url, data, upType, options = null }) {
+        const config = {
+            url,
+            upType,
+            ...options
+        }
+        switch (methodType) {
+            case Request.GET:
+                config.method = 'get'
+                config.params = data
+                break
+            case Request.POST:
+                config.method = 'post'
+                config.data = data
+                break
+            case Request.PUT:
+                config.method = 'put'
+                config.data = data
+                break
+            case Request.DELETE:
+                config.method = 'delete'
+                config.data = data
+                break
+        }
+        return http.request(config)
+    }
 
-  static requestJson({ methodType, url, data, options = null }) {
-    return Request.request({ methodType, url, data, upType: http.upType.json, options })
-  }
+    static requestForm({ methodType, url, data, options = null }) {
+        return Request.request({ methodType, url, data, upType: http.upType.form, options })
+    }
 
-  static postFile({ url, data, options = null }) {
-    return Request.request({
-      methodType: Request.POST,
-      url,
-      data,
-      upType: http.upType.file,
-      options
-    })
-  }
+    static requestJson({ methodType, url, data, options = null }) {
+        return Request.request({ methodType, url, data, upType: http.upType.json, options })
+    }
+
+    static postFile({ url, data, options = null }) {
+        return Request.request({
+            methodType: Request.POST,
+            url,
+            data,
+            upType: http.upType.file,
+            options
+        })
+    }
 }

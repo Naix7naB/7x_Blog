@@ -11,9 +11,9 @@ http.defaults.baseURL = process.env.VUE_APP_BASE_URL
 http.defaults.timeout = 5000
 
 http.upType = {
-  form: 0,
-  json: 1,
-  file: 2
+    form: 0,
+    json: 1,
+    file: 2
 }
 
 /**
@@ -28,65 +28,65 @@ http.upType = {
  *  SUCCESS: 10000 - (操作成功)
  */
 http.statusCode = {
-  UNAUTHORIZED: 401,
-  FORBIDDEN: 403,
-  CONTENT_TYPE_ERR: 9995,
-  PARAMS_INVALID: 9996,
-  SERVER_ERROR: 9997,
-  SERVER_BUSY: 9998,
-  FAIL: 9999,
-  SUCCESS: 10000
+    UNAUTHORIZED: 401,
+    FORBIDDEN: 403,
+    CONTENT_TYPE_ERR: 9995,
+    PARAMS_INVALID: 9996,
+    SERVER_ERROR: 9997,
+    SERVER_BUSY: 9998,
+    FAIL: 9999,
+    SUCCESS: 10000
 }
 
 // 请求拦截器
 http.interceptors.request.use(
-  config => {
-    const token = store.getters['user/getToken']
-    if (token) {
-      config.headers['Authorization'] = 'Bearer ' + token
+    config => {
+        const token = store.getters['user/getToken']
+        if (token) {
+            config.headers['Authorization'] = 'Bearer ' + token
+        }
+        if (config.upType === http.upType.json) {
+            config.headers['Content-Type'] = 'application/json;charset=UTF-8'
+        }
+        if (config.upType === http.upType.file) {
+            config.headers['Content-Type'] = 'multipart/form-data;charset=UTF-8'
+        }
+        if (config.upType === http.upType.form) {
+            config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
+        }
+        console.log(config)
+        return config
+    },
+    err => {
+        throw err
     }
-    if (config.upType === http.upType.json) {
-      config.headers['Content-Type'] = 'application/json;charset=UTF-8'
-    }
-    if (config.upType === http.upType.file) {
-      config.headers['Content-Type'] = 'multipart/form-data;charset=UTF-8'
-    }
-    if (config.upType === http.upType.form) {
-      config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
-    }
-    console.log(config)
-    return config
-  },
-  err => {
-    throw err
-  }
 )
 
 // 响应拦截器
 http.interceptors.response.use(
-  response => {
-    if (response.status === 200) {
-      if ('code' in response.data) {
-        const data = response.data
-        console.dir(data, Notification)
-        switch (data.code) {
-          case http.statusCode.SUCCESS:
-            return Promise.resolve(data)
-          case http.statusCode.FORBIDDEN:
-            Notification.error({ message: data.errMsg, showClose: false })
-            return Promise.reject(data)
-          case http.statusCode.UNAUTHORIZED:
+    response => {
+        if (response.status === 200) {
+            if ('code' in response.data) {
+                const data = response.data
+                console.dir(data, Notification)
+                switch (data.code) {
+                    case http.statusCode.SUCCESS:
+                        return Promise.resolve(data)
+                    case http.statusCode.FORBIDDEN:
+                        Notification.error({ message: data.errMsg, showClose: false })
+                        return Promise.reject(data)
+                    case http.statusCode.UNAUTHORIZED:
+                        return Promise.resolve(response)
+                    default:
+                        Notification.error({ message: data.errMsg, showClose: false })
+                        return Promise.reject(data)
+                }
+            }
             return Promise.resolve(response)
-          default:
-            Notification.error({ message: data.errMsg, showClose: false })
-            return Promise.reject(data)
         }
-      }
-      return Promise.resolve(response)
+        return Promise.reject(response)
+    },
+    err => {
+        console.log(err)
     }
-    return Promise.reject(response)
-  },
-  err => {
-    console.log(err)
-  }
 )
