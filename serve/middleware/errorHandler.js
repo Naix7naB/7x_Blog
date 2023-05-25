@@ -1,7 +1,7 @@
 const Field = require('../utils/field')
 const Response = require('../plugins/response')
 
-const { formatDate } = require('../utils/helpers')
+const { formatDate } = require('../utils/rsa')
 
 module.exports = () => {
     return (err, req, res) => {

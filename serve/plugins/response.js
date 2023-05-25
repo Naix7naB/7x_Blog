@@ -1,7 +1,7 @@
 const StatusCode = require('../utils/statusCode')
 const ResponseMessage = require('../utils/responseMessage')
 
-const { generateToken } = require('../utils')
+const { generateToken } = require('../utils/rsa')
 
 /**
  * 封装发送响应的工具类

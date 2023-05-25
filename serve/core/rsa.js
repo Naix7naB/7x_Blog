@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const { generateKeys } = require('../utils/helpers')
+const { generateKeys } = require('../utils/rsa')
 const { pubKeyPath, priKeyPath } = require('../config/base.config')
 
 /**
