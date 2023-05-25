@@ -7,5 +7,5 @@ module.exports = {
     expiresIn: 3600 * 24 * 3,
     pubKeyPath: path.join(ROOT, '/keys/public.cer'),
     priKeyPath: path.join(ROOT, '/keys/private.cer'),
-    uploadPath: path.join(ROOT, '/uploads')
+    uploadPath: path.join(ROOT, '/upload')
 }

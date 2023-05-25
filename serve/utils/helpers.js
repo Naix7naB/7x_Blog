@@ -36,7 +36,18 @@ function formatDate(date, format = 'YYYY-MM-DD') {
     return format
 }
 
+/**
+ * @description: 规格化URL字符串
+ * @param {String} url URL字符串
+ * @return {String} 转换成前端可用的URL字符串
+ * @Date: 2023-05-25
+ */
+function normalizeUrl(url) {
+    return url.replace(/\\/g, '/').replace(/([^\w])(\/)(\w)/, '$1//$3')
+}
+
 module.exports = {
     padLeft,
-    formatDate
+    formatDate,
+    normalizeUrl
 }
