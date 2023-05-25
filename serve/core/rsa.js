@@ -9,16 +9,16 @@ const { pubKeyPath, priKeyPath } = require('../config/base.config')
  * @description: 获取公钥 异步方法
  */
 function getPubKey() {
-  return new Promise((resolve, reject) => {
-    fs.readFile(pubKeyPath, 'utf8', (err, data) => {
-      let key = data
-      if (err) {
-        console.error(err)
-        key = generateKeys().pubKey
-      }
-      resolve(key)
+    return new Promise(resolve => {
+        fs.readFile(pubKeyPath, 'utf8', (err, data) => {
+            let key = data
+            if (err) {
+                console.error(err)
+                key = generateKeys().pubKey
+            }
+            resolve(key)
+        })
     })
-  })
 }
 
 /**
@@ -27,16 +27,16 @@ function getPubKey() {
  * @description: 获取私钥 异步方法
  */
 function getPriKey() {
-  return new Promise((resolve, reject) => {
-    fs.readFile(priKeyPath, 'utf8', (err, data) => {
-      let key = data
-      if (err) {
-        console.error(err)
-        key = generateKeys().priKey
-      }
-      resolve(key)
+    return new Promise(resolve => {
+        fs.readFile(priKeyPath, 'utf8', (err, data) => {
+            let key = data
+            if (err) {
+                console.error(err)
+                key = generateKeys().priKey
+            }
+            resolve(key)
+        })
     })
-  })
 }
 
 /**
@@ -45,12 +45,12 @@ function getPriKey() {
  * @description: 获取公钥 同步方法
  */
 function getPubKeySync() {
-  try {
-    return fs.readFileSync(pubKeyPath, 'utf8')
-  } catch (err) {
-    console.error(err)
-    return generateKeys().pubKey
-  }
+    try {
+        return fs.readFileSync(pubKeyPath, 'utf8')
+    } catch (err) {
+        console.error(err)
+        return generateKeys().pubKey
+    }
 }
 
 /**
@@ -59,17 +59,17 @@ function getPubKeySync() {
  * @description: 获取私钥 同步方法
  */
 function getPriKeySync() {
-  try {
-    return fs.readFileSync(priKeyPath, 'utf8')
-  } catch (err) {
-    console.error(err)
-    return generateKeys().priKey
-  }
+    try {
+        return fs.readFileSync(priKeyPath, 'utf8')
+    } catch (err) {
+        console.error(err)
+        return generateKeys().priKey
+    }
 }
 
 module.exports = {
-  getPubKey,
-  getPriKey,
-  getPubKeySync,
-  getPriKeySync
+    getPubKey,
+    getPriKey,
+    getPubKeySync,
+    getPriKeySync
 }
