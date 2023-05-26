@@ -7,6 +7,9 @@ const cookieParser = require('cookie-parser')
 
 const jwtMiddleware = require('./middleware/jwtAuth')
 const errorMiddleware = require('./middleware/errorHandler')
+const resourceMiddleware = require('./middleware/resource')
+
+const { resourceRoute, adminRoute, uploadRoute, articleRoute } = require('./routes')
 
 const { root } = require('./config/base.config')
 
@@ -19,7 +22,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(root, 'public')))
-app.use(express.static(path.join(root, 'uploads')))
+app.use(express.static(path.join(root, 'upload')))
 
 app.use(
     cors({
@@ -32,6 +35,11 @@ app.use(
 )
 
 app.use(jwtMiddleware())
+
+app.use('/api/:resource', resourceMiddleware(), resourceRoute)
+app.use('/admin', adminRoute)
+app.use('/upload', uploadRoute)
+app.use('/article', articleRoute)
 
 app.use(errorMiddleware())
 
