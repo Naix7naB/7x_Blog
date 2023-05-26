@@ -1,10 +1,10 @@
 module.exports = class ResponseMessage {
     static get 401() {
-        return '未登录or证书过期'
+        return '未登录或证书已过期'
     }
 
     static get 403() {
-        return '无权限'
+        return '暂无权限, 请联系管理员'
     }
 
     static get 9995() {
