@@ -1,9 +1,14 @@
 const mongoose = require('mongoose')
 const createError = require('http-errors')
 
-const { protocols, host, port, name } = require('../config/db.config')
+const { protocol, host, port, name } = require('../config/db.config')
 
-const DB_URL = `${protocols}://${host}:${port}/${name}`
+const DB_URL = `${protocol}://${host}:${port}/${name}`
+
+mongoose.set('useNewUrlParser', true)
+mongoose.set('useUnifiedTopology', true)
+mongoose.set('useFindAndModify', true)
+mongoose.set('useCreateIndex', true)
 
 module.exports = {
     connect() {
