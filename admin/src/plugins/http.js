@@ -5,8 +5,6 @@
 import http from 'axios'
 import store from '@/store'
 
-import { Notification } from 'element-ui'
-
 http.defaults.baseURL = process.env.VUE_APP_BASE_URL
 http.defaults.timeout = 5000
 
@@ -38,55 +36,57 @@ http.statusCode = {
     SUCCESS: 10000
 }
 
-// 请求拦截器
-http.interceptors.request.use(
-    config => {
-        const token = store.getters['user/getToken']
-        if (token) {
-            config.headers['Authorization'] = 'Bearer ' + token
-        }
-        if (config.upType === http.upType.json) {
-            config.headers['Content-Type'] = 'application/json;charset=UTF-8'
-        }
-        if (config.upType === http.upType.file) {
-            config.headers['Content-Type'] = 'multipart/form-data;charset=UTF-8'
-        }
-        if (config.upType === http.upType.form) {
-            config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
-        }
-        console.log(config)
-        return config
-    },
-    err => {
-        throw err
-    }
-)
-
-// 响应拦截器
-http.interceptors.response.use(
-    response => {
-        if (response.status === 200) {
-            if ('code' in response.data) {
-                const data = response.data
-                console.dir(data, Notification)
-                switch (data.code) {
-                    case http.statusCode.SUCCESS:
-                        return Promise.resolve(data)
-                    case http.statusCode.FORBIDDEN:
-                        Notification.error({ message: data.errMsg, showClose: false })
-                        return Promise.reject(data)
-                    case http.statusCode.UNAUTHORIZED:
-                        return Promise.resolve(response)
-                    default:
-                        Notification.error({ message: data.errMsg, showClose: false })
-                        return Promise.reject(data)
-                }
+export default instance => {
+    // 请求拦截器
+    http.interceptors.request.use(
+        config => {
+            const token = store.getters['user/getToken']
+            if (token) {
+                config.headers['Authorization'] = 'Bearer ' + token
             }
-            return Promise.resolve(response)
+            if (config.upType === http.upType.json) {
+                config.headers['Content-Type'] = 'application/json;charset=UTF-8'
+            }
+            if (config.upType === http.upType.file) {
+                config.headers['Content-Type'] = 'multipart/form-data;charset=UTF-8'
+            }
+            if (config.upType === http.upType.form) {
+                config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
+            }
+            return config
+        },
+        err => {
+            throw err
         }
-        return Promise.reject(response)
-    },
-    err => {
-        console.log(err)
-    }
-)
+    )
+    // 响应拦截器
+    http.interceptors.response.use(
+        response => {
+            if (response.status === 200) {
+                if ('code' in response.data) {
+                    const data = response.data
+                    switch (data.code) {
+                        case http.statusCode.SUCCESS:
+                            return Promise.resolve(data)
+                        case http.statusCode.FORBIDDEN:
+                            instance.$notify.error({ message: data.errMsg, showClose: false })
+                            return Promise.reject(response)
+                        case http.statusCode.UNAUTHORIZED:
+                            if (data.data.indexOf('jwt expired at') >= 0) {
+                                instance.$router.push('/login')
+                            }
+                            return Promise.reject(response)
+                        default:
+                            instance.$notify.error({ message: data.errMsg, showClose: false })
+                            return Promise.reject(response)
+                    }
+                }
+                return Promise.resolve(response)
+            }
+            return Promise.reject(response)
+        },
+        err => {
+            console.log('http 89: ', err)
+        }
+    )
+}
