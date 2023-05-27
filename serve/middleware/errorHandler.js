@@ -4,7 +4,7 @@ const Response = require('../core/response')
 const { formatDate } = require('../utils/helpers')
 
 module.exports = () => {
-    return (err, req, res) => {
+    return (err, req, res, next) => {
         let statusCode = 'FAIL',
             message,
             data
@@ -18,7 +18,7 @@ module.exports = () => {
             const repeatKey = Object.keys(err.keyPattern)[0].toUpperCase()
             message = `${Field[repeatKey]}已存在`
         } else {
-            console.log(err)
+            console.log('22')
             const errKey = Object.keys(err.errors)[0]
             message = err.errors[errKey].message
         }

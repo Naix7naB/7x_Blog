@@ -9,7 +9,7 @@ const { pubKeyPath, priKeyPath } = require('../config/base.config')
  * @description: 获取公钥 异步方法
  */
 function getPubKey() {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
         fs.readFile(pubKeyPath, 'utf8', (err, data) => {
             let key = data
             if (err) {
@@ -27,7 +27,7 @@ function getPubKey() {
  * @description: 获取私钥 异步方法
  */
 function getPriKey() {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
         fs.readFile(priKeyPath, 'utf8', (err, data) => {
             let key = data
             if (err) {
