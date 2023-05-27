@@ -3,6 +3,7 @@
  */
 
 import http from 'axios'
+import MultipleForm from '@/utils/multipleForm'
 
 export default class Request {
     static GET() {
@@ -34,19 +35,19 @@ export default class Request {
         }
         switch (methodType) {
             case Request.GET:
-                config.method = 'get'
+                config.method = 'GET'
                 config.params = data
                 break
             case Request.POST:
-                config.method = 'post'
+                config.method = 'POST'
                 config.data = data
                 break
             case Request.PUT:
-                config.method = 'put'
+                config.method = 'PUT'
                 config.data = data
                 break
             case Request.DELETE:
-                config.method = 'delete'
+                config.method = 'DELETE'
                 config.data = data
                 break
         }
@@ -62,10 +63,15 @@ export default class Request {
     }
 
     static postFile({ url, data, options = null }) {
+        const formData = new FormData()
+        const list = MultipleForm.format(data)
+        list.forEach(item => {
+            formData.append(item['field'], item['value'])
+        })
         return Request.request({
             methodType: Request.POST,
             url,
-            data,
+            data: formData,
             upType: http.upType.file,
             options
         })
