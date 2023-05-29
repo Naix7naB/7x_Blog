@@ -64,8 +64,8 @@ export default class Request {
 
     static postFile({ url, data, options = null }) {
         const formData = new FormData()
-        const list = MultipleForm.format(data)
-        list.forEach(item => {
+        MultipleForm.reset()
+        MultipleForm.format(data).forEach(item => {
             formData.append(item['field'], item['value'])
         })
         return Request.request({
