@@ -18,9 +18,10 @@ module.exports = () => {
             const repeatKey = Object.keys(err.keyPattern)[0].toUpperCase()
             message = `${Field[repeatKey]}已存在`
         } else {
-            console.log('22')
+            // 数据库创建模型验证错误处理
             const errKey = Object.keys(err.errors)[0]
             message = err.errors[errKey].message
+            console.dir(err.errors, { deepth: null })
         }
         Response.send(res, {
             statusCode,

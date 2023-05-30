@@ -43,7 +43,7 @@ function formatDate(date, format = 'YYYY-MM-DD') {
  * @Date: 2023-05-25
  */
 function normalizeUrl(url) {
-    return url.replace(/\\/g, '/').replace(/([^\w])(\/)(\w)/, '$1//$3')
+    return url.replace(/\\/g, '/')
 }
 
 module.exports = {

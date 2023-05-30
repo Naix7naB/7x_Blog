@@ -7,27 +7,32 @@ const schema = new mongoose.Schema(
         author: {
             ref: 'User',
             type: mongoose.SchemaTypes.ObjectId,
-            require: true
+            required: true
         },
         title: {
             type: String,
-            require: [true, '文章标题是必填项!']
+            required: [true, '文章标题是必填项!']
         },
         description: {
             type: String,
-            require: [true, '文章描述是必填项!']
+            required: [true, '文章描述是必填项!']
         },
         tags: {
             type: Array,
-            require: [true, '文章标签是必填项!']
+            validate: {
+                validator(v) {
+                    return Array.isArray(v) && v.length > 0
+                },
+                message: '文章标签是必填项!'
+            }
         },
         cover_img: {
             type: String,
-            require: [true, '文章封面是必填项!']
+            required: [true, '文章封面是必填项!']
         },
         content: {
             type: String,
-            require: [true, '文章内容不能为空!']
+            required: [true, '文章内容不能为空!']
         },
         view_num: {
             type: Number,

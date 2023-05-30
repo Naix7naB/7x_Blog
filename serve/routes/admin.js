@@ -1,9 +1,8 @@
 const express = require('express')
-const User = require('../models/User')
 const assert = require('http-assert')
 
+const User = require('../models/User')
 const Response = require('../core/response')
-
 const { getPubKey } = require('../core/rsa')
 const { encrypt, decrypt } = require('../utils/rsa')
 
