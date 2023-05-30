@@ -1,25 +1,31 @@
 const express = require('express')
 const fs = require('fs')
 const path = require('path')
+const assert = require('assert')
 const multer = require('multer')
-const createError = require('http-errors')
 
+const Response = require('../core/response')
 const { uploadPath } = require('../config/base.config')
+const { normalizeUrl } = require('../utils/helpers')
 
-const fieldMap = ['user', 'article', 'other']
+const categoryMap = {
+    user: 'user',
+    article: 'article',
+    other: 'other'
+}
+
 const storage = multer.diskStorage({
     destination(req, file, next) {
         const field = req.params['category'] || null
-        if (!fieldMap.includes(field)) {
-            next(createError(404, '上传类型错误'))
-        }
-        const savePath = path.join(uploadPath, field)
+        const category = categoryMap[field] || null
+        assert(category, 422, '文件上传分类不正确')
+        const savePath = path.join(uploadPath, category)
         fs.existsSync(savePath) || fs.mkdirSync(savePath)
         next(null, savePath)
     },
     filename(req, file, next) {
-        const { name, ext } = path.parse(file.originalname)
-        next(null, name + Date.now() + ext)
+        const { ext } = path.parse(file.originalname)
+        next(null, file.fieldname + Date.now() + ext)
     }
 })
 
@@ -27,18 +33,30 @@ const Router = express.Router()
 const upload = multer({
     storage,
     limits: {
-        fileSize: 2097152
+        fileSize: 1024 * 1024 // 1MB
     }
 })
 
 // 上传文件
-Router.post('/:category', upload.single('file'), async (req, res, next) => {
+Router.post('/:category', upload.any(), async (req, res, next) => {
     try {
-        const user = req.auth
-        console.log(user)
-        res.send('ok')
+        const fileUrls = req.files.map(file => {
+            const { fieldname, destination, filename } = file
+            const url = path.join('/', path.parse(destination).name, filename)
+            return {
+                fieldname,
+                filename,
+                url: normalizeUrl(url)
+            }
+        })
+        Response.send(res, {
+            message: '上传成功',
+            data: {
+                fileUrls
+            }
+        })
     } catch (err) {
-        next(createError(400))
+        next(err)
     }
 })
 
