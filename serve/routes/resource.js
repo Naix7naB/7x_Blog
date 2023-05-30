@@ -1,3 +1,4 @@
+const qs = require('qs')
 const express = require('express')
 const createError = require('http-errors')
 
@@ -10,15 +11,26 @@ const Router = express.Router()
 // 获取资源列表
 Router.get('/', async (req, res, next) => {
     try {
-        const modelName = req.Model.modelName
-        if (!Populate[modelName]) {
-            next(createError(400))
-        }
-        const result = await Paginator.paging({
-            model: req.Model,
-            populate: Populate[modelName],
+        console.log(qs.stringify(req.query))
+        const model = req.Model
+        const { records: list, ...result } = await Paginator.paging({
+            model,
+            populate: Populate[model.modelName],
             ...req.query
         })
+        Response.send(res, { data: { ...result, list } })
+    } catch (err) {
+        next(err)
+    }
+})
+
+// 根据ID获取资源信息
+Router.get('/:id', async (req, res, next) => {
+    try {
+        const model = req.Model
+        const reource_id = req.params.id
+        const populate = Populate[model.modelName]
+        const result = await model.findById(reource_id).populate(populate)
         Response.send(res, { data: result })
     } catch (err) {
         next(createError(400))
