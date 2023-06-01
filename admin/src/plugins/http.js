@@ -2,6 +2,7 @@
  * 对 axios 进行二次封装
  */
 
+import qs from 'qs'
 import http from 'axios'
 import store from '@/store'
 
@@ -52,6 +53,9 @@ export default instance => {
             }
             if (config.upType === http.upType.form) {
                 config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
+                if (config.data) {
+                    config.data = qs.stringify(config.data, { arrayFormat: 'repeat' })
+                }
             }
             return config
         },
