@@ -1,12 +1,40 @@
 <script>
-import { tableHeaderData, tableData } from './baseTable.config'
-
 export default {
+    name: 'BaseTable',
+    props: {
+        tableHeader: {
+            type: Array,
+            required: true
+        },
+        tableContent: {
+            type: Array,
+            default: () => []
+        },
+        hasSelection: {
+            type: Boolean,
+            default: false
+        },
+        hasIndex: {
+            type: Boolean,
+            default: false
+        },
+        hasPagination: {
+            type: Boolean,
+            default: true
+        },
+        total: {
+            type: Number,
+            default: 0
+        }
+    },
     data() {
         return {
-            activeName: 'released',
-            tableHeaderData,
-            tableData
+            activeName: 'released'
+        }
+    },
+    methods: {
+        changePage(page) {
+            console.log(page)
         }
     }
 }
@@ -22,19 +50,31 @@ export default {
                 <el-tab-pane label="已发布" name="released" />
                 <el-tab-pane label="草稿" name="draft" />
             </el-tabs>
-            <el-table :data="tableData">
-                <el-table-column
-                    v-for="item in tableHeaderData"
-                    :key="item.field"
-                    :prop="item.field"
-                    :label="item.label"
-                    :fixed="item.field === 'operation' && 'right'"
-                    min-width="120"
-                    align="center"
-                    header-align="center"
-                />
+            <el-table :data="tableContent">
+                <!-- 选择列 -->
+                <el-table-column v-if="hasSelection" type="selection" width="55" />
+                <!-- 序号列 -->
+                <el-table-column v-if="hasIndex" type="index" width="55" />
+                <!-- 数据源 -->
+                <template v-for="item in tableHeader">
+                    <!-- 插槽列 -->
+                    <el-table-column v-if="item.type === 'slot'" v-bind="item" :key="item.prop">
+                        <template slot-scope="{ $index, row }">
+                            <slot :name="item.slotName" :row="row" :index="$index" />
+                        </template>
+                    </el-table-column>
+                    <!-- 普通列 -->
+                    <el-table-column v-else v-bind="item" :key="item.prop" />
+                </template>
             </el-table>
-            <el-pagination background layout="total, prev, pager, next" :total="tableData.length" />
+            <el-pagination
+                v-if="hasPagination"
+                layout="total, prev, pager, next"
+                :total="total"
+                background
+                hide-on-single-page
+                @current-change="changePage"
+            />
         </template>
     </el-card>
 </template>
