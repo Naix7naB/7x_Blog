@@ -7,6 +7,10 @@ const schema = new mongoose.Schema(
             unique: true,
             required: [true, '标签名称必填!']
         },
+        color: {
+            type: String,
+            default: '#845EC2'
+        },
         articles: [
             {
                 ref: 'Article',
@@ -14,7 +18,10 @@ const schema = new mongoose.Schema(
             }
         ]
     },
-    { versionKey: false }
+    {
+        timestamps: true,
+        versionKey: false
+    }
 )
 
 module.exports = mongoose.model('Tag', schema)

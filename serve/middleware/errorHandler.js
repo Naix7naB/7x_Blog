@@ -14,9 +14,11 @@ module.exports = () => {
         } else if (err.name === 'UnprocessableEntityError') {
             message = err.message
         } else if (err.message.indexOf('duplicate key error') !== -1) {
-            // 数据库验证错误处理
-            const repeatKey = Object.keys(err.keyPattern)[0].toUpperCase()
-            message = `${Field[repeatKey]}已存在`
+            // 数据库字段重复错误处理
+            const regexp = new RegExp(/collection:\sblog\.(\w+)\s/, 'i')
+            const collection = err.message.match(regexp)[1].toUpperCase()
+            const repeatKey = Object.keys(err.keyPattern)[0]
+            message = `${Field[collection][repeatKey]}已存在`
         } else {
             // 数据库创建模型验证错误处理
             console.log(err)

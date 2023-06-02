@@ -1,16 +1,16 @@
-module.exports = class Query {
-    static get USERNAME() {
-        return '用户名'
-    }
-    static get PASSWORD() {
-        return '密码'
-    }
-
-    static get NICKNAME() {
-        return '昵称'
+module.exports = class Field {
+    static get USER() {
+        return {
+            username: '用户名',
+            password: '密码',
+            nickname: '昵称',
+            email: '邮箱'
+        }
     }
 
-    static get EMAIL() {
-        return '邮箱'
+    static get TAGS() {
+        return {
+            name: '标签'
+        }
     }
 }
