@@ -5,6 +5,10 @@ export default {
             type: Object,
             default: null
         },
+        formItems: {
+            type: Array,
+            required: true
+        },
         labelWidth: {
             type: String,
             default: '80px'
@@ -13,9 +17,9 @@ export default {
             type: String,
             default: 'default'
         },
-        formItems: {
-            type: Array,
-            required: true
+        inline: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
@@ -46,58 +50,66 @@ export default {
 </script>
 
 <template>
-    <el-form ref="elForm" :label-width="labelWidth" :size="size" :model="customFormData">
-        <el-row>
-            <template v-for="item in formItems">
-                <el-col :key="item.label">
-                    <el-form-item v-bind="item">
-                        <!-- 输入框 -->
-                        <template v-if="item.type === 'input'">
-                            <el-input
-                                clearable
-                                v-model="customFormData[item.prop]"
-                                :placeholder="item.placeholder"
-                            />
-                        </template>
-                        <!-- 密码输入框 -->
-                        <template v-if="item.type === 'password'">
-                            <el-input
-                                type="password"
-                                show-password
-                                v-model="customFormData[item.prop]"
-                                :placeholder="item.placeholder"
-                            />
-                        </template>
-                        <!-- 日期范围 -->
-                        <template v-if="item.type === 'date'">
-                            <el-date-picker
-                                clearable
-                                v-bind="item.others"
-                                v-model="customFormData[item.prop]"
-                            />
-                        </template>
-                        <!-- 下拉框 -->
-                        <template v-if="item.type === 'select'">
-                            <el-select
-                                clearable
-                                v-bind="item.others"
-                                v-model="customFormData[item.prop]"
-                                :placeholder="item.placeholder"
-                            >
-                                <el-option
-                                    v-for="optionItem in item.options"
-                                    :label="optionItem.label"
-                                    :value="optionItem.value"
-                                    :key="optionItem.label"
-                                />
-                            </el-select>
-                        </template>
-                        <!-- 切换 -->
-                        <template v-if="item.type === 'switch'">
-                            <el-switch v-model="customFormData[item.prop]" />
-                        </template>
-                        <!-- 多选 -->
-                        <!-- <template v-if="item.type === 'checkbox'">
+    <el-form
+        ref="elForm"
+        :label-width="labelWidth"
+        :size="size"
+        :inline="inline"
+        :model="customFormData"
+    >
+        <template v-for="item in formItems">
+            <el-form-item v-bind="item" :key="item.label">
+                <!-- 输入框 -->
+                <template v-if="item.type === 'input'">
+                    <el-input
+                        clearable
+                        v-model="customFormData[item.prop]"
+                        :placeholder="item.placeholder"
+                    />
+                </template>
+                <!-- 密码输入框 -->
+                <template v-if="item.type === 'password'">
+                    <el-input
+                        type="password"
+                        show-password
+                        v-model="customFormData[item.prop]"
+                        :placeholder="item.placeholder"
+                    />
+                </template>
+                <!-- 日期范围 -->
+                <template v-if="item.type === 'date'">
+                    <el-date-picker
+                        clearable
+                        :placeholder="item.placeholder || '选择日期'"
+                        :start-placeholder="item.startPlaceholder || '开始日期'"
+                        :end-placeholder="item.endPlaceholder || '结束日期'"
+                        :range-separator="item.rangeSep || '至'"
+                        v-bind="item.others"
+                        v-model="customFormData[item.prop]"
+                    />
+                </template>
+                <!-- 下拉框 -->
+                <template v-if="item.type === 'select'">
+                    <el-select
+                        clearable
+                        v-bind="item.others"
+                        v-model="customFormData[item.prop]"
+                        :placeholder="item.placeholder"
+                    >
+                        <el-option
+                            v-for="optionItem in item.options"
+                            :label="optionItem.label"
+                            :value="optionItem.value"
+                            :key="optionItem.label"
+                        />
+                    </el-select>
+                </template>
+                <!-- 切换 -->
+                <template v-if="item.type === 'switch'">
+                    <el-switch v-model="customFormData[item.prop]" />
+                </template>
+                <!-- 多选 -->
+                <!-- <template v-if="item.type === 'checkbox'">
               <el-checkbox
                 v-if="item.otherOptions && item.otherOptions.showAll"
                 v-model="checkAll"
@@ -116,8 +128,8 @@ export default {
                 </el-checkbox>
               </el-checkbox-group>
             </template> -->
-                        <!-- 单选 -->
-                        <!-- <template v-if="item.type === 'radio'">
+                <!-- 单选 -->
+                <!-- <template v-if="item.type === 'radio'">
               <el-radio-group
                 :model-value="modelValue[`${item.field}`]"
                 @update:modelValue="handleValueChange($event, item.field)"
@@ -131,45 +143,41 @@ export default {
                 </el-radio>
               </el-radio-group>
             </template> -->
-                        <!-- 文本框 -->
-                        <!-- <template v-if="item.type === 'textarea'">
+                <!-- 文本框 -->
+                <!-- <template v-if="item.type === 'textarea'">
               <el-input
                 type="textarea"
                 :model-value="modelValue[`${item.field}`]"
                 @update:modelValue="handleValueChange($event, item.field)"
               />
             </template> -->
-                        <!-- 文件上传 -->
-                        <template v-if="item.type === 'upload'">
-                            <el-upload
-                                ref="elUpload"
-                                action="#"
-                                multiple
-                                :limit="item.limit || 1"
-                                :list-type="item.uploadType ? 'text' : 'picture-card'"
-                                :auto-upload="false"
-                                :file-list="fileList"
-                                :on-exceed="handleExceed"
-                                :on-change="handleChange"
-                                :on-remove="handleChange"
-                            >
-                                <template #tip v-if="item.others?.tip || false">
-                                    <div>{{ item.others.tip }}</div>
-                                </template>
-                                <el-button v-if="item.uploadType" type="primary">
-                                    选择上传文件
-                                </el-button>
-                                <fa-icon v-else :icon="['fas', 'plus']" />
-                            </el-upload>
+                <!-- 文件上传 -->
+                <template v-if="item.type === 'upload'">
+                    <el-upload
+                        ref="elUpload"
+                        action="#"
+                        multiple
+                        :limit="item.limit || 1"
+                        :list-type="item.uploadType ? 'text' : 'picture-card'"
+                        :auto-upload="false"
+                        :file-list="fileList"
+                        :on-exceed="handleExceed"
+                        :on-change="handleChange"
+                        :on-remove="handleChange"
+                    >
+                        <template #tip v-if="item.others?.tip || false">
+                            <div>{{ item.others.tip }}</div>
                         </template>
-                        <!-- 自定义组件插槽 -->
-                        <template v-if="item.type === 'slot'">
-                            <slot :name="item.slotName" />
-                        </template>
-                    </el-form-item>
-                </el-col>
-            </template>
-        </el-row>
+                        <el-button v-if="item.uploadType" type="primary"> 选择上传文件 </el-button>
+                        <fa-icon v-else :icon="['fas', 'plus']" />
+                    </el-upload>
+                </template>
+                <!-- 自定义组件插槽 -->
+                <template v-if="item.type === 'slot'">
+                    <slot :name="item.slotName" />
+                </template>
+            </el-form-item>
+        </template>
     </el-form>
 </template>
 
