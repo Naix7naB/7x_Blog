@@ -45,6 +45,10 @@ const tablePager = {
     total: 0
 }
 
+const formConfig = {
+    inline: true
+}
+
 const formData = {
     name: '',
     createdAt: ''
@@ -62,9 +66,29 @@ const formItems = [
         prop: 'createdAt',
         label: '创建时间',
         others: {
-            type: 'daterange'
+            type: 'daterange',
+            startPlaceholder: '开始日期',
+            endPlaceholder: '结束日期',
+            rangeSep: '至'
         }
+    },
+    {
+        type: 'opt',
+        options: [
+            {
+                type: 'primary',
+                size: 'default',
+                text: '查询',
+                act: 'search'
+            },
+            {
+                type: 'primary',
+                size: 'default',
+                text: '创建',
+                act: 'create'
+            }
+        ]
     }
 ]
 
-export { tableColumns, tablePager, formData, formItems }
+export { tableColumns, tablePager, formConfig, formData, formItems }

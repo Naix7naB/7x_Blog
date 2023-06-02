@@ -1,6 +1,6 @@
 <script>
 import { BaseForm, BaseTable } from '@/components'
-import { tableColumns, tablePager, formData, formItems } from '@/config/tag.config'
+import { tableColumns, tablePager, formConfig, formData, formItems } from '@/config/tagList.config'
 import { getTagList } from '@/apis/tag'
 
 export default {
@@ -11,6 +11,7 @@ export default {
             tagList: [],
             tableColumns,
             tablePager,
+            formConfig,
             formData,
             formItems,
             eventAgent: {
@@ -21,17 +22,16 @@ export default {
     },
     methods: {
         /* 获取标签列表 */
-        fetchTags() {
+        async fetchTags() {
             const { page, size } = this.tablePager
-            getTagList({
+            const res = await getTagList({
                 page,
                 size,
                 select: '-articles'
-            }).then(res => {
-                const { list, total } = res.data
-                this.tagList = list
-                this.tablePager.total = total
             })
+            const { list, total } = res.data
+            this.tagList = list
+            this.tablePager.total = total
         },
         /* 处理操作按钮按下时 */
         handleButtonClick(payload) {
@@ -66,12 +66,17 @@ export default {
         :hasPagination="true"
         :columns="tableColumns"
         :datasource="tagList"
-        :pageConfig="tablePager"
-        @handleButtonClick="handleButtonClick"
-        @handlePageChange="handlePageChange"
+        :pagerConfig="tablePager"
+        @handleTableButtonClick="handleButtonClick"
+        @handleTablePageChange="handlePageChange"
     >
         <template #table-header>
-            <BaseForm :formData="formData" :formItems="formItems" inline />
+            <BaseForm
+                :formConfig="formConfig"
+                :formData="formData"
+                :formItems="formItems"
+                @handleFormButtonClick="handleButtonClick"
+            />
         </template>
     </BaseTable>
 </template>
