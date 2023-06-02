@@ -17,15 +17,13 @@ const schema = new mongoose.Schema(
             type: String,
             required: [true, '文章描述是必填项!']
         },
-        tags: {
-            type: Array,
-            validate: {
-                validator(v) {
-                    return Array.isArray(v) && v.length > 0
-                },
-                message: '文章标签是必填项!'
+        tags: [
+            {
+                ref: 'Tag',
+                type: mongoose.SchemaTypes.ObjectId,
+                required: true
             }
-        },
+        ],
         cover_img: {
             type: String,
             required: [true, '文章封面是必填项!']
@@ -52,6 +50,10 @@ const schema = new mongoose.Schema(
             get(val) {
                 return formatDate(val, 'YYYY-MM-DD hh:mm:ss')
             }
+        },
+        state: {
+            type: String,
+            required: [true, '文章状态异常!']
         }
         // TODO 引用 Like 模型
         // likes: {

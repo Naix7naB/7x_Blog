@@ -19,6 +19,7 @@ module.exports = () => {
             message = `${Field[repeatKey]}已存在`
         } else {
             // 数据库创建模型验证错误处理
+            console.log(err)
             const errKey = Object.keys(err.errors)[0]
             message = err.errors[errKey].message
             console.dir(err.errors, { deepth: null })
