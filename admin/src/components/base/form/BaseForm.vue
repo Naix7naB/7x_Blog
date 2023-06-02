@@ -1,25 +1,24 @@
 <script>
 export default {
     props: {
+        formConfig: {
+            type: Object,
+            default: () => {
+                return {
+                    size: 'default',
+                    inline: false,
+                    labelWidth: '80px',
+                    labelPosition: 'left'
+                }
+            }
+        },
         formData: {
             type: Object,
-            default: null
+            default: () => {}
         },
         formItems: {
             type: Array,
             required: true
-        },
-        labelWidth: {
-            type: String,
-            default: '80px'
-        },
-        size: {
-            type: String,
-            default: 'default'
-        },
-        inline: {
-            type: Boolean,
-            default: false
         }
     },
     data() {
@@ -29,17 +28,20 @@ export default {
         }
     },
     methods: {
-        uploadFile(cb) {
-            cb(this.fileList)
-        },
-        handleExceed() {
+        handleFileExceed() {
             this.$notify({
                 type: 'error',
                 message: '超出文件上传限制'
             })
         },
-        handleChange(file, list) {
+        handleFileChange(file, list) {
             this.fileList = list
+        },
+        buttonClick(act) {
+            this.$emit('handleFormButtonClick', act)
+        },
+        uploadFile(cb) {
+            cb(this.fileList)
         },
         resetForm() {
             this.$refs.elForm.resetFields()
@@ -50,15 +52,9 @@ export default {
 </script>
 
 <template>
-    <el-form
-        ref="elForm"
-        :label-width="labelWidth"
-        :size="size"
-        :inline="inline"
-        :model="customFormData"
-    >
-        <template v-for="item in formItems">
-            <el-form-item v-bind="item" :key="item.label">
+    <el-form ref="elForm" v-bind="formConfig" :model="customFormData">
+        <template v-for="{ others, options, ...item } in formItems">
+            <el-form-item v-bind="item" :style="{ marginRight: '30px' }" :key="item.label">
                 <!-- 输入框 -->
                 <template v-if="item.type === 'input'">
                     <el-input
@@ -78,26 +74,18 @@ export default {
                 </template>
                 <!-- 日期范围 -->
                 <template v-if="item.type === 'date'">
-                    <el-date-picker
-                        clearable
-                        :placeholder="item.placeholder || '选择日期'"
-                        :start-placeholder="item.startPlaceholder || '开始日期'"
-                        :end-placeholder="item.endPlaceholder || '结束日期'"
-                        :range-separator="item.rangeSep || '至'"
-                        v-bind="item.others"
-                        v-model="customFormData[item.prop]"
-                    />
+                    <el-date-picker v-bind="others" v-model="customFormData[item.prop]" clearable />
                 </template>
                 <!-- 下拉框 -->
                 <template v-if="item.type === 'select'">
                     <el-select
                         clearable
-                        v-bind="item.others"
+                        v-bind="others"
                         v-model="customFormData[item.prop]"
                         :placeholder="item.placeholder"
                     >
                         <el-option
-                            v-for="optionItem in item.options"
+                            v-for="optionItem in options"
                             :label="optionItem.label"
                             :value="optionItem.value"
                             :key="optionItem.label"
@@ -108,69 +96,35 @@ export default {
                 <template v-if="item.type === 'switch'">
                     <el-switch v-model="customFormData[item.prop]" />
                 </template>
-                <!-- 多选 -->
-                <!-- <template v-if="item.type === 'checkbox'">
-              <el-checkbox
-                v-if="item.otherOptions && item.otherOptions.showAll"
-                v-model="checkAll"
-                :indeterminate="isIndeterminate"
-              >
-                全选
-              </el-checkbox>
-              <el-checkbox-group>
-                <el-checkbox
-                  v-for="optionItem in item.options"
-                  :key="optionItem.label"
-                  :label="optionItem.value"
-                  name="type"
-                >
-                  {{ optionItem.label }}
-                </el-checkbox>
-              </el-checkbox-group>
-            </template> -->
-                <!-- 单选 -->
-                <!-- <template v-if="item.type === 'radio'">
-              <el-radio-group
-                :model-value="modelValue[`${item.field}`]"
-                @update:modelValue="handleValueChange($event, item.field)"
-              >
-                <el-radio
-                  :label="optionItem.value"
-                  v-for="optionItem in item.options"
-                  :key="optionItem.label"
-                >
-                  {{ optionItem.label }}
-                </el-radio>
-              </el-radio-group>
-            </template> -->
-                <!-- 文本框 -->
-                <!-- <template v-if="item.type === 'textarea'">
-              <el-input
-                type="textarea"
-                :model-value="modelValue[`${item.field}`]"
-                @update:modelValue="handleValueChange($event, item.field)"
-              />
-            </template> -->
                 <!-- 文件上传 -->
                 <template v-if="item.type === 'upload'">
                     <el-upload
                         ref="elUpload"
-                        action="#"
+                        action=""
                         multiple
-                        :limit="item.limit || 1"
-                        :list-type="item.uploadType ? 'text' : 'picture-card'"
-                        :auto-upload="false"
+                        v-bind="others"
                         :file-list="fileList"
-                        :on-exceed="handleExceed"
-                        :on-change="handleChange"
-                        :on-remove="handleChange"
+                        :on-exceed="handleFileExceed"
+                        :on-change="handleFileChange"
+                        :on-remove="handleFileChange"
                     >
-                        <template #tip v-if="item.others?.tip || false">
-                            <div>{{ item.others.tip }}</div>
+                        <template #tip v-if="others.tip || false">
+                            <div>{{ others.tip }}</div>
                         </template>
-                        <el-button v-if="item.uploadType" type="primary"> 选择上传文件 </el-button>
+                        <el-button v-if="others.uploadType" type="primary">选择上传文件</el-button>
                         <fa-icon v-else :icon="['fas', 'plus']" />
                     </el-upload>
+                </template>
+                <!-- 操作按钮 -->
+                <template v-if="item.type === 'opt'">
+                    <el-button
+                        v-for="btn in options"
+                        v-bind="btn"
+                        :key="btn.act"
+                        @click="buttonClick(btn.act)"
+                    >
+                        {{ btn.text }}
+                    </el-button>
                 </template>
                 <!-- 自定义组件插槽 -->
                 <template v-if="item.type === 'slot'">
@@ -181,4 +135,8 @@ export default {
     </el-form>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+:deep(.el-range-separator) {
+    width: 30PX;
+}
+</style>
