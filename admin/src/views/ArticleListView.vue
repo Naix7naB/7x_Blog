@@ -1,7 +1,6 @@
 <script>
 import { BaseTable } from '@/components'
-
-import { tableHeader } from '@/config/articleTable.config'
+import { tableColumns, tablePager } from '@/config/articleList.config'
 import { normalizeUrl } from '@/utils/util'
 import { getArticleList } from '@/apis/article'
 
@@ -10,43 +9,48 @@ export default {
     components: { BaseTable },
     data() {
         return {
-            tableHeader,
-            list: [],
-            total: 0,
-            display: []
+            articleList: [],
+            tableColumns,
+            tablePager
         }
     },
     methods: {
         normalizeUrl,
-        handler(scope) {
-            console.log(scope)
+        async fetchArticleList() {
+            const { page, size } = this.tablePager
+            const res = await getArticleList({ page, size })
+            const { list, total } = res.data
+            this.tablePager.total = total
+            this.articleList = list
+        },
+        handleButtonClick(data, idx) {
+            console.log(data, idx)
+        },
+        handlePageChange(page) {
+            this.tablePager.page = page
+            this.fetchArticleList()
         }
     },
     created() {
-        getArticleList({ page: 1, size: 10 }).then(({ data }) => {
-            const { list, total, display } = data
-            this.total = total
-            this.list = list
-            this.display = display
-            console.log(list)
-        }).catch(err => {
-            console.error(err)
-        })
+        this.fetchArticleList()
     }
 }
 </script>
 
 <template>
-    <BaseTable :tableHeader="tableHeader" :tableContent="list" :total="total">
+    <BaseTable
+        :hasPagination="true"
+        :columns="tableColumns"
+        :datasource="articleList"
+        :pagerConfig="tablePager"
+        @handleTableButtonClick="handleButtonClick"
+        @handleTablePageChange="handlePageChange"
+    >
         <template #coverImg="{ row }">
             <el-image :src="normalizeUrl(row.cover_img)" fit="contain" />
         </template>
         <template #tag="{ row }">
             <el-tag v-for="tag in row.tags" size="mini" :key="tag._id">{{ tag.name }}</el-tag>
-        </template>
-        <template #opt="data">
-            <el-button type="primary" size="mini" @click="handler(data)">编辑</el-button>
-            <el-button type="danger" size="mini" @click="handler(data)">删除</el-button>
         </template>
     </BaseTable>
 </template>
