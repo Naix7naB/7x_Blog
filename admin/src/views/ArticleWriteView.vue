@@ -1,7 +1,6 @@
 <script>
 import { BaseForm } from '@/components'
-import { data, items } from '@/config/articleForm.config'
-import { debounce } from '@/utils/util'
+import { formData, formItems } from '@/config/articleWrite.config'
 import { uploadImg, createArticle } from '@/apis/article'
 import { getTagList } from '@/apis/tag'
 
@@ -10,15 +9,27 @@ export default {
     components: { BaseForm },
     data() {
         return {
-            formData: data,
-            formItems: items,
-            debounceSubmit: () => {}
+            formData,
+            formItems,
+            eventAgent: {
+                changeState: this.onChangeState
+            }
         }
     },
     methods: {
+        handleButtonClick(payload) {
+            const { act, ...params } = payload
+            if (this.eventAgent[act] && typeof this.eventAgent[act] === 'function') {
+                this.eventAgent[act](params)
+            }
+        },
+        onChangeState({ data }) {
+            this.formData.state = data
+        },
         async setTagOptions() {
             const { data: { list } } = await getTagList({ select: '-articles' })
-            this.formItems.find(item => item.prop === 'tags')
+            this.formItems
+                .find(item => item.prop === 'tags')
                 .options = list.map(tag => {
                     return {
                         label: tag.name,
@@ -85,16 +96,18 @@ export default {
     },
     created() {
         this.setTagOptions()
-    },
-    mounted() {
-        this.debounceSubmit = debounce(this.submit, 500)
     }
 }
 </script>
 
 <template>
     <el-card body-style="padding: 40px 60px;">
-        <BaseForm ref="form" :formData="formData" :formItems="formItems">
+        <BaseForm
+            ref="form"
+            :formData="formData"
+            :formItems="formItems"
+            @handleFormButtonClick="handleButtonClick"
+        >
             <template #editor>
                 <mavon-editor
                     ref="editor"
@@ -103,12 +116,6 @@ export default {
                     @imgAdd="addImg"
                     @imgDel="delImg"
                 />
-            </template>
-            <template #submit>
-                <div class="article-submit" @click="debounceSubmit">
-                    <el-button plain data-state="draft">存草稿</el-button>
-                    <el-button type="primary" data-state="released">发布</el-button>
-                </div>
             </template>
         </BaseForm>
     </el-card>
@@ -125,13 +132,7 @@ export default {
     width: 100%;
 }
 
-:deep(.el-button+.el-button) {
+:deep(.el-button + .el-button) {
     margin-left: 36PX;
-}
-
-.article-submit {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 </style>

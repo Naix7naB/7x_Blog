@@ -8,7 +8,8 @@ export default {
                     size: 'default',
                     inline: false,
                     labelWidth: '80px',
-                    labelPosition: 'left'
+                    labelPosition: 'left',
+                    hideRequiredAsterisk: true
                 }
             }
         },
@@ -37,8 +38,8 @@ export default {
         handleFileChange(file, list) {
             this.fileList = list
         },
-        buttonClick(act) {
-            this.$emit('handleFormButtonClick', act)
+        buttonClick(data, act) {
+            this.$emit('handleFormButtonClick', { data, act })
         },
         uploadFile(cb) {
             cb(this.fileList)
@@ -54,7 +55,11 @@ export default {
 <template>
     <el-form ref="elForm" v-bind="formConfig" :model="customFormData">
         <template v-for="{ others, options, ...item } in formItems">
-            <el-form-item v-bind="item" :style="{ marginRight: '30px' }" :key="item.label">
+            <el-form-item
+                v-bind="item"
+                :style="{ marginRight: '30px', textAlign: item.position || undefined }"
+                :key="item.prop"
+            >
                 <!-- 输入框 -->
                 <template v-if="item.type === 'input'">
                     <el-input
@@ -120,8 +125,8 @@ export default {
                     <el-button
                         v-for="btn in options"
                         v-bind="btn"
-                        :key="btn.act"
-                        @click="buttonClick(btn.act)"
+                        :key="btn.state"
+                        @click="buttonClick(btn.state, btn.act)"
                     >
                         {{ btn.text }}
                     </el-button>

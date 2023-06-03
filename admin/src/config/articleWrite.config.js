@@ -1,4 +1,4 @@
-const data = {
+const formData = {
     title: '',
     description: '',
     tags: [],
@@ -7,7 +7,7 @@ const data = {
     state: ''
 }
 
-const items = [
+const formItems = [
     {
         type: 'input',
         prop: 'title',
@@ -29,8 +29,6 @@ const items = [
         placeholder: '请输入文章标签',
         rules: [{ required: true, message: '请填写文章标签', trigger: 'change' }],
         others: {
-            allowCreate: true,
-            defaultFirstOption: true,
             filterable: true,
             multiple: true,
             multipleLimit: 5
@@ -41,8 +39,12 @@ const items = [
         type: 'upload',
         prop: 'cover_img',
         label: '选择封面',
-        uploadType: 0,
-        limit: 1
+        others: {
+            uploadType: 0,
+            autoUpload: false,
+            listType: 'picture-card',
+            limit: 1
+        }
     },
     {
         type: 'slot',
@@ -51,10 +53,24 @@ const items = [
         label: '文章内容'
     },
     {
-        type: 'slot',
-        slotName: 'submit',
-        prop: 'state'
+        type: 'opt',
+        prop: 'state',
+        position: 'center',
+        options: [
+            {
+                'data-state': 'draft',
+                text: '存草稿',
+                plain: true,
+                act: 'draft'
+            },
+            {
+                'data-state': 'released',
+                text: '发布',
+                type: 'primary',
+                act: 'release'
+            }
+        ]
     }
 ]
 
-export { data, items }
+export { formData, formItems }
