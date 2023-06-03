@@ -1,7 +1,5 @@
-const qs = require('qs')
 const express = require('express')
-const createError = require('http-errors')
-
+const assert = require('http-assert')
 const Response = require('../core/response')
 const Populate = require('../utils/populate')
 const Paginator = require('../utils/paginator')
@@ -11,11 +9,8 @@ const Router = express.Router()
 // 获取资源列表
 Router.get('/', async (req, res, next) => {
     try {
-        console.log(qs.stringify(req.query))
-        const model = req.Model
         const { records: list, ...result } = await Paginator.paging({
-            model,
-            populate: Populate[model.modelName],
+            model: req.Model,
             ...req.query
         })
         Response.send(res, { data: { ...result, list } })
@@ -33,7 +28,7 @@ Router.get('/:id', async (req, res, next) => {
         const result = await model.findById(reource_id).populate(populate)
         Response.send(res, { data: result })
     } catch (err) {
-        next(createError(400))
+        next(err)
     }
 })
 
@@ -42,7 +37,7 @@ Router.post('/', async (req, res, next) => {
     try {
         res.status(200).send('ok')
     } catch (err) {
-        next(createError(400))
+        next(err)
     }
 })
 
@@ -52,8 +47,14 @@ Router.put('/:id', (req, res) => {
 })
 
 // 删除资源
-Router.delete('/:id', (req, res) => {
-    res.status(200).send('ok')
+Router.delete('/:id', (req, res, next) => {
+    try {
+        const { scope } = req.auth
+        assert.equal(scope, 3, 403)
+        Response.send(res, { message: 'ok' })
+    } catch (err) {
+        next(err)
+    }
 })
 
 module.exports = Router
