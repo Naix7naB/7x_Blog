@@ -1,7 +1,7 @@
 const express = require('express')
 const fs = require('fs')
 const path = require('path')
-const assert = require('assert')
+const assert = require('http-assert')
 const multer = require('multer')
 
 const Response = require('../core/response')
