@@ -51,25 +51,6 @@ const formItems = [
         slotName: 'editor',
         prop: 'content',
         label: '文章内容'
-    },
-    {
-        type: 'opt',
-        prop: 'state',
-        position: 'center',
-        options: [
-            {
-                text: '存草稿',
-                state: 'draft',
-                plain: true,
-                act: 'changeState'
-            },
-            {
-                text: '发布',
-                state: 'released',
-                type: 'primary',
-                act: 'changeState'
-            }
-        ]
     }
 ]
 

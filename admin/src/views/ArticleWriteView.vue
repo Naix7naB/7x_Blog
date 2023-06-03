@@ -1,6 +1,7 @@
 <script>
 import { BaseForm } from '@/components'
 import { formData, formItems } from '@/config/articleWrite.config'
+import { normalizeUrl } from '@/utils/util'
 import { uploadImg, createArticle } from '@/apis/article'
 import { getTagList } from '@/apis/tag'
 
@@ -11,6 +12,27 @@ export default {
         return {
             formData,
             formItems,
+            optConfig: {
+                position: 'center',
+                options: [
+                    {
+                        text: '存草稿',
+                        plain: true,
+                        data: {
+                            state: 'draft'
+                        },
+                        action: this.changeState
+                    },
+                    {
+                        text: '发布',
+                        type: 'primary',
+                        data: {
+                            state: 'released'
+                        },
+                        action: this.changeState
+                    }
+                ]
+            },
             eventAgent: {
                 changeState: this.onChangeState
             }
@@ -23,19 +45,19 @@ export default {
                 this.eventAgent[act](params)
             }
         },
-        onChangeState({ data }) {
-            this.formData.state = data
+        changeState({ state }) {
+            console.log(state)
+            this.formData.state = state
         },
         async setTagOptions() {
+            const tags = this.formItems.find(item => item.prop === 'tags')
             const { data: { list } } = await getTagList({ select: '-articles' })
-            this.formItems
-                .find(item => item.prop === 'tags')
-                .options = list.map(tag => {
-                    return {
-                        label: tag.name,
-                        value: tag.name
-                    }
-                })
+            tags.options = list.map(tag => {
+                return {
+                    label: tag.name,
+                    value: tag.name
+                }
+            })
         },
         async addImg(pos, file) {
             const imgInfo = await uploadImg({ filename: pos, file })
@@ -46,7 +68,7 @@ export default {
             const { pathname } = new URL(url)
             console.log(pathname)
         },
-        submit(e) {
+        submit() {
             this.$refs.form.$refs.elForm.validate(async validate => {
                 if (validate === false) {
                     return this.$message({
@@ -54,12 +76,6 @@ export default {
                         message: '内容不能为空'
                     })
                 }
-                let t = e.target
-                if (t.className === 'article-submit') return false
-                while(!t.classList.contains('el-button')) {
-                    t = t.parentElement
-                }
-                this.formData.state = t.dataset.state
                 this.createArticle()
             })
         },
@@ -95,7 +111,25 @@ export default {
         }
     },
     created() {
+        if (JSON.stringify(this.$route.params) !== '{}') {
+            const { data, optOptions } = this.$route.params
+            if (optOptions) {
+                this.optConfig.options = optOptions
+            }
+            this.formData = data
+        }
         this.setTagOptions()
+    },
+    mounted() {
+        if (this.formData.cover_img){
+            this.$refs.form.addFile({
+                name: 'cover_img',
+                url: normalizeUrl(this.formData.cover_img)
+            })
+        }
+    },
+    beforeDestroy() {
+        this.resetData()
     }
 }
 </script>
@@ -104,9 +138,10 @@ export default {
     <el-card body-style="padding: 40px 60px;">
         <BaseForm
             ref="form"
+            :hasOperation="true"
             :formData="formData"
             :formItems="formItems"
-            @handleFormButtonClick="handleButtonClick"
+            :optConfig="optConfig"
         >
             <template #editor>
                 <mavon-editor
