@@ -35,9 +35,9 @@ export default {
         },
         /* 处理操作按钮按下时 */
         handleButtonClick(payload) {
-            const { data, idx, act } = payload
+            const { act, ...params } = payload
             if (this.eventAgent[act] && typeof this.eventAgent[act] === 'function') {
-                this.eventAgent[act](data, idx)
+                this.eventAgent[act](params)
             }
         },
         /* 处理页数改变时 */
@@ -46,11 +46,11 @@ export default {
             this.fetchTags()
         },
         /* 点击编辑按钮 */
-        onEdit(data, idx) {
+        onEdit({ data, idx }) {
             console.log(data, idx)
         },
         /* 点击删除按钮 */
-        onDelete(data, idx) {
+        onDelete({ data, idx }) {
             console.log('==== delete =====')
             this.tagList.splice(idx, 1)
         }

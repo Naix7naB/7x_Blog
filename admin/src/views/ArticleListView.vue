@@ -23,8 +23,8 @@ export default {
             this.tablePager.total = total
             this.articleList = list
         },
-        handleButtonClick(data, idx) {
-            console.log(data, idx)
+        handleButtonClick(payload) {
+            console.log(payload)
         },
         handlePageChange(page) {
             this.tablePager.page = page
