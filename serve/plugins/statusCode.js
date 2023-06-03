@@ -7,6 +7,10 @@ module.exports = class StatusCode {
         return 403
     }
 
+    static get NOT_FOUND() {
+        return 404
+    }
+
     static get CONTENT_TYPE_ERR() {
         return 9995
     }

@@ -1,7 +1,7 @@
 const fs = require('fs')
 
+const { PUB_KEY_PATH, PRI_KEY_PATH } = require('../config/base.config')
 const { generateKeys } = require('../utils/rsa')
-const { pubKeyPath, priKeyPath } = require('../config/base.config')
 
 /**
  * @function: getPubKey
@@ -10,7 +10,7 @@ const { pubKeyPath, priKeyPath } = require('../config/base.config')
  */
 function getPubKey() {
     return new Promise((resolve, reject) => {
-        fs.readFile(pubKeyPath, 'utf8', (err, data) => {
+        fs.readFile(PUB_KEY_PATH, 'utf8', (err, data) => {
             let key = data
             if (err) {
                 console.error(err)
@@ -28,7 +28,7 @@ function getPubKey() {
  */
 function getPriKey() {
     return new Promise((resolve, reject) => {
-        fs.readFile(priKeyPath, 'utf8', (err, data) => {
+        fs.readFile(PRI_KEY_PATH, 'utf8', (err, data) => {
             let key = data
             if (err) {
                 console.error(err)
@@ -46,7 +46,7 @@ function getPriKey() {
  */
 function getPubKeySync() {
     try {
-        return fs.readFileSync(pubKeyPath, 'utf8')
+        return fs.readFileSync(PUB_KEY_PATH, 'utf8')
     } catch (err) {
         console.error(err)
         return generateKeys().pubKey
@@ -60,7 +60,7 @@ function getPubKeySync() {
  */
 function getPriKeySync() {
     try {
-        return fs.readFileSync(priKeyPath, 'utf8')
+        return fs.readFileSync(PRI_KEY_PATH, 'utf8')
     } catch (err) {
         console.error(err)
         return generateKeys().priKey

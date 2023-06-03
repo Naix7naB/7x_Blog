@@ -11,7 +11,7 @@ const resourceMiddleware = require('./middleware/resource')
 
 const { resourceRoute, adminRoute, uploadRoute, articleRoute } = require('./routes')
 
-const { root } = require('./config/base.config')
+const { ROOT } = require('./config/base.config')
 
 const app = express()
 
@@ -21,8 +21,8 @@ app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
-app.use(express.static(path.join(root, 'public')))
-app.use(express.static(path.join(root, 'upload')))
+app.use(express.static(path.join(ROOT, 'public')))
+app.use(express.static(path.join(ROOT, 'upload')))
 
 app.use(
     cors({

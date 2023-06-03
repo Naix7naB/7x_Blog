@@ -1,9 +1,9 @@
-const PORT = 3000
-const HOST_NAME = '127.0.0.1'
-const BASE_URL = `http://${HOST_NAME}:${PORT}`
+const SERVER_URL = new URL('http://127.0.0.1:3000')
 
 module.exports = {
-    hostname: HOST_NAME,
-    port: PORT,
-    baseURL: BASE_URL
+    ORIGIN: SERVER_URL.origin,
+    PROTOCOL: SERVER_URL.protocol,
+    HOST: SERVER_URL.host,
+    HOST_NAME: SERVER_URL.hostname,
+    PORT: SERVER_URL.port
 }

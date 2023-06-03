@@ -5,7 +5,7 @@ const assert = require('http-assert')
 const multer = require('multer')
 
 const Response = require('../core/response')
-const { uploadPath } = require('../config/base.config')
+const { UPLOAD_PATH } = require('../config/base.config')
 const { normalizeUrl } = require('../utils/helpers')
 
 const categoryMap = {
@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
         const field = req.params['category'] || null
         const category = categoryMap[field] || null
         assert(category, 422, '文件上传分类不正确')
-        const savePath = path.join(uploadPath, category)
+        const savePath = path.join(UPLOAD_PATH, category)
         fs.existsSync(savePath) || fs.mkdirSync(savePath)
         next(null, savePath)
     },

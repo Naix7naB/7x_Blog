@@ -1,20 +1,13 @@
 const qs = require('qs')
 const mongoPagination = require('mongoose-sex-page')
 
-const Populate = require('./populate')
+const Populate = require('../plugins/populate')
 
 module.exports = class Paginator {
-    static get PAGE() {
-        return 1
-    }
-    static get SIZE() {
-        return 5
-    }
-
     static paging({
-        model,
-        page = Paginator.PAGE,
-        size = Paginator.SIZE,
+        model = null,
+        page = 1,
+        size = 5,
         dis = undefined,
         condition = null,
         populate = null,

@@ -7,6 +7,10 @@ module.exports = class ResponseMessage {
         return '暂无权限, 请联系管理员'
     }
 
+    static get 404() {
+        return '资源不存在'
+    }
+
     static get 9995() {
         return '请求头错误'
     }

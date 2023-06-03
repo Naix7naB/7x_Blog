@@ -1,9 +1,8 @@
 const mongoose = require('mongoose')
 const createError = require('http-errors')
+const dbConf = require('../config/db.config')
 
-const { protocol, host, port, name } = require('../config/db.config')
-
-const DB_URL = `${protocol}://${host}:${port}/${name}`
+const DB_URL = dbConf.ORIGIN + '/' + dbConf.DB_NAME
 
 mongoose.connect(DB_URL, {
     useNewUrlParser: true,

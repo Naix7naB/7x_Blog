@@ -1,12 +1,12 @@
-const { hostname, port } = require('../config/server.config')
 const app = require('../app')
 const http = require('http')
 const debug = require('debug')('server:server')
-const serPort = normalizePort(process.env.PORT || port)
+const serConf = require('../config/server.config')
+const serPort = normalizePort(process.env.PORT || serConf.PORT)
 const server = http.createServer(app)
 
 app.set('port', serPort)
-app.set('hostname', hostname)
+app.set('hostname', serConf.HOST_NAME)
 
 server.listen(serPort)
 server.on('error', onError)
@@ -35,6 +35,7 @@ function onError(error) {
     if (error.syscall !== 'listen') {
         throw error
     }
+    const port = server.port()
     const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port
     // handle specific listen errors with friendly messages
     switch (error.code) {
@@ -57,6 +58,6 @@ function onError(error) {
 function onListening() {
     const addr = server.address()
     const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port
-    console.log(`==> http://${hostname}:${port} | 服务已开启`)
+    console.log(`==> ${serConf.ORIGIN} | 服务已开启`)
     debug('Listening on ' + bind)
 }

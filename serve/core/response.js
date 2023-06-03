@@ -1,5 +1,5 @@
-const StatusCode = require('../utils/statusCode')
-const ResponseMessage = require('../utils/responseMessage')
+const StatusCode = require('../plugins/statusCode')
+const ResponseMessage = require('../plugins/responseMessage')
 
 const { generateToken } = require('../utils/rsa')
 

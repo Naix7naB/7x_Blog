@@ -1,12 +1,11 @@
 const { expressjwt: jwt } = require('express-jwt')
-
+const { SIGN_ALGO } = require('../config/base.config')
 const { getPubKeySync } = require('../core/rsa')
-const { algorithm } = require('../config/base.config')
 
 module.exports = () => {
     return jwt({
         secret: getPubKeySync(),
-        algorithms: [algorithm],
+        algorithms: [SIGN_ALGO],
         requestProperty: 'auth',
         credentialsRequired: true
     }).unless({
