@@ -1,6 +1,8 @@
 const qs = require('qs')
 const mongoPagination = require('mongoose-sex-page')
 
+const Populate = require('./populate')
+
 module.exports = class Paginator {
     static get PAGE() {
         return 1
@@ -14,14 +16,17 @@ module.exports = class Paginator {
         page = Paginator.PAGE,
         size = Paginator.SIZE,
         dis = undefined,
-        condition = {},
-        populate = {},
-        options = {}
+        condition = null,
+        populate = null,
+        select = null
     }) {
+        if (!populate) {
+            populate = Populate[model.modelName]
+        }
         if (typeof condition === 'string') {
             condition = qs.parse(condition)
         }
-        if (condition.q) {
+        if (condition && condition.q) {
             const regexp = new RegExp(condition.q, 'gi')
             condition = {
                 $or: [
@@ -32,12 +37,12 @@ module.exports = class Paginator {
             }
         }
         return mongoPagination(model)
+            .find(condition)
+            .populate(populate)
+            .select(select)
             .page(page)
             .size(size)
             .display(dis)
-            .find(condition)
-            .populate(populate)
-            .select(options)
             .exec()
     }
 }
