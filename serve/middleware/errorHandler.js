@@ -11,6 +11,8 @@ module.exports = () => {
         if (err.name === 'UnauthorizedError') {
             statusCode = 'UNAUTHORIZED'
             data = 'jwt expired at ' + formatDate(err.inner.expiredAt, 'YYYY-MM-DD hh:mm:ss')
+        } else if (err.name === 'ForbiddenError') {
+            statusCode = 'FORBIDDEN'
         } else if (err.name === 'UnprocessableEntityError') {
             message = err.message
         } else if (err.message.indexOf('duplicate key error') !== -1) {
