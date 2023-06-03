@@ -58,16 +58,16 @@ const formItems = [
         position: 'center',
         options: [
             {
-                'data-state': 'draft',
                 text: '存草稿',
+                state: 'draft',
                 plain: true,
-                act: 'draft'
+                act: 'changeState'
             },
             {
-                'data-state': 'released',
                 text: '发布',
+                state: 'released',
                 type: 'primary',
-                act: 'release'
+                act: 'changeState'
             }
         ]
     }
