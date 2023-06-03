@@ -1,7 +1,5 @@
 const mongoose = require('mongoose')
 
-const { formatDate } = require('../utils/helpers')
-
 const schema = new mongoose.Schema(
     {
         author: {
@@ -44,13 +42,6 @@ const schema = new mongoose.Schema(
             type: Number,
             default: 0
         },
-        created_time: {
-            type: mongoose.SchemaTypes.Date,
-            default: Date.now(),
-            get(val) {
-                return formatDate(val, 'YYYY-MM-DD hh:mm:ss')
-            }
-        },
         state: {
             type: String,
             required: [true, '文章状态异常!']
@@ -68,7 +59,10 @@ const schema = new mongoose.Schema(
         //     default: []
         // }
     },
-    { versionKey: false }
+    {
+        timestamps: true,
+        versionKey: false
+    }
 )
 
 module.exports = mongoose.model('Article', schema)
