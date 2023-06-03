@@ -47,11 +47,12 @@ Router.put('/:id', (req, res) => {
 })
 
 // 删除资源
-Router.delete('/:id', (req, res, next) => {
+Router.delete('/:id', async (req, res, next) => {
     try {
         const { scope } = req.auth
-        assert.equal(scope, 3, 403)
-        Response.send(res, { message: 'ok' })
+        assert.strictEqual(scope, 1, 403)
+        await req.Model.findByIdAndDelete(req.params.id)
+        Response.send(res, { message: '删除文章' })
     } catch (err) {
         next(err)
     }
