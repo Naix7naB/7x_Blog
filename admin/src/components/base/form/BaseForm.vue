@@ -20,6 +20,14 @@ export default {
         formItems: {
             type: Array,
             required: true
+        },
+        optConfig: {
+            type: Object,
+            default: () => {}
+        },
+        hasOperation: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
@@ -38,8 +46,8 @@ export default {
         handleFileChange(file, list) {
             this.fileList = list
         },
-        buttonClick(data, act) {
-            this.$emit('handleFormButtonClick', { data, act })
+        addFile(file) {
+            this.fileList.push(file)
         },
         uploadFile(cb) {
             cb(this.fileList)
@@ -55,11 +63,7 @@ export default {
 <template>
     <el-form ref="elForm" v-bind="formConfig" :model="customFormData">
         <template v-for="{ others, options, ...item } in formItems">
-            <el-form-item
-                v-bind="item"
-                :style="{ marginRight: '30px', textAlign: item.position || undefined }"
-                :key="item.prop"
-            >
+            <el-form-item v-bind="item" :style="{ marginRight: '30px' }" :key="item.label">
                 <!-- 输入框 -->
                 <template v-if="item.type === 'input'">
                     <el-input
@@ -120,23 +124,23 @@ export default {
                         <fa-icon v-else :icon="['fas', 'plus']" />
                     </el-upload>
                 </template>
-                <!-- 操作按钮 -->
-                <template v-if="item.type === 'opt'">
-                    <el-button
-                        v-for="btn in options"
-                        v-bind="btn"
-                        :key="btn.state"
-                        @click="buttonClick(btn.state, btn.act)"
-                    >
-                        {{ btn.text }}
-                    </el-button>
-                </template>
                 <!-- 自定义组件插槽 -->
                 <template v-if="item.type === 'slot'">
                     <slot :name="item.slotName" />
                 </template>
             </el-form-item>
         </template>
+        <!-- 操作按钮 -->
+        <el-form-item v-if="hasOperation" :style="{ textAlign: optConfig.position }">
+            <el-button
+                v-for="btn in optConfig.options"
+                v-bind="btn"
+                :key="btn.text"
+                @click="btn.action(btn.data)"
+            >
+                {{ btn.text }}
+            </el-button>
+        </el-form-item>
     </el-form>
 </template>
 
