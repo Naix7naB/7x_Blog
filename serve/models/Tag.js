@@ -11,6 +11,11 @@ const schema = new mongoose.Schema(
             type: String,
             default: '#845EC2'
         },
+        author: {
+            ref: 'User',
+            type: mongoose.SchemaTypes.ObjectId,
+            required: true
+        },
         articles: [
             {
                 ref: 'Article',

@@ -4,6 +4,7 @@ const Response = require('../core/response')
 const Paginator = require('../core/paginator')
 const Populate = require('../plugins/populate')
 const FollowAction = require('../plugins/followAction')
+const postBodyMiddleware = require('../middleware/postBody')
 
 const Router = express.Router()
 
@@ -40,12 +41,17 @@ Router.get('/:id', async (req, res, next) => {
 })
 
 // 创建资源
-Router.post('/', async (req, res, next) => {
+Router.post('/', postBodyMiddleware(), async (req, res, next) => {
     try {
-        // const model = req.Model
-        // const modelName = model.modelName
-        // postResource[modelName]
-        res.status(200).send('ok')
+        const { method, body, Model } = req
+        const modelName = Model.modelName
+        const resource = await Model.create(body)
+        const followAct = FollowAction.getAction(method, modelName)
+        if (followAct) {
+            const { _model_, action, filter, opt } = followAct
+            await _model_[action](filter(resource), opt(resource._id))
+        }
+        Response.send(res, { message: '创建资源' })
     } catch (err) {
         next(err)
     }
