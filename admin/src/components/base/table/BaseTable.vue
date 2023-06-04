@@ -42,7 +42,7 @@ export default {
     <div class="base-table">
         <slot name="table-header"></slot>
         <slot name="table-tabs"></slot>
-        <el-table :data="datasource">
+        <el-table v-loading="$store.state.loading" :data="datasource">
             <!-- 选择列 -->
             <el-table-column v-if="hasSelection" type="selection" width="55" />
             <!-- 序号列 -->

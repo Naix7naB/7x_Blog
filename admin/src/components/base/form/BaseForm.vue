@@ -1,17 +1,29 @@
 <script>
 export default {
     props: {
-        formConfig: {
-            type: Object,
-            default: () => {
-                return {
-                    size: 'default',
-                    inline: false,
-                    labelWidth: '80px',
-                    labelPosition: 'left',
-                    hideRequiredAsterisk: true
-                }
-            }
+        size: {
+            type: String,
+            default: 'default'
+        },
+        inline: {
+            type: Boolean,
+            default: false
+        },
+        labelWidth: {
+            type: String,
+            default: '80px'
+        },
+        labelPosition: {
+            type: String,
+            default: 'left'
+        },
+        hideRequiredAsterisk: {
+            type: Boolean,
+            default: false
+        },
+        hasOperation: {
+            type: Boolean,
+            default: false
         },
         formData: {
             type: Object,
@@ -24,10 +36,6 @@ export default {
         optConfig: {
             type: Object,
             default: () => {}
-        },
-        hasOperation: {
-            type: Boolean,
-            default: false
         }
     },
     data() {
@@ -37,6 +45,9 @@ export default {
         }
     },
     methods: {
+        handleButtonClick(e, act, data) {
+            act.apply(this, [data])
+        },
         handleFileExceed() {
             this.$message.warning('超出文件上传限制')
         },
@@ -75,7 +86,15 @@ export default {
 </script>
 
 <template>
-    <el-form ref="elForm" v-bind="formConfig" :model="customFormData">
+    <el-form
+        ref="elForm"
+        :size="size"
+        :inline="inline"
+        :label-width="labelWidth"
+        :label-position="labelPosition"
+        :hide-required-asterisk="hideRequiredAsterisk"
+        :model="customFormData"
+    >
         <template v-for="{ others, options, ...item } in formItems">
             <el-form-item v-bind="item" :style="{ marginRight: '30px' }" :key="item.label">
                 <!-- 输入框 -->

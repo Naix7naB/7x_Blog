@@ -83,6 +83,7 @@ Vue.use(DatePicker)
 Vue.use(Switch)
 Vue.use(Tag)
 Vue.use(Dialog)
+Vue.use(Loading.directive)
 
 Vue.prototype.$loading = Loading.service
 Vue.prototype.$msgbox = MessageBox
