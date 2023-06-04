@@ -3,7 +3,6 @@
  */
 
 import http from 'axios'
-import MultipleForm from '@/utils/multipleForm'
 
 export default class Request {
     static GET() {
@@ -64,9 +63,8 @@ export default class Request {
 
     static postFile({ url, data, options = null }) {
         const formData = new FormData()
-        MultipleForm.reset()
-        MultipleForm.format(data).forEach(item => {
-            formData.append(item['field'], item['value'])
+        Object.entries(data).forEach(([field, value]) => {
+            formData.append(field, value)
         })
         return Request.request({
             methodType: Request.POST,

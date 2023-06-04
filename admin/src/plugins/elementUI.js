@@ -39,7 +39,10 @@ import {
     DatePicker,
     Switch,
     Tag,
+    Dialog,
+    Loading,
     Message,
+    MessageBox,
     Notification
 } from 'element-ui'
 
@@ -79,11 +82,12 @@ Vue.use(RadioGroup)
 Vue.use(DatePicker)
 Vue.use(Switch)
 Vue.use(Tag)
+Vue.use(Dialog)
 
-// Vue.prototype.$loading = Loading.service
-// Vue.prototype.$msgbox = MessageBox
-// Vue.prototype.$alert = MessageBox.alert
-// Vue.prototype.$confirm = MessageBox.confirm
-// Vue.prototype.$prompt = MessageBox.prompt
+Vue.prototype.$loading = Loading.service
+Vue.prototype.$msgbox = MessageBox
+Vue.prototype.$alert = MessageBox.alert
+Vue.prototype.$confirm = MessageBox.confirm
+Vue.prototype.$prompt = MessageBox.prompt
 Vue.prototype.$message = Message
 Vue.prototype.$notify = Notification
