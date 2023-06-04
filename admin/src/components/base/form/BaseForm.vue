@@ -38,23 +38,37 @@ export default {
     },
     methods: {
         handleFileExceed() {
-            this.$notify({
-                type: 'error',
-                message: '超出文件上传限制'
-            })
+            this.$message.warning('超出文件上传限制')
         },
         handleFileChange(file, list) {
-            this.fileList = list
+            this.fileList.push({
+                name: file.name,
+                url: file.url,
+                file: file.raw
+            })
+        },
+        handleFileRemove(file, list) {
+            const idx = this.fileList.findIndex(item => item.name === file.name)
+            this.fileList.splice(idx, 1)
         },
         addFile(file) {
             this.fileList.push(file)
         },
-        uploadFile(cb) {
-            cb(this.fileList)
+        /* 提交表单 */
+        submitForm(callback) {
+            this.$refs.elForm.validate(async v => {
+                if (v === false) {
+                    return this.$message.warning({
+                        message: '表单校验失败'
+                    })
+                }
+                callback(this.fileList)
+            })
         },
+        /* 重置表单信息 */
         resetForm() {
             this.$refs.elForm.resetFields()
-            this.$refs.elUpload[0].clearFiles()
+            this.$refs.elUpload && this.$refs.elUpload[0].clearFiles()
         }
     }
 }
@@ -115,7 +129,7 @@ export default {
                         :file-list="fileList"
                         :on-exceed="handleFileExceed"
                         :on-change="handleFileChange"
-                        :on-remove="handleFileChange"
+                        :on-remove="handleFileRemove"
                     >
                         <template #tip v-if="others.tip || false">
                             <div>{{ others.tip }}</div>

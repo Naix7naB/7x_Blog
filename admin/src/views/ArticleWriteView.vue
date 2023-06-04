@@ -3,7 +3,7 @@ import { BaseForm } from '@/components'
 import { formData, formItems } from '@/config/articleWrite.config'
 import { normalizeUrl } from '@/utils/util'
 import { uploadImg, createArticle } from '@/apis/article'
-import { getTagList } from '@/apis/tag'
+import { fetchTags } from '@/apis/tag'
 
 export default {
     name: 'ArticleWriteView',
@@ -42,7 +42,7 @@ export default {
         },
         async setTagOptions() {
             const tags = this.formItems.find(item => item.prop === 'tags')
-            const { data: { list } } = await getTagList({ select: '-articles name' })
+            const { data: { list } } = await fetchTags({ select: '-articles name' })
             tags.options = list.map(tag => {
                 return {
                     label: tag.name,
@@ -60,34 +60,17 @@ export default {
             console.log(pathname)
         },
         submit() {
-            this.$refs.form.$refs.elForm.validate(async validate => {
-                if (validate === false) {
-                    return this.$message({
-                        type: 'error',
-                        message: '内容不能为空'
-                    })
-                }
-                this.postArticle()
-            })
-        },
-        postArticle() {
-            this.$refs.form.uploadFile(async list => {
-                if (!list.length) {
-                    return this.$message({
-                        type: 'error',
-                        message: '请上传封面'
-                    })
-                }
+            this.$refs.form.submitForm(async fileList => {
                 const { fieldname, url } = await uploadImg({
                     filename: 'cover_img',
-                    file: list[0].raw
+                    file: fileList[0].file
                 })
                 this.formData[fieldname] = url
                 createArticle(this.formData).then(res => {
+                    this.resetData()
                     this.$message.success({
                         message: res.errMsg
                     })
-                    this.resetData()
                 }).catch(err => {
                     this.$message.error({
                         message: err.message
