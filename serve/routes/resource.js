@@ -28,8 +28,11 @@ Router.get('/:id', async (req, res, next) => {
         const reource_id = params.id
         const populate = Populate[modelName]
         const result = await Model.findById(reource_id).populate(populate)
-        const { action, opt } = FollowAction.getAction(modelName, method)
-        await Model[action](reource_id, opt)
+        const followAct = FollowAction.getAction(method, modelName)
+        if (followAct) {
+            const { action, opt } = followAct
+            await Model[action](reource_id, opt())
+        }
         Response.send(res, { data: result })
     } catch (err) {
         next(err)
@@ -56,10 +59,15 @@ Router.put('/:id', (req, res) => {
 // 删除资源
 Router.delete('/:id', async (req, res, next) => {
     try {
-        const { scope } = req.auth
-        assert.strictEqual(scope, 1, 403)
-        await req.Model.findByIdAndDelete(req.params.id)
-        Response.send(res, { message: '删除文章' })
+        const { method, params, auth, Model } = req
+        assert.strictEqual(auth.scope, 1, 403) // 无权限
+        const delRes = await Model.findByIdAndDelete(params.id)
+        const followAct = FollowAction.getAction(method, Model.modelName)
+        if (followAct) {
+            const { filter, _model_, action, opt } = followAct
+            await _model_[action](filter(delRes), opt(params.id))
+        }
+        Response.send(res, { message: '删除资源' })
     } catch (err) {
         next(err)
     }
