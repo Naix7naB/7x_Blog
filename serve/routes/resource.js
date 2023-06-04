@@ -48,8 +48,10 @@ Router.post('/', postBodyMiddleware(), async (req, res, next) => {
         const resource = await Model.create(body)
         const followAct = FollowAction.getAction(method, modelName)
         if (followAct) {
-            const { _model_, action, filter, opt } = followAct
-            await _model_[action](filter(resource), opt(resource._id))
+            followAct.forEach(async item => {
+                const { _model_, action, condition, opt } = item
+                await _model_[action](condition(resource), opt(resource.id))
+            })
         }
         Response.send(res, { message: '创建资源' })
     } catch (err) {
@@ -70,8 +72,10 @@ Router.delete('/:id', async (req, res, next) => {
         const delRes = await Model.findByIdAndDelete(params.id)
         const followAct = FollowAction.getAction(method, Model.modelName)
         if (followAct) {
-            const { filter, _model_, action, opt } = followAct
-            await _model_[action](filter(delRes), opt(params.id))
+            followAct.forEach(async item => {
+                const { _model_, action, condition, opt } = item
+                await _model_[action](condition(delRes), opt(params.id))
+            })
         }
         Response.send(res, { message: '删除资源' })
     } catch (err) {
