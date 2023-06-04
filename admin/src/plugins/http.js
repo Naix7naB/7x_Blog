@@ -56,7 +56,7 @@ export default instance => {
             return config
         },
         err => {
-            throw err
+            console.error(err)
         }
     )
     // 响应拦截器
@@ -68,16 +68,18 @@ export default instance => {
                     switch (data.code) {
                         case http.statusCode.SUCCESS:
                             return Promise.resolve(data)
-                        case http.statusCode.FORBIDDEN:
-                            instance.$notify.error({ message: data.errMsg, showClose: false })
-                            return Promise.reject(response)
                         case http.statusCode.UNAUTHORIZED:
                             if (data.data.indexOf('jwt expired at') >= 0) {
                                 instance.$router.push('/login')
                             }
                             return Promise.reject(response)
+                        case http.statusCode.FORBIDDEN:
+                        case http.statusCode.FAIL:
                         default:
-                            instance.$notify.error({ message: data.errMsg, showClose: false })
+                            instance.$message({
+                                type: 'error',
+                                message: data.errMsg
+                            })
                             return Promise.reject(response)
                     }
                 }
@@ -86,7 +88,7 @@ export default instance => {
             return Promise.reject(response)
         },
         err => {
-            console.log('http 89: ', err)
+            console.error(err)
         }
     )
 }

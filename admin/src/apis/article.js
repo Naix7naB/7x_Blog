@@ -26,9 +26,17 @@ async function uploadImg({ filename, file }) {
 function createArticle(data) {
     return Request.requestForm({
         methodType: Request.POST,
-        url: '/article/create',
+        url: '/api/article',
         data
     })
 }
 
-export { getArticleList, uploadImg, createArticle }
+/* 删除文章 */
+function deleteArticle(id) {
+    return Request.requestForm({
+        methodType: Request.DELETE,
+        url: `/api/article/${id}`
+    })
+}
+
+export { getArticleList, uploadImg, createArticle, deleteArticle }

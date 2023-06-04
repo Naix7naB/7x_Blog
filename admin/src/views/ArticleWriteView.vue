@@ -32,30 +32,21 @@ export default {
                         action: this.changeState
                     }
                 ]
-            },
-            eventAgent: {
-                changeState: this.onChangeState
             }
         }
     },
     methods: {
-        handleButtonClick(payload) {
-            const { act, ...params } = payload
-            if (this.eventAgent[act] && typeof this.eventAgent[act] === 'function') {
-                this.eventAgent[act](params)
-            }
-        },
         changeState({ state }) {
-            console.log(state)
             this.formData.state = state
+            this.submit()
         },
         async setTagOptions() {
             const tags = this.formItems.find(item => item.prop === 'tags')
-            const { data: { list } } = await getTagList({ select: '-articles' })
+            const { data: { list } } = await getTagList({ select: '-articles name' })
             tags.options = list.map(tag => {
                 return {
                     label: tag.name,
-                    value: tag.name
+                    value: tag._id
                 }
             })
         },
@@ -76,10 +67,10 @@ export default {
                         message: '内容不能为空'
                     })
                 }
-                this.createArticle()
+                this.postArticle()
             })
         },
-        createArticle() {
+        postArticle() {
             this.$refs.form.uploadFile(async list => {
                 if (!list.length) {
                     return this.$message({
@@ -87,20 +78,18 @@ export default {
                         message: '请上传封面'
                     })
                 }
-                const imgInfo = await uploadImg({
+                const { fieldname, url } = await uploadImg({
                     filename: 'cover_img',
                     file: list[0].raw
                 })
-                this.formData[imgInfo.fieldname] = imgInfo.url
+                this.formData[fieldname] = url
                 createArticle(this.formData).then(res => {
-                    this.$message({
-                        type: 'success',
+                    this.$message.success({
                         message: res.errMsg
                     })
                     this.resetData()
                 }).catch(err => {
-                    this.$message({
-                        type: 'error',
+                    this.$message.error({
                         message: err.message
                     })
                 })
@@ -116,6 +105,7 @@ export default {
             if (optOptions) {
                 this.optConfig.options = optOptions
             }
+            data.tags = data.tags.map(t => t._id)
             this.formData = data
         }
         this.setTagOptions()
