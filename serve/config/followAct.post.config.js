@@ -4,7 +4,7 @@ module.exports = {
     Article: {
         _model_: Tag,
         action: 'updateMany',
-        filter(res) {
+        condition(res) {
             return res.tags.reduce(
                 (f, t) => {
                     f.$or.push({

@@ -7,7 +7,7 @@ module.exports = class Populate {
             },
             {
                 path: 'tags',
-                select: '-articles name'
+                select: 'name'
             }
         ]
     }
