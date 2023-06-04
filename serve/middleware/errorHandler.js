@@ -21,14 +21,13 @@ module.exports = () => {
             const collection = err.message.match(regexp)[1].toUpperCase()
             const repeatKey = Object.keys(err.keyPattern)[0]
             message = `${UniqueField[collection][repeatKey]}已存在`
-        } else if (err.code.indexOf('NOT_FOUND') !== -1) {
+        } else if (err.code && err.code.indexOf('NOT_FOUND') !== -1) {
             statusCode = 'NOT_FOUND'
         } else {
             // 数据库创建模型验证错误处理
             console.log(err)
             const errKey = Object.keys(err.errors)[0]
             message = err.errors[errKey].message
-            console.dir(err.errors, { deepth: null })
         }
         Response.send(res, {
             statusCode,
