@@ -28,8 +28,8 @@ export default {
         }
     },
     methods: {
-        buttonClick(data, idx, act) {
-            this.$emit('handleTableButtonClick', { data, idx, act })
+        buttonClick(data, act) {
+            this.$emit('handleTableButtonClick', { data, act })
         },
         changePage(page) {
             this.$emit('handleTablePageChange', page)
@@ -62,12 +62,12 @@ export default {
                     :min-width="80 * options.length"
                     :key="item.prop"
                 >
-                    <template slot-scope="{ row, $index }">
+                    <template slot-scope="{ row }">
                         <el-button
                             v-for="btn in options"
                             v-bind="btn"
                             :key="btn.act"
-                            @click="buttonClick(row, $index, btn.act)"
+                            @click="buttonClick(row, btn.act)"
                         >
                             {{ btn.text }}
                         </el-button>

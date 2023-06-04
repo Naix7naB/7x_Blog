@@ -2,7 +2,7 @@
 import { BaseTable } from '@/components'
 import { tableColumns, tablePager } from '@/config/articleList.config'
 import { normalizeUrl } from '@/utils/util'
-import { getArticleList } from '@/apis/article'
+import { getArticleList, deleteArticle } from '@/apis/article'
 
 export default {
     name: 'ArticleListView',
@@ -12,7 +12,7 @@ export default {
             articleList: [],
             tableColumns,
             tablePager,
-            optOptions: [
+            formOpts: [
                 {
                     text: '取消',
                     plain: true,
@@ -28,10 +28,7 @@ export default {
                         this.$router.push({ name: 'ArticleList' })
                     }
                 }
-            ],
-            eventAgent: {
-                edit: this.onEdit
-            }
+            ]
         }
     },
     methods: {
@@ -41,30 +38,36 @@ export default {
             const res = await getArticleList({ page, size })
             const { list, total } = res.data
             this.tablePager.total = total
-            this.articleList = list.map(({ tags, ...others }) => {
-                tags = tags.map(t => t.name)
-                return {
-                    tags,
-                    ...others
-                }
-            })
+            this.articleList = list
         },
         handleButtonClick(payload) {
-            const { act, ...params } = payload
-            if (this.eventAgent[act] && typeof this.eventAgent[act] === 'function') {
-                this.eventAgent[act](params)
+            const { act, data } = payload
+            if (this[act] && typeof this[act] === 'function') {
+                this[act](data)
             }
         },
         handlePageChange(page) {
             this.tablePager.page = page
         },
-        onEdit({ data }) {
+        edit(data) {
             this.$router.push({
                 name: 'ArticleWrite',
                 params: {
                     data,
-                    optOptions: this.optOptions
+                    optOptions: this.formOpts
                 }
+            })
+        },
+        delete(data) {
+            deleteArticle(data._id).then(res => {
+                this.fetchArticleList()
+                this.$message.success({
+                    message: res.errMsg
+                })
+            }).catch(err => {
+                this.$message.error({
+                    message: err
+                })
             })
         }
     },
@@ -88,11 +91,19 @@ export default {
         @handleTableButtonClick="handleButtonClick"
         @handleTablePageChange="handlePageChange"
     >
-        <template #coverImg="{ row }">
+        <template #cover_img="{ row }">
             <el-image :src="normalizeUrl(row.cover_img)" fit="contain" />
         </template>
         <template #tag="{ row }">
-            <el-tag v-for="tag in row.tags" size="mini" :key="tag">{{ tag }}</el-tag>
+            <el-tag
+                v-for="tag in row.tags"
+                :style="{ backgroundColor: tag.color, borderColor: tag.color }"
+                :key="tag._id"
+                effect="dark"
+                size="mini"
+            >
+                {{ tag.name }}
+            </el-tag>
         </template>
     </BaseTable>
 </template>

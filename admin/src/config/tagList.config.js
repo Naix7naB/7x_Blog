@@ -1,3 +1,5 @@
+import { formatDate } from '@/utils/util'
+
 const tableColumns = [
     {
         prop: 'name',
@@ -15,7 +17,10 @@ const tableColumns = [
         prop: 'createdAt',
         label: '创建时间',
         minWidth: '120',
-        align: 'center'
+        align: 'center',
+        formatter: (row, column, cellVal, idx) => {
+            return formatDate(cellVal)
+        }
     },
     {
         type: 'opt',

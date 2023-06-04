@@ -1,3 +1,5 @@
+import { formatDate } from '@/utils/util'
+
 const tableColumns = [
     {
         prop: 'title',
@@ -7,7 +9,7 @@ const tableColumns = [
     },
     {
         type: 'slot',
-        slotName: 'coverImg',
+        slotName: 'cover_img',
         prop: 'cover_img',
         label: '文章封面',
         minWidth: '120',
@@ -48,7 +50,10 @@ const tableColumns = [
         prop: 'createdAt',
         label: '创建时间',
         minWidth: '120',
-        align: 'center'
+        align: 'center',
+        formatter: (row, column, cellVal, idx) => {
+            return formatDate(cellVal)
+        }
     },
     {
         type: 'opt',
