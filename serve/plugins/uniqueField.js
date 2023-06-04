@@ -1,9 +1,7 @@
-module.exports = class Field {
+module.exports = class UniqueField {
     static get USER() {
         return {
             username: '用户名',
-            password: '密码',
-            nickname: '昵称',
             email: '邮箱'
         }
     }

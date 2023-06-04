@@ -1,5 +1,5 @@
 const Response = require('../core/response')
-const Field = require('../plugins/field')
+const UniqueField = require('../plugins/uniqueField')
 
 const { formatDate } = require('../utils/helpers')
 
@@ -20,7 +20,7 @@ module.exports = () => {
             const regexp = new RegExp(/collection:\sblog\.(\w+)\s/, 'i')
             const collection = err.message.match(regexp)[1].toUpperCase()
             const repeatKey = Object.keys(err.keyPattern)[0]
-            message = `${Field[collection][repeatKey]}已存在`
+            message = `${UniqueField[collection][repeatKey]}已存在`
         } else if (err.code.indexOf('NOT_FOUND') !== -1) {
             statusCode = 'NOT_FOUND'
         } else {
