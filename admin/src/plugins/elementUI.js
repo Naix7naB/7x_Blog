@@ -40,7 +40,10 @@ import {
     Switch,
     Tag,
     ColorPicker,
+    Descriptions,
+    DescriptionsItem,
     Dialog,
+    Drawer,
     Empty,
     Loading,
     Message,
@@ -85,7 +88,10 @@ Vue.use(DatePicker)
 Vue.use(Switch)
 Vue.use(Tag)
 Vue.use(ColorPicker)
+Vue.use(Descriptions)
+Vue.use(DescriptionsItem)
 Vue.use(Dialog)
+Vue.use(Drawer)
 Vue.use(Empty)
 Vue.use(Loading.directive)
 

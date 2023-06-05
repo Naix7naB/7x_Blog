@@ -1,14 +1,15 @@
 <script>
-import { BaseForm, BaseTable, TagDialog } from '@/components'
+import { BaseForm, BaseTable, TagDialog, TagDrawer } from '@/components'
 import { fetchTags, deleteTagById } from '@/apis/tag'
 import { createNamespacedHelpers } from 'vuex'
 const { mapState, mapActions, mapGetters } = createNamespacedHelpers('tag')
 
 export default {
     name: 'ArticleTagView',
-    components: { BaseForm, BaseTable, TagDialog },
+    components: { BaseForm, BaseTable, TagDialog, TagDrawer },
     data() {
         return {
+            currentTagInfo: {},
             headerOptConf: {
                 options: [
                     {
@@ -42,7 +43,7 @@ export default {
         getTagList() {
             this.$store.dispatch('setLoadingState', true)
             const { page, size } = this.pageData
-            fetchTags({ page, size, select: '-articles' }).then(({ data }) => {
+            fetchTags({ page, size }).then(({ data }) => {
                 const { list, total } = data
                 this.setDatasource(list)
                 this.setPageData({ field: 'total', value: total })
@@ -66,6 +67,8 @@ export default {
         /* 点击编辑按钮 */
         editTag(data) {
             console.log(data)
+            this.currentTagInfo = data
+            this.$refs.tagDrawer.openDrawer()
         },
         /* 点击删除按钮 */
         deleteTag(data) {
@@ -111,6 +114,7 @@ export default {
             </template>
         </BaseTable>
         <TagDialog ref="tagDialog" @refresh="getTagList" />
+        <TagDrawer ref="tagDrawer" :tagInfo="currentTagInfo" />
     </div>
 </template>
 

@@ -84,7 +84,7 @@ export default {
         title="创建标签"
         append-to-body
         :visible="isVisible"
-        @close="closeDialog"
+        :before-close="closeDialog"
         @closed="dialogClosed"
     >
         <BaseForm
