@@ -1,15 +1,14 @@
 <script>
-import { BaseForm, BaseTable } from '@/components'
+import { BaseForm, BaseTable, TagDialog } from '@/components'
 import { fetchTags, deleteTagById } from '@/apis/tag'
 import { createNamespacedHelpers } from 'vuex'
 const { mapState, mapActions, mapGetters } = createNamespacedHelpers('tag')
 
 export default {
     name: 'ArticleTagView',
-    components: { BaseForm, BaseTable },
+    components: { BaseForm, BaseTable, TagDialog },
     data() {
         return {
-            showDialog: false,
             headerOptConf: {
                 options: [
                     {
@@ -21,40 +20,16 @@ export default {
                         text: '创建',
                         type: 'primary',
                         action: () => {
-                            this.showDialog = true
+                            this.$refs.tagDialog.openDialog()
                         }
-                    }
-                ]
-            },
-            dialogOptConf: {
-                position: 'right',
-                options: [
-                    {
-                        text: '取消',
-                        plain: true,
-                        action: this.dialogClose
-                    },
-                    {
-                        text: '确认',
-                        type: 'primary',
-                        action: this.dialogClose
                     }
                 ]
             }
         }
     },
     computed: {
-        ...mapState([
-            'datasource',
-            'headerFormData',
-            'dialogFormData',
-            'pageData'
-        ]),
-        ...mapGetters([
-            'getTableColumns',
-            'getHeaderFormItems',
-            'getDialogFormItems'
-        ])
+        ...mapState([ 'datasource', 'headerFormData', 'pageData' ]),
+        ...mapGetters([ 'getTableColumns', 'getHeaderFormItems' ])
     },
     watch: {
         'pageData.page'() {
@@ -62,20 +37,20 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['setDatasource', 'setHeaderFormData', 'setPageData']),
+        ...mapActions([ 'setDatasource', 'setHeaderFormData', 'setPageData' ]),
         /* 获取标签列表 */
-        async getTagList() {
+        getTagList() {
             this.$store.dispatch('setLoadingState', true)
             const { page, size } = this.pageData
-            const res = await fetchTags({
-                page,
-                size,
-                select: '-articles'
+            fetchTags({ page, size, select: '-articles' }).then(({ data }) => {
+                const { list, total } = data
+                this.setDatasource(list)
+                this.setPageData({ field: 'total', value: total })
+            }).catch(err => {
+                this.message.error(err.errMsg)
+            }).finally(() => {
+                this.$store.dispatch('setLoadingState', false)
             })
-            const { list, total } = res.data
-            this.setDatasource(list)
-            this.setPageData({ field: 'total', value: total })
-            this.$store.dispatch('setLoadingState', false)
         },
         /* 处理操作按钮按下时 */
         handleButtonClick(payload) {
@@ -86,10 +61,7 @@ export default {
         },
         /* 处理页数改变时 */
         handlePageChange(page) {
-            this.setPageConf({ field: 'page', value: page })
-        },
-        search() {
-            console.log(this.headerFormData)
+            this.setPageData({ field: 'page', value: page })
         },
         /* 点击编辑按钮 */
         edit(data) {
@@ -99,13 +71,13 @@ export default {
         delete(data) {
             deleteTagById(data._id).then(res => {
                 this.getTagList()
-                this.$message.success({
-                    message: res.errMsg
-                })
+                this.$message.success(res.errMsg)
+            }).catch(err => {
+                this.$message.error(err)
             })
         },
-        dialogClose() {
-            this.showDialog = false
+        search() {
+            console.log(this.headerFormData)
         }
     },
     created() {
@@ -135,26 +107,13 @@ export default {
                 />
             </template>
         </BaseTable>
-        <el-dialog
-            title="创建标签"
-            center
-            append-to-body
-            :visible="showDialog"
-            @close="dialogClose"
-        >
-            <BaseForm
-                :hasOperation="true"
-                :formData="dialogFormData"
-                :formItems="getDialogFormItems"
-                :optConfig="dialogOptConf"
-            />
-        </el-dialog>
+        <TagDialog ref="tagDialog" @refresh="getTagList" />
     </div>
 </template>
 
 <style lang="scss" scoped>
 :deep(.el-dialog) {
-    min-width: 480px;
-    max-width: 600px;
+    min-width: 420PX;
+    max-width: 640PX;
 }
 </style>

@@ -72,15 +72,11 @@ export default instance => {
                             if (data.data.indexOf('jwt expired at') >= 0) {
                                 instance.$router.push('/login')
                             }
-                            return Promise.reject(response)
+                            return Promise.reject(data)
                         case http.statusCode.FORBIDDEN:
                         case http.statusCode.FAIL:
                         default:
-                            instance.$message({
-                                type: 'error',
-                                message: data.errMsg
-                            })
-                            return Promise.reject(response)
+                            return Promise.reject(data)
                     }
                 }
                 return Promise.resolve(response)

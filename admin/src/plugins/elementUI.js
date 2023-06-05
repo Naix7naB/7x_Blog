@@ -39,7 +39,9 @@ import {
     DatePicker,
     Switch,
     Tag,
+    ColorPicker,
     Dialog,
+    Empty,
     Loading,
     Message,
     MessageBox,
@@ -82,7 +84,9 @@ Vue.use(RadioGroup)
 Vue.use(DatePicker)
 Vue.use(Switch)
 Vue.use(Tag)
+Vue.use(ColorPicker)
 Vue.use(Dialog)
+Vue.use(Empty)
 Vue.use(Loading.directive)
 
 Vue.prototype.$loading = Loading.service

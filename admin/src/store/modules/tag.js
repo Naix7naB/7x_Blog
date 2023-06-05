@@ -1,5 +1,6 @@
 import { formatDate } from '@/utils/util'
 
+/* 表格表头配置项 */
 const tableColumns = [
     {
         prop: 'name',
@@ -49,6 +50,7 @@ const tableColumns = [
         ]
     }
 ]
+/* 头部表单配置项 */
 const headerFormItems = [
     {
         type: 'date',
@@ -62,20 +64,6 @@ const headerFormItems = [
         }
     }
 ]
-const dialogFormItems = [
-    {
-        type: 'input',
-        prop: 'name',
-        label: '标签名称',
-        placeholder: '输入标签名称'
-    },
-    {
-        type: 'input',
-        prop: 'color',
-        label: '标签颜色',
-        placeholder: '输入标签颜色'
-    }
-]
 
 export default {
     namespaced: true,
@@ -83,10 +71,6 @@ export default {
         datasource: [],
         headerFormData: {
             dateRange: []
-        },
-        dialogFormData: {
-            name: '',
-            color: ''
         },
         pageData: {
             page: 1,
@@ -96,33 +80,36 @@ export default {
     },
     getters: {
         getTableColumns: () => tableColumns,
-        getHeaderFormItems: () => headerFormItems,
-        getDialogFormItems: () => dialogFormItems
+        getHeaderFormItems: () => headerFormItems
     },
     mutations: {
+        _set_dialog_state_(state, isVisible) {
+            state.dialogVisible = isVisible
+        },
         _set_datasource_(state, data) {
             state.datasource = data
         },
         _set_header_form_data_(state, { field, value }) {
             state.headerFormData[field] = value
         },
-        _set_dialog_form_data_(state, { field, value }) {
-            state.dialogFormData[field] = value
-        },
         _set_page_data_(state, { field, value }) {
             state.pageData[field] = value
         }
     },
     actions: {
+        /* 设置弹窗状态 */
+        setDialogState({ commit }, isVisible) {
+            commit('_set_dialog_state_', isVisible)
+        },
+        /* 设置表格数据源 */
         setDatasource({ commit }, data) {
             commit('_set_datasource_', data)
         },
+        /* 设置头部表单数据 */
         setHeaderFormData({ commit }, payload) {
             commit('_set_header_form_data_', payload)
         },
-        setDialogFormData({ commit }, payload) {
-            commit('_set_dialog_form_data_', payload)
-        },
+        /* 设置分页器配置 */
         setPageData({ commit }, payload) {
             commit('_set_page_data_', payload)
         }
