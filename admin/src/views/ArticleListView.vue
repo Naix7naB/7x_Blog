@@ -92,10 +92,16 @@ export default {
         @handleTablePageChange="handlePageChange"
     >
         <template #cover_img="{ row }">
-            <el-image :src="normalizeUrl(row.cover_img)" fit="contain" />
+            <el-image
+                fit="contain"
+                :style="{ height: '80px' }"
+                :src="normalizeUrl(row.cover_img)"
+            />
         </template>
         <template #tag="{ row }">
+            <span v-if="row.tags.length === 0" style="color: #bbb">暂无标签</span>
             <el-tag
+                v-else
                 v-for="tag in row.tags"
                 :style="{ backgroundColor: tag.color, borderColor: tag.color }"
                 :key="tag._id"
