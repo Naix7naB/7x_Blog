@@ -3,19 +3,25 @@ module.exports = class Populate {
         return [
             {
                 path: 'author',
-                select: '-_id nickname avatar'
+                select: 'nickname avatar'
             },
             {
                 path: 'tags',
-                select: 'name'
+                select: 'name color'
             }
         ]
     }
 
     static get Tag() {
-        return {
-            path: 'articles',
-            populate: Populate.Article
-        }
+        return [
+            {
+                path: 'author',
+                select: 'nickname avatar'
+            },
+            {
+                path: 'articles',
+                populate: Populate.Article
+            }
+        ]
     }
 }
