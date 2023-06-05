@@ -9,7 +9,12 @@ const schema = new mongoose.Schema(
         },
         color: {
             type: String,
-            default: 'rgba(66, 184, 131, 1)'
+            set(val) {
+                if (!val) {
+                    return 'rgba(66, 184, 131, 1)'
+                }
+                return val
+            }
         },
         author: {
             ref: 'User',

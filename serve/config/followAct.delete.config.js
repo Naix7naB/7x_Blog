@@ -11,6 +11,7 @@ module.exports = {
             _model_: Tag,
             action: 'updateMany',
             condition(res) {
+                if (res.tags.length === 0) return {}
                 return res.tags.reduce(
                     (f, t) => {
                         f.$or.push({
@@ -45,6 +46,7 @@ module.exports = {
             _model_: Article,
             action: 'updateMany',
             condition(res) {
+                if (res.articles.length === 0) return {}
                 return res.articles.reduce(
                     (f, t) => {
                         f.$or.push({
