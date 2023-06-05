@@ -9,7 +9,8 @@ const tableColumns = [
         align: 'center'
     },
     {
-        prop: 'color',
+        type: 'slot',
+        slotName: 'tag-color',
         label: '标签背景色',
         minWidth: '120',
         align: 'center'
@@ -39,17 +40,18 @@ const tableColumns = [
                 type: 'primary',
                 size: 'mini',
                 text: '编辑',
-                act: 'edit'
+                act: 'editTag'
             },
             {
                 type: 'danger',
                 size: 'mini',
                 text: '删除',
-                act: 'delete'
+                act: 'deleteTag'
             }
         ]
     }
 ]
+
 /* 头部表单配置项 */
 const headerFormItems = [
     {
@@ -60,7 +62,7 @@ const headerFormItems = [
             type: 'daterange',
             startPlaceholder: '开始日期',
             endPlaceholder: '结束日期',
-            rangeSep: '至'
+            rangeSeparator: '至'
         }
     }
 ]

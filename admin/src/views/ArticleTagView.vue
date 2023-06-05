@@ -64,11 +64,11 @@ export default {
             this.setPageData({ field: 'page', value: page })
         },
         /* 点击编辑按钮 */
-        edit(data) {
+        editTag(data) {
             console.log(data)
         },
         /* 点击删除按钮 */
-        delete(data) {
+        deleteTag(data) {
             deleteTagById(data._id).then(res => {
                 this.getTagList()
                 this.$message.success(res.errMsg)
@@ -106,6 +106,9 @@ export default {
                     :optConfig="headerOptConf"
                 />
             </template>
+            <template #tag-color="{ row }">
+                <i class="color-block" :style="{ backgroundColor: row.color }" />
+            </template>
         </BaseTable>
         <TagDialog ref="tagDialog" @refresh="getTagList" />
     </div>
@@ -115,5 +118,12 @@ export default {
 :deep(.el-dialog) {
     min-width: 420PX;
     max-width: 640PX;
+}
+
+.color-block {
+    display: block;
+    width: 32PX;
+    height: 32PX;
+    margin: auto;
 }
 </style>
