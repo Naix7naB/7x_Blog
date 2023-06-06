@@ -8,43 +8,52 @@ export default {
     components: { BaseForm, BaseTable, TagDialog, TagDrawer },
     data() {
         return {
+            currentTagInfo: {},
             tableColumns,
-            headerFormItems,
             headerFormData: {
                 dateRange: []
             },
-            currentTagInfo: {},
-            headerOptConf: {
-                options: [
-                    {
-                        text: '查询',
-                        type: 'primary',
-                        action: this.search
-                    },
-                    {
-                        text: '创建',
-                        type: 'primary',
-                        action: () => {
-                            this.$refs.tagDialog.openDialog()
-                        }
+            headerFormItems,
+            headerOptItems: [
+                {
+                    text: '查询',
+                    type: 'primary',
+                    action: this.queryTags
+                },
+                {
+                    text: '创建',
+                    type: 'primary',
+                    action: () => {
+                        this.$refs.tagDialog.openDialog()
                     }
-                ]
-            }
+                }
+            ],
+            tableOptItems: [
+                {
+                    text: '查看',
+                    size: 'mini',
+                    type: 'primary',
+                    action: this.checkTagInfo
+                },
+                {
+                    text: '删除',
+                    type: 'danger',
+                    size: 'mini',
+                    action: this.deleteTag
+                }
+            ]
         }
     },
     methods: {
         fetchTags,
-        /* 处理操作按钮按下时 */
-        handleButtonClick(payload) {
-            const { act, data } = payload
-            if (this[act] && typeof this[act] === 'function') {
-                this[act](data)
-            }
+        /* 查询文章标签 */
+        queryTags() {
+            console.log(this.headerFormData)
         },
-        /* 点击编辑按钮 */
-        editTag(data) {
-            this.$refs.tagDrawer.openDrawer()
+        /* 点击查看按钮 */
+        checkTagInfo(data) {
             this.currentTagInfo = data
+            this.$refs.tagDrawer.openDrawer()
         },
         /* 点击删除按钮 */
         deleteTag(data) {
@@ -55,9 +64,7 @@ export default {
                 this.$message.error(err)
             })
         },
-        search() {
-            console.log(this.headerFormData)
-        },
+        /* 刷新表格数据源 */
         refreshDatasource() {
             this.$refs.tableRef.getDatasource()
         }
@@ -72,15 +79,14 @@ export default {
             hasPagination
             :requestApi="fetchTags"
             :columns="tableColumns"
-            @handleTableButtonClick="handleButtonClick"
+            :optItems="tableOptItems"
         >
             <template #table-header>
                 <BaseForm
-                    :inline="true"
-                    :hasOperation="true"
+                    inline
                     :formData="headerFormData"
                     :formItems="headerFormItems"
-                    :optConfig="headerOptConf"
+                    :optItems="headerOptItems"
                 />
             </template>
             <template #tag-color="{ row }">

@@ -32,23 +32,10 @@ const tableColumns = [
     },
     {
         type: 'opt',
+        prop: 'opt',
         label: '操作',
         align: 'center',
-        fixed: 'right',
-        options: [
-            {
-                type: 'primary',
-                size: 'mini',
-                text: '编辑',
-                act: 'editTag'
-            },
-            {
-                type: 'danger',
-                size: 'mini',
-                text: '删除',
-                act: 'deleteTag'
-            }
-        ]
+        fixed: 'right'
     }
 ]
 
@@ -64,6 +51,10 @@ const headerFormItems = [
             endPlaceholder: '结束日期',
             rangeSeparator: '至'
         }
+    },
+    {
+        type: 'opt',
+        prop: 'opt'
     }
 ]
 

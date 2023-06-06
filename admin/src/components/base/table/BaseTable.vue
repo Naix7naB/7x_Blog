@@ -10,6 +10,10 @@ export default {
             type: Array,
             required: true
         },
+        optItems: {
+            type: Array,
+            default: () => []
+        },
         hasSelection: {
             type: Boolean,
             default: false
@@ -55,9 +59,6 @@ export default {
         /* 更改页码时 */
         changePage(page) {
             this.currentPage = page
-        },
-        buttonClick(data, act) {
-            this.$emit('handleTableButtonClick', { data, act })
         }
     },
     created() {
@@ -76,7 +77,7 @@ export default {
             <!-- 序号列 -->
             <el-table-column v-if="hasIndex" type="index" width="55" />
             <!-- 数据源 -->
-            <template v-for="{ options, ...item } in columns">
+            <template v-for="item in columns">
                 <!-- 插槽列 -->
                 <el-table-column v-if="item.type === 'slot'" v-bind="item" :key="item.prop">
                     <template slot-scope="{ $index, row }">
@@ -85,19 +86,19 @@ export default {
                 </el-table-column>
                 <!-- 操作列 -->
                 <el-table-column
-                    v-else-if="item.type === 'opt'"
+                    v-if="item.type === 'opt'"
                     v-bind="item"
-                    :min-width="80 * options.length"
+                    :min-width="80 * optItems.length"
                     :key="item.prop"
                 >
                     <template slot-scope="{ row }">
                         <el-button
-                            v-for="btn in options"
-                            v-bind="btn"
-                            :key="btn.act"
-                            @click="buttonClick(row, btn.act)"
+                            v-for="{ action, ...btnConf } in optItems"
+                            v-bind="btnConf"
+                            :key="btnConf.text"
+                            @click="action(row)"
                         >
-                            {{ btn.text }}
+                            {{ btnConf.text }}
                         </el-button>
                     </template>
                 </el-table-column>

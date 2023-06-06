@@ -21,21 +21,17 @@ export default {
             type: Boolean,
             default: false
         },
-        hasOperation: {
-            type: Boolean,
-            default: false
-        },
         formData: {
             type: Object,
-            default: () => {}
+            required: true
         },
         formItems: {
             type: Array,
             required: true
         },
-        optConfig: {
-            type: Object,
-            default: () => {}
+        optItems: {
+            type: Array,
+            default: () => []
         }
     },
     data() {
@@ -96,7 +92,7 @@ export default {
         :model="customFormData"
     >
         <template v-for="{ others, options, ...item } in formItems">
-            <el-form-item v-bind="item" :style="{ marginRight: '30px' }" :key="item.label">
+            <el-form-item v-bind="item" :style="{ marginRight: '30px' }" :key="item.prop">
                 <!-- 输入框 -->
                 <template v-if="item.type === 'input'">
                     <el-input
@@ -157,23 +153,23 @@ export default {
                         <fa-icon v-else :icon="['fas', 'plus']" />
                     </el-upload>
                 </template>
+                <!-- 操作按钮 -->
+                <template v-if="item.type === 'opt'">
+                    <el-button
+                        v-for="{ action, ...btnConf } in optItems"
+                        v-bind="btnConf"
+                        :key="btnConf.text"
+                        @click="action(btnConf)"
+                    >
+                        {{ btnConf.text }}
+                    </el-button>
+                </template>
                 <!-- 自定义组件插槽 -->
                 <template v-if="item.type === 'slot'">
                     <slot :name="item.slotName" />
                 </template>
             </el-form-item>
         </template>
-        <!-- 操作按钮 -->
-        <el-form-item v-if="hasOperation" :style="{ textAlign: optConfig.position }">
-            <el-button
-                v-for="btn in optConfig.options"
-                v-bind="btn"
-                :key="btn.text"
-                @click="btn.action(btn.data)"
-            >
-                {{ btn.text }}
-            </el-button>
-        </el-form-item>
     </el-form>
 </template>
 
