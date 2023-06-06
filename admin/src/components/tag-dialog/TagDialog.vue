@@ -83,6 +83,7 @@ export default {
     <el-dialog
         title="创建标签"
         append-to-body
+        destroy-on-close
         :visible="isVisible"
         :before-close="closeDialog"
         @closed="dialogClosed"

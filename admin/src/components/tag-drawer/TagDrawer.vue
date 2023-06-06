@@ -35,8 +35,9 @@ export default {
 <template>
     <el-drawer
         title="标签信息"
+        append-to-body
+        destroy-on-close
         :visible="isVisible"
-        :append-to-body="true"
         :show-close="false"
         :before-close="closeDrawer"
     >

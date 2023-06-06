@@ -2,17 +2,13 @@
 export default {
     name: 'BaseTable',
     props: {
+        requestApi: {
+            type: Function,
+            require: true
+        },
         columns: {
             type: Array,
             required: true
-        },
-        datasource: {
-            type: Array,
-            default: () => []
-        },
-        pagerConfig: {
-            type: Object,
-            default: () => null
         },
         hasSelection: {
             type: Boolean,
@@ -25,15 +21,47 @@ export default {
         hasPagination: {
             type: Boolean,
             default: false
+        },
+        pagerPos: {
+            type: String,
+            default: 'center'
+        }
+    },
+    data() {
+        return {
+            datasource: [],
+            currentPage: 1,
+            pageSize: 10,
+            total: 0
         }
     },
     methods: {
+        /* 获取数据源 */
+        getDatasource() {
+            this.$store.dispatch('setLoadingState', true)
+            this.requestApi({
+                page: this.currentPage,
+                size: this.pageSize
+            }).then(res => {
+                const { list, total } = res.data
+                this.datasource = list
+                this.total = total
+            }).catch(err => {
+                this.message.error(err.errMsg)
+            }).finally(() => {
+                this.$store.dispatch('setLoadingState', false)
+            })
+        },
+        /* 更改页码时 */
+        changePage(page) {
+            this.currentPage = page
+        },
         buttonClick(data, act) {
             this.$emit('handleTableButtonClick', { data, act })
-        },
-        changePage(page) {
-            this.$emit('handleTablePageChange', page)
         }
+    },
+    created() {
+        this.getDatasource()
     }
 }
 </script>
@@ -80,10 +108,10 @@ export default {
         <el-pagination
             v-if="hasPagination"
             layout="total, prev, pager, next"
-            :current-page="pagerConfig.page"
-            :page-size="pagerConfig.size"
-            :total="pagerConfig.total"
-            :style="{ marginTop: '24px', textAlign: pagerConfig.position || 'center' }"
+            :current-page="currentPage"
+            :page-size="pageSize"
+            :total="total"
+            :style="{ marginTop: '24px', textAlign: pagerPos }"
             :background="true"
             @current-change="changePage"
         />

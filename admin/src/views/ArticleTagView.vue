@@ -1,14 +1,18 @@
 <script>
 import { BaseForm, BaseTable, TagDialog, TagDrawer } from '@/components'
+import { tableColumns, headerFormItems } from '@/config/tagList.config'
 import { fetchTags, deleteTagById } from '@/apis/tag'
-import { createNamespacedHelpers } from 'vuex'
-const { mapState, mapActions, mapGetters } = createNamespacedHelpers('tag')
 
 export default {
     name: 'ArticleTagView',
     components: { BaseForm, BaseTable, TagDialog, TagDrawer },
     data() {
         return {
+            tableColumns,
+            headerFormItems,
+            headerFormData: {
+                dateRange: []
+            },
             currentTagInfo: {},
             headerOptConf: {
                 options: [
@@ -28,31 +32,8 @@ export default {
             }
         }
     },
-    computed: {
-        ...mapState([ 'datasource', 'headerFormData', 'pageData' ]),
-        ...mapGetters([ 'getTableColumns', 'getHeaderFormItems' ])
-    },
-    watch: {
-        'pageData.page'() {
-            this.getTagList()
-        }
-    },
     methods: {
-        ...mapActions([ 'setDatasource', 'setHeaderFormData', 'setPageData' ]),
-        /* 获取标签列表 */
-        getTagList() {
-            this.$store.dispatch('setLoadingState', true)
-            const { page, size } = this.pageData
-            fetchTags({ page, size }).then(({ data }) => {
-                const { list, total } = data
-                this.setDatasource(list)
-                this.setPageData({ field: 'total', value: total })
-            }).catch(err => {
-                this.message.error(err.errMsg)
-            }).finally(() => {
-                this.$store.dispatch('setLoadingState', false)
-            })
-        },
+        fetchTags,
         /* 处理操作按钮按下时 */
         handleButtonClick(payload) {
             const { act, data } = payload
@@ -60,20 +41,15 @@ export default {
                 this[act](data)
             }
         },
-        /* 处理页数改变时 */
-        handlePageChange(page) {
-            this.setPageData({ field: 'page', value: page })
-        },
         /* 点击编辑按钮 */
         editTag(data) {
-            console.log(data)
-            this.currentTagInfo = data
             this.$refs.tagDrawer.openDrawer()
+            this.currentTagInfo = data
         },
         /* 点击删除按钮 */
         deleteTag(data) {
             deleteTagById(data._id).then(res => {
-                this.getTagList()
+                this.refreshDatasource()
                 this.$message.success(res.errMsg)
             }).catch(err => {
                 this.$message.error(err)
@@ -81,10 +57,10 @@ export default {
         },
         search() {
             console.log(this.headerFormData)
+        },
+        refreshDatasource() {
+            this.$refs.tableRef.getDatasource()
         }
-    },
-    created() {
-        this.getTagList()
     }
 }
 </script>
@@ -92,20 +68,18 @@ export default {
 <template>
     <div>
         <BaseTable
-            ref="loadRef"
-            :hasPagination="true"
-            :columns="getTableColumns"
-            :datasource="datasource"
-            :pagerConfig="pageData"
+            ref="tableRef"
+            hasPagination
+            :requestApi="fetchTags"
+            :columns="tableColumns"
             @handleTableButtonClick="handleButtonClick"
-            @handleTablePageChange="handlePageChange"
         >
             <template #table-header>
                 <BaseForm
                     :inline="true"
                     :hasOperation="true"
                     :formData="headerFormData"
-                    :formItems="getHeaderFormItems"
+                    :formItems="headerFormItems"
                     :optConfig="headerOptConf"
                 />
             </template>
@@ -113,7 +87,7 @@ export default {
                 <i class="color-block" :style="{ backgroundColor: row.color }" />
             </template>
         </BaseTable>
-        <TagDialog ref="tagDialog" @refresh="getTagList" />
+        <TagDialog ref="tagDialog" @refresh="refreshDatasource" />
         <TagDrawer ref="tagDrawer" :tagInfo="currentTagInfo" />
     </div>
 </template>
