@@ -1,18 +1,16 @@
 <script>
 import { BaseTable } from '@/components'
-import { tableColumns, tablePager } from '@/config/articleList.config'
+import { tableColumns } from '@/config/articleList.config'
 import { normalizeUrl } from '@/utils/util'
-import { getArticleList, deleteArticle } from '@/apis/article'
+import { fetchArticles, deleteArticleById } from '@/apis/article'
 
 export default {
     name: 'ArticleListView',
     components: { BaseTable },
     data() {
         return {
-            articleList: [],
             tableColumns,
-            tablePager,
-            formOpts: [
+            formOptItems: [
                 {
                     text: '取消',
                     plain: true,
@@ -28,68 +26,54 @@ export default {
                         this.$router.push({ name: 'ArticleList' })
                     }
                 }
+            ],
+            tableOptItems: [
+                {
+                    type: 'primary',
+                    size: 'mini',
+                    text: '编辑',
+                    action: this.editArticle
+                },
+                {
+                    type: 'danger',
+                    size: 'mini',
+                    text: '删除',
+                    action: this.deleteArticle
+                }
             ]
         }
     },
     methods: {
         normalizeUrl,
-        async fetchArticleList() {
-            const { page, size } = this.tablePager
-            const res = await getArticleList({ page, size })
-            const { list, total } = res.data
-            this.tablePager.total = total
-            this.articleList = list
-        },
-        handleButtonClick(payload) {
-            const { act, data } = payload
-            if (this[act] && typeof this[act] === 'function') {
-                this[act](data)
-            }
-        },
-        handlePageChange(page) {
-            this.tablePager.page = page
-        },
-        edit(data) {
+        fetchArticles,
+        editArticle(data) {
             this.$router.push({
                 name: 'ArticleWrite',
                 params: {
                     data,
-                    optOptions: this.formOpts
+                    optItems: this.formOptItems
                 }
             })
         },
-        delete(data) {
-            deleteArticle(data._id).then(res => {
-                this.fetchArticleList()
-                this.$message.success({
-                    message: res.errMsg
-                })
+        deleteArticle(data) {
+            deleteArticleById(data._id).then(res => {
+                this.$refs.articleTable.getDatasource()
+                this.$message.success(res.errMsg)
             }).catch(err => {
-                this.$message.error({
-                    message: err
-                })
+                this.$message.error(err.errMsg)
             })
         }
-    },
-    watch: {
-        'tablePager.page'() {
-            this.fetchArticleList()
-        }
-    },
-    created() {
-        this.fetchArticleList()
     }
 }
 </script>
 
 <template>
     <BaseTable
-        :hasPagination="true"
+        ref="articleTable"
+        hasPagination
+        :requestApi="fetchArticles"
         :columns="tableColumns"
-        :datasource="articleList"
-        :pagerConfig="tablePager"
-        @handleTableButtonClick="handleButtonClick"
-        @handleTablePageChange="handlePageChange"
+        :optItems="tableOptItems"
     >
         <template #cover_img="{ row }">
             <el-image

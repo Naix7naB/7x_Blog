@@ -51,6 +51,10 @@ const formItems = [
         slotName: 'editor',
         prop: 'content',
         label: '文章内容'
+    },
+    {
+        type: 'opt',
+        prop: 'opt'
     }
 ]
 

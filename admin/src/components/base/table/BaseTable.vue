@@ -86,7 +86,7 @@ export default {
                 </el-table-column>
                 <!-- 操作列 -->
                 <el-table-column
-                    v-if="item.type === 'opt'"
+                    v-else-if="item.type === 'opt'"
                     v-bind="item"
                     :min-width="80 * optItems.length"
                     :key="item.prop"

@@ -42,6 +42,7 @@ const tableColumns = [
     {
         type: 'slot',
         slotName: 'tag',
+        prop: 'tag',
         label: '文章标签',
         minWidth: '120',
         align: 'center'
@@ -57,30 +58,11 @@ const tableColumns = [
     },
     {
         type: 'opt',
+        prop: 'opt',
         label: '操作',
         align: 'center',
-        fixed: 'right',
-        options: [
-            {
-                type: 'primary',
-                size: 'mini',
-                text: '编辑',
-                act: 'edit'
-            },
-            {
-                type: 'danger',
-                size: 'mini',
-                text: '删除',
-                act: 'delete'
-            }
-        ]
+        fixed: 'right'
     }
 ]
 
-const tablePager = {
-    page: 1,
-    size: 10,
-    total: 0
-}
-
-export { tableColumns, tablePager }
+export { tableColumns }

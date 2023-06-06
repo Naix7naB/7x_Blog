@@ -41,9 +41,6 @@ export default {
         }
     },
     methods: {
-        handleButtonClick(e, act, data) {
-            act.apply(this, [data])
-        },
         handleFileExceed() {
             this.$message.warning('超出文件上传限制')
         },
@@ -176,5 +173,9 @@ export default {
 <style lang="scss" scoped>
 :deep(.el-range-separator) {
     width: 30PX;
+}
+
+:deep(.el-form-item)[type="opt"] {
+    text-align: center;
 }
 </style>

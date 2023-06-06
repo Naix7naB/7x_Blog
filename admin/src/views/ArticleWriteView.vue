@@ -12,27 +12,20 @@ export default {
         return {
             formData,
             formItems,
-            optConfig: {
-                position: 'center',
-                options: [
-                    {
-                        text: '存草稿',
-                        plain: true,
-                        data: {
-                            state: 'draft'
-                        },
-                        action: this.changeState
-                    },
-                    {
-                        text: '发布',
-                        type: 'primary',
-                        data: {
-                            state: 'released'
-                        },
-                        action: this.changeState
-                    }
-                ]
-            }
+            optItems: [
+                {
+                    text: '存草稿',
+                    plain: true,
+                    state: 'draft',
+                    action: this.changeState
+                },
+                {
+                    text: '发布',
+                    type: 'primary',
+                    state: 'released',
+                    action: this.changeState
+                }
+            ]
         }
     },
     methods: {
@@ -84,9 +77,9 @@ export default {
     },
     created() {
         if (JSON.stringify(this.$route.params) !== '{}') {
-            const { data, optOptions } = this.$route.params
-            if (optOptions) {
-                this.optConfig.options = optOptions
+            const { data, optItems } = this.$route.params
+            if (optItems) {
+                this.optItems = optItems
             }
             data.tags = data.tags.map(t => t._id)
             this.formData = data
@@ -111,10 +104,10 @@ export default {
     <el-card body-style="padding: 40px 60px;">
         <BaseForm
             ref="form"
-            :hasOperation="true"
+            hasOperation
             :formData="formData"
             :formItems="formItems"
-            :optConfig="optConfig"
+            :optItems="optItems"
         >
             <template #editor>
                 <mavon-editor
