@@ -1,7 +1,6 @@
 const fs = require('fs')
-
+const NodeRsa = require('node-rsa')
 const { PUB_KEY_PATH, PRI_KEY_PATH } = require('../config/base.config')
-const { generateKeys } = require('../utils/rsa')
 
 /**
  * @function: getPubKey
@@ -67,9 +66,26 @@ function getPriKeySync() {
     }
 }
 
+/**
+ * @function: generateKeys
+ * @description: 生成密钥对
+ * @return {Object} 密钥对 { PubKey, priKey }
+ */
+function generateKeys() {
+    const key = new NodeRsa({ b: 512 })
+    key.setOptions({ encryptionScheme: 'pkcs1' })
+    const pubKey = key.exportKey('pkcs8-public')
+    const priKey = key.exportKey('pkcs8-private')
+    fs.writeFileSync(PUB_KEY_PATH, pubKey)
+    fs.writeFileSync(PRI_KEY_PATH, priKey)
+    console.log('------ 密钥生成成功 ------')
+    return { pubKey, priKey }
+}
+
 module.exports = {
     getPubKey,
     getPriKey,
     getPubKeySync,
-    getPriKeySync
+    getPriKeySync,
+    generateKeys
 }

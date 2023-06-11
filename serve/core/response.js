@@ -1,7 +1,7 @@
 const StatusCode = require('../plugins/statusCode')
 const ResponseMessage = require('../plugins/responseMessage')
 
-const { generateToken } = require('../utils/rsa')
+const { generateToken } = require('./token')
 
 /**
  * 封装发送响应的工具类
