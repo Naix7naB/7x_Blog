@@ -49,12 +49,15 @@ const schema = new mongoose.Schema(
                 message: '昵称2-12位(不能包含非法符号)'
             }
         },
-        scope: {
-            type: Number,
-            default: 0
+        role: {
+            ref: 'Role',
+            type: mongoose.SchemaTypes.ObjectId
         }
     },
-    { versionKey: false }
+    {
+        timestamps: true,
+        versionKey: false
+    }
 )
 
 module.exports = mongoose.model('User', schema)

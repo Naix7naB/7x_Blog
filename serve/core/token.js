@@ -18,11 +18,11 @@ function generateToken(payload, options = { algorithm: SIGN_ALGO, expiresIn: EXP
  * @function: verifyToken
  * @description: 验证token
  * @param {String} token
- * @return {String} token
+ * @return {Object} payload
  */
-function verifyToken(token, callback) {
+function verifyToken(token) {
     const pubKey = getPubKeySync()
-    JWT.verify(token, pubKey, callback)
+    return JWT.verify(token, pubKey, { algorithms: SIGN_ALGO })
 }
 
 module.exports = {

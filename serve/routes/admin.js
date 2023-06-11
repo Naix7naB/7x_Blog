@@ -2,6 +2,7 @@ const express = require('express')
 const assert = require('http-assert')
 
 const User = require('../models/User')
+const Role = require('../models/Role')
 const Response = require('../core/response')
 const { getPubKey } = require('../core/rsa')
 const { encrypt, decrypt } = require('../utils/rsa')
@@ -25,8 +26,16 @@ Router.get('/key', async (req, res, next) => {
 // 注册
 Router.post('/register', async (req, res, next) => {
     try {
+        const { role = 'user', ...userInfo } = req.body
+        const userRole = await Role.findOne({ name: role })
         req.body.password = encrypt(req.body.password)
-        const user = await User.create(req.body)
+        const user = await User.create({
+            ...userInfo,
+            role: userRole._id
+        })
+        await Role.findByIdAndUpdate(userRole._id, {
+            $push: { includes: user._id }
+        })
         Response.sendToken(res, {
             payload: user,
             message: '注册成功'
