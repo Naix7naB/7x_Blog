@@ -28,7 +28,6 @@ const schema = new mongoose.Schema(
         email: {
             type: String,
             unique: true,
-            default: `email${new Date().getTime()}@email.com`,
             validate: {
                 validator(val) {
                     return /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(val)

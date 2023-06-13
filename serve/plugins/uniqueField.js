@@ -1,5 +1,5 @@
 module.exports = class UniqueField {
-    static get USER() {
+    static get USERS() {
         return {
             username: '用户名',
             email: '邮箱'

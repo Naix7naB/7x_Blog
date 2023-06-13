@@ -28,7 +28,9 @@ Router.post('/register', async (req, res, next) => {
     try {
         const { role = 'user', ...userInfo } = req.body
         const userRole = await Role.findOne({ name: role })
-        req.body.password = encrypt(req.body.password)
+        const random = Math.floor(Date.now() / 1000)
+        userInfo.password = encrypt(userInfo.password)
+        userInfo.email = userInfo.email || `user${random}@email.com`
         const user = await User.create({
             ...userInfo,
             role: userRole._id
@@ -51,7 +53,9 @@ Router.post('/login', async (req, res, next) => {
         const { username, password } = req.body
         const user = await User.findOne({ username }).select('+password')
         assert(user, 422, '用户不存在')
-        assert.equal(decrypt(password), decrypt(user.password), 422, '账号或密码错误')
+        const inputPwd = decrypt(password)
+        const storePwd = decrypt(decrypt(user.password))
+        assert.equal(inputPwd, storePwd, 422, '账号或密码错误')
         Response.sendToken(res, {
             payload: user,
             message: '登录成功'
