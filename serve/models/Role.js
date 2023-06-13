@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const schemaOption = require('../config/schemaOption.config')
 
 const schema = new mongoose.Schema(
     {
@@ -21,12 +22,11 @@ const schema = new mongoose.Schema(
                 ref: 'User',
                 type: mongoose.SchemaTypes.ObjectId
             }
-        ]
+        ],
+        created_at: Number,
+        updated_at: Number
     },
-    {
-        timestamps: true,
-        versionKey: false
-    }
+    schemaOption
 )
 
 module.exports = mongoose.model('Role', schema)

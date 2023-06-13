@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const schemaOption = require('../config/schemaOption.config')
 
 const schema = new mongoose.Schema(
     {
@@ -45,7 +46,9 @@ const schema = new mongoose.Schema(
         state: {
             type: String,
             required: [true, '文章状态异常!']
-        }
+        },
+        created_at: Number,
+        updated_at: Number
         // TODO 引用 Like 模型
         // likes: {
         //     ref: 'Like',
@@ -59,10 +62,7 @@ const schema = new mongoose.Schema(
         //     default: []
         // }
     },
-    {
-        timestamps: true,
-        versionKey: false
-    }
+    schemaOption
 )
 
 module.exports = mongoose.model('Article', schema)

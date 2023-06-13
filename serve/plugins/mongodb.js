@@ -7,7 +7,7 @@ const DB_URL = dbConf.ORIGIN + '/' + dbConf.DB_NAME
 mongoose.connect(DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: true,
+    useFindAndModify: false,
     useCreateIndex: true
 })
 
