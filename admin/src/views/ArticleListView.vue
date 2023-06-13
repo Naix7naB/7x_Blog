@@ -10,23 +10,6 @@ export default {
     data() {
         return {
             tableColumns,
-            formOptItems: [
-                {
-                    text: '取消',
-                    plain: true,
-                    action: () => {
-                        this.$router.push({ name: 'ArticleList' })
-                    }
-                },
-                {
-                    text: '保存',
-                    type: 'primary',
-                    action: () => {
-                        // 更新数据库
-                        this.$router.push({ name: 'ArticleList' })
-                    }
-                }
-            ],
             tableOptItems: [
                 {
                     type: 'primary',
@@ -49,10 +32,7 @@ export default {
         editArticle(data) {
             this.$router.push({
                 name: 'ArticleWrite',
-                params: {
-                    data,
-                    optItems: this.formOptItems
-                }
+                params: data
             })
         },
         deleteArticle(data) {

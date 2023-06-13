@@ -25,23 +25,23 @@ export default {
                     slotName: 'color-picker',
                     prop: 'color',
                     label: '标签颜色'
+                },
+                {
+                    type:'opt'
                 }
             ],
-            optConfig: {
-                position: 'right',
-                options: [
-                    {
-                        text: '取消',
-                        plain: true,
-                        action: this.closeDialog
-                    },
-                    {
-                        text: '确认',
-                        type: 'primary',
-                        action: this.dialogConfirm
-                    }
-                ]
-            }
+            optItems: [
+                {
+                    text: '取消',
+                    plain: true,
+                    action: this.closeDialog
+                },
+                {
+                    text: '确认',
+                    type: 'primary',
+                    action: this.dialogConfirm
+                }
+            ]
         }
     },
     methods: {
@@ -88,13 +88,7 @@ export default {
         :before-close="closeDialog"
         @closed="dialogClosed"
     >
-        <BaseForm
-            ref="dialogForm"
-            :hasOperation="true"
-            :formData="formData"
-            :formItems="formItems"
-            :optConfig="optConfig"
-        >
+        <BaseForm ref="dialogForm" :formData="formData" :formItems="formItems" :optItems="optItems">
             <template #color-picker>
                 <el-color-picker v-model="formData.color" color-format="rgb" show-alpha />
             </template>

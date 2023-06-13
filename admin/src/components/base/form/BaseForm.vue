@@ -36,7 +36,7 @@ export default {
     },
     data() {
         return {
-            customFormData: this.formData,
+            showData: this.formData,
             fileList: []
         }
     },
@@ -86,7 +86,7 @@ export default {
         :label-width="labelWidth"
         :label-position="labelPosition"
         :hide-required-asterisk="hideRequiredAsterisk"
-        :model="customFormData"
+        :model="showData"
     >
         <template v-for="{ others, options, ...item } in formItems">
             <el-form-item v-bind="item" :style="{ marginRight: '30px' }" :key="item.prop">
@@ -94,7 +94,7 @@ export default {
                 <template v-if="item.type === 'input'">
                     <el-input
                         clearable
-                        v-model="customFormData[item.prop]"
+                        v-model="showData[item.prop]"
                         :placeholder="item.placeholder"
                     />
                 </template>
@@ -103,20 +103,20 @@ export default {
                     <el-input
                         type="password"
                         show-password
-                        v-model="customFormData[item.prop]"
+                        v-model="showData[item.prop]"
                         :placeholder="item.placeholder"
                     />
                 </template>
                 <!-- 日期范围 -->
                 <template v-if="item.type === 'date'">
-                    <el-date-picker v-bind="others" v-model="customFormData[item.prop]" clearable />
+                    <el-date-picker v-bind="others" v-model="showData[item.prop]" clearable />
                 </template>
                 <!-- 下拉框 -->
                 <template v-if="item.type === 'select'">
                     <el-select
                         clearable
                         v-bind="others"
-                        v-model="customFormData[item.prop]"
+                        v-model="showData[item.prop]"
                         :placeholder="item.placeholder"
                     >
                         <el-option
@@ -129,7 +129,7 @@ export default {
                 </template>
                 <!-- 切换 -->
                 <template v-if="item.type === 'switch'">
-                    <el-switch v-model="customFormData[item.prop]" />
+                    <el-switch v-model="showData[item.prop]" />
                 </template>
                 <!-- 文件上传 -->
                 <template v-if="item.type === 'upload'">
@@ -156,7 +156,7 @@ export default {
                         v-for="{ action, ...btnConf } in optItems"
                         v-bind="btnConf"
                         :key="btnConf.text"
-                        @click="action(btnConf)"
+                        @click="$event => action($event, showData)"
                     >
                         {{ btnConf.text }}
                     </el-button>

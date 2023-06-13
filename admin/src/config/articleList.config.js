@@ -48,7 +48,7 @@ const tableColumns = [
         align: 'center'
     },
     {
-        prop: 'createdAt',
+        prop: 'created_at',
         label: '创建时间',
         minWidth: '120',
         align: 'center',
