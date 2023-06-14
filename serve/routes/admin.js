@@ -13,10 +13,10 @@ const Router = express.Router()
 Router.get('/key', async (req, res, next) => {
     try {
         const pubKey = await getPubKey()
-        assert(pubKey, 422, '获取密钥失败')
+        assert(pubKey, 422, '密钥获取失败')
         Response.send(res, {
             data: { pubKey },
-            message: '获取密钥成功'
+            message: '密钥获取成功'
         })
     } catch (err) {
         next(err)
