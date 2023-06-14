@@ -53,13 +53,13 @@ export default {
                 <i class="tag-color" :style="{ backgroundColor: tagInfo.color }" />
             </el-descriptions-item>
             <el-descriptions-item label="创建用户">
-                {{ tagInfo.author && tagInfo.author.nickname }}
+                {{ tagInfo.creator && tagInfo.creator.nickname }}
             </el-descriptions-item>
             <el-descriptions-item label="创建时间">
-                {{ formatDate(tagInfo.createdAt) }}
+                {{ formatDate(tagInfo.created_at) }}
             </el-descriptions-item>
             <el-descriptions-item label="最后修改">
-                {{ formatDate(tagInfo.updatedAt) }}
+                {{ formatDate(tagInfo.updated_at) }}
             </el-descriptions-item>
         </el-descriptions>
     </el-drawer>

@@ -16,7 +16,7 @@ const tableColumns = [
         align: 'center'
     },
     {
-        prop: 'author.nickname',
+        prop: 'creator.nickname',
         label: '创建用户',
         minWidth: '120',
         align: 'center'
