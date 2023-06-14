@@ -6,15 +6,11 @@ module.exports = {
             _model_: Tag,
             action: 'updateMany',
             condition(res) {
-                return res.tags.reduce(
-                    (f, t) => {
-                        f.$or.push({
-                            _id: t
-                        })
-                        return f
-                    },
-                    { $or: [] }
-                )
+                return {
+                    _id: {
+                        $in: res.tags
+                    }
+                }
             },
             opt(aid) {
                 return {

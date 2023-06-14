@@ -1,4 +1,4 @@
-const fs = require('fs')
+const fs = require('fs/promises')
 const path = require('path')
 const Article = require('../models/Article')
 const Tag = require('../models/Tag')
@@ -12,15 +12,11 @@ module.exports = {
             action: 'updateMany',
             condition(res) {
                 if (res.tags.length === 0) return {}
-                return res.tags.reduce(
-                    (f, t) => {
-                        f.$or.push({
-                            _id: t
-                        })
-                        return f
-                    },
-                    { $or: [] }
-                )
+                return {
+                    _id: {
+                        $in: res.tags
+                    }
+                }
             },
             opt(aid) {
                 return {
@@ -32,7 +28,7 @@ module.exports = {
         },
         {
             _model_: fs,
-            action: 'unlinkSync',
+            action: 'unlink',
             condition(res) {
                 return path.join(UPLOAD_PATH, res.cover_img)
             },
@@ -47,15 +43,11 @@ module.exports = {
             action: 'updateMany',
             condition(res) {
                 if (res.articles.length === 0) return {}
-                return res.articles.reduce(
-                    (f, t) => {
-                        f.$or.push({
-                            _id: t
-                        })
-                        return f
-                    },
-                    { $or: [] }
-                )
+                return {
+                    _id: {
+                        $in: res.articles
+                    }
+                }
             },
             opt(tid) {
                 return {

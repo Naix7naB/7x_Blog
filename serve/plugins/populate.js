@@ -15,7 +15,7 @@ module.exports = class Populate {
     static get Tag() {
         return [
             {
-                path: 'author',
+                path: 'creator',
                 select: 'nickname avatar'
             },
             {

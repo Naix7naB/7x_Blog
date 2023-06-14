@@ -8,7 +8,7 @@ module.exports = class ResourceBody {
 
     static Tag(uid, data) {
         return {
-            author: uid,
+            creator: uid,
             ...data
         }
     }
