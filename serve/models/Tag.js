@@ -3,6 +3,11 @@ const schemaOption = require('../config/schemaOption.config')
 
 const schema = new mongoose.Schema(
     {
+        creator: {
+            ref: 'User',
+            type: mongoose.SchemaTypes.ObjectId,
+            required: true
+        },
         name: {
             type: String,
             unique: true,
@@ -16,11 +21,6 @@ const schema = new mongoose.Schema(
                 }
                 return val
             }
-        },
-        author: {
-            ref: 'User',
-            type: mongoose.SchemaTypes.ObjectId,
-            required: true
         },
         articles: [
             {
