@@ -1,3 +1,4 @@
+const createError = require('http-errors')
 const { classify } = require('inflection')
 
 module.exports = () => {
@@ -7,7 +8,7 @@ module.exports = () => {
             req.Model = require(`../models/${resourceName}`)
             next()
         } catch (err) {
-            next(err)
+            next(createError(404))
         }
     }
 }
