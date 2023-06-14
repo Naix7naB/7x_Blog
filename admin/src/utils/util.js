@@ -1,21 +1,25 @@
 /**
+ * @function: padLeft
  * @description: 数字补零
  * @param {Number} num 数字
  * @return {Number} 补零后的字符串数字
- * @Date: 2022-09-11
  */
-export function padLeft(num) {
+function padLeft(num) {
     return (String(num)[1] && String(num)) || '0' + num
 }
 
 /**
+ * @function: formatDate
  * @description: 格式化日期
  * @param {String} date 日期(日期字符串 | 时间戳 | Date对象)
  * @param {String} format 日期格式化字符串
  * @return {String} 格式化后的日期字符串
- * @Date: 2022-09-07
  */
-export function formatDate(date, format = 'YYYY-MM-DD') {
+function formatDate(date, format = 'YYYY-MM-DD') {
+    if (typeof date === 'number') {
+        // 如果传入的时间戳单位为秒 转为毫秒
+        date = date.toString().length === 10 ? date * 1000 : date
+    }
     date = (date && new Date(date)) || new Date()
     const o = {
         'M+': date.getMonth() + 1,
@@ -35,3 +39,15 @@ export function formatDate(date, format = 'YYYY-MM-DD') {
     })
     return format
 }
+
+/**
+ * @function: normalizeUrl
+ * @description: 补全url
+ * @param {String} url url字符串地址
+ * @return {String} 拼接后的url字符串地址
+ */
+function normalizeUrl(url) {
+    return process.env.VUE_APP_BASE_URL + url
+}
+
+export { padLeft, formatDate, normalizeUrl }
