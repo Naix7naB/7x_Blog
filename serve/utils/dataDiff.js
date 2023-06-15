@@ -35,17 +35,8 @@ function isEqual(orgVal, cmpVal) {
 function dataDiff(origin, compare) {
     const result = {}
     Object.keys(origin).forEach(key => {
-        if (isObject(origin[key]) && isObject(compare[key])) {
-            if (isEmptyObj(origin[key]) && isEmptyObj(compare[key])) {
-                // 两个数据都为空对象时 视为未修改 不进行操作
-            } else if (!isEmptyObj(origin[key]) && !isEmptyObj(compare[key])) {
-                result[key] = dataDiff(origin[key], compare[key])
-            } else {
-                result[key] = {
-                    origin: origin[key],
-                    current: compare[key]
-                }
-            }
+        if (isObject(origin[key]) && isObject(compare[key]) && !isEmptyObj(origin[key]) && !isEmptyObj(compare[key])) {
+            result[key] = dataDiff(origin[key], compare[key])
         }
         if (hasOwn(compare, key) && !isEqual(origin[key], compare[key])) {
             result[key] = {

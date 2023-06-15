@@ -92,21 +92,20 @@ Router.put('/:id', async (req, res, next) => {
         assert(isPermit, 403)
         // 对比数据
         const revisableData = Object.fromEntries(
-            Object.entries(req.body).filter(([key, val]) => revisableFields.includes(key))
+            Object.entries(resource.toJSON()).filter(([key, val]) => revisableFields.includes(key))
         )
-        const diff = dataDiff(resource.toJSON(), revisableData)
+        const diff = dataDiff(revisableData, req.body)
         const updates = Object.fromEntries(Object.entries(diff).map(([key, val]) => [key, val.current]))
         // 更新数据
         const result = await Model.findByIdAndUpdate(resource._id, updates)
         // 后续操作
-        // TODO 比如 更新文章 新增/删除 文章标签, 需要 添加/删除 文章标签关联的文章
-        // const followAct = FollowAction.getAction(method, modelName)
-        // if (followAct) {
-        //     followAct.forEach(async item => {
-        //         const { _model_, action, condition, opt } = item
-        //         await _model_[action](condition(result), opt(result._id))
-        //     })
-        // }
+        const followAct = FollowAction.getAction(method, modelName)
+        if (followAct) {
+            followAct.forEach(async item => {
+                const { _model_, action, condition, opt } = item
+                await _model_[action](condition(diff), opt(result._id))
+            })
+        }
         // 返回响应
         Response.send(res, { message: '更新资源', data: result })
     } catch (err) {
