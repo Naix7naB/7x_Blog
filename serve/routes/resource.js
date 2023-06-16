@@ -113,7 +113,7 @@ Router.put('/:id', async (req, res, next) => {
             })
         }
         // 返回响应
-        Response.send(res, { message: '更新资源', data: result })
+        Response.send(res, { message: '资源已更新' })
     } catch (err) {
         next(err)
     }
@@ -148,7 +148,7 @@ Router.delete('/:id', async (req, res, next) => {
             })
         }
         // 返回响应
-        Response.send(res, { message: '删除资源' })
+        Response.send(res, { message: '资源已删除' })
     } catch (err) {
         next(err)
     }
