@@ -1,7 +1,7 @@
 <script>
 import { BaseTable } from '@/components'
 import { tableColumns } from '@/config/articleList.config'
-import { normalizeUrl } from '@/utils/util'
+import { fillUrl } from '@/utils/helper'
 import { fetchArticles, deleteArticleById } from '@/apis/article'
 
 export default {
@@ -27,7 +27,7 @@ export default {
         }
     },
     methods: {
-        normalizeUrl,
+        fillUrl,
         fetchArticles,
         editArticle(data) {
             this.$router.push({
@@ -56,11 +56,7 @@ export default {
         :optItems="tableOptItems"
     >
         <template #cover_img="{ row }">
-            <el-image
-                fit="contain"
-                :style="{ height: '80px' }"
-                :src="normalizeUrl(row.cover_img)"
-            />
+            <el-image fit="contain" :style="{ height: '80px' }" :src="fillUrl(row.cover_img)" />
         </template>
         <template #tag="{ row }">
             <span v-if="row.tags.length === 0" style="color: #bbb">暂无标签</span>

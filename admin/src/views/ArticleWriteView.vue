@@ -1,7 +1,7 @@
 <script>
 import { BaseForm } from '@/components'
 import { formData, formItems } from '@/config/articleWrite.config'
-import { fillUrl } from '@/utils/util'
+import { fillUrl } from '@/utils/helper'
 import { uploadImg, createArticle, updateArticleById } from '@/apis/article'
 import { fetchTags } from '@/apis/tag'
 

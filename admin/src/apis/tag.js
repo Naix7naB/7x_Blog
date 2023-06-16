@@ -1,4 +1,4 @@
-import Request from './request'
+import Request from '@/utils/request'
 
 /* 获取文章标签列表 */
 function fetchTags(data) {

@@ -1,4 +1,4 @@
-import Request from './request'
+import Request from '@/utils/request'
 
 /* 获取文章列表 */
 function fetchArticles(data) {

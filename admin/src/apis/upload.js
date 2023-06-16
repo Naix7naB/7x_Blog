@@ -1,4 +1,4 @@
-import Request from './request'
+import Request from '@/utils/request'
 
 /* 上传文件 */
 async function uploadFile({ classify, filename, file }) {
