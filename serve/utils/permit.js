@@ -5,13 +5,11 @@ async function getUserRole(rid) {
     return role
 }
 
-async function hasPermission({ rid, opt, uid = null, authId = null }) {
+async function hasPermission({ opt, resource, rid, uid = null, authId = null }) {
     const { name: role } = await getUserRole(rid)
-    if (role === 'root') {
-        return true
-    }
+    if (role === 'root') return true
     if (role === 'admin') {
-        if (opt === 'POST') return true
+        if (opt === 'POST' && resource !== 'Role') return true
         if (uid && authId) return uid === authId ? true : false
     }
     return false
