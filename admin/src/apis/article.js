@@ -1,7 +1,7 @@
 import Request from './request'
 
 /* 获取文章列表 */
-function getArticleList(data) {
+function fetchArticles(data) {
     return Request.requestForm({
         methodType: Request.GET,
         url: '/api/article',
@@ -31,12 +31,21 @@ function createArticle(data) {
     })
 }
 
+/* 更新文章内容 */
+function updateArticleById(id, updates) {
+    return Request.requestForm({
+        methodType: Request.PUT,
+        url: `/api/article/${id}`,
+        data: updates
+    })
+}
+
 /* 删除文章 */
-function deleteArticle(id) {
+function deleteArticleById(id) {
     return Request.requestForm({
         methodType: Request.DELETE,
         url: `/api/article/${id}`
     })
 }
 
-export { getArticleList, uploadImg, createArticle, deleteArticle }
+export { fetchArticles, uploadImg, createArticle, updateArticleById, deleteArticleById }

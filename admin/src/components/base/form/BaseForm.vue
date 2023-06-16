@@ -60,13 +60,13 @@ export default {
         },
         /* 提交表单 */
         submitForm(callback) {
-            this.$refs.elForm.validate(async v => {
+            this.$refs.elForm.validate(v => {
                 if (v === false) {
                     return this.$message.warning({
                         message: '表单校验失败'
                     })
                 }
-                callback(this.fileList)
+                callback(this.fileList.length !== 0 && this.fileList)
             })
         },
         /* 重置表单信息 */
@@ -156,7 +156,7 @@ export default {
                         v-for="{ action, ...btnConf } in optItems"
                         v-bind="btnConf"
                         :key="btnConf.text"
-                        @click="$event => action($event, showData)"
+                        @click="action(showData)"
                     >
                         {{ btnConf.text }}
                     </el-button>

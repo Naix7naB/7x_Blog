@@ -1,8 +1,8 @@
 <script>
 import { BaseForm } from '@/components'
 import { formData, formItems } from '@/config/articleWrite.config'
-import { normalizeUrl } from '@/utils/util'
-import { uploadImg, createArticle } from '@/apis/article'
+import { fillUrl } from '@/utils/util'
+import { uploadImg, createArticle, updateArticleById } from '@/apis/article'
 import { fetchTags } from '@/apis/tag'
 
 export default {
@@ -10,64 +10,97 @@ export default {
     components: { BaseForm },
     data() {
         return {
+            aid: null,
+            isEdit: false,
             formData,
             formItems,
             optItems: [
                 {
                     text: '存草稿',
                     plain: true,
-                    state: 'draft',
-                    action: this.changeState
+                    action: data => {
+                        data.state = 'draft'
+                        this.submit(data)
+                    }
                 },
                 {
                     text: '发布',
                     type: 'primary',
-                    state: 'released',
-                    action: this.changeState
+                    action: data => {
+                        data.state = 'released'
+                        this.submit(data)
+                    }
+                }
+            ],
+            editOptItems: [
+                {
+                    text: '取消',
+                    plain: true,
+                    action: () => {
+                        this.$router.push({ name: 'ArticleList' })
+                    }
+                },
+                {
+                    text: '保存',
+                    type: 'primary',
+                    action: data => {
+                        // 更新数据库
+                        updateArticleById(this.aid, data).then(res => {
+                            this.$router.push({ name: 'ArticleList' })
+                            this.$message.success(res.errMsg)
+                        }).catch(err => {
+                            this.$message.error(err)
+                        })
+                    }
                 }
             ]
         }
     },
+    computed: {
+        currentOptItems() {
+            return this.isEdit ? this.editOptItems : this.optItems
+        }
+    },
     methods: {
-        changeState({ state }) {
-            this.formData.state = state
-            this.submit()
-        },
-        async setTagOptions() {
-            const tags = this.formItems.find(item => item.prop === 'tags')
-            const { data: { list } } = await fetchTags({ select: '-articles name' })
-            tags.options = list.map(tag => {
-                return {
-                    label: tag.name,
-                    value: tag._id
-                }
+        setTagOptions() {
+            fetchTags({ select: '-articles name' }).then(res => {
+                const { list } = res.data
+                const tags = this.formItems.find(item => item.prop === 'tags')
+                tags.options = list.map(tag => {
+                    return {
+                        label: tag.name,
+                        value: tag._id
+                    }
+                })
+            }).catch(err => {
+                this.$message.error(err.errMsg)
             })
         },
-        async addImg(pos, file) {
-            const imgInfo = await uploadImg({ filename: pos, file })
-            const url = process.env.VUE_APP_BASE_URL + imgInfo.url
-            this.$refs.editor.$img2Url(pos, url)
+        addImg(pos, file) {
+            uploadImg({ filename: pos, file }).then(res => {
+                this.$refs.editor.$img2Url(pos, fillUrl(res.url))
+            }).catch(err => {
+                this.$message.error(err.errMsg)
+            })
         },
         delImg([url, file]) {
             const { pathname } = new URL(url)
             console.log(pathname)
         },
-        submit() {
+        submit(data) {
             this.$refs.form.submitForm(async fileList => {
-                const { fieldname, url } = await uploadImg({
-                    filename: 'cover_img',
-                    file: fileList[0].file
-                })
-                this.formData[fieldname] = url
-                createArticle(this.formData).then(res => {
+                if (fileList) {
+                    const { fieldname, url } = await uploadImg({
+                        filename: 'cover_img',
+                        file: fileList[0].file
+                    })
+                    data[fieldname] = url
+                }
+                createArticle(data).then(res => {
                     this.resetData()
-                    this.$message.success({
-                        message: res.errMsg
-                    })
+                    this.$message.success(res.errMsg)
                 }).catch(err => {
-                    this.$message.error({
-                        message: err.message
-                    })
+                    this.$message.error(err.errMsg)
                 })
             })
         },
@@ -76,26 +109,28 @@ export default {
         }
     },
     created() {
-        if (JSON.stringify(this.$route.params) !== '{}') {
-            const { data, optItems } = this.$route.params
-            if (optItems) {
-                this.optItems = optItems
-            }
-            data.tags = data.tags.map(t => t._id)
-            this.formData = data
+        const data = this.$route.params
+        if (JSON.stringify(data) !== '{}') {
+            this.isEdit = true
+            this.aid = data._id
+            this.formData = Object.fromEntries(
+                Object.entries(this.formData).map(([key, val]) => {
+                    if (key === 'tags') {
+                        data[key] = data[key].map(t => t._id)
+                    }
+                    return [key, data[key]]
+                })
+            )
         }
         this.setTagOptions()
     },
     mounted() {
-        if (this.formData.cover_img){
+        if (this.formData.cover_img) {
             this.$refs.form.addFile({
                 name: 'cover_img',
-                url: normalizeUrl(this.formData.cover_img)
+                url: fillUrl(this.formData.cover_img)
             })
         }
-    },
-    beforeDestroy() {
-        this.resetData()
     }
 }
 </script>
@@ -107,7 +142,7 @@ export default {
             hasOperation
             :formData="formData"
             :formItems="formItems"
-            :optItems="optItems"
+            :optItems="currentOptItems"
         >
             <template #editor>
                 <mavon-editor

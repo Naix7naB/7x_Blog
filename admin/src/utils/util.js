@@ -1,3 +1,5 @@
+import path from 'path'
+
 /**
  * @function: padLeft
  * @description: 数字补零
@@ -41,13 +43,13 @@ function formatDate(date, format = 'YYYY-MM-DD') {
 }
 
 /**
- * @function: normalizeUrl
+ * @function: fillUrl
  * @description: 补全url
  * @param {String} url url字符串地址
  * @return {String} 拼接后的url字符串地址
  */
-function normalizeUrl(url) {
-    return process.env.VUE_APP_BASE_URL + url
+function fillUrl(url) {
+    return path.join(process.env.VUE_APP_BASE_URL, url)
 }
 
-export { padLeft, formatDate, normalizeUrl }
+export { padLeft, formatDate, fillUrl }
