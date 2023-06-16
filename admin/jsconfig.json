@@ -8,18 +8,16 @@
             "@/*": [
                 "src/*"
             ]
-        },
-        "lib": [
-            "esnext",
-            "dom",
-            "dom.iterable",
-            "scripthost"
-        ]
+        }
     },
     "vueCompilerOptions": {
         "target": 2.7,
         "extensions": [
             ".vue"
         ]
-    }
+    },
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
 }
