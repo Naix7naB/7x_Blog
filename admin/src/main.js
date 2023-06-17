@@ -1,10 +1,6 @@
 import '@/assets/scss/index.scss'
 
-import '@/plugins/elementUI'
-import '@/plugins/faIcon'
-import '@/plugins/mavonEditor'
-
-import installHttp from '@/plugins/http'
+import '@/plugins'
 
 import Vue from 'vue'
 import App from './App.vue'
@@ -13,7 +9,7 @@ import store from './store'
 
 Vue.config.productionTip = false
 
-const app = new Vue({
+new Vue({
     router,
     store,
     render: h => h(App),
@@ -21,5 +17,3 @@ const app = new Vue({
         Vue.prototype.$bus = this
     }
 }).$mount('#app')
-
-installHttp(app)

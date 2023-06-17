@@ -1,4 +1,4 @@
-import { formatDate } from '@/utils/helper'
+import { formatDate } from '@/utils'
 
 /* 表格表头配置项 */
 const tableColumns = [

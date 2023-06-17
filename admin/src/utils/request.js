@@ -1,8 +1,9 @@
 /**
- * 封装 http请求 工具类
+ * 封装 http 请求
+ * 挂载在 Vue 实例上
+ * 通过 Vue.$http 来调用
  */
-
-import http from 'axios'
+import http from '@/apis/http'
 
 export default class Request {
     static GET() {

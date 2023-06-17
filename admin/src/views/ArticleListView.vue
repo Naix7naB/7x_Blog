@@ -1,7 +1,7 @@
 <script>
 import { BaseTable } from '@/components'
 import { tableColumns } from '@/config/articleList.config'
-import { fillUrl } from '@/utils/helper'
+import { fillUrl } from '@/utils'
 import { fetchArticles, deleteArticleById } from '@/apis/article'
 
 export default {

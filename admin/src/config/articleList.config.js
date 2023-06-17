@@ -1,4 +1,4 @@
-import { formatDate } from '@/utils/helper'
+import { formatDate } from '@/utils'
 
 const tableColumns = [
     {
