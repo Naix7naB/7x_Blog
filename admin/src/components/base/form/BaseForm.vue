@@ -9,6 +9,10 @@ export default {
             type: Boolean,
             default: false
         },
+        hasLabel: {
+            type: Boolean,
+            default: false
+        },
         labelWidth: {
             type: String,
             default: '80px'
@@ -83,20 +87,22 @@ export default {
         ref="elForm"
         :size="size"
         :inline="inline"
-        :label-width="labelWidth"
+        :label-width="hasLabel ? labelWidth : 'auto'"
         :label-position="labelPosition"
         :hide-required-asterisk="hideRequiredAsterisk"
         :model="showData"
     >
         <template v-for="{ others, options, ...item } in formItems">
-            <el-form-item v-bind="item" :style="{ marginRight: '30px' }" :key="item.prop">
+            <el-form-item v-bind="item" :style="{ textAlign: item.position }" :key="item.prop">
                 <!-- 输入框 -->
                 <template v-if="item.type === 'input'">
                     <el-input
                         clearable
                         v-model="showData[item.prop]"
                         :placeholder="item.placeholder"
-                    />
+                    >
+                        <fa-icon v-if="item.icon" slot="prefix" :icon="['fas', item.icon]" />
+                    </el-input>
                 </template>
                 <!-- 密码输入框 -->
                 <template v-if="item.type === 'password'">
@@ -105,7 +111,9 @@ export default {
                         show-password
                         v-model="showData[item.prop]"
                         :placeholder="item.placeholder"
-                    />
+                    >
+                        <fa-icon v-if="item.icon" slot="prefix" :icon="['fas', item.icon]" />
+                    </el-input>
                 </template>
                 <!-- 日期范围 -->
                 <template v-if="item.type === 'date'">
@@ -173,9 +181,5 @@ export default {
 <style lang="scss" scoped>
 :deep(.el-range-separator) {
     width: 30PX;
-}
-
-:deep(.el-form-item)[type="opt"] {
-    text-align: center;
 }
 </style>
