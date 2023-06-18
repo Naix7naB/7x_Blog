@@ -7,6 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
     faHouse,
     faUser,
+    faLock,
+    faPoo,
+    faEnvelope,
     faPaperclip,
     faFilePen,
     faPenToSquare,
@@ -18,6 +21,9 @@ import {
 library.add([
     faHouse,
     faUser,
+    faLock,
+    faPoo,
+    faEnvelope,
     faPaperclip,
     faFilePen,
     faPenToSquare,
