@@ -1,8 +1,9 @@
 import path from 'path'
+import JSEncrypt from 'jsencrypt'
 
 /**
- * @function: padLeft
- * @description: 数字补零
+ * @function padLeft
+ * @description 数字补零
  * @param {Number} num 数字
  * @return {Number} 补零后的字符串数字
  */
@@ -11,8 +12,8 @@ function padLeft(num) {
 }
 
 /**
- * @function: formatDate
- * @description: 格式化日期
+ * @function formatDate
+ * @description 格式化日期
  * @param {String} date 日期(日期字符串 | 时间戳 | Date对象)
  * @param {String} format 日期格式化字符串
  * @return {String} 格式化后的日期字符串
@@ -43,8 +44,8 @@ function formatDate(date, format = 'YYYY-MM-DD') {
 }
 
 /**
- * @function: fillUrl
- * @description: 补全url
+ * @function fillUrl
+ * @description 补全url
  * @param {String} url url字符串地址
  * @return {String} 拼接后的url字符串地址
  */
@@ -52,4 +53,17 @@ function fillUrl(url) {
     return path.join(process.env.VUE_APP_BASE_URL, url)
 }
 
-export { padLeft, formatDate, fillUrl }
+/**
+ * @function encrypt
+ * @description 公钥加密
+ * @param {String} plain 文本内容
+ * @param {String} key 密钥
+ * @return {String} 加密后的内容
+ */
+function encrypt(plain, key) {
+    const encryptor = new JSEncrypt()
+    encryptor.setPublicKey(key)
+    return encryptor.encrypt(plain)
+}
+
+export { padLeft, formatDate, fillUrl, encrypt }
