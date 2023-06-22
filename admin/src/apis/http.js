@@ -28,6 +28,7 @@ service.upType = {
  * http状态码
  *  UNAUTHORIZED: 401 - (未登录 or token失效)
  *  FORBIDDEN: 403 - (无权限)
+ *  NOT_FOUND: 404 - (资源不存在)
  *  CONTENT_TYPE_ERR: 9995 - (请求头错误)
  *  PARAMS_INVALID: 9996 - (上传参数异常)
  *  SERVER_ERROR: 9997 - (服务器错误)
@@ -38,6 +39,7 @@ service.upType = {
 service.statusCode = {
     UNAUTHORIZED: 401,
     FORBIDDEN: 403,
+    NOT_FOUND: 404,
     CONTENT_TYPE_ERR: 9995,
     PARAMS_INVALID: 9996,
     SERVER_ERROR: 9997,

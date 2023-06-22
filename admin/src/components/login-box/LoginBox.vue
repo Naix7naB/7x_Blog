@@ -1,5 +1,7 @@
 <script>
 import { BaseForm } from '../base'
+import { getKey, login, registry } from '@/apis/user'
+import { encrypt } from '@/utils'
 import { loginData, loginItems } from '@/config/login.config'
 import { registryData, registryItems } from '@/config/registry.config'
 
@@ -17,31 +19,27 @@ export default {
             loginData,
             loginItems,
             registryData,
-            registryItems,
-            loginOptItems: [
-                {
-                    text: '登录',
-                    type: 'primary',
-                    round: true,
-                    action: () => {
-                        console.log('login')
-                    }
-                }
-            ],
-            registryOptItems: [
-                {
-                    text: '注册',
-                    type: 'primary',
-                    round: true,
-                    action: () => {
-                        console.log('registry')
-                    }
-                }
-            ]
+            registryItems
         }
     },
     computed: {
-        formTitle() {
+        currentForm() {
+            return this.isShow ? this.$refs.loginForm : this.$refs.registryForm
+        },
+        currentRequest() {
+            return this.isShow ? login : registry
+        },
+        getOptItems() {
+            return [
+                {
+                    text: this.isShow ? '登录' : '注册',
+                    type: 'primary',
+                    round: true,
+                    action: this.handleRequest
+                }
+            ]
+        },
+        getFormTitle() {
             return this.isShow ? '登录' : '注册'
         },
         transitionName() {
@@ -49,9 +47,33 @@ export default {
         }
     },
     methods: {
-        resetFormData() {
-            this.$refs.loginForm && this.$refs.loginForm.resetForm()
-            this.$refs.registryForm && this.$refs.registryForm.resetForm()
+        async getEncryptKey() {
+            let key = this.$store.getters['user/getKey']
+            if (!key) {
+                const { data: { pubKey } } = await getKey()
+                this.$store.dispatch('user/setKey', pubKey)
+                key = pubKey
+            }
+            return key
+        },
+        async handleRequest(data) {
+            const { password, ...info } = data
+            const encryptKey = await this.getEncryptKey()
+            const encrypted = encrypt(password, encryptKey)
+            this.currentForm.submitForm(() => {
+                this.currentRequest({ password: encrypted, ...info }).then(res => {
+                    const { uid, token } = res.data
+                    this.$store.dispatch('user/setUid', uid)
+                    this.$store.dispatch('user/setToken', token)
+                    this.$router.push({ name: 'Home' })
+                    this.$message.success(res.errMsg)
+                }).catch(err => {
+                    this.$message.error(err.errMsg)
+                })
+            })
+        },
+        reset() {
+            this.currentForm.resetForm()
         }
     }
 }
@@ -66,9 +88,9 @@ export default {
                     hideRequiredAsterisk
                     :formData="loginData"
                     :formItems="loginItems"
-                    :optItems="loginOptItems"
+                    :optItems="getOptItems"
                 >
-                    <span slot="title" class="form-title">{{ formTitle }}</span>
+                    <span slot="title" class="form-title">{{ getFormTitle }}</span>
                 </BaseForm>
             </div>
             <div v-else class="form-container registry-form" key="registry">
@@ -77,9 +99,9 @@ export default {
                     hideRequiredAsterisk
                     :formData="registryData"
                     :formItems="registryItems"
-                    :optItems="registryOptItems"
+                    :optItems="getOptItems"
                 >
-                    <span slot="title" class="form-title">{{ formTitle }}</span>
+                    <span slot="title" class="form-title">{{ getFormTitle }}</span>
                 </BaseForm>
             </div>
         </transition>
@@ -123,11 +145,11 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #fff;
+    background-color: #ffffff;
 }
 
 .form-container {
-    z-index: 20;
+    z-index: 15;
     display: flex;
     position: absolute;
     top: 0;
@@ -147,7 +169,7 @@ export default {
 .form-title {
     font-weight: bold;
     font-size: 32px;
-    color: rgba($color: #000000, $alpha: 1);
+    color: #000000;
 }
 
 .form-mask {
@@ -157,7 +179,7 @@ export default {
     left: 0;
     width: 50%;
     height: 100%;
-    background: #ffffff;
+    background-color: #ffffff;
 }
 
 /* 过渡效果 */
@@ -182,7 +204,6 @@ export default {
 .out-up-leave-active,
 .pull-out-enter-active,
 .pull-out-leave-active {
-    opacity: 1;
     transition: all .6s ease-in-out;
 }
 </style>
