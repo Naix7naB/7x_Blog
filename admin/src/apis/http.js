@@ -80,9 +80,7 @@ service.interceptors.response.use(
                     case service.statusCode.SUCCESS:
                         return Promise.resolve(data)
                     case service.statusCode.UNAUTHORIZED:
-                        if (data.data.indexOf('jwt expired at') >= 0) {
-                            router.push('/login')
-                        }
+                        router.push({ name: 'Login' })
                         return Promise.reject(data)
                     case service.statusCode.FORBIDDEN:
                     case service.statusCode.FAIL:

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '@/store'
 
 Vue.use(VueRouter)
 
@@ -95,9 +96,22 @@ const routes = [
                 component: () => import('@/views/FriendLinkView')
             }
         ]
+    },
+    {
+        name: 'Login',
+        path: '/login',
+        component: () => import('@/views/LoginView')
     }
 ]
 
 const router = new VueRouter({ routes })
+
+/* 全局路由守卫 */
+router.beforeEach((to, from, next) => {
+    if (to.name === 'Login') return next()
+    const token = store.getters['user/getToken']
+    if (!token) return next({ name: 'Login' })
+    next()
+})
 
 export default router
