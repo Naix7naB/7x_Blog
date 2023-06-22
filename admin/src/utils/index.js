@@ -1,4 +1,3 @@
-import path from 'path'
 import JSEncrypt from 'jsencrypt'
 
 /**
@@ -50,7 +49,7 @@ function formatDate(date, format = 'YYYY-MM-DD') {
  * @return {String} 拼接后的url字符串地址
  */
 function fillUrl(url) {
-    return path.join(process.env.VUE_APP_BASE_URL, url)
+    return process.env.VUE_APP_BASE_URL + url
 }
 
 /**
