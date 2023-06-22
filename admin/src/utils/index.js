@@ -49,6 +49,10 @@ function formatDate(date, format = 'YYYY-MM-DD') {
  * @return {String} 拼接后的url字符串地址
  */
 function fillUrl(url) {
+    const regexp = /^\/.+/g
+    if (!regexp.test(url)) {
+        url = '/' + url
+    }
     return process.env.VUE_APP_BASE_URL + url
 }
 
