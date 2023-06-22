@@ -13,6 +13,15 @@ const schema = new mongoose.Schema(
             unique: true,
             required: [true, '标签名称必填!']
         },
+        description: {
+            type: String,
+            set(val) {
+                if (!val) {
+                    return '暂无描述'
+                }
+                return val
+            }
+        },
         color: {
             type: String,
             set(val) {

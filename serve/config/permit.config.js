@@ -10,7 +10,7 @@ module.exports = {
         },
         Tag: {
             authField: 'creator',
-            revisableFields: ['name', 'color']
+            revisableFields: ['name', 'description', 'color']
         }
     },
     DELETE: {
