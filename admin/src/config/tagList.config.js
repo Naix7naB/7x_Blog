@@ -5,26 +5,32 @@ const tableColumns = [
     {
         prop: 'name',
         label: '标签名称',
-        minWidth: '120',
+        minWidth: 120,
+        align: 'center'
+    },
+    {
+        prop: 'description',
+        label: '标签描述',
+        minWidth: 120,
         align: 'center'
     },
     {
         type: 'slot',
         slotName: 'tag-color',
         label: '标签背景色',
-        minWidth: '120',
+        minWidth: 120,
         align: 'center'
     },
     {
         prop: 'creator.nickname',
         label: '创建用户',
-        minWidth: '120',
+        minWidth: 120,
         align: 'center'
     },
     {
         prop: 'dateRange',
         label: '创建时间',
-        minWidth: '120',
+        minWidth: 120,
         align: 'center',
         formatter: (row, column, cellVal, idx) => {
             return formatDate(cellVal)

@@ -49,6 +49,9 @@ export default {
             <el-descriptions-item label="标签名称">
                 {{ tagInfo.name }}
             </el-descriptions-item>
+            <el-descriptions-item label="标签描述">
+                {{ tagInfo.description }}
+            </el-descriptions-item>
             <el-descriptions-item label="标签颜色">
                 <i class="tag-color" :style="{ backgroundColor: tagInfo.color }" />
             </el-descriptions-item>
