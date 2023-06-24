@@ -43,12 +43,12 @@ function formatDate(date, format = 'YYYY-MM-DD') {
 }
 
 /**
- * @function fillUrl
- * @description 补全url
- * @param {String} url url字符串地址
- * @return {String} 拼接后的url字符串地址
+ * @function resolveUrl
+ * @description 补全路径地址
+ * @param {String} url 路径地址
+ * @return {String} 补全后的路径地址
  */
-function fillUrl(url) {
+function resolveUrl(url) {
     const regexp = /^\/.+/g
     if (!regexp.test(url)) {
         url = '/' + url
@@ -69,4 +69,4 @@ function encrypt(plain, key) {
     return encryptor.encrypt(plain)
 }
 
-export { padLeft, formatDate, fillUrl, encrypt }
+export { padLeft, formatDate, resolveUrl, encrypt }

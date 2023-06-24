@@ -1,7 +1,7 @@
 <script>
 import { BaseForm } from '@/components'
 import { formData, formItems } from '@/config/articleWrite.config'
-import { fillUrl } from '@/utils'
+import { resolveUrl } from '@/utils'
 import { uploadImg, createArticle, updateArticleById } from '@/apis/article'
 import { fetchTags } from '@/apis/tag'
 
@@ -78,7 +78,7 @@ export default {
         },
         addImg(pos, file) {
             uploadImg({ filename: pos, file }).then(res => {
-                this.$refs.editor.$img2Url(pos, fillUrl(res.url))
+                this.$refs.editor.$img2Url(pos, resolveUrl(res.url))
             }).catch(err => {
                 this.$message.error(err.errMsg)
             })
@@ -128,7 +128,7 @@ export default {
         if (this.formData.cover_img) {
             this.$refs.form.addFile({
                 name: 'cover_img',
-                url: fillUrl(this.formData.cover_img)
+                url: resolveUrl(this.formData.cover_img)
             })
         }
     }
