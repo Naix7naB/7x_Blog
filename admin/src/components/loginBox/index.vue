@@ -1,6 +1,6 @@
 <script>
 import { BaseForm } from '../base'
-import { getKey, login, registry } from '@/apis/user'
+import { getKey, login, registry } from '@/apis/login'
 import { encrypt } from '@/utils'
 import { loginData, loginItems } from '@/config/login.config'
 import { registryData, registryItems } from '@/config/registry.config'
