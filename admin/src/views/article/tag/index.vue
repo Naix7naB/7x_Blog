@@ -4,7 +4,7 @@ import { tableColumns, headerFormItems } from '@/config/tagList.config'
 import { fetchTags, deleteTagById } from '@/apis/tag'
 
 export default {
-    name: 'ArticleTagView',
+    name: 'ArticleTag',
     components: { BaseForm, BaseTable, TagDialog, TagDrawer },
     data() {
         return {

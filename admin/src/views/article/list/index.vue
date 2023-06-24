@@ -5,7 +5,7 @@ import { fillUrl } from '@/utils'
 import { fetchArticles, deleteArticleById } from '@/apis/article'
 
 export default {
-    name: 'ArticleListView',
+    name: 'ArticleList',
     components: { BaseTable },
     data() {
         return {

@@ -2,7 +2,7 @@
 import { LoginBox, LoginOverlay } from '@/components'
 
 export default {
-    name: 'LoginView',
+    name: 'Login',
     components: { LoginBox, LoginOverlay },
     data() {
         return {

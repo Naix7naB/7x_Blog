@@ -2,105 +2,121 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '@/store'
 
+import Layout from '@/layout/Layout'
+
 Vue.use(VueRouter)
 
 const routes = [
     {
         path: '/',
-        redirect: '/admin'
-    },
-    {
-        name: 'Admin',
-        path: '/admin',
-        redirect: '/admin/index',
-        component: () => import('@/views/AdminView'),
+        redirect: '/dashboard',
+        component: Layout,
         children: [
             {
-                name: 'Home',
-                path: 'index',
+                path: '/dashboard',
+                name: 'Dashboard',
                 meta: {
                     icon: 'house',
                     title: '首页'
                 },
-                component: () => import('@/views/HomeView')
-            },
-            {
-                name: 'ArticleManagement',
-                path: 'article',
-                redirect: '/admin/article/list',
-                meta: {
-                    icon: 'file-pen',
-                    title: '文章管理'
-                },
-                component: () => import('@/views/ArticleManagementView'),
-                children: [
-                    {
-                        name: 'ArticleList',
-                        path: 'list',
-                        meta: {
-                            title: '文章列表'
-                        },
-                        component: () => import('@/views/ArticleListView')
-                    },
-                    {
-                        name: 'ArticleWrite',
-                        path: 'write',
-                        meta: {
-                            title: '编写文章'
-                        },
-                        component: () => import('@/views/ArticleWriteView')
-                    },
-                    {
-                        name: 'ArticleTag',
-                        path: 'tag',
-                        meta: {
-                            title: '文章标签'
-                        },
-                        component: () => import('@/views/ArticleTagView')
-                    },
-                    {
-                        name: 'ArticleComment',
-                        path: 'comment',
-                        meta: {
-                            title: '文章评论'
-                        },
-                        component: () => import('@/views/ArticleCommentView')
-                    }
-                ]
-            },
-            {
-                name: 'MessageManagement',
-                path: 'message',
-                meta: {
-                    icon: 'pen-to-square',
-                    title: '留言管理'
-                },
-                component: () => import('@/views/MessageManagementView')
-            },
-            {
-                name: 'UserManagement',
-                path: 'user',
-                meta: {
-                    icon: 'user',
-                    title: '用户管理'
-                },
-                component: () => import('@/views/UserManagementView')
-            },
-            {
-                name: 'FriendLink',
-                path: 'link',
-                meta: {
-                    icon: 'paperclip',
-                    title: '友情链接'
-                },
-                component: () => import('@/views/FriendLinkView')
+                component: () => import('@/views/dashboard/index')
             }
         ]
     },
     {
-        name: 'Login',
+        path: '/article',
+        name: 'ArticleManagement',
+        redirect: '/article/list',
+        component: Layout,
+        meta: {
+            icon: 'file-pen',
+            title: '文章管理'
+        },
+        children: [
+            {
+                path: 'list',
+                name: 'ArticleList',
+                meta: {
+                    title: '文章列表'
+                },
+                component: () => import('@/views/article/list/index')
+            },
+            {
+                path: 'write',
+                name: 'ArticleWrite',
+                meta: {
+                    title: '编写文章'
+                },
+                component: () => import('@/views/article/write/index')
+            },
+            {
+                path: 'tag',
+                name: 'ArticleTag',
+                meta: {
+                    title: '文章标签'
+                },
+                component: () => import('@/views/article/tag/index')
+            },
+            {
+                path: 'comment',
+                name: 'ArticleComment',
+                meta: {
+                    title: '文章评论'
+                },
+                component: () => import('@/views/article/comment/index')
+            }
+        ]
+    },
+    {
+        path: '/message',
+        component: Layout,
+        children: [
+            {
+                path: 'index',
+                name: 'MessageManagement',
+                meta: {
+                    icon: 'pen-to-square',
+                    title: '留言管理'
+                },
+                component: () => import('@/views/message/index')
+            }
+        ]
+    },
+    {
+        path: '/user',
+        component: Layout,
+        children: [
+            {
+                path: 'index',
+                name: 'UserManagement',
+                meta: {
+                    icon: 'user',
+                    title: '用户管理'
+                },
+                component: () => import('@/views/user/index')
+            }
+        ]
+    },
+    {
+        path: '/link',
+        component: Layout,
+        children: [
+            {
+                path: 'index',
+                name: 'FriendLink',
+                meta: {
+                    icon: 'paperclip',
+                    title: '友情链接'
+                },
+                component: () => import('@/views/friendLink/index')
+            }
+        ]
+    },
+    {
+        hidden: true,
         path: '/login',
-        component: () => import('@/views/LoginView')
+        name: 'Login',
+        component: () => import('@/views/login/index')
     }
 ]
 

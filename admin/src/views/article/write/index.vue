@@ -6,7 +6,7 @@ import { uploadImg, createArticle, updateArticleById } from '@/apis/article'
 import { fetchTags } from '@/apis/tag'
 
 export default {
-    name: 'ArticleWriteView',
+    name: 'ArticleWrite',
     components: { BaseForm },
     data() {
         return {
