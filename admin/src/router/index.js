@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '@/store'
 
-import Layout from '@/layout/Layout'
+import Layout from '@/layout'
 
 Vue.use(VueRouter)
 
@@ -19,7 +19,7 @@ const routes = [
                     icon: 'house',
                     title: '首页'
                 },
-                component: () => import('@/views/dashboard/index')
+                component: () => import('@/views/dashboard')
             }
         ]
     },
@@ -39,7 +39,7 @@ const routes = [
                 meta: {
                     title: '文章列表'
                 },
-                component: () => import('@/views/article/list/index')
+                component: () => import('@/views/article/list')
             },
             {
                 path: 'write',
@@ -47,7 +47,7 @@ const routes = [
                 meta: {
                     title: '编写文章'
                 },
-                component: () => import('@/views/article/write/index')
+                component: () => import('@/views/article/write')
             },
             {
                 path: 'tag',
@@ -55,7 +55,7 @@ const routes = [
                 meta: {
                     title: '文章标签'
                 },
-                component: () => import('@/views/article/tag/index')
+                component: () => import('@/views/article/tag')
             },
             {
                 path: 'comment',
@@ -63,7 +63,7 @@ const routes = [
                 meta: {
                     title: '文章评论'
                 },
-                component: () => import('@/views/article/comment/index')
+                component: () => import('@/views/article/comment')
             }
         ]
     },
@@ -78,7 +78,7 @@ const routes = [
                     icon: 'pen-to-square',
                     title: '留言管理'
                 },
-                component: () => import('@/views/message/index')
+                component: () => import('@/views/message')
             }
         ]
     },
@@ -93,7 +93,7 @@ const routes = [
                     icon: 'user',
                     title: '用户管理'
                 },
-                component: () => import('@/views/user/index')
+                component: () => import('@/views/user')
             }
         ]
     },
@@ -108,7 +108,7 @@ const routes = [
                     icon: 'paperclip',
                     title: '友情链接'
                 },
-                component: () => import('@/views/friendLink/index')
+                component: () => import('@/views/friendLink')
             }
         ]
     },
@@ -116,7 +116,7 @@ const routes = [
         hidden: true,
         path: '/login',
         name: 'Login',
-        component: () => import('@/views/login/index')
+        component: () => import('@/views/login')
     }
 ]
 
