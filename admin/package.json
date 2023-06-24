@@ -13,7 +13,7 @@
     "@fortawesome/vue-fontawesome": "^2.0.9",
     "axios": "^1.2.0",
     "core-js": "^3.8.3",
-    "element-ui": "^2.3.6",
+    "element-ui": "^2.15.13",
     "jsencrypt": "^3.3.1",
     "mavon-editor": "^2.10.4",
     "vue": "^2.6.14",
