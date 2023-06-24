@@ -1,2 +1,2 @@
-export { default as BaseTable } from './table/BaseTable'
-export { default as BaseForm } from './form/BaseForm'
+export { default as BaseTable } from './table/index'
+export { default as BaseForm } from './form/index'
