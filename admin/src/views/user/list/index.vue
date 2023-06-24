@@ -1,6 +1,6 @@
 <script>
 export default {
-    name: 'UserManagement',
+    name: 'UserList',
     data() {
         return {}
     }
@@ -8,7 +8,7 @@ export default {
 </script>
 
 <template>
-    <div>用户管理</div>
+    <div>用户列表</div>
 </template>
 
 <style lang="scss" scoped></style>

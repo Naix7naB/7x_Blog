@@ -25,7 +25,6 @@ const routes = [
     },
     {
         path: '/article',
-        name: 'ArticleManagement',
         redirect: '/article/list',
         component: Layout,
         meta: {
@@ -85,15 +84,26 @@ const routes = [
     {
         path: '/user',
         component: Layout,
+        meta: {
+            icon: 'user',
+            title: '用户管理'
+        },
         children: [
             {
-                path: 'index',
-                name: 'UserManagement',
+                path: 'list',
+                name: 'UserList',
                 meta: {
-                    icon: 'user',
-                    title: '用户管理'
+                    title: '用户列表'
                 },
-                component: () => import('@/views/user')
+                component: () => import('@/views/user/list')
+            },
+            {
+                path: 'role',
+                name: 'RoleList',
+                meta: {
+                    title: '角色列表'
+                },
+                component: () => import('@/views/user/role')
             }
         ]
     },
