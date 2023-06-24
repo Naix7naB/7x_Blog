@@ -7,11 +7,11 @@ export default {
 </script>
 
 <template>
-    <div class="aside-logo">UserName</div>
+    <div class="sidebar-logo">Site—Logo</div>
 </template>
 
 <style lang="scss" scoped>
-.aside-logo {
+.sidebar-logo {
     display: flex;
     justify-content: center;
     align-items: center;

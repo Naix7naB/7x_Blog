@@ -2,7 +2,7 @@
 import avatar from '@/assets/images/avatar-default.png'
 
 export default {
-    name: 'AdminHeader',
+    name: 'Navbar',
     data() {
         return {
             defaultAvatar: avatar
@@ -12,13 +12,13 @@ export default {
 </script>
 
 <template>
-    <div class="admin-header--wrap">
-        <div class="header-notify">
+    <div class="navbar-wrap">
+        <div class="navbar-notify">
             <el-badge value="2">
                 <fa-icon :icon="['fas', 'bell']" />
             </el-badge>
         </div>
-        <el-dropdown class="header-dropdown" placement="bottom">
+        <el-dropdown class="navbar-dropdown" placement="bottom">
             <el-avatar :src="defaultAvatar"></el-avatar>
             <span class="dropdown-name">Naixxx</span>
             <el-dropdown-menu slot="dropdown">
@@ -34,19 +34,19 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.admin-header--wrap {
+.navbar-wrap {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     height: 100%;
 
-    .header-notify,
-    .header-dropdown {
+    .navbar-notify,
+    .navbar-dropdown {
         margin: 0 16PX;
         @include pointer();
     }
 
-    .header-dropdown {
+    .navbar-dropdown {
         display: flex;
         align-items: center;
         font-size: $fz-large;
