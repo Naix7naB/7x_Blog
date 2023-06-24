@@ -15,7 +15,7 @@ export default {
 <template>
     <div class="sidebar-wrap">
         <Logo />
-        <el-menu mode="vertical" :default-active="this.$route.path" router>
+        <el-menu mode="vertical" :default-active="$route.name" router>
             <SidebarItem v-for="route in routes" :key="route.path" :item="route" />
         </el-menu>
     </div>
