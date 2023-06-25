@@ -42,7 +42,7 @@ export default {
 
     .navbar-notify,
     .navbar-dropdown {
-        margin: 0 16PX;
+        margin: 0 16px;
         @include pointer();
     }
 
@@ -53,11 +53,11 @@ export default {
     }
 
     .dropdown-name {
-        padding-left: 10PX;
+        padding-left: 10px;
     }
 }
 
 .dropdown-quit {
-    padding-left: 6PX;
+    padding-left: 6px;
 }
 </style>

@@ -38,10 +38,10 @@ export default {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 768PX;
-    min-height: 480PX;
-    border-radius: 10PX;
+    width: 768px;
+    min-height: 480px;
+    border-radius: 10px;
     transform: translate(-50%, -50%);
-    box-shadow: 0 14PX 28PX rgba(0, 0, 0, .2), 0 10PX 10PX rgba(0, 0, 0, .2);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, .2), 0 10px 10px rgba(0, 0, 0, .2);
 }
 </style>

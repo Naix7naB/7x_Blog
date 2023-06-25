@@ -37,7 +37,7 @@ export default {
 <style lang="scss" scoped>
 /* 样式穿透 hook ElementUI 样式 */
 :deep(.el-button) {
-    padding: 12PX 48PX;
+    padding: 12px 48px;
     color: #ffffff;
     border-color: rgba($color: #ffffff, $alpha: 1);
     background-color: transparent;
@@ -70,7 +70,7 @@ export default {
     align-items: center;
     width: 50%;
     height: 100%;
-    padding: 0 40PX;
+    padding: 0 40px;
     color: #fff;
 }
 
@@ -83,13 +83,13 @@ export default {
 }
 
 .overlay-panel--title {
-    font-size: 32PX;
+    font-size: 32px;
     font-weight: bold;
 }
 
 .overlay-panel--desc {
     font-size: $fz-medium;
-    padding: 30PX 0 40PX;
+    padding: 30px 0 40px;
 }
 
 .has-transition {

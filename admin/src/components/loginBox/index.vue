@@ -65,7 +65,7 @@ export default {
                     const { uid, token } = res.data
                     this.$store.dispatch('user/setUid', uid)
                     this.$store.dispatch('user/setToken', token)
-                    this.$router.push({ name: 'Home' })
+                    this.$router.push('/')
                     this.$message.success(res.errMsg)
                 }).catch(err => {
                     this.$message.error(err.errMsg)
@@ -113,7 +113,7 @@ export default {
 /* 样式穿透 hook ElementUI 样式 */
 :deep(.el-form) {
     width: 100%;
-    padding: 50PX;
+    padding: 50px;
 }
 
 :deep(.el-form-item) {
@@ -121,17 +121,17 @@ export default {
 }
 
 :deep(.el-form-item + .el-form-item) {
-    margin-top: 20PX;
+    margin-top: 20px;
 }
 
 :deep(.el-form-item[type='opt']) {
-    margin-top: 30PX;
+    margin-top: 30px;
 }
 
 :deep(.el-input input) {
     border: 0;
     border-radius: 0;
-    border-bottom: 1PX solid;
+    border-bottom: 1px solid;
 }
 
 :deep(.el-button) {

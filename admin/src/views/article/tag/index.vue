@@ -100,14 +100,14 @@ export default {
 
 <style lang="scss" scoped>
 :deep(.el-dialog) {
-    min-width: 420PX;
-    max-width: 640PX;
+    min-width: 420px;
+    max-width: 640px;
 }
 
 .color-block {
     display: block;
-    width: 32PX;
-    height: 32PX;
+    width: 32px;
+    height: 32px;
     margin: auto;
 }
 </style>

@@ -30,6 +30,6 @@ export default {
 
 .layout-navbar {
     background-color: #fff;
-    box-shadow: 1PX 4PX 16PX rgba($color: $bg-reverse, $alpha: .5);
+    box-shadow: 1px 4px 16px rgba($color: $bg-reverse, $alpha: .5);
 }
 </style>

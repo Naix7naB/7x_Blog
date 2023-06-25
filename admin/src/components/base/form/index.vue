@@ -180,6 +180,6 @@ export default {
 
 <style lang="scss" scoped>
 :deep(.el-range-separator) {
-    width: 30PX;
+    width: 30px;
 }
 </style>

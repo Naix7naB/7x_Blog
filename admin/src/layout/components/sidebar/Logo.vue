@@ -15,7 +15,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100PX;
+    height: 100px;
     font-size: $fz-large-x;
 }
 </style>

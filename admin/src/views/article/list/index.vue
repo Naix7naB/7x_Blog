@@ -77,7 +77,7 @@ export default {
 <style lang="scss" scoped>
 :deep(.el-tag + .el-tag),
 :deep(.el-button + .el-button) {
-    margin-left: 6PX;
+    margin-left: 6px;
 }
 
 :deep(.el-image) {

@@ -160,8 +160,8 @@ export default {
 <style lang="scss" scoped>
 :deep(.el-input),
 :deep(.el-select) {
-    min-width: 240PX;
-    max-width: 400PX;
+    min-width: 240px;
+    max-width: 400px;
 }
 
 :deep(.el-select) {
@@ -169,6 +169,6 @@ export default {
 }
 
 :deep(.el-button + .el-button) {
-    margin-left: 36PX;
+    margin-left: 36px;
 }
 </style>

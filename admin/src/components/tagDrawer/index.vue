@@ -74,17 +74,17 @@ export default {
 }
 
 :deep(.el-drawer__body) {
-    padding: 0 40PX;
+    padding: 0 40px;
 }
 
 :deep(.el-descriptions-item.el-descriptions-item__cell) {
-    padding-bottom: 20PX;
+    padding-bottom: 20px;
     font-size: $fz-medium-x;
 }
 
 .tag-color {
     display: block;
-    width: 20PX;
-    height: 20PX;
+    width: 20px;
+    height: 20px;
 }
 </style>
