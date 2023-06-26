@@ -115,7 +115,7 @@ const routes = [
                 path: 'index',
                 name: 'FriendLink',
                 meta: {
-                    icon: 'paperclip',
+                    icon: 'link',
                     title: '友情链接'
                 },
                 component: () => import('@/views/friendLink')

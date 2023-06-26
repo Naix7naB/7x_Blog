@@ -1,5 +1,2 @@
-export * from './base'
-export { default as TagDialog } from './tagDialog/index'
-export { default as TagDrawer } from './tagDrawer/index'
-export { default as LoginBox } from './loginBox/index'
-export { default as LoginOverlay } from './loginOverlay/index'
+export { default as BaseTable } from './table'
+export { default as BaseForm } from './form'

@@ -9,7 +9,7 @@ export default {
             type: Boolean,
             default: false
         },
-        hasLabel: {
+        showLabel: {
             type: Boolean,
             default: false
         },
@@ -87,7 +87,7 @@ export default {
         ref="elForm"
         :size="size"
         :inline="inline"
-        :label-width="hasLabel ? labelWidth : 'auto'"
+        :label-width="showLabel ? labelWidth : 'auto'"
         :label-position="labelPosition"
         :hide-required-asterisk="hideRequiredAsterisk"
         :model="showData"

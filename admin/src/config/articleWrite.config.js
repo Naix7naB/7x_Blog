@@ -53,7 +53,8 @@ const formItems = [
         label: '文章内容'
     },
     {
-        type: 'opt'
+        type: 'opt',
+        position: 'center'
     }
 ]
 

@@ -1,5 +1,5 @@
 <script>
-import { BaseForm } from '../base'
+import { BaseForm } from '@/components'
 import { getKey, login, registry } from '@/apis/login'
 import { encrypt } from '@/utils'
 import { loginData, loginItems } from '@/config/login.config'

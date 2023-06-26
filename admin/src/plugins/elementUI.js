@@ -8,6 +8,8 @@ import {
     Main,
     Footer,
     Container,
+    Row,
+    Col,
     Menu,
     Submenu,
     MenuItem,
@@ -54,6 +56,8 @@ Vue.use(Header)
 Vue.use(Main)
 Vue.use(Footer)
 Vue.use(Container)
+Vue.use(Row)
+Vue.use(Col)
 Vue.use(Menu)
 Vue.use(Submenu)
 Vue.use(MenuItem)

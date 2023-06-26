@@ -16,7 +16,7 @@ const tableColumns = [
     },
     {
         type: 'slot',
-        slotName: 'tag-color',
+        slotName: 'tagColor',
         label: '标签背景色',
         minWidth: 120,
         align: 'center'

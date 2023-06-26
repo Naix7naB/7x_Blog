@@ -1,5 +1,6 @@
 <script>
-import { BaseForm, BaseTable, TagDialog, TagDrawer } from '@/components'
+import { BaseForm, BaseTable } from '@/components'
+import { TagDialog, TagDrawer } from './components'
 import { tableColumns, headerFormItems } from '@/config/tagList.config'
 import { fetchTags, deleteTagById } from '@/apis/tag'
 
@@ -76,12 +77,12 @@ export default {
     <div>
         <BaseTable
             ref="tableRef"
-            hasPagination
+            showPagination
             :requestApi="fetchTags"
             :columns="tableColumns"
             :optItems="tableOptItems"
         >
-            <template #table-header>
+            <template #tableHeader>
                 <BaseForm
                     inline
                     :formData="headerFormData"
@@ -89,7 +90,7 @@ export default {
                     :optItems="headerOptItems"
                 />
             </template>
-            <template #tag-color="{ row }">
+            <template #tagColor="{ row }">
                 <i class="color-block" :style="{ backgroundColor: row.color }" />
             </template>
         </BaseTable>

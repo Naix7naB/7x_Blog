@@ -1,5 +1,5 @@
 <script>
-import { LoginBox, LoginOverlay } from '@/components'
+import { LoginBox, LoginOverlay } from './components'
 
 export default {
     name: 'Login',

@@ -50,7 +50,7 @@ export default {
 <template>
     <BaseTable
         ref="articleTable"
-        hasPagination
+        showPagination
         :requestApi="fetchArticles"
         :columns="tableColumns"
         :optItems="tableOptItems"

@@ -139,7 +139,7 @@ export default {
     <el-card body-style="padding: 40px 60px;">
         <BaseForm
             ref="form"
-            hasOperation
+            hideRequiredAsterisk
             :formData="formData"
             :formItems="formItems"
             :optItems="currentOptItems"
