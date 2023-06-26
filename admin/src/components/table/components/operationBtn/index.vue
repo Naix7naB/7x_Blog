@@ -10,17 +10,13 @@ export default {
     },
     render(h, ctx) {
         const { type } = ctx.props
-        const config = {
-            size: 'mini',
-            type: '',
-            text: ''
-        }
+        const config = { size: 'mini' }
         if (type === 'edit') {
             config.type = 'primary'
             config.text = '编辑'
         }
         if (type === 'check') {
-            config.type = 'primary'
+            config.type = ''
             config.text = '查看'
         }
         if (type === 'delete') {
