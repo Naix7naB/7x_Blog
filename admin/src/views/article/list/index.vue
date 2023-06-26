@@ -2,7 +2,7 @@
 import { BaseTable } from '@/components'
 import { tableColumns } from '@/config/articleList.config'
 import { resolveUrl } from '@/utils'
-import { fetchArticles, deleteArticleById } from '@/apis/article'
+import { getArticleList, deleteArticleById } from '@/apis/article'
 
 export default {
     name: 'ArticleList',
@@ -28,7 +28,7 @@ export default {
     },
     methods: {
         resolveUrl,
-        fetchArticles,
+        getArticleList,
         editArticle(data) {
             this.$router.push({
                 name: 'ArticleWrite',
@@ -51,7 +51,7 @@ export default {
     <BaseTable
         ref="articleTable"
         showPagination
-        :requestApi="fetchArticles"
+        :requestApi="getArticleList"
         :columns="tableColumns"
         :optItems="tableOptItems"
     >

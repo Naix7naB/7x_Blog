@@ -1,7 +1,7 @@
 import Request from '@/utils/request'
 
 /* 获取文章列表 */
-function fetchArticles(data) {
+function getArticleList(data) {
     return Request.requestForm({
         methodType: Request.GET,
         url: '/api/article',
@@ -48,4 +48,4 @@ function deleteArticleById(id) {
     })
 }
 
-export { fetchArticles, uploadImg, createArticle, updateArticleById, deleteArticleById }
+export { getArticleList, uploadImg, createArticle, updateArticleById, deleteArticleById }

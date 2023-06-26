@@ -3,7 +3,7 @@ import { BaseForm } from '@/components'
 import { formData, formItems } from '@/config/articleWrite.config'
 import { resolveUrl } from '@/utils'
 import { uploadImg, createArticle, updateArticleById } from '@/apis/article'
-import { fetchTags } from '@/apis/tag'
+import { getTagList } from '@/apis/tag'
 
 export default {
     name: 'ArticleWrite',
@@ -63,7 +63,7 @@ export default {
     },
     methods: {
         setTagOptions() {
-            fetchTags({ select: '-articles name' }).then(res => {
+            getTagList({ select: '-articles name' }).then(res => {
                 const { list } = res.data
                 const tags = this.formItems.find(item => item.prop === 'tags')
                 tags.options = list.map(tag => {

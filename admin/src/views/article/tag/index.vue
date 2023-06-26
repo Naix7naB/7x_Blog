@@ -2,7 +2,7 @@
 import { BaseForm, BaseTable } from '@/components'
 import { TagDialog, TagDrawer } from './components'
 import { tableColumns, headerFormItems } from '@/config/tagList.config'
-import { fetchTags, deleteTagById } from '@/apis/tag'
+import { getTagList, deleteTagById } from '@/apis/tag'
 
 export default {
     name: 'ArticleTag',
@@ -46,7 +46,7 @@ export default {
         }
     },
     methods: {
-        fetchTags,
+        getTagList,
         /* 查询文章标签 */
         queryTags() {
             console.log(this.headerFormData)
@@ -78,7 +78,7 @@ export default {
         <BaseTable
             ref="tableRef"
             showPagination
-            :requestApi="fetchTags"
+            :requestApi="getTagList"
             :columns="tableColumns"
             :optItems="tableOptItems"
         >

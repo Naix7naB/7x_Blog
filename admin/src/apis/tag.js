@@ -1,7 +1,7 @@
 import Request from '@/utils/request'
 
 /* 获取文章标签列表 */
-function fetchTags(data) {
+function getTagList(data) {
     return Request.requestForm({
         methodType: Request.GET,
         url: '/api/tag',
@@ -26,4 +26,4 @@ function deleteTagById(id) {
     })
 }
 
-export { fetchTags, createTag, deleteTagById }
+export { getTagList, createTag, deleteTagById }
