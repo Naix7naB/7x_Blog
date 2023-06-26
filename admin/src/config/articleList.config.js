@@ -9,7 +9,7 @@ const tableColumns = [
     },
     {
         type: 'slot',
-        slotName: 'cover_img',
+        slotName: 'coverImg',
         prop: 'cover_img',
         label: '文章封面',
         minWidth: 120,
@@ -61,7 +61,8 @@ const tableColumns = [
         prop: 'opt',
         label: '操作',
         align: 'center',
-        fixed: 'right'
+        fixed: 'right',
+        optType: ['edit', 'delete']
     }
 ]
 

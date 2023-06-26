@@ -41,7 +41,8 @@ const tableColumns = [
         prop: 'opt',
         label: '操作',
         align: 'center',
-        fixed: 'right'
+        fixed: 'right',
+        optType: ['check', 'delete']
     }
 ]
 

@@ -27,7 +27,8 @@ export default {
             config.type = 'danger'
             config.text = '删除'
         }
-        return <el-button type={config.type} size={config.size}>{config.text}</el-button>
+        Object.assign(ctx.data.attrs, config)
+        return <el-button { ...ctx.data } >{config.text}</el-button>
     }
 }
 </script>

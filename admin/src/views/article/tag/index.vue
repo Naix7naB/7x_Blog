@@ -10,10 +10,10 @@ export default {
     data() {
         return {
             currentTagInfo: {},
-            tableColumns,
             headerFormData: {
                 dateRange: []
             },
+            tableColumns,
             headerFormItems,
             headerOptItems: [
                 {
@@ -27,20 +27,6 @@ export default {
                     action: () => {
                         this.$refs.tagDialog.openDialog()
                     }
-                }
-            ],
-            tableOptItems: [
-                {
-                    text: '查看',
-                    size: 'mini',
-                    type: 'primary',
-                    action: this.checkTagInfo
-                },
-                {
-                    text: '删除',
-                    type: 'danger',
-                    size: 'mini',
-                    action: this.deleteTag
                 }
             ]
         }
@@ -80,7 +66,8 @@ export default {
             showPagination
             :requestApi="getTagList"
             :columns="tableColumns"
-            :optItems="tableOptItems"
+            @optCheck="checkTagInfo"
+            @optDelete="deleteTag"
         >
             <template #tableHeader>
                 <BaseForm

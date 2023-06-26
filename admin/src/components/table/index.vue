@@ -60,7 +60,7 @@ export default {
             })
         },
         optHandler(type, row) {
-            type = type.slice(0, 1).toUpperCase() + type.slice(1)
+            type = type.charAt(0).toUpperCase() + type.slice(1)
             this.$emit(`opt${type}`, row)
         },
         /* 更改页码时 */
