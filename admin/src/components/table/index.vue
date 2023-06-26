@@ -1,4 +1,6 @@
 <script>
+import OperationBtn from './components/operationBtn'
+
 export default {
     name: 'BaseTable',
     props: {
@@ -9,10 +11,6 @@ export default {
         columns: {
             type: Array,
             required: true
-        },
-        optItems: {
-            type: Array,
-            default: () => []
         },
         showTabs: {
             type: Boolean,
@@ -35,6 +33,7 @@ export default {
             default: 'center'
         }
     },
+    components: { OperationBtn },
     data() {
         return {
             datasource: [],
@@ -59,6 +58,10 @@ export default {
             }).finally(() => {
                 this.$store.dispatch('setLoadingState', false)
             })
+        },
+        optHandler(type, row) {
+            type = type.slice(0, 1).toUpperCase() + type.slice(1)
+            this.$emit(`opt${type}`, row)
         },
         /* 更改页码时 */
         changePage(page) {
@@ -95,18 +98,16 @@ export default {
                     <el-table-column
                         v-else-if="item.type === 'opt'"
                         v-bind="item"
-                        :min-width="80 * optItems.length"
                         :key="item.prop"
+                        :min-width="80 * item.optType.length"
                     >
                         <template slot-scope="{ row }">
-                            <el-button
-                                v-for="{ action, ...btnConf } in optItems"
-                                v-bind="btnConf"
-                                :key="btnConf.text"
-                                @click="action(row)"
-                            >
-                                {{ btnConf.text }}
-                            </el-button>
+                            <OperationBtn
+                                v-for="opt in item.optType"
+                                :key="opt"
+                                :type="opt"
+                                @click="optHandler(opt, row)"
+                            />
                         </template>
                     </el-table-column>
                     <!-- 普通列 -->
