@@ -1,12 +1,12 @@
 <script>
 import { BaseForm, BaseTable } from '@/components'
-import { TagDialog, TagDrawer } from './components'
+import { ColorBlock, TagDialog, TagDrawer } from './components'
 import { tableColumns, headerFormItems } from '@/config/tagList.config'
 import { getTagList, deleteTagById } from '@/apis/tag'
 
 export default {
     name: 'ArticleTag',
-    components: { BaseForm, BaseTable, TagDialog, TagDrawer },
+    components: { BaseForm, BaseTable, ColorBlock, TagDialog, TagDrawer },
     data() {
         return {
             currentTagInfo: {},
@@ -78,7 +78,7 @@ export default {
                 />
             </template>
             <template #tagColor="{ row }">
-                <i class="color-block" :style="{ backgroundColor: row.color }" />
+                <ColorBlock :color="row.color" :style="{ margin: 'auto' }" />
             </template>
         </BaseTable>
         <TagDialog ref="tagDialog" @refresh="refreshDatasource" />
@@ -90,12 +90,5 @@ export default {
 :deep(.el-dialog) {
     min-width: 420px;
     max-width: 640px;
-}
-
-.color-block {
-    display: block;
-    width: 32px;
-    height: 32px;
-    margin: auto;
 }
 </style>

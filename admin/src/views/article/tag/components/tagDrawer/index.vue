@@ -1,8 +1,10 @@
 <script>
+import ColorBlock from '../colorBlock'
 import { formatDate } from '@/utils'
 
 export default {
     name: 'TagDrawer',
+    components: { ColorBlock },
     props: {
         tagInfo: {
             type: Object,
@@ -53,7 +55,7 @@ export default {
                 {{ tagInfo.description }}
             </el-descriptions-item>
             <el-descriptions-item label="标签颜色">
-                <i class="tag-color" :style="{ backgroundColor: tagInfo.color }" />
+                <ColorBlock side-width="20px" :color="tagInfo.color" />
             </el-descriptions-item>
             <el-descriptions-item label="创建用户">
                 {{ tagInfo.creator && tagInfo.creator.nickname }}
@@ -80,11 +82,5 @@ export default {
 :deep(.el-descriptions-item.el-descriptions-item__cell) {
     padding-bottom: 20px;
     font-size: $fz-medium-x;
-}
-
-.tag-color {
-    display: block;
-    width: 20px;
-    height: 20px;
 }
 </style>

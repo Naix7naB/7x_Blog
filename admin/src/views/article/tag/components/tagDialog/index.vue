@@ -30,7 +30,7 @@ export default {
                 },
                 {
                     type: 'slot',
-                    slotName: 'color-picker',
+                    slotName: 'colorPicker',
                     prop: 'color',
                     label: '标签颜色'
                 }
@@ -96,7 +96,7 @@ export default {
         @closed="dialogClosed"
     >
         <BaseForm ref="dialogForm" :formData="formData" :formItems="formItems" hideRequiredAsterisk>
-            <template #color-picker>
+            <template #colorPicker>
                 <el-color-picker v-model="formData.color" color-format="rgb" show-alpha />
             </template>
         </BaseForm>
