@@ -8,8 +8,7 @@ const tableColumns = [
         align: 'center'
     },
     {
-        type: 'slot',
-        slotName: 'coverImg',
+        type: 'image',
         prop: 'cover_img',
         label: '文章封面',
         minWidth: 120,

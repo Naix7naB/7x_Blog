@@ -1,5 +1,12 @@
 <script>
 import OperationBtn from './components/operationBtn'
+import { resolveUrl } from '@/utils'
+
+const OPT_TYPE = {
+    edit: 'optEdit',
+    check: 'optCheck',
+    delete: 'optDelete'
+}
 
 export default {
     name: 'BaseTable',
@@ -43,6 +50,7 @@ export default {
         }
     },
     methods: {
+        resolveUrl,
         /* 获取数据源 */
         getDatasource() {
             this.$store.dispatch('setLoadingState', true)
@@ -60,8 +68,7 @@ export default {
             })
         },
         optHandler(type, row) {
-            type = type.charAt(0).toUpperCase() + type.slice(1)
-            this.$emit(`opt${type}`, row)
+            this.$emit(OPT_TYPE[type], row)
         },
         /* 更改页码时 */
         changePage(page) {
@@ -92,6 +99,21 @@ export default {
                     <el-table-column v-if="item.type === 'slot'" v-bind="item" :key="item.prop">
                         <template slot-scope="{ $index, row }">
                             <slot :name="item.slotName" :row="row" :index="$index" />
+                        </template>
+                    </el-table-column>
+                    <!-- 图片 -->
+                    <el-table-column
+                        v-else-if="item.type === 'image'"
+                        v-bind="item"
+                        :key="item.prop"
+                    >
+                        <template slot-scope="{ row }">
+                            <el-image
+                                fit="contain"
+                                :style="{ height: '80px' }"
+                                :src="resolveUrl(row[item.prop])"
+                                :title="item.label"
+                            />
                         </template>
                     </el-table-column>
                     <!-- 操作列 -->

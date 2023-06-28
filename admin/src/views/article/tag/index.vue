@@ -48,7 +48,7 @@ export default {
                 this.refreshDatasource()
                 this.$message.success(res.errMsg)
             }).catch(err => {
-                this.$message.error(err)
+                this.$message.error(err.errMsg)
             })
         },
         /* 刷新表格数据源 */

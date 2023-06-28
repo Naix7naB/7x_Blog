@@ -1,7 +1,6 @@
 <script>
 import { BaseTable } from '@/components'
 import { tableColumns } from '@/config/articleList.config'
-import { resolveUrl } from '@/utils'
 import { getArticleList, deleteArticleById } from '@/apis/article'
 
 export default {
@@ -13,7 +12,6 @@ export default {
         }
     },
     methods: {
-        resolveUrl,
         getArticleList,
         editArticle(data) {
             this.$router.push({
@@ -42,9 +40,6 @@ export default {
         @optEdit="editArticle"
         @optDelete="deleteArticle"
     >
-        <template #coverImg="{ row }">
-            <el-image fit="contain" :style="{ height: '80px' }" :src="resolveUrl(row.cover_img)" />
-        </template>
         <template #tag="{ row }">
             <span v-if="row.tags.length === 0" style="color: #bbb">暂无标签</span>
             <el-tag
