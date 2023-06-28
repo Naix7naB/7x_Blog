@@ -69,4 +69,43 @@ function encrypt(plain, key) {
     return encryptor.encrypt(plain)
 }
 
-export { padLeft, formatDate, resolveUrl, encrypt }
+/**
+ * @function debounce
+ * @description 防抖
+ * @param {Function} callback 回调方法
+ * @param {number} delay 延迟时间
+ * @return {Function} 防抖函数
+ */
+function debounce(callback, delay) {
+    let timer = null
+    return function () {
+        const ctx = this
+        timer && clearTimeout(timer)
+        timer = setTimeout(() => {
+            timer = null
+            callback.apply(ctx, arguments)
+        }, delay)
+    }
+}
+
+/**
+ * @function throttle
+ * @description 节流
+ * @param {Function} callback 回调方法
+ * @param {number} delay 延迟时间
+ * @return {Function} 节流函数
+ */
+function throttle(callback, delay) {
+    let locked = false
+    return function () {
+        if (locked) return false
+        const ctx = this
+        locked = true
+        setTimeout(() => {
+            locked = false
+        }, delay)
+        return callback.apply(ctx, arguments)
+    }
+}
+
+export { padLeft, formatDate, resolveUrl, encrypt, debounce, throttle }
