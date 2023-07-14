@@ -1,0 +1,44 @@
+{
+    "name": "blog-frontend",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build",
+        "lint": "vue-cli-service lint"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^6.2.1",
+        "@fortawesome/free-solid-svg-icons": "^6.2.1",
+        "@fortawesome/vue-fontawesome": "^2.0.9",
+        "axios": "^1.2.0",
+        "core-js": "^3.26.1",
+        "element-ui": "^2.15.13",
+        "jsencrypt": "^3.3.1",
+        "vue": "^2.7.14",
+        "vue-router": "^3.6.5",
+        "vuescroll": "^4.17.5",
+        "vuex": "^3.6.2"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.20.2",
+        "@babel/eslint-parser": "^7.19.1",
+        "@vue/cli-plugin-babel": "~5.0.8",
+        "@vue/cli-plugin-eslint": "~5.0.8",
+        "@vue/cli-plugin-router": "~5.0.8",
+        "@vue/cli-plugin-vuex": "~5.0.8",
+        "@vue/cli-service": "~5.0.8",
+        "eslint": "^7.32.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-prettier": "^4.2.1",
+        "eslint-plugin-vue": "^8.7.1",
+        "postcss": "^8.4.19",
+        "postcss-pxtorem": "^6.0.0",
+        "postcss-scss": "^4.0.6",
+        "prettier": "^2.8.0",
+        "sass": "^1.56.1",
+        "sass-loader": "^13.2.0",
+        "vue-template-compiler": "^2.7.14",
+        "webpack": "^5.82.1"
+    }
+}
