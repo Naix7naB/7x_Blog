@@ -8,14 +8,14 @@ export default {
 </script>
 
 <template>
-    <el-container class="layout">
-        <el-header class="layout-navbar" height="80px">
+    <div class="layout">
+        <header class="layout-navbar">
             <Navbar />
-        </el-header>
-        <el-main>
+        </header>
+        <main class="layout-main">
             <AppMain />
-        </el-main>
-    </el-container>
+        </main>
+    </div>
 </template>
 
 <style lang="scss" scoped>
@@ -27,5 +27,9 @@ export default {
 .layout-navbar {
     background-color: #fff;
     box-shadow: 1px 4px 16px rgba($color: $bg-reverse, $alpha: .5);
+}
+
+.layout-main {
+    height: 100%;
 }
 </style>

@@ -42,7 +42,7 @@ export default {
 </script>
 
 <template>
-    <el-row type="flex" align="middle" style="height: 100%">
+    <el-row type="flex" align="middle" style="height: 80px">
         <el-col :md="4" :lg="4">
             <Logo />
         </el-col>
