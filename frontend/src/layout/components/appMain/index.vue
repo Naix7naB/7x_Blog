@@ -1,18 +1,11 @@
 <script>
-import ScrollContainer from './ScrollContainer'
-
 export default {
-    name: 'AppMain',
-    components: { ScrollContainer }
+    name: 'AppMain'
 }
 </script>
 
 <template>
-    <ScrollContainer>
-        <transition name="fade" mode="out-in">
-            <router-view :key="this.$route.name" />
-        </transition>
-    </ScrollContainer>
+    <transition name="fade" mode="out-in">
+        <router-view :key="this.$route.name" />
+    </transition>
 </template>
-
-<style lang="scss" scoped></style>

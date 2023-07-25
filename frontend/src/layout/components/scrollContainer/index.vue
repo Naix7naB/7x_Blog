@@ -29,8 +29,8 @@ export default {
         }
     },
     methods: {
-        onScroll(vertical) {
-            this.$store.dispatch('setScrollY', vertical.scrollTop)
+        onScroll(e) {
+            this.$emit('handle-scroll', e)
         },
         scrollTo({ offset, duration = 1000 }) {
             this.$refs.scrollRef.scrollTo({ y: offset }, duration, 'easeOutCubic')
@@ -59,7 +59,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-// :deep(.__rail-is-vertical) {
-//   z-index: 1000 !important;
-// }
+:deep(.__rail-is-vertical) {
+  z-index: 900 !important;
+}
 </style>
