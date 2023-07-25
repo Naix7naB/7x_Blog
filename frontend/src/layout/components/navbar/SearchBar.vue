@@ -37,7 +37,7 @@ export default {
 </script>
 
 <template>
-    <div class="search-bar">
+    <div :class="['search-bar', { extended: isExtended }]">
         <span class="search-bar--prefix" @click="extend">
             <fa-icon icon="fas fa-magnifying-glass" size="lg" />
         </span>
@@ -67,7 +67,12 @@ export default {
     align-items: center;
     height: 40PX;
     border-radius: 4PX;
-    background-color: #fff;
+    background-color: transparent;
+    transition: background-color .7s cubic-bezier(0.4, 0, 0, 1);
+
+    &.extended {
+        background-color: $bg-theme-ll;
+    }
 }
 
 .search-bar--prefix {
@@ -76,9 +81,11 @@ export default {
 }
 
 .search-bar--input {
-    width: 160PX;
+    width: 120PX;
     height: 100%;
     padding-right: 40PX;
+    color: $cl-theme;
+    background-color: transparent;
 }
 
 .search-bar--suffix {
@@ -95,6 +102,6 @@ export default {
 
 .extend-enter-active,
 .extend-leave-active {
-    transition: all .5s cubic-bezier(0.4, 0, 0, 1);
+    transition: all .7s cubic-bezier(0.4, 0, 0, 1);
 }
 </style>

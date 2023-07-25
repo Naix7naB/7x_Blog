@@ -42,24 +42,24 @@ export default {
 </script>
 
 <template>
-    <el-row type="flex" align="middle" style="height: 80px">
-        <el-col :md="4" :lg="4">
+    <el-row type="flex" align="middle" style="height: 80px; padding: 1% 5%;">
+        <el-col :span="6">
             <Logo />
         </el-col>
-        <el-col :md="16" :lg="16">
+        <el-col :span="16">
             <div class="navbar-container">
-                <Menu :list="navigations" />
                 <SearchBar />
+                <Menu :list="navigations" />
             </div>
         </el-col>
-        <el-col :md="4" :lg="4">Avatar</el-col>
+        <el-col :span="2">Avatar</el-col>
     </el-row>
 </template>
 
 <style lang="scss" scoped>
 .navbar-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
 }
 </style>

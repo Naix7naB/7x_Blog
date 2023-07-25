@@ -21,17 +21,19 @@ export default {
 <style lang="scss" scoped>
 .navbar-menu {
     display: flex;
+    margin-left: 10PX;
 }
 
 .navbar-menu--item {
-    width: 100PX;
-    margin: 0 6PX;
-    padding: 12PX;
-    border-radius: 4PX;
+    @include pointer();
+    margin: 0 6px;
+    padding: 8PX;
+    border-radius: 6PX;
     text-align: center;
+    transition: background-color .3s ease-in;
 
     &:hover {
-        background-color: rgba($color: #333, $alpha: .7);
+        background-color: $bg-theme-ll;
     }
 }
 
