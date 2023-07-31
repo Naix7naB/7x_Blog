@@ -27,7 +27,6 @@ export default {
 }
 
 .intro-enter--button {
-    @include pointer();
     position: absolute;
     bottom: 2PX;
     left: 50%;
@@ -35,5 +34,6 @@ export default {
     color: $cl-theme;
     background-color: transparent;
     transform: translateX(-50%);
+    cursor: pointer;
 }
 </style>

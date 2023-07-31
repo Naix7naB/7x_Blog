@@ -75,13 +75,13 @@ export default {
 }
 
 .info-avatar--pic {
-    @include pointer();
     width: 130PX;
     height: 130PX;
     border: 6PX solid $bg-gray-ll;
     border-radius: 50%;
     box-shadow: 0 0 20PX $bg-theme;
     transition: transform .8s ease;
+    cursor: pointer;
 
     &:hover {
         transform: rotate(360deg);
@@ -116,8 +116,8 @@ export default {
 }
 
 .info-social--item {
-    @include pointer();
     margin: 0 10PX;
+    cursor: pointer;
 }
 
 .info-social--pic {

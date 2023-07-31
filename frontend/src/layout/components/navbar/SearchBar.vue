@@ -76,8 +76,8 @@ export default {
 }
 
 .search-bar--prefix {
-    @include pointer();
     padding: 10PX;
+    cursor: pointer;
 }
 
 .search-bar--input {
@@ -89,9 +89,9 @@ export default {
 }
 
 .search-bar--suffix {
-    @include pointer();
     position: absolute;
     right: 10PX;
+    cursor: pointer;
 }
 
 .extend-enter,

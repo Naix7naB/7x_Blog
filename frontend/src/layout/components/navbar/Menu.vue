@@ -25,12 +25,12 @@ export default {
 }
 
 .navbar-menu--item {
-    @include pointer();
     margin: 0 6px;
     padding: 8PX;
     border-radius: 6PX;
     text-align: center;
     transition: background-color .3s ease-in;
+    cursor: pointer;
 
     &:hover {
         background-color: $bg-theme-ll;

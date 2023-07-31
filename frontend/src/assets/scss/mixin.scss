@@ -1,7 +1,3 @@
-@mixin pointer() {
-    cursor: pointer;
-}
-
 @mixin full-fixed() {
     position: fixed;
     left: 0;
@@ -17,16 +13,16 @@
     background-size: $size;
 }
 
-@mixin no-wrap() {
+@mixin nowrap() {
     overflow: hidden;
-    text-overflow: ellipsis;
     white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
-@mixin multiple-lines() {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+@mixin nowrap-multiple($line) {
     overflow: hidden;
+    display: -webkit-box;
     text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $line;
 }
