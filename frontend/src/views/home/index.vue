@@ -12,15 +12,13 @@ export default {
 
 <template>
     <section class="home-page">
-        <div class="home-page--container">
-            <AsideArea />
-            <RecentArticle />
-        </div>
+        <AsideArea />
+        <RecentArticle />
     </section>
 </template>
 
 <style lang="scss" scoped>
-.home-page--container {
+.home-page {
     display: flex;
     justify-content: center;
     width: 90%;
@@ -29,7 +27,7 @@ export default {
 }
 
 @media screen and (max-width: 1100PX) {
-    .home-page--container {
+    .home-page {
         flex-direction: column;
         width: 100%;
     }

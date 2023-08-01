@@ -20,7 +20,7 @@ export default {
 </script>
 
 <template>
-    <div id="app" class="overlay">
+    <div id="app">
         <transition :name="transitionName">
             <router-view />
         </transition>
@@ -29,6 +29,7 @@ export default {
 
 <style lang="scss" scoped>
 #app {
+    @include full-fixed();
     @include bg-image('@/assets/images/bg.png', no-repeat, center, cover);
 }
 
