@@ -1,14 +1,18 @@
 <script>
 export default {
     data() {
-        return {}
+        return {
+            siteName: '#7x\'s blog'
+        }
     }
 }
 </script>
 
 <template>
     <h1 class="navbar-logo">
-        <span class="navbar-logo--wrapper"><fa-icon icon="fas fa-blog" /> &#35;7x&#180;s Blog</span>
+        <span class="navbar-logo--wrapper" @click="$router.push({ name: 'Intro' })">
+            <fa-icon icon="fas fa-blog" /> {{siteName}}
+        </span>
     </h1>
 </template>
 
