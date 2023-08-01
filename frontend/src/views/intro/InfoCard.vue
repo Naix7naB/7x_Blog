@@ -99,7 +99,6 @@ export default {
 }
 
 .info-desc--name {
-    font-family: kanit;
     font-size: 30PX;
     font-weight: 700;
 }

@@ -14,7 +14,6 @@ export default {
 
 <style lang="scss" scoped>
 .navbar-logo--wrapper {
-    font-family: kanit;
     font-size: 32px;
     font-weight: 700;
     cursor: pointer;
