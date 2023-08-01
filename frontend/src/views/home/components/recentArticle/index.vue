@@ -115,10 +115,10 @@ export default {
 
     &.data {
         margin-bottom: 14PX;
+    }
 
-        &>span:not(:first-of-type) {
-            margin-left: 12PX;
-        }
+    &.data>span:not(:first-of-type) {
+        margin-left: 12PX;
     }
 }
 
@@ -162,15 +162,21 @@ export default {
         width: 100%;
         max-width: 100%;
     }
+}
 
+@media screen and (max-width: 700px) {
     .recent-article--item {
         flex-direction: column;
         height: 500PX;
     }
 
     .article-item--wrapper {
-        position: static;
+        position: initial;
         width: 100%;
+
+        &.right {
+            text-align: initial;
+        }
     }
 
     .recent-article--image {
@@ -180,6 +186,10 @@ export default {
     .recent-article--info {
         position: relative;
         height: 300PX;
+    }
+
+    .article-info--label {
+        right: 36PX;
     }
 }
 </style>
