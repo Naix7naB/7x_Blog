@@ -14,8 +14,9 @@ export default {
             options: {
                 strings: this.text,
                 typeSpeed: 100,
-                backSpeed: 50,
-                backDelay: 1000,
+                startDelay: 1000,
+                backSpeed: 60,
+                backDelay: 2500,
                 cursorChar: '_',
                 loop: true
             }
@@ -34,3 +35,9 @@ export default {
 <template>
     <span class="typical"></span>
 </template>
+
+<style lang="scss" scoped>
+.typical {
+    font-weight: 700;
+}
+</style>

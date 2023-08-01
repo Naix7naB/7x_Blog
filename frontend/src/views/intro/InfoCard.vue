@@ -43,9 +43,9 @@ export default {
         <div class="intro-info--desc">
             <span class="info-desc--name">{{siteName}}</span>
             <p class="info-desc--content">
-                <fa-icon icon="fas fa-quote-left" size="lg" :style="{ paddingRight: '4px' }" />
+                <fa-icon style="padding-right: 6px;" icon="fas fa-quote-left" size="lg" />
                 <Typical :text="['秦时明月汉时关，万里长征人未还。']" />
-                <fa-icon icon="fas fa-quote-right" size="lg" :style="{ paddingLeft: '4px' }" />
+                <fa-icon style="padding-left: 6px;" icon="fas fa-quote-right" size="lg" />
             </p>
         </div>
         <ul class="intro-info--social">
