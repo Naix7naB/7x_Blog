@@ -21,11 +21,11 @@ export default {
 <style lang="scss" scoped>
 .navbar-menu {
     display: flex;
-    margin-left: 10PX;
+    justify-content: flex-end;
 }
 
 .navbar-menu--item {
-    margin: 0 6px;
+    margin: 0 4PX;
     padding: 8PX;
     border-radius: 6PX;
     text-align: center;

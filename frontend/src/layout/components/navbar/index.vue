@@ -1,12 +1,10 @@
 <script>
 import Logo from './Logo'
 import Menu from './Menu'
-import SearchBar from './SearchBar'
 
 export default {
-    components: { Logo, Menu, SearchBar },
+    components: { Logo, Menu },
     data() {
-        SearchBar
         return {
             activeIndex: 'Home',
             navigations: [
@@ -47,19 +45,8 @@ export default {
             <Logo />
         </el-col>
         <el-col :span="16">
-            <div class="navbar-container">
-                <SearchBar />
-                <Menu :list="navigations" />
-            </div>
+            <Menu :list="navigations" />
         </el-col>
         <el-col :span="2">Avatar</el-col>
     </el-row>
 </template>
-
-<style lang="scss" scoped>
-.navbar-container {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-</style>

@@ -8,8 +8,8 @@ export default {
                     cmp: () => import('./SiteInfo')
                 },
                 {
-                    name: 'SearchBox',
-                    cmp: () => import('./SearchBox')
+                    name: 'SearchBar',
+                    cmp: () => import('./SearchBar')
                 },
                 {
                     name: 'ArticleRecommend',
