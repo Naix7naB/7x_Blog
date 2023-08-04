@@ -27,7 +27,11 @@ import {
     faHeart as fasHeart,
     faComment as fasComment,
     faTag as fasTag,
-    faSliders as fasSliders
+    faSliders as fasSliders,
+    faUser as fasUser,
+    faLock as fasLock,
+    faPoo as fasPoo,
+    faEnvelope as fasEnvelope
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -60,7 +64,11 @@ library.add([
     fasTag,
     fasSliders,
     farStar,
-    farFolderOpen
+    farFolderOpen,
+    fasUser,
+    fasLock,
+    fasPoo,
+    fasEnvelope
 ])
 
 Vue.component('fa-icon', FontAwesomeIcon)
