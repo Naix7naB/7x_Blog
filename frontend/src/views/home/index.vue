@@ -18,6 +18,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 主页样式 */
 .home-page {
     display: flex;
     justify-content: center;
@@ -26,6 +27,7 @@ export default {
     padding: 40PX;
 }
 
+/* 媒体查询样式 */
 @media screen and (max-width: 1100PX) {
     .home-page {
         flex-direction: column;

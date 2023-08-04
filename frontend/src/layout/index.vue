@@ -62,11 +62,13 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 版面样式 */
 .layout {
     width: 100%;
     height: 100%;
 }
 
+/* 版面导航栏样式 */
 .layout-navbar {
     z-index: 100;
     position: sticky;

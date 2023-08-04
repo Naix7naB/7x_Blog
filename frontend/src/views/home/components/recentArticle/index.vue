@@ -45,6 +45,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 样式穿透 hook ElementUI 样式 */
 :deep(.el-image) {
     width: 100%;
     height: 100%;
@@ -55,6 +56,7 @@ export default {
     transition: transform .7s ease;
 }
 
+/* 最近文章样式 */
 .recent-article--wrapper {
     width: 70%;
     max-width: 980PX;
@@ -151,6 +153,7 @@ export default {
     }
 }
 
+/* 媒体查询样式 */
 @media screen and (max-width: 1100PX) {
     .recent-article--wrapper {
         width: 100%;

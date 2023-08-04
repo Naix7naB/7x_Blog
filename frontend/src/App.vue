@@ -28,11 +28,13 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* app样式 */
 #app {
     @include full-fixed();
     @include bg-image('@/assets/images/bg.png', no-repeat, center, cover);
 }
 
+/* 过渡效果 */
 .slide-down-enter-active,
 .slide-down-leave-active,
 .slide-up-enter-active,

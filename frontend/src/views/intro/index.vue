@@ -7,7 +7,7 @@ export default {
 </script>
 
 <template>
-    <section class="intro-container">
+    <section class="intro-page">
         <InfoCard />
         <span class="intro-enter--button" @click="$router.push({ name: 'Home' })">
             <fa-icon
@@ -21,7 +21,8 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.intro-container {
+/* 网站介绍页面样式 */
+.intro-page {
     width: 100%;
     height: 100%;
 }

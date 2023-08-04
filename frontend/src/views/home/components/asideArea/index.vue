@@ -34,6 +34,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 侧边栏样式 */
 .aside-area--wrapper {
     width: 30%;
     max-width: 320PX;
@@ -51,6 +52,7 @@ export default {
     }
 }
 
+/* 媒体查询样式 */
 @media screen and (max-width: 1100PX) {
     .aside-area--wrapper {
         width: 100%;

@@ -33,6 +33,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 网站信息卡片样式 */
 .site-info{
     display: flex;
     flex-direction: column;

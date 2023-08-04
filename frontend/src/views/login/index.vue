@@ -29,6 +29,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 登录/注册页面样式 */
 .login-page {
     @include full-fixed();
     background-image: linear-gradient(to left top, #8841d6, #8245d6, #7c49d6, #774cd6, #714fd5, #6758d9, #5e60db, #5568dd, #4876e0, #4182e1, #428ee0, #4b98de);

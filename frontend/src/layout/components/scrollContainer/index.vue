@@ -59,6 +59,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 样式穿透 hook VueScroll 样式 */
 :deep(.__rail-is-vertical) {
   z-index: 900 !important;
 }

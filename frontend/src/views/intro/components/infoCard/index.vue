@@ -63,6 +63,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 介绍页信息卡片样式 */
 .intro-info--card {
     top: 50%;
     max-width: 800PX;

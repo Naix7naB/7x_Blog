@@ -40,6 +40,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 推荐文章卡片样式 */
 .article-recommend--item {
     display: flex;
     cursor: pointer;

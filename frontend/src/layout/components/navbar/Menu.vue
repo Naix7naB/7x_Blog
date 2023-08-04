@@ -33,16 +33,19 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 样式穿透 hook ElementUI 样式 */
 :deep(.el-avatar) {
     display: block;
 }
 
+/* 导航栏菜单样式 */
 .navbar-menu {
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
 
+/* 菜单列表样式 */
 .navbar-menu--list {
     @include clearfix();
 }
@@ -64,6 +67,7 @@ export default {
     margin-left: 8PX;
 }
 
+/* 菜单头像样式 */
 .navbar-menu--avatar {
     margin-left: 10px;
     cursor: pointer;

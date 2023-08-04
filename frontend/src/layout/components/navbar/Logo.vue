@@ -17,6 +17,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 导航栏logo样式 */
 .navbar-logo--wrapper {
     font-size: 36px;
     font-weight: 700;

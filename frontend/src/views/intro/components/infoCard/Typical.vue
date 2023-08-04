@@ -23,7 +23,7 @@ export default {
         }
     },
     mounted() {
-        this.typed = new Typed('.typical', this.options)
+        this.typed = new Typed('#typical', this.options)
     },
     beforeDestroy() {
         this.typed.destroy()
@@ -33,11 +33,5 @@ export default {
 </script>
 
 <template>
-    <span class="typical"></span>
+    <span id="typical" style="font-weight: 700;"></span>
 </template>
-
-<style lang="scss" scoped>
-.typical {
-    font-weight: 700;
-}
-</style>

@@ -34,6 +34,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 搜索栏卡片样式 */
 .search-bar--label {
     margin-bottom: 16PX;
     font-size: $fz-medium-x;

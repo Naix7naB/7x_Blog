@@ -19,6 +19,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 文章分类卡片样式 */
 .article-classify--label {
     margin-bottom: 20PX;
     font-size: $fz-medium-x;
