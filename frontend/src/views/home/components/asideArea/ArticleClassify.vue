@@ -8,7 +8,7 @@ export default {
 
 <template>
     <div class="article-classify">
-        <div class="article-classify--label"><fa-icon icon="fas fa-folder-open" /> 文章分类</div>
+        <div class="article-classify--label"><fa-icon icon="far fa-folder-open" /> 文章分类</div>
         <ul>
             <li class="article-classify-item"><fa-icon icon="fas fa-angle-right" /> 生活</li>
             <li class="article-classify-item"><fa-icon icon="fas fa-angle-right" /> 学习</li>

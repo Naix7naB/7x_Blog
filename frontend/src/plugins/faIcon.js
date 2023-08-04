@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 // 按需引入图标
 import {
     faBlog as fasBlog,
-    faBars as fasBars,
     faHome as fasHome,
     faBook as fasBook,
     faImage as fasImage,
@@ -22,20 +21,22 @@ import {
     faXmark as fasXmark,
     faClock as fasClock,
     faBookOpen as fasBookOpen,
-    faFolderOpen as fasFolderOpen,
     faAngleRight as fasAngleRight,
     faCalendarDays as fasCalendarDays,
     faFire as fasFire,
     faHeart as fasHeart,
     faComment as fasComment,
-    faTag as fasTag
+    faTag as fasTag,
+    faSliders as fasSliders
 } from '@fortawesome/free-solid-svg-icons'
 
-import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
+import {
+    faStar as farStar,
+    faFolderOpen as farFolderOpen
+} from '@fortawesome/free-regular-svg-icons'
 
 library.add([
     fasBlog,
-    fasBars,
     fasHome,
     fasBook,
     fasImage,
@@ -51,14 +52,15 @@ library.add([
     fasXmark,
     fasClock,
     fasBookOpen,
-    fasFolderOpen,
     fasAngleRight,
     fasCalendarDays,
     fasFire,
     fasHeart,
     fasComment,
     fasTag,
-    farStar
+    fasSliders,
+    farStar,
+    farFolderOpen
 ])
 
 Vue.component('fa-icon', FontAwesomeIcon)
