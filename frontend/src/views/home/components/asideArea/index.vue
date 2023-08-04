@@ -27,7 +27,7 @@ export default {
 
 <template>
     <ul class="aside-area--wrapper">
-        <li class="aside-area--item" v-for="item in componentList" :key="item.name">
+        <li class="aside-area--item shadow-box" v-for="item in componentList" :key="item.name">
             <component :is="item.cmp" />
         </li>
     </ul>
@@ -41,20 +41,13 @@ export default {
 }
 
 .aside-area--item {
-    user-select: none;
     overflow: hidden;
     border-radius: 10PX;
     background-color: #24272d;
-    box-shadow: 0 1PX 20PX -6PX rgba(0,0,0,0.5);
-    transition: box-shadow .3s ease;
 
     &:not(:first-of-type) {
         margin-top: 40PX;
         padding: 24PX;
-    }
-
-    &:hover {
-        box-shadow: 0 5PX 10PX 5PX rgba(78, 85, 98, 0.4);
     }
 }
 

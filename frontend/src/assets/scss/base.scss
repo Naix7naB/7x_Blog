@@ -19,14 +19,12 @@ html {
     position: relative;
 }
 
-.overlay {
-    @include full-fixed();
+.shadow-box {
+    user-select: none;
+    box-shadow: 0 1px 20px -6px rgba($color: #4f4f4f, $alpha: 0.7);
+    transition: box-shadow 0.3s ease;
 
-    &::before {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background-color: $bg-theme-d;
+    &:hover {
+        box-shadow: 0 5px 10px 5px rgba($color: #000000, $alpha: 0.5);
     }
 }

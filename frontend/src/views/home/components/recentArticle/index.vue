@@ -12,7 +12,7 @@ export default {
 
 <template>
     <ul class="recent-article--wrapper">
-        <li class="recent-article--item" v-for="item in 6" :key="item">
+        <li class="recent-article--item shadow-box" v-for="item in 6" :key="item">
             <div
                 class="article-item--wrapper recent-article--image"
                 :class="{ left: item % 2 === 1, right: item % 2 === 0 }"
@@ -68,13 +68,7 @@ export default {
     margin-bottom: 40PX;
     border-radius: 10PX;
     background-color: #24272d;
-    box-shadow: 0 1PX 20PX -6PX rgba(0,0,0,0.5);
-    transition: box-shadow .3s ease;
     cursor: pointer;
-
-    &:hover {
-        box-shadow: 0 5PX 10PX 5PX rgba(78, 85, 98, 0.4);
-    }
 
     &:hover :deep(.el-image__inner) {
         transform: scale(1.2);
