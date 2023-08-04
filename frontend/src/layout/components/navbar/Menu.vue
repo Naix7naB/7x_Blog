@@ -29,6 +29,7 @@ export default {
                 <fa-icon icon="fas fa-user" />
             </el-avatar>
         </div>
+        <span class="navbar-menu--operation"><fa-icon icon="fas fa-sliders" size="2x" /></span>
     </div>
 </template>
 
@@ -71,5 +72,23 @@ export default {
 .navbar-menu--avatar {
     margin-left: 10px;
     cursor: pointer;
+}
+
+.navbar-menu--operation {
+    cursor: pointer;
+}
+
+/* 媒体查询样式 */
+@media screen and (max-width: 1000px) {
+    .navbar-menu--list,
+    .navbar-menu--avatar {
+        display: none !important;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .navbar-menu--operation {
+        display: none !important;
+    }
 }
 </style>

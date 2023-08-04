@@ -41,10 +41,10 @@ export default {
 
 <template>
     <el-row type="flex" align="middle" style="height: 80px; padding: 1% 5%;">
-        <el-col :span="8">
+        <el-col :xs="16" :sm="8">
             <Logo />
         </el-col>
-        <el-col :span="16">
+        <el-col :xs="8" :sm="16">
             <Menu :list="navigations" />
         </el-col>
     </el-row>
