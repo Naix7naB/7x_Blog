@@ -24,7 +24,7 @@ Router.get('/key', async (req, res, next) => {
 })
 
 // 注册
-Router.post('/registry', async (req, res, next) => {
+Router.post('/register', async (req, res, next) => {
     try {
         const { role = 'user', ...userInfo } = req.body
         const userRole = await Role.findOne({ name: role })
