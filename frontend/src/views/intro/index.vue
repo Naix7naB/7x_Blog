@@ -1,5 +1,5 @@
 <script>
-import InfoCard from './InfoCard'
+import InfoCard from './components/infoCard'
 
 export default {
     components: { InfoCard }
