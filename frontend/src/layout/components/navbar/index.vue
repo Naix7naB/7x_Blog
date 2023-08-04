@@ -41,12 +41,11 @@ export default {
 
 <template>
     <el-row type="flex" align="middle" style="height: 80px; padding: 1% 5%;">
-        <el-col :span="6">
+        <el-col :span="8">
             <Logo />
         </el-col>
         <el-col :span="16">
             <Menu :list="navigations" />
         </el-col>
-        <el-col :span="2">Avatar</el-col>
     </el-row>
 </template>

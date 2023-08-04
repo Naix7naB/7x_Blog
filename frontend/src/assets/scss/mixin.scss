@@ -26,3 +26,12 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: $line;
 }
+
+@mixin clearfix() {
+    &::before,
+    &::after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+}
