@@ -18,7 +18,7 @@ export default {
 
 <style lang="scss" scoped>
 .navbar-logo--wrapper {
-    font-size: 32px;
+    font-size: 36px;
     font-weight: 700;
     cursor: pointer;
 }

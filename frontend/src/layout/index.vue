@@ -1,5 +1,7 @@
 <script>
-import { ScrollContainer, Navbar, AppMain } from './components'
+import ScrollContainer from './components/scrollContainer'
+import Navbar from './components/navbar'
+import AppMain from './components/appMain'
 
 export default {
     name: 'Layout',
@@ -8,7 +10,7 @@ export default {
         return {
             scrollY: 0,
             deltaY: 0,
-            maxTransY: 1000
+            maxTransY: 560
         }
     },
     computed: {
