@@ -1,10 +1,12 @@
+import JSEncrypt from 'jsencrypt'
+
 /**
  * @description: 数字补零
  * @param {Number} num 数字
  * @return {Number} 补零后的字符串数字
  * @Date: 2022-09-11
  */
-export function padLeft(num) {
+function padLeft(num) {
     return (String(num)[1] && String(num)) || '0' + num
 }
 
@@ -15,7 +17,7 @@ export function padLeft(num) {
  * @return {String} 格式化后的日期字符串
  * @Date: 2022-09-07
  */
-export function formatDate(date, format = 'YYYY-MM-DD') {
+function formatDate(date, format = 'YYYY-MM-DD') {
     date = (date && new Date(date)) || new Date()
     const o = {
         'M+': date.getMonth() + 1,
@@ -35,3 +37,18 @@ export function formatDate(date, format = 'YYYY-MM-DD') {
     })
     return format
 }
+
+/**
+ * @function encrypt
+ * @description 公钥加密
+ * @param {String} plain 文本内容
+ * @param {String} key 密钥
+ * @return {String} 加密后的内容
+ */
+function encrypt(plain, key) {
+    const encryptor = new JSEncrypt()
+    encryptor.setPublicKey(key)
+    return encryptor.encrypt(plain)
+}
+
+export { padLeft, formatDate, encrypt }
