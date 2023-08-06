@@ -6,6 +6,7 @@ module.exports = {
             _model_: Tag,
             action: 'updateMany',
             condition(res) {
+                if (!res.tags?.origin) return {}
                 return {
                     _id: {
                         $in: res.tags.origin
@@ -24,6 +25,7 @@ module.exports = {
             _model_: Tag,
             action: 'updateMany',
             condition(res) {
+                if (!res.tags?.current) return {}
                 return {
                     _id: {
                         $in: res.tags.current
