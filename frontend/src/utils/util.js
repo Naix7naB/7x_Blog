@@ -17,7 +17,11 @@ function padLeft(num) {
  * @return {String} 格式化后的日期字符串
  * @Date: 2022-09-07
  */
-function formatDate(date, format = 'YYYY-MM-DD') {
+function formatDate(date, format = 'YYYY-MM-DD hh:mm:ss') {
+    if (typeof date === 'number') {
+        // 如果传入的时间戳单位为秒 转为毫秒
+        date = date.toString().length === 10 ? date * 1000 : date
+    }
     date = (date && new Date(date)) || new Date()
     const o = {
         'M+': date.getMonth() + 1,
@@ -51,4 +55,18 @@ function encrypt(plain, key) {
     return encryptor.encrypt(plain)
 }
 
-export { padLeft, formatDate, encrypt }
+/**
+ * @function resolveUrl
+ * @description 补全路径地址
+ * @param {String} url 路径地址
+ * @return {String} 补全后的路径地址
+ */
+function resolveUrl(url) {
+    const regexp = /^\/.+/g
+    if (!regexp.test(url)) {
+        url = '/' + url
+    }
+    return process.env.VUE_APP_BASE_URL + url
+}
+
+export { padLeft, formatDate, encrypt, resolveUrl }
