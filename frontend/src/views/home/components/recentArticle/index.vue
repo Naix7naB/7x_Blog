@@ -1,40 +1,70 @@
 <script>
-import inset from '@/assets/images/inset.png'
+import { getArticleList, getArticleInfoById } from '@/apis/article'
+import { formatDate, resolveUrl } from '@/utils/util'
+import { mapActions } from 'vuex'
 
 export default {
     data() {
         return {
-            inset
+            recentArticles: []
         }
+    },
+    methods: {
+        ...mapActions('article', ['setArticleInfo']),
+        formatDate,
+        resolveUrl,
+        selected(e) {
+            let target = e.target
+            if (target.className === 'recent-article--wrapper') return false
+            while(!target.classList.contains('recent-article--item')) {
+                target = target.parentElement
+            }
+            getArticleInfoById(target.dataset.aid).then(({ data }) => {
+                const { _id: aid, ...info } = data
+                this.setArticleInfo({ aid, ...info })
+                this.$router.push(`/article/${aid}`)
+            }).catch(err => {
+                this.$message.error(err.errMsg)
+            })
+        }
+    },
+    mounted() {
+        getArticleList().then(({ data }) => {
+            this.recentArticles = data.list
+        }).catch(err => {
+            this.$message.error(err.errMsg)
+        })
     }
 }
 </script>
 
 <template>
-    <ul class="recent-article--wrapper">
-        <li class="recent-article--item shadow-box" v-for="item in 6" :key="item">
+    <ul class="recent-article--wrapper" @click="selected">
+        <li
+            class="recent-article--item shadow-box"
+            v-for="(item, idx) in recentArticles"
+            :key="item._id"
+            :data-aid="item._id"
+        >
             <div
-                class="article-item--wrapper recent-article--image"
-                :class="{ left: item % 2 === 1, right: item % 2 === 0 }"
+                :class="['article-item--wrapper', 'recent-article--image', { left: idx % 2 === 0, right: idx % 2 === 1 }]"
             >
-                <el-image :src="inset" fit="cover" />
+                <el-image :src="resolveUrl(item.cover_img)" fit="cover" />
             </div>
             <div
-                class="article-item--wrapper recent-article--info"
-                :class="{ left: item % 2 === 0, right: item % 2 === 1 }"
+                :class="['article-item--wrapper', 'recent-article--info', { left: idx % 2 === 1, right: idx % 2 === 0 }]"
             >
                 <div class="article-info--meta date">
-                    <fa-icon icon="fas fa-calendar-days" /> 发布于 2023-07-22 20:16:27
+                    <fa-icon icon="fas fa-calendar-days" /> 发布于
+                    {{formatDate(item.created_at, 'YYYY-MM-DD hh:mm:ss')}}
                 </div>
-                <h3 class="article-info--title">文章标题;文章标题;文章标题</h3>
+                <h3 class="article-info--title">{{item.title}}</h3>
                 <div class="article-info--meta data">
-                    <span><fa-icon icon="fas fa-fire" /> 1021</span>
-                    <span><fa-icon icon="fas fa-comment" /> 18</span>
-                    <span><fa-icon icon="fas fa-heart" /> 32</span>
+                    <span><fa-icon icon="fas fa-fire" /> 热度 {{item.view_num}}</span>
+                    <span><fa-icon icon="fas fa-comment" /> 评论 {{item.comment_num}}</span>
+                    <span><fa-icon icon="fas fa-heart" /> 喜欢 {{item.like_num}}</span>
                 </div>
-                <p class="article-info--desc">
-                    《百年孤独》，是哥伦比亚作家加西亚·马尔克斯创作的长篇小说，是其代表作，也是拉丁美洲魔幻现实主义文学的代表作，被誉为“再现拉丁美洲历史社会图景的鸿篇巨著”。
-                </p>
+                <p class="article-info--desc">{{item.description}}</p>
                 <div class="article-info--label">
                     <span class="article-label--item"><fa-icon icon="fas fa-tag" /> 新闻</span>
                     <span class="article-label--item"><fa-icon icon="fas fa-tag" /> 笔记</span>
