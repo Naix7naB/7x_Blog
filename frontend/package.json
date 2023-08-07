@@ -15,9 +15,12 @@
         "axios": "^1.2.0",
         "core-js": "^3.26.1",
         "element-ui": "^2.15.13",
+        "github-markdown-css": "^5.2.0",
+        "highlight.js": "^11.8.0",
         "jsencrypt": "^3.3.1",
         "typed.js": "^2.0.16",
         "vue": "^2.7.14",
+        "vue-markdown": "^2.2.4",
         "vue-router": "^3.6.5",
         "vuescroll": "^4.17.5",
         "vuex": "^3.6.2"
