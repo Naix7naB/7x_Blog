@@ -1,6 +1,9 @@
 <script>
-import { BaseForm, BaseTable } from '@/components'
-import { ColorBlock, TagDialog, TagDrawer } from './components'
+import BaseTable from '@/components/table'
+import BaseForm from '@/components/form'
+import ColorBlock from './components/colorBlock'
+import TagDialog from './components/tagDialog'
+import TagDrawer from './components/tagDrawer'
 import { tableColumns, headerFormItems } from '@/config/tagList.config'
 import { getTagList, deleteTagById } from '@/apis/tag'
 

@@ -1,5 +1,5 @@
 <script>
-import { BaseForm } from '@/components'
+import BaseForm from '@/components/form'
 import { formData, formItems } from '@/config/articleWrite.config'
 import { resolveUrl } from '@/utils'
 import { uploadImg, createArticle, updateArticleById } from '@/apis/article'

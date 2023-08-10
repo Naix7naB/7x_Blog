@@ -1,5 +1,7 @@
 <script>
-import { Sidebar, Navbar, AppMain } from './components'
+import Sidebar from './components/sidebar'
+import Navbar from './components/navbar'
+import AppMain from './components/appMain'
 
 export default {
     name: 'Layout',

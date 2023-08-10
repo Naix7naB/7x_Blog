@@ -1,5 +1,5 @@
 <script>
-import { BaseForm } from '@/components'
+import BaseForm from '@/components/form'
 import { createTag } from '@/apis/tag'
 
 export default {

@@ -1,5 +1,5 @@
 <script>
-import { BaseTable } from '@/components'
+import BaseTable from '@/components/table'
 import { tableColumns } from '@/config/articleList.config'
 import { getArticleList, deleteArticleById } from '@/apis/article'
 

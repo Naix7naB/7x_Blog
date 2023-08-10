@@ -1,5 +1,5 @@
 <script>
-import { BaseForm } from '@/components'
+import BaseForm from '@/components/form'
 
 export default {
     name: 'ClassifyDialog',

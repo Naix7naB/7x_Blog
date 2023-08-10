@@ -1,5 +1,6 @@
 <script>
-import { LoginBox, LoginOverlay } from './components'
+import LoginBox from './components/loginBox'
+import LoginOverlay from './components/loginOverlay'
 
 export default {
     name: 'Login',

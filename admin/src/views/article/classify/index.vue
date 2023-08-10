@@ -1,5 +1,6 @@
 <script>
-import { BaseForm, BaseTable } from '@/components'
+import BaseTable from '@/components/table'
+import BaseForm from '@/components/form'
 import ClassifyDialog from './components/classifyDialog'
 import { tableColumns, headerFormItems } from '@/config/articleClassify.config'
 import { getClassifyList, createClassify, modifyClassifyById, deleteClassifyById } from '@/apis/classify'
