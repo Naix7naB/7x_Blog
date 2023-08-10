@@ -16,6 +16,11 @@ const schema = new mongoose.Schema(
             type: String,
             required: [true, '文章描述是必填项!']
         },
+        classify: {
+            ref: 'Classify',
+            type: mongoose.SchemaTypes.ObjectId,
+            required: [true, '文章类别是必填项!']
+        },
         tags: [
             {
                 ref: 'Tag',
