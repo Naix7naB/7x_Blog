@@ -1,14 +1,8 @@
 <script>
-import VueMarkdown from 'vue-markdown'
 import { formatDate, resolveUrl } from '@/utils/util'
 import { mapGetters } from 'vuex'
 
-import 'github-markdown-css/github-markdown-dark.css'
-import 'highlight.js/styles/atom-one-dark.css'
-import '@/assets/scss/highlight.scss'
-
 export default {
-    components: { VueMarkdown },
     data() {
         return {}
     },
@@ -49,20 +43,26 @@ export default {
                 </div>
             </div>
         </div>
-        <article class="article-content markdown-body">
-            <vue-markdown
-                v-highlight
-                :source="getArticleInfo.content"
-                :html="false"
-                :postrender="postrender"
-            />
-        </article>
+        <div class="article-body">
+            <article>
+                <div class="markdown-body" v-highlight="getArticleInfo.content"></div>
+                <p class="article-time--update">
+                    文章最后更新于&nbsp;{{formatDate(getArticleInfo.updated_at)}}
+                </p>
+                <div class="article-tag--wrapper">tags</div>
+            </article>
+            <div class="article-comment--wrapper">
+                <div class="article-comment--input"></div>
+                <div></div>
+            </div>
+        </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
 /* 样式穿透 hook ElementUI 样式 */
 :deep(.el-image) {
+    @include layer-mask();
     display: block;
     height: 100%;
 }
@@ -78,9 +78,10 @@ export default {
 }
 
 .article-head--meta {
+    user-select: none;
     position: absolute;
     left: 20%;
-    bottom: 10px;
+    bottom: 20px;
     color: #ffffff;
 }
 
@@ -94,11 +95,16 @@ export default {
     margin-left: 4px;
 }
 
-.article-content {
+.article-body {
     min-width: 360px;
     max-width: 800px;
     margin: 0 auto;
     padding: 40px 20px;
-    background-color: #24272d;
+}
+
+.article-time--update {
+    user-select: none;
+    margin: 20px 0;
+    font-size: $fz-small-s;
 }
 </style>
