@@ -3,6 +3,7 @@ import BaseForm from '@/components/form'
 import { formData, formItems } from '@/config/articleWrite.config'
 import { resolveUrl } from '@/utils'
 import { uploadImg, createArticle, updateArticleById } from '@/apis/article'
+import { getClassifyList } from '@/apis/classify'
 import { getTagList } from '@/apis/tag'
 
 export default {
@@ -62,19 +63,17 @@ export default {
         }
     },
     methods: {
-        setTagOptions() {
-            getTagList({ select: '-articles name' }).then(res => {
-                const { list } = res.data
+        async setTagOptions() {
+            try {
+                const { data: { list: classifyList } } = await getClassifyList()
+                const { data: { list: tagList } } = await getTagList({ select: '-articles name' })
+                const classify = this.formItems.find(item => item.prop === 'classify')
                 const tags = this.formItems.find(item => item.prop === 'tags')
-                tags.options = list.map(tag => {
-                    return {
-                        label: tag.name,
-                        value: tag._id
-                    }
-                })
-            }).catch(err => {
+                classify.options = classifyList.map(item => ({ label: item.name, value: item._id }))
+                tags.options = tagList.map(tag => ({ label: tag.name, value: tag._id }))
+            } catch (err) {
                 this.$message.error(err.errMsg)
-            })
+            }
         },
         addImg(pos, file) {
             uploadImg({ filename: pos, file }).then(res => {
@@ -100,6 +99,7 @@ export default {
                     this.resetData()
                     this.$message.success(res.errMsg)
                 }).catch(err => {
+                    this.resetData()
                     this.$message.error(err.errMsg)
                 })
             })
@@ -117,6 +117,9 @@ export default {
                 Object.entries(this.formData).map(([key, val]) => {
                     if (key === 'tags') {
                         data[key] = data[key].map(t => t._id)
+                    }
+                    if (key === 'classify') {
+                        data[key] = data[key]?._id
                     }
                     return [key, data[key]]
                 })

@@ -1,6 +1,7 @@
 const formData = {
     title: '',
     description: '',
+    classify: '',
     tags: [],
     cover_img: null,
     content: '',
@@ -24,10 +25,22 @@ const formItems = [
     },
     {
         type: 'select',
+        prop: 'classify',
+        label: '文章分类',
+        placeholder: '请选择文章分类',
+        rules: [{ required: true, message: '文章分类必填', trigger: 'change' }],
+        others: {
+            filterable: true,
+            multiple: false
+        },
+        options: []
+    },
+    {
+        type: 'select',
         prop: 'tags',
         label: '文章标签',
-        placeholder: '请输入文章标签',
-        rules: [{ required: true, message: '请填写文章标签', trigger: 'change' }],
+        placeholder: '请选择文章标签',
+        rules: [{ required: true, message: '文章标签必填', trigger: 'change' }],
         others: {
             filterable: true,
             multiple: true,
