@@ -1,7 +1,5 @@
 /**
  * 封装 http 请求
- * 挂载在 Vue 实例上
- * 通过 Vue.$http 来调用
  */
 import http from '@/apis/http'
 

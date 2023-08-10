@@ -1,7 +1,5 @@
 /**
  * 封装 localStorage
- * 挂载在 Vue 实例上
- * 通过 Vue.$storage 来调用
  */
 export default class Storage {
     /**
