@@ -6,6 +6,13 @@ module.exports = class ResourceBody {
         }
     }
 
+    static Classify(uid, data) {
+        return {
+            creator: uid,
+            ...data
+        }
+    }
+
     static Tag(uid, data) {
         return {
             creator: uid,

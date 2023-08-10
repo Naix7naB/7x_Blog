@@ -6,7 +6,11 @@ module.exports = {
         },
         Article: {
             authField: 'author',
-            revisableFields: ['title', 'description', 'tags', 'cover_img', 'content', 'state']
+            revisableFields: ['title', 'description', 'classify', 'tags', 'cover_img', 'content', 'state']
+        },
+        Classify: {
+            authField: 'creator',
+            revisableFields: ['name']
         },
         Tag: {
             authField: 'creator',
@@ -19,6 +23,9 @@ module.exports = {
         },
         Article: {
             authField: 'author'
+        },
+        Classify: {
+            authField: 'creator'
         },
         Tag: {
             authField: 'creator'

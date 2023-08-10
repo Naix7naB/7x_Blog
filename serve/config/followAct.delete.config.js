@@ -1,12 +1,27 @@
 const fs = require('fs/promises')
 const path = require('path')
 const Article = require('../models/Article')
+const Classify = require('../models/Classify')
 const Tag = require('../models/Tag')
 
 const { UPLOAD_PATH } = require('../config/base.config')
 
 module.exports = {
     Article: [
+        {
+            _model_: Classify,
+            action: 'findByIdAndUpdate',
+            condition(res) {
+                return res.classify
+            },
+            opt(aid) {
+                return {
+                    $pull: {
+                        articles: aid
+                    }
+                }
+            }
+        },
         {
             _model_: Tag,
             action: 'updateMany',
