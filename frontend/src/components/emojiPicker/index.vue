@@ -52,6 +52,7 @@ export default {
 
 .emoji-picker {
     overflow: hidden scroll;
+    z-index: 100;
     position: absolute;
     top: 140%;
     left: 140%;

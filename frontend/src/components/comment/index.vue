@@ -10,13 +10,41 @@ export default {
     components: { CommentEditor, CommentList },
     data() {
         return {
-            comments: []
+            comments: [],
+            spin: false
         }
     },
     computed: {
-        ...mapGetters('article', ['getArticleInfo'])
+        ...mapGetters('article', ['getArticleInfo']),
+        refreshBtnStyle() {
+            return {
+                '--fa-animation-duration': '.7s',
+                '--fa-animation-iteration-count': 1,
+                '--fa-animation-timing': 'cubic-bezier(0,.15,.38,1.35)'
+            }
+        }
     },
     methods: {
+        getCommentList(cb) {
+            getArticleComments(this.getArticleInfo.aid).then(({ data }) => {
+                this.comments = data.list
+                if (cb && typeof cb === 'function') {
+                    cb()
+                }
+            }).catch(err => {
+                this.$message.error(err.errMsg)
+            })
+        },
+        refresh() {
+            if (this.spin) return false
+            this.spin = true
+            setTimeout(() => {
+                this.spin = false
+                this.getCommentList(() => {
+                    this.$message.success('刷新评论')
+                })
+            }, 1000)
+        },
         onSubmit(comment) {
             if (this.postMethod && typeof this.postMethod === 'function') {
                 this.postMethod(comment)
@@ -24,9 +52,7 @@ export default {
         }
     },
     created() {
-        getArticleComments(this.getArticleInfo.aid).then(({ data }) => {
-            this.comments = data.list
-        }).catch(err => this.$message.error(err.errMsg))
+        this.getCommentList()
     }
 }
 </script>
@@ -41,8 +67,15 @@ export default {
         </div>
         <div class="comment-list--wrapper">
             <div class="comment-list--stats">
-                <span>Comments | </span>
-                <span>{{getArticleInfo.comment_num}}条评论</span>
+                <span>Comments</span>
+                <span class="comment-stats--count">{{comments.length}}条评论</span>
+                <span class="comment-stats--refresh" @click="refresh">
+                    <fa-icon
+                        :icon="['fas', 'rotate-right']"
+                        :spin="spin"
+                        :style="refreshBtnStyle"
+                    />
+                </span>
             </div>
             <CommentList :comments="comments" />
         </div>
@@ -67,7 +100,29 @@ export default {
 .comment-list--stats {
     user-select: none;
     margin-bottom: 30px;
+    line-height: $lh-medium-x;
     font-size: $fz-medium-x;
     color: #999999;
+}
+
+.comment-stats--count {
+    position: relative;
+    margin-left: 16px;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 4px;
+        left: -8px;
+        width: 1px;
+        height: 16px;
+        background-color: #999999;
+        transform: scaleX(.5);
+    }
+}
+
+.comment-stats--refresh {
+    float: right;
+    cursor: pointer;
 }
 </style>
