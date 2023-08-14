@@ -1,5 +1,6 @@
 <script>
 import { formatDate } from '@/utils/util'
+import { mapGetters } from 'vuex'
 
 export default {
     name: 'CommentItem',
@@ -11,6 +12,12 @@ export default {
         reviewer: {
             type: Object,
             default: () => {}
+        }
+    },
+    computed: {
+        ...mapGetters('user', ['getUserRole']),
+        isMaster() {
+            return this.getUserRole === 'root'
         }
     },
     methods: {
@@ -27,7 +34,7 @@ export default {
                 <div class="comment-info--head">
                     <span
                         v-text="comment.reviewer.nickname"
-                        :class="['comment-info--name', { master: true }]"
+                        :class="['comment-info--name', { master: isMaster }]"
                     />
                     <span class="comment-info--date">{{formatDate(comment.date)}}</span>
                 </div>
