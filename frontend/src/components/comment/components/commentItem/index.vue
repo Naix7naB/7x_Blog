@@ -26,8 +26,10 @@ export default {
             <el-avatar :src="resolveUrl(comment.reviewer.avatar)" />
             <div class="comment-info">
                 <div class="comment-info--head">
-                    <span class="comment-info--name">{{comment.reviewer.nickname}}</span>
-                    <span class="comment-info--master">博主</span>
+                    <span
+                        v-text="comment.reviewer.nickname"
+                        :class="['comment-info--name', { master: true }]"
+                    />
                     <span class="comment-info--date">{{formatDate(comment.date)}}</span>
                 </div>
                 <div class="comment-info--body">
@@ -62,30 +64,34 @@ export default {
 }
 
 .comment-info--head {
-    @include clearfix();
     user-select: none;
     line-height: $lh-small-s;
-    font-size: $fz-small-s;
 }
 
 .comment-info--name {
-    user-select: text;
     font-size: $fz-medium;
     font-weight: 700;
     color: #f29141;
-    vertical-align: -1px;
 }
 
-.comment-info--master {
-    margin-left: 6px;
-    padding: 1px 4px;
-    color: #67c23a;
-    border: 1px solid #67c23a;
-    border-radius: 4px;
+.comment-info--name.master {
+    &::after {
+        content: '博主';
+        margin-left: 6px;
+        padding: 1px 4px;
+        font-size: $fz-small-s;
+        font-weight: 400;
+        color: #67c23a;
+        border: 1px solid #67c23a;
+        border-radius: 4px;
+        vertical-align: 1px;
+    }
 }
 
 .comment-info--date {
-    float: right;
+    margin-left: 12px;
+    font-size: $fz-small-s;
+    color: #999999;
 }
 
 .comment-info--body {
