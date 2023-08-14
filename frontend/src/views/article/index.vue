@@ -1,10 +1,16 @@
 <script>
+import Comment from '@/components/comment'
+
+import { postComment } from '@/apis/comment'
 import { formatDate, resolveUrl } from '@/utils/util'
 import { mapGetters } from 'vuex'
 
 export default {
-    data() {
-        return {}
+    components: { Comment },
+    provide() {
+        return {
+            submitEvent: this.submitComment
+        }
     },
     computed: {
         ...mapGetters('article', ['getArticleInfo'])
@@ -12,8 +18,10 @@ export default {
     methods: {
         formatDate,
         resolveUrl,
-        postrender(html) {
-            return html.replace(/<pre>/gi, '<pre class="code-wrapper">').replace(/<code.+>/gi, '<code>')
+        submitComment(comment) {
+            postComment({ aid: this.getArticleInfo.aid, content: comment })
+                .then(() => this.$message.success('发布评论'))
+                .catch(err => this.$message.error(err.errMsg))
         }
     }
 }
@@ -51,10 +59,7 @@ export default {
                 </p>
                 <div class="article-tag--wrapper">tags</div>
             </article>
-            <div class="article-comment--wrapper">
-                <div class="article-comment--input"></div>
-                <div></div>
-            </div>
+            <Comment />
         </div>
     </div>
 </template>
