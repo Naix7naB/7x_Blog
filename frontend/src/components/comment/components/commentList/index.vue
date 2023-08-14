@@ -17,7 +17,7 @@ export default {
     <ul v-if="comments && comments.length !== 0">
         <CommentItem
             v-for="comment in comments"
-            :key="comment._id"
+            :key="comment.id"
             :comment="comment"
             :reviewer="comment.reviewer"
         />

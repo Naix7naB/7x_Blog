@@ -33,7 +33,7 @@ export default {
                 </div>
                 <div class="comment-info--body">
                     <span
-                        v-if="comment.mention && comment.mention._id !== reviewer._id"
+                        v-if="comment.mention && comment.mention.id !== reviewer.id"
                         class="comment-info--metion"
                         :data-mention="comment.mention.nickname"
                     />
@@ -42,7 +42,7 @@ export default {
                 <ul v-if="comment.replies && comment.replies.length !== 0">
                     <CommentItem
                         v-for="reply in comment.replies"
-                        :key="reply._id"
+                        :key="reply.id"
                         :comment="reply"
                         :reviewer="comment.reviewer"
                     />

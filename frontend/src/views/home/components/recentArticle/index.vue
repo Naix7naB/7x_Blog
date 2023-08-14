@@ -19,7 +19,7 @@ export default {
                 target = target.parentElement
             }
             getArticleInfoById(target.dataset.aid).then(({ data }) => {
-                const { _id: aid, ...info } = data
+                const { id: aid, ...info } = data
                 this.setArticleInfo({ aid, ...info })
                 this.$router.push(`/article/${aid}`)
             }).catch(err => {
@@ -42,8 +42,8 @@ export default {
         <li
             class="recent-article--item shadow-box"
             v-for="(item, idx) in recentArticles"
-            :key="item._id"
-            :data-aid="item._id"
+            :key="item.id"
+            :data-aid="item.id"
         >
             <div
                 :class="['article-item--wrapper', 'recent-article--image', { left: idx % 2 === 0, right: idx % 2 === 1 }]"
