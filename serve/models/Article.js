@@ -36,6 +36,12 @@ const schema = new mongoose.Schema(
             type: String,
             required: [true, '文章内容不能为空!']
         },
+        comments: [
+            {
+                ref: 'Comment',
+                type: mongoose.SchemaTypes.ObjectId
+            }
+        ],
         view_num: {
             type: Number,
             default: 0
@@ -60,12 +66,6 @@ const schema = new mongoose.Schema(
         //     type: mongoose.SchemaTypes.ObjectId,
         //     default: []
         // },
-        // TODO 引用 Comment 模型
-        // comments: {
-        //     ref: 'Comment',
-        //     type: mongoose.SchemaTypes.ObjectId,
-        //     default: []
-        // }
     },
     schemaOption
 )
