@@ -2,7 +2,7 @@
 import Comment from '@/components/comment'
 
 import { postComment } from '@/apis/comment'
-import { formatDate, resolveUrl } from '@/utils/util'
+import { formatDate } from '@/utils/util'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -17,7 +17,6 @@ export default {
     },
     methods: {
         formatDate,
-        resolveUrl,
         submitComment(comment) {
             postComment({ aid: this.getArticleInfo.aid, content: comment })
                 .then(() => this.$message.success('发布评论'))
@@ -30,7 +29,7 @@ export default {
 <template>
     <div class="article-container" v-if="getArticleInfo">
         <div class="article-head">
-            <el-image fit="cover" :src="resolveUrl(getArticleInfo.cover_img)" />
+            <el-image fit="cover" :src="getArticleInfo.cover_img" />
             <div class="article-head--meta">
                 <h3 class="article-meta--title">{{getArticleInfo.title}}</h3>
                 <div>

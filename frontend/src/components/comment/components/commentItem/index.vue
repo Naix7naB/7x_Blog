@@ -1,5 +1,5 @@
 <script>
-import { formatDate, resolveUrl } from '@/utils/util'
+import { formatDate } from '@/utils/util'
 
 export default {
     name: 'CommentItem',
@@ -14,8 +14,7 @@ export default {
         }
     },
     methods: {
-        formatDate,
-        resolveUrl
+        formatDate
     }
 }
 </script>
@@ -23,7 +22,7 @@ export default {
 <template>
     <li>
         <div class="comment-info--wrapper">
-            <el-avatar :src="resolveUrl(comment.reviewer.avatar)" />
+            <el-avatar :src="comment.reviewer.avatar" />
             <div class="comment-info">
                 <div class="comment-info--head">
                     <span

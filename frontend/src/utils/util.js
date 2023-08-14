@@ -55,18 +55,4 @@ function encrypt(plain, key) {
     return encryptor.encrypt(plain)
 }
 
-/**
- * @function resolveUrl
- * @description 补全路径地址
- * @param {String} url 路径地址
- * @return {String} 补全后的路径地址
- */
-function resolveUrl(url) {
-    const regexp = /^\/.+/g
-    if (!regexp.test(url)) {
-        url = '/' + url
-    }
-    return process.env.VUE_APP_BASE_URL + url
-}
-
-export { padLeft, formatDate, encrypt, resolveUrl }
+export { padLeft, formatDate, encrypt }

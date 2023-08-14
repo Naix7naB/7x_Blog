@@ -1,6 +1,6 @@
 <script>
 import { getArticleList, getArticleInfoById } from '@/apis/article'
-import { formatDate, resolveUrl } from '@/utils/util'
+import { formatDate } from '@/utils/util'
 import { mapActions } from 'vuex'
 
 export default {
@@ -12,7 +12,6 @@ export default {
     methods: {
         ...mapActions('article', ['setArticleInfo']),
         formatDate,
-        resolveUrl,
         selected(e) {
             let target = e.target
             if (target.className === 'recent-article--wrapper') return false
@@ -49,7 +48,7 @@ export default {
             <div
                 :class="['article-item--wrapper', 'recent-article--image', { left: idx % 2 === 0, right: idx % 2 === 1 }]"
             >
-                <el-image :src="resolveUrl(item.cover_img)" fit="cover" />
+                <el-image :src="item.cover_img" fit="cover" />
             </div>
             <div
                 :class="['article-item--wrapper', 'recent-article--info', { left: idx % 2 === 1, right: idx % 2 === 0 }]"
