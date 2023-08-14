@@ -1,11 +1,9 @@
-import store from '@/store'
-
 const registerData = {
     username: '',
     nickname: '',
     password: '',
     email: '',
-    role: store.getters['user/getRole']
+    role: 'user'
 }
 
 const registerItems = [
