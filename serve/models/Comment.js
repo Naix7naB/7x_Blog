@@ -28,9 +28,7 @@ const schema = new mongoose.Schema(
             }
         ]
     },
-    {
-        versionKey: schemaOption.versionKey
-    }
+    schemaOption
 )
 
 module.exports = mongoose.model('Comment', schema)

@@ -40,8 +40,8 @@ const schema = new mongoose.Schema(
         avatar: {
             type: String,
             default: '/user/default_avatar.png',
-            get(val) {
-                return resolveUrl(val)
+            get(url) {
+                return resolveUrl(url)
             }
         },
         nickname: {

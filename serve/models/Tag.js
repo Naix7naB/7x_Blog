@@ -17,18 +17,18 @@ const schema = new mongoose.Schema(
             type: String,
             set(val) {
                 if (!val) {
-                    return '暂无描述'
+                    val = '暂无描述'
                 }
                 return val
             }
         },
         color: {
             type: String,
-            set(val) {
-                if (!val) {
-                    return 'rgba(66, 184, 131, 1)'
+            set(color) {
+                if (!color) {
+                    color = 'rgba(66, 184, 131, 1)'
                 }
-                return val
+                return color
             }
         },
         articles: [

@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 const schemaOption = require('../config/schemaOption.config')
 
+const { resolveUrl } = require('../utils/helpers')
+
 const schema = new mongoose.Schema(
     {
         author: {
@@ -30,7 +32,10 @@ const schema = new mongoose.Schema(
         ],
         cover_img: {
             type: String,
-            required: [true, '文章封面是必填项!']
+            required: [true, '文章封面是必填项!'],
+            get(url) {
+                return resolveUrl(url)
+            }
         },
         content: {
             type: String,
