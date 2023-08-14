@@ -31,17 +31,17 @@ module.exports = class Response {
      * @param {Object} payload 需要验证的荷载信息
      */
     static sendToken(res, { payload, message = '' }) {
-        const { id: uid, username, nickname, email, avatar, role } = payload
-        const token = generateToken({ uid, username, nickname, role })
+        const { id: uid, role: rid, username, nickname, email, avatar } = payload
+        const token = generateToken({ uid, rid, username, nickname })
         Response.send(res, {
             message,
             data: {
                 uid,
+                rid,
                 username,
                 nickname,
                 email,
                 avatar,
-                role,
                 token
             }
         })
