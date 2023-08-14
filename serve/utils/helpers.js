@@ -1,3 +1,5 @@
+const { ORIGIN } = require('../config/server.config')
+
 /**
  * @function isObject
  * @description 判断是否是对象
@@ -80,6 +82,16 @@ function formatDate(date, format = 'YYYY-MM-DD') {
 }
 
 /**
+ * @function resolveUrl
+ * @description 补全URL
+ * @param {String} url URL字符串
+ * @return {String} 有域名地址的URL
+ */
+function resolveUrl(url) {
+    return new URL(url, ORIGIN).href
+}
+
+/**
  * @function normalizeUrl
  * @description 规格化URL字符串
  * @param {String} url URL字符串
@@ -96,5 +108,6 @@ module.exports = {
     hasOwn,
     padLeft,
     formatDate,
+    resolveUrl,
     normalizeUrl
 }

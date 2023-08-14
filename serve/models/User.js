@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 const schemaOption = require('../config/schemaOption.config')
 
+const { resolveUrl } = require('../utils/helpers')
+
 const schema = new mongoose.Schema(
     {
         username: {
@@ -37,7 +39,10 @@ const schema = new mongoose.Schema(
         },
         avatar: {
             type: String,
-            default: ''
+            default: '/user/default_avatar.png',
+            get(val) {
+                return resolveUrl(val)
+            }
         },
         nickname: {
             type: String,
