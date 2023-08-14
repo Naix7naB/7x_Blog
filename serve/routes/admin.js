@@ -33,10 +33,10 @@ Router.post('/register', async (req, res, next) => {
         userInfo.email = userInfo.email || `user${random}@email.com`
         const user = await User.create({
             ...userInfo,
-            role: userRole._id
+            role: userRole.id
         })
-        await Role.findByIdAndUpdate(userRole._id, {
-            $push: { includes: user._id }
+        await Role.findByIdAndUpdate(userRole.id, {
+            $push: { includes: user.id }
         })
         Response.sendToken(res, {
             payload: user,

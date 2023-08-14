@@ -39,7 +39,7 @@ module.exports = {
             condition(res) {
                 if (!res.tags) return {}
                 return {
-                    _id: {
+                    id: {
                         $in: res.tags.origin
                     }
                 }
@@ -58,7 +58,7 @@ module.exports = {
             condition(res) {
                 if (!res.tags) return {}
                 return {
-                    _id: {
+                    id: {
                         $in: res.tags.current
                     }
                 }

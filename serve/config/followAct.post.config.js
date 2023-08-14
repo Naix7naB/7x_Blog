@@ -23,7 +23,7 @@ module.exports = {
             action: 'updateMany',
             condition(res) {
                 return {
-                    _id: {
+                    id: {
                         $in: res.tags
                     }
                 }

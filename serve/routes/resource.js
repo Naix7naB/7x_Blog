@@ -40,7 +40,7 @@ Router.get('/:id', async (req, res, next) => {
         const followAct = FollowAction.getAction(method, modelName)
         if (followAct) {
             const { action, opt } = followAct
-            await Model[action](result._id, opt())
+            await Model[action](result.id, opt())
         }
         // 返回响应
         Response.send(res, { data: result })
@@ -68,7 +68,7 @@ Router.post('/', postBodyMiddleware(), async (req, res, next) => {
         if (followAct) {
             followAct.forEach(async item => {
                 const { _model_, action, condition, opt } = item
-                await _model_[action](condition(resource), opt(resource._id))
+                await _model_[action](condition(resource), opt(resource.id))
             })
         }
         // 返回响应
@@ -103,13 +103,13 @@ Router.put('/:id', async (req, res, next) => {
         const diff = dataDiff(revisableData, req.body)
         const updates = Object.fromEntries(Object.entries(diff).map(([key, val]) => [key, val.current]))
         // 更新数据
-        const result = await Model.findByIdAndUpdate(resource._id, updates)
+        const result = await Model.findByIdAndUpdate(resource.id, updates)
         // 后续操作
         const followAct = FollowAction.getAction(method, modelName)
         if (followAct) {
             followAct.forEach(async item => {
                 const { _model_, action, condition, opt } = item
-                await _model_[action](condition(diff), opt(result._id))
+                await _model_[action](condition(diff), opt(result.id))
             })
         }
         // 返回响应
@@ -138,13 +138,13 @@ Router.delete('/:id', async (req, res, next) => {
         })
         assert(isPermit, 403)
         // 删除资源
-        const delRes = await Model.findByIdAndDelete(resource._id)
+        const delRes = await Model.findByIdAndDelete(resource.id)
         // 后续操作
         const followAct = FollowAction.getAction(method, Model.modelName)
         if (followAct) {
             followAct.forEach(async item => {
                 const { _model_, action, condition, opt } = item
-                await _model_[action](condition(delRes), opt(delRes._id))
+                await _model_[action](condition(delRes), opt(delRes.id))
             })
         }
         // 返回响应
