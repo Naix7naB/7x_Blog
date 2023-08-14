@@ -21,6 +21,7 @@
         "showdown": "^2.1.0",
         "typed.js": "^2.0.16",
         "vue": "^2.7.14",
+        "vue-emoji-picker": "^1.0.3",
         "vue-router": "^3.6.5",
         "vuescroll": "^4.17.5",
         "vuex": "^3.6.2"
