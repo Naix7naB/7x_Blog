@@ -56,8 +56,8 @@ export default {
     methods: {
         ...mapActions('user', [
             { loadEncryptKey: 'loadKey' },
-            'setUid',
-            'setToken'
+            'setToken',
+            'setUserInfo'
         ]),
         async handleRequest(data) {
             /* 验证表单 */
@@ -72,9 +72,9 @@ export default {
             data.password = encrypt(data.password, this.encryptKey)
             /* 发送请求 */
             this.currentRequest(data).then(res => {
-                const { uid, token } = res.data
-                this.setUid(uid)
+                const { token, ...userInfo } = res.data
                 this.setToken(token)
+                this.setUserInfo(userInfo)
                 this.$router.push('/')
                 this.$message.success(res.errMsg)
             }).catch(err => {
