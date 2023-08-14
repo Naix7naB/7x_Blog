@@ -19,4 +19,11 @@ module.exports = class ResourceBody {
             ...data
         }
     }
+
+    static Comment(uid, data) {
+        return {
+            reviewer: uid,
+            ...data
+        }
+    }
 }

@@ -29,6 +29,9 @@ module.exports = {
         },
         Tag: {
             authField: 'creator'
+        },
+        Comment: {
+            authField: 'reviewer'
         }
     }
 }

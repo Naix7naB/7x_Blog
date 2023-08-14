@@ -63,4 +63,13 @@ module.exports = class Populate {
             }
         ]
     }
+
+    static get Comment() {
+        return [
+            {
+                path: 'reviewer',
+                select: 'nickname avatar'
+            }
+        ]
+    }
 }
