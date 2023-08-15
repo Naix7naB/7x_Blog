@@ -20,13 +20,17 @@ module.exports = {
         }
     },
     PUT: {
+        User: {
+            authField: 'id',
+            revisableFields: ['*']
+        },
         Role: {
             authField: 'creator',
             revisableFields: ['name', 'label']
         },
         Article: {
             authField: 'author',
-            revisableFields: ['title', 'description', 'classify', 'tags', 'cover_img', 'content', 'state']
+            revisableFields: ['*']
         },
         Classify: {
             authField: 'creator',
@@ -38,6 +42,9 @@ module.exports = {
         }
     },
     DELETE: {
+        User: {
+            authField: 'id'
+        },
         Role: {
             authField: 'creator'
         },

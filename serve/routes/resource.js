@@ -97,9 +97,12 @@ Router.put('/:id', async (req, res, next) => {
         })
         assert(isPermit, 403)
         // 对比数据
-        const revisableData = Object.fromEntries(
-            Object.entries(resource.toJSON()).filter(([key, val]) => revisableFields.includes(key))
-        )
+        let revisableData = resource.toJSON()
+        if (!revisableFields.includes('*')) {
+            revisableData = Object.fromEntries(
+                Object.entries(resource.toJSON()).filter(([key, val]) => revisableFields.includes(key))
+            )
+        }
         const diff = dataDiff(revisableData, req.body)
         const updates = Object.fromEntries(Object.entries(diff).map(([key, val]) => [key, val.current]))
         // 更新数据
