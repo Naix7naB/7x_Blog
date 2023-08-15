@@ -15,9 +15,11 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('user', ['getUserRole']),
-        isMaster() {
-            return this.getUserRole === 'root'
+        ...mapGetters(['getWebsiteInfo']),
+        isHost() {
+            return uid => {
+                return uid === this.getWebsiteInfo.host.id
+            }
         }
     },
     methods: {
@@ -34,9 +36,11 @@ export default {
                 <div class="comment-info--head">
                     <span
                         v-text="comment.reviewer.nickname"
-                        :class="['comment-info--name', { master: isMaster }]"
+                        class="comment-info--name"
+                        :data-host="isHost(comment.reviewer.id)"
+                        :data-uid="comment.reviewer.id"
                     />
-                    <span class="comment-info--date">{{formatDate(comment.date)}}</span>
+                    <span class="comment-info--date">{{formatDate(comment.created_at)}}</span>
                 </div>
                 <div class="comment-info--body">
                     <span
@@ -80,7 +84,7 @@ export default {
     color: #f29141;
 }
 
-.comment-info--name.master {
+[data-host=true] {
     &::after {
         content: '博主';
         margin-left: 6px;
