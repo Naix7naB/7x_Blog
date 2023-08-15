@@ -53,12 +53,13 @@ Router.get('/:id', async (req, res, next) => {
 Router.post('/', postBodyMiddleware(), async (req, res, next) => {
     try {
         const { method, body, auth, Model } = req
-        // 验证权限
         const modelName = Model.modelName
+        // 验证权限
+        const { permission } = permitConf[method][modelName]
         const isPermit = await permit({
             opt: method,
-            resource: modelName,
-            rid: auth.role
+            permission: permission,
+            rid: auth.rid
         })
         assert(isPermit, 403)
         // 创建资源
@@ -90,8 +91,7 @@ Router.put('/:id', async (req, res, next) => {
         const { authField, revisableFields } = permitConf[method][modelName]
         const isPermit = await permit({
             opt: method,
-            resource: modelName,
-            rid: auth.role,
+            rid: auth.rid,
             uid: auth.uid,
             authId: resource[authField]
         })
@@ -131,8 +131,7 @@ Router.delete('/:id', async (req, res, next) => {
         const { authField } = permitConf[method][modelName]
         const isPermit = await permit({
             opt: method,
-            resource: modelName,
-            rid: auth.role,
+            rid: auth.rid,
             uid: auth.uid,
             authId: resource[authField]
         })

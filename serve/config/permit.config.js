@@ -1,4 +1,24 @@
 module.exports = {
+    POST: {
+        User: {
+            permission: ['root']
+        },
+        Role: {
+            permission: ['root']
+        },
+        Article: {
+            permission: ['root', 'admin']
+        },
+        Classify: {
+            permission: ['root', 'admin']
+        },
+        Tag: {
+            permission: ['root', 'admin']
+        },
+        Comment: {
+            permission: ['*']
+        }
+    },
     PUT: {
         Role: {
             authField: 'creator',

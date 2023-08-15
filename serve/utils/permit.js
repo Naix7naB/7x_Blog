@@ -5,12 +5,14 @@ async function getUserRole(rid) {
     return role
 }
 
-async function hasPermission({ opt, resource, rid, uid = null, authId = null }) {
+async function hasPermission({ opt, permission, rid, uid = null, authId = null }) {
     const { name: role } = await getUserRole(rid)
-    if (role === 'root') return true
-    if (role === 'admin') {
-        if (opt === 'POST' && resource !== 'Role') return true
-        if (uid && authId) return uid === authId ? true : false
+    if (opt === 'POST') {
+        return permission.includes('*') || permission.includes(role)
+    }
+    if (opt === 'PUT' || opt === 'DELETE') {
+        if (role === 'root') return true
+        return uid === authId ? true : false
     }
     return false
 }
