@@ -120,4 +120,12 @@ const routes = [
 
 const router = new VueRouter({ routes })
 
+router.beforeEach((to, from, next) => {
+    let websiteInfo = store.getters['getWebsiteInfo']
+    if (!websiteInfo) {
+        store.dispatch('loadWebsiteInfo')
+    }
+    next()
+})
+
 export default router
