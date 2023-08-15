@@ -1,9 +1,11 @@
 <script>
+import CommentEditor from '../commentEditor'
 import { formatDate } from '@/utils/util'
 import { mapGetters } from 'vuex'
 
 export default {
     name: 'CommentItem',
+    components: { CommentEditor },
     props: {
         comment: {
             type: Object,
@@ -23,7 +25,10 @@ export default {
         }
     },
     methods: {
-        formatDate
+        formatDate,
+        showEditor() {
+            this.$refs.reply.show()
+        }
     }
 }
 </script>
@@ -49,6 +54,7 @@ export default {
                         :data-mention="comment.mention.nickname"
                     />
                     <span class="comment-info--content">{{comment.content}}</span>
+                    <span class="comment-info--reply" @click="showEditor">回复</span>
                 </div>
                 <ul v-if="comment.replies && comment.replies.length !== 0">
                     <CommentItem
@@ -58,6 +64,13 @@ export default {
                         :reviewer="comment.reviewer"
                     />
                 </ul>
+                <transition>
+                    <CommentEditor
+                        ref="reply"
+                        comment-type="reply"
+                        :autosize="{ minRows: 1, maxRows: 3 }"
+                    />
+                </transition>
             </div>
         </div>
     </li>
@@ -88,7 +101,7 @@ export default {
     &::after {
         content: '博主';
         margin-left: 6px;
-        padding: 1px 4px;
+        padding: 0 4px;
         font-size: $fz-small-s;
         font-weight: 400;
         color: #67c23a;
@@ -105,12 +118,18 @@ export default {
 }
 
 .comment-info--body {
+    position: relative;
     margin: 16px 0 24px 0;
     padding: 20px;
+    line-height: $lh-small-s;
     border-radius: 8px;
     word-break: break-word;
     color: #000000;
-    background-color: #D4D4D4;
+    background-color: #d4d4d4;
+
+    &:hover .comment-info--reply {
+        opacity: 1;
+    }
 }
 
 .comment-info--metion {
@@ -121,6 +140,25 @@ export default {
 
     &::before {
         content: '@' attr(data-mention) ':';
+    }
+}
+
+.comment-info--reply {
+    opacity: 0;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 0 6px;
+    border-radius: 4px;
+    border: 1px solid #1f7ce7eb;
+    color: #1f7ce7eb;
+    font-size: $fz-small;
+    cursor: pointer;
+    transition: all .2s;
+
+    &:hover {
+        color: #e1e1e1;
+        background-color: #1f7ce7eb;
     }
 }
 </style>

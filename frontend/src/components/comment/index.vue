@@ -48,7 +48,7 @@ export default {
             <div class="comment-editor--title">
                 <fa-icon icon="fas fa-pen-to-square" />&nbsp;留言
             </div>
-            <CommentEditor />
+            <CommentEditor :autosize="{ minRows: 7, maxRows: 10 }" />
         </div>
         <div class="comment-list--wrapper">
             <div class="comment-list--stats">
