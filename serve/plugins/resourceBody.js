@@ -1,4 +1,11 @@
 module.exports = class ResourceBody {
+    static Website(uid, data) {
+        return {
+            host: uid,
+            ...data
+        }
+    }
+
     static Article(uid, data) {
         return {
             author: uid,

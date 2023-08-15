@@ -1,5 +1,8 @@
 module.exports = {
     POST: {
+        Website: {
+            permission: ['root']
+        },
         User: {
             permission: ['root']
         },
@@ -20,6 +23,10 @@ module.exports = {
         }
     },
     PUT: {
+        Website: {
+            authField: 'host',
+            revisableFields: ['*']
+        },
         User: {
             authField: 'id',
             revisableFields: ['*']

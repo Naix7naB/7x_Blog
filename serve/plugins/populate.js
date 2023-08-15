@@ -1,4 +1,13 @@
 module.exports = class Populate {
+    static get Website() {
+        return [
+            {
+                path: 'host',
+                select: '-role'
+            }
+        ]
+    }
+
     static get User() {
         return [
             {

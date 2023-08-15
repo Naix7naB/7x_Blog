@@ -3,6 +3,7 @@ const path = require('path')
 const Article = require('../models/Article')
 const Classify = require('../models/Classify')
 const Tag = require('../models/Tag')
+const Website = require('../models/Website')
 
 const { UPLOAD_PATH } = require('../config/base.config')
 
@@ -42,6 +43,20 @@ module.exports = {
             }
         },
         {
+            _model_: Website,
+            action: 'update',
+            condition() {
+                return {}
+            },
+            opt() {
+                return {
+                    $inc: {
+                        article_num: -1
+                    }
+                }
+            }
+        },
+        {
             _model_: fs,
             action: 'unlink',
             condition(res) {
@@ -49,6 +64,22 @@ module.exports = {
             },
             opt() {
                 return undefined
+            }
+        }
+    ],
+    Classify: [
+        {
+            _model_: Website,
+            action: 'update',
+            condition() {
+                return {}
+            },
+            opt() {
+                return {
+                    $inc: {
+                        classify_num: -1
+                    }
+                }
             }
         }
     ],
@@ -68,6 +99,20 @@ module.exports = {
                 return {
                     $pull: {
                         tags: tid
+                    }
+                }
+            }
+        },
+        {
+            _model_: Website,
+            action: 'update',
+            condition() {
+                return {}
+            },
+            opt() {
+                return {
+                    $inc: {
+                        tag_num: -1
                     }
                 }
             }
