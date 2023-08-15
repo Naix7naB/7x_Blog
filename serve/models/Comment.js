@@ -17,16 +17,14 @@ const schema = new mongoose.Schema(
             type: String,
             required: true
         },
-        date: {
-            type: Number,
-            default: Math.floor(Date.now() / 1000)
-        },
         replies: [
             {
                 ref: 'Reply',
                 type: mongoose.SchemaTypes.ObjectId
             }
-        ]
+        ],
+        created_at: Number,
+        updated_at: Number
     },
     schemaOption
 )
