@@ -10,8 +10,7 @@ export default {
     components: { CommentEditor, CommentList },
     data() {
         return {
-            comments: [],
-            spin: false
+            comments: []
         }
     },
     computed: {
@@ -25,34 +24,20 @@ export default {
         }
     },
     methods: {
-        getCommentList(cb) {
-            getArticleComments(this.getArticleInfo.aid).then(({ data }) => {
+        async getComments() {
+            try {
+                const { data } = await getArticleComments(this.getArticleInfo.aid)
                 this.comments = data.list
-                if (cb && typeof cb === 'function') {
-                    cb()
-                }
-            }).catch(err => {
+            } catch (err) {
                 this.$message.error(err.errMsg)
-            })
+            }
         },
         refresh() {
-            if (this.spin) return false
-            this.spin = true
-            setTimeout(() => {
-                this.spin = false
-                this.getCommentList(() => {
-                    this.$message.success('刷新评论')
-                })
-            }, 1000)
-        },
-        onSubmit(comment) {
-            if (this.postMethod && typeof this.postMethod === 'function') {
-                this.postMethod(comment)
-            }
+            this.getComments()
         }
     },
     created() {
-        this.getCommentList()
+        this.getComments()
     }
 }
 </script>
@@ -69,13 +54,6 @@ export default {
             <div class="comment-list--stats">
                 <span>Comments</span>
                 <span class="comment-stats--count">{{comments.length}}条评论</span>
-                <span class="comment-stats--refresh" @click="refresh">
-                    <fa-icon
-                        :icon="['fas', 'rotate-right']"
-                        :spin="spin"
-                        :style="refreshBtnStyle"
-                    />
-                </span>
             </div>
             <CommentList :comments="comments" />
         </div>
@@ -119,10 +97,5 @@ export default {
         background-color: #999999;
         transform: scaleX(.5);
     }
-}
-
-.comment-stats--refresh {
-    float: right;
-    cursor: pointer;
 }
 </style>

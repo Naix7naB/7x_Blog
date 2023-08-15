@@ -19,7 +19,10 @@ export default {
         formatDate,
         submitComment(comment) {
             postComment({ aid: this.getArticleInfo.aid, content: comment })
-                .then(() => this.$message.success('发布评论'))
+                .then(() => {
+                    this.$message.success('发布评论')
+                    this.$refs.comment.refresh()
+                })
                 .catch(err => this.$message.error(err.errMsg))
         }
     }
@@ -58,7 +61,7 @@ export default {
                 </p>
                 <div class="article-tag--wrapper">tags</div>
             </article>
-            <Comment />
+            <Comment ref="comment" />
         </div>
     </div>
 </template>
