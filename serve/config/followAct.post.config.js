@@ -1,4 +1,3 @@
-const Article = require('../models/Article')
 const Classify = require('../models/Classify')
 const Tag = require('../models/Tag')
 const Website = require('../models/Website')
@@ -79,25 +78,6 @@ module.exports = {
                 return {
                     $inc: {
                         tag_num: 1
-                    }
-                }
-            }
-        }
-    ],
-    Comment: [
-        {
-            _model_: Article,
-            action: 'findByIdAndUpdate',
-            condition(res) {
-                return res.aid
-            },
-            opt(cid) {
-                return {
-                    $inc: {
-                        comment_num: 1
-                    },
-                    $push: {
-                        comments: cid
                     }
                 }
             }

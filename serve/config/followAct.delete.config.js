@@ -117,24 +117,5 @@ module.exports = {
                 }
             }
         }
-    ],
-    Comment: [
-        {
-            _model_: Article,
-            action: 'findByIdAndUpdate',
-            condition(res) {
-                return res.aid
-            },
-            opt(cid) {
-                return {
-                    $inc: {
-                        comment_num: -1
-                    },
-                    $pull: {
-                        comments: cid
-                    }
-                }
-            }
-        }
     ]
 }
