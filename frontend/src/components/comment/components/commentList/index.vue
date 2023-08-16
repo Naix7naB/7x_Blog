@@ -19,6 +19,7 @@ export default {
             v-for="comment in comments"
             :key="comment.id"
             :comment="comment"
+            :comment_id="comment.id"
             :reviewer="comment.reviewer"
         />
     </ul>

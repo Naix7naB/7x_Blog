@@ -2,7 +2,7 @@
 import CommentEditor from './components/commentEditor'
 import CommentList from './components/commentList'
 
-import { getArticleComments } from '@/apis/comment'
+import { getArticleComments, leaveComment } from '@/apis/comment'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -32,12 +32,22 @@ export default {
                 this.$message.error(err.errMsg)
             }
         },
-        refresh() {
-            this.getComments()
+        handlePost(comment) {
+            leaveComment({
+                topic_type: 'article_comment',
+                topic_id: this.getArticleInfo.aid,
+                content: comment
+            }).then(res => {
+                this.$message.success(res.errMsg)
+                this.getComments()
+            }).catch(err => {
+                this.$message.error(err.errMsg)
+            })
         }
     },
     created() {
         this.getComments()
+        this.$bus.$on('refreshComments', this.getComments)
     }
 }
 </script>
@@ -48,7 +58,7 @@ export default {
             <div class="comment-editor--title">
                 <fa-icon icon="fas fa-pen-to-square" />&nbsp;留言
             </div>
-            <CommentEditor :autosize="{ minRows: 7, maxRows: 10 }" />
+            <CommentEditor :autosize="{ minRows: 7, maxRows: 10 }" @post="handlePost" />
         </div>
         <div class="comment-list--wrapper">
             <div class="comment-list--stats">

@@ -1,5 +1,7 @@
 <script>
 import CommentEditor from '../commentEditor'
+
+import { replyComment } from '@/apis/comment'
 import { formatDate } from '@/utils/util'
 import { mapGetters } from 'vuex'
 
@@ -9,6 +11,10 @@ export default {
     props: {
         comment: {
             type: Object,
+            required: true
+        },
+        comment_id: {
+            type: String,
             required: true
         },
         reviewer: {
@@ -26,9 +32,29 @@ export default {
     },
     methods: {
         formatDate,
+        hideEditor() {
+            this.$refs.editor.hide()
+        },
         showEditor() {
-            this.$refs.reply.show()
+            this.$refs.editor.show()
+        },
+        handlePost(comment) {
+            replyComment({
+                comment_id: this.comment_id,
+                reply_id: this.comment.id,
+                mention: this.comment.reviewer.id,
+                content: comment
+            }).then(res => {
+                this.$message.success(res.errMsg)
+                this.$bus.$emit('refreshComments')
+                this.hideEditor()
+            }).catch(err => {
+                this.$message.error(err.errMsg)
+            })
         }
+    },
+    mounted() {
+        this.hideEditor()
     }
 }
 </script>
@@ -49,7 +75,7 @@ export default {
                 </div>
                 <div class="comment-info--body">
                     <span
-                        v-if="comment.mention && comment.mention.id !== reviewer.id"
+                        v-if="comment.mention && comment.reply_id !== comment_id"
                         class="comment-info--metion"
                         :data-mention="comment.mention.nickname"
                     />
@@ -61,14 +87,16 @@ export default {
                         v-for="reply in comment.replies"
                         :key="reply.id"
                         :comment="reply"
+                        :comment_id="comment.id"
                         :reviewer="comment.reviewer"
                     />
                 </ul>
                 <transition>
                     <CommentEditor
-                        ref="reply"
-                        comment-type="reply"
+                        ref="editor"
                         :autosize="{ minRows: 1, maxRows: 3 }"
+                        :showCancelBtn="true"
+                        @post="handlePost"
                     />
                 </transition>
             </div>
@@ -135,7 +163,6 @@ export default {
 .comment-info--metion {
     user-select: none;
     margin-right: 6px;
-    font-weight: 700;
     color: #1f7ce7eb;
 
     &::before {
