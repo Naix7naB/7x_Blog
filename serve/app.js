@@ -9,7 +9,7 @@ const jwtMiddleware = require('./middleware/jwtAuth')
 const errorMiddleware = require('./middleware/errorHandler')
 const resourceMiddleware = require('./middleware/resource')
 
-const { resourceRoute, adminRoute, uploadRoute, articleRoute } = require('./routes')
+const { resourceRoute, adminRoute, uploadRoute, articleRoute, commentRoute } = require('./routes')
 
 const { ROOT } = require('./config/base.config')
 
@@ -40,6 +40,7 @@ app.use('/api/:resource', resourceMiddleware(), resourceRoute)
 app.use('/admin', adminRoute)
 app.use('/upload', uploadRoute)
 app.use('/article', articleRoute)
+app.use('/comment', commentRoute)
 
 app.use(errorMiddleware())
 
