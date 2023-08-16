@@ -20,6 +20,9 @@ module.exports = {
         },
         Comment: {
             permission: ['*']
+        },
+        Reply: {
+            permission: ['*']
         }
     },
     PUT: {
@@ -65,6 +68,9 @@ module.exports = {
             authField: 'creator'
         },
         Comment: {
+            authField: 'reviewer'
+        },
+        Reply: {
             authField: 'reviewer'
         }
     }

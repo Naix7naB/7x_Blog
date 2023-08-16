@@ -78,6 +78,19 @@ module.exports = class Populate {
             {
                 path: 'reviewer',
                 select: 'nickname avatar'
+            },
+            {
+                path: 'replies',
+                populate: [
+                    {
+                        path: 'reviewer',
+                        select: 'nickname avatar'
+                    },
+                    {
+                        path: 'mention',
+                        select: 'nickname avatar'
+                    }
+                ]
             }
         ]
     }
