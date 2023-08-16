@@ -1,30 +1,16 @@
 <script>
 import Comment from '@/components/comment'
 
-import { postComment } from '@/apis/comment'
 import { formatDate } from '@/utils/util'
 import { mapGetters } from 'vuex'
 
 export default {
     components: { Comment },
-    provide() {
-        return {
-            submitEvent: this.submitComment
-        }
-    },
     computed: {
         ...mapGetters('article', ['getArticleInfo'])
     },
     methods: {
-        formatDate,
-        submitComment(comment) {
-            postComment({ aid: this.getArticleInfo.aid, content: comment })
-                .then(() => {
-                    this.$message.success('发布评论')
-                    this.$refs.comment.refresh()
-                })
-                .catch(err => this.$message.error(err.errMsg))
-        }
+        formatDate
     }
 }
 </script>
@@ -61,7 +47,7 @@ export default {
                 </p>
                 <div class="article-tag--wrapper">tags</div>
             </article>
-            <Comment ref="comment" />
+            <Comment />
         </div>
     </div>
 </template>

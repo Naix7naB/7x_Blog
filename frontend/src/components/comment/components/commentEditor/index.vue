@@ -4,12 +4,7 @@ import EmojiPicker from '@/components/emojiPicker'
 export default {
     name: 'CommentEditor',
     components: { EmojiPicker },
-    inject: ['submitEvent'],
     props: {
-        commentType: {
-            type: String,
-            default: 'comment'
-        },
         autosize: {
             type: [Boolean, Object],
             default: false
@@ -17,21 +12,19 @@ export default {
         maxLenth: {
             type: Number,
             default: 500
+        },
+        showCancelBtn: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
         return {
-            visible: false,
-            showCancelBtn: false,
+            visible: true,
             comment: ''
         }
     },
     methods: {
-        initEditor() {
-            this.clear()
-            this.visible = this.commentType === 'comment'
-            this.showCancelBtn = this.commentType !== 'comment'
-        },
         insert(emoji) {
             this.comment += emoji
         },
@@ -39,19 +32,18 @@ export default {
             this.comment = ''
         },
         submit() {
-            this.submitEvent(this.comment)
+            this.$emit('post', this.comment)
             this.clear()
         },
         show() {
+            if (this.visible) return false
             this.visible = true
         },
         hide() {
-            this.clear()
+            if (!this.visible) return false
             this.visible = false
+            this.clear()
         }
-    },
-    created() {
-        this.initEditor()
     }
 }
 </script>
