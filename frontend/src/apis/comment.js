@@ -6,18 +6,30 @@ function getArticleComments(aid) {
         methodType: Request.GET,
         url: '/api/comment',
         data: {
-            condition: { aid }
+            condition: {
+                topic_type: 'article_comment',
+                topic_id: aid
+            }
         }
     })
 }
 
-/* 发布评论 */
-function postComment(data) {
+/* 发表评论 */
+function leaveComment(data) {
     return Request.request({
         methodType: Request.POST,
-        url: '/api/comment',
+        url: '/comment/leave',
         data
     })
 }
 
-export { getArticleComments, postComment }
+/* 回复评论 */
+function replyComment(data) {
+    return Request.request({
+        methodType: Request.POST,
+        url: '/comment/reply',
+        data
+    })
+}
+
+export { getArticleComments, leaveComment, replyComment }
