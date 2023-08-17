@@ -1,12 +1,13 @@
 <script>
 import Comment from '@/components/comment'
+import MarkButton from '@/components/markButton'
 
 import { formatDate } from '@/utils/util'
 import { mapGetters } from 'vuex'
 
 export default {
     name: 'ArticleBody',
-    components: { ArticleComment: Comment },
+    components: { ArticleComment: Comment, MarkButton },
     data() {
         return {
             viewerOption: {
@@ -33,6 +34,10 @@ export default {
                 <span style="margin-right: 8px;">文章最后更新于</span>
                 <span>{{ formatDate(info.updated_at) }}</span>
             </p>
+            <div class="article-content--tag">
+                <MarkButton type="classify">{{ info.classify.name }}</MarkButton>
+                <MarkButton type="tag">{{ info.classify.name }}</MarkButton>
+            </div>
             <div class="article-content--copyright">
                 <p>作者：{{ info.author.nickname }}</p>
                 <p>版权声明：转载请注明文章出处</p>

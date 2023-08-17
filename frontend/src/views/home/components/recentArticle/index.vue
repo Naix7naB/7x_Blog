@@ -1,9 +1,12 @@
 <script>
+import MarkButton from  '@/components/markButton'
+
 import { getArticleList, getArticleInfoById } from '@/apis/article'
 import { formatDate } from '@/utils/util'
 import { mapActions } from 'vuex'
 
 export default {
+    components: { MarkButton },
     data() {
         return {
             recentArticles: []
@@ -65,8 +68,8 @@ export default {
                 </div>
                 <p class="article-info--desc">{{item.description}}</p>
                 <div class="article-info--label">
-                    <span class="article-label--item"><fa-icon icon="fas fa-tag" /> 新闻</span>
-                    <span class="article-label--item"><fa-icon icon="fas fa-tag" /> 笔记</span>
+                    <MarkButton type="classify">{{item.classify.name}}</MarkButton>
+                    <MarkButton type="tag">{{item.classify.name}}</MarkButton>
                 </div>
             </div>
         </li>
@@ -161,25 +164,6 @@ export default {
 .article-info--label {
     position: absolute;
     bottom: 24PX;
-}
-
-.article-label--item {
-    line-height: 20PX;
-    padding: 2PX 12PX;
-    border-radius: 3PX;
-    font-size: $fz-small;
-    color: #797979;
-    background-color: #eeeeee;
-    cursor: pointer;
-
-    &:not(:first-of-type) {
-        margin-left: 12PX;
-    }
-
-    &:hover {
-        background-color: orange;
-        color: #ffffff;
-    }
 }
 
 /* 媒体查询样式 */
