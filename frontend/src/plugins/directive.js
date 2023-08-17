@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import showdown from 'showdown'
 import hljs from 'highlight.js'
+import { directive as viewer } from 'v-viewer'
 
 import 'github-markdown-css/github-markdown-dark.css'
 import 'highlight.js/styles/atom-one-dark.css'
 import '@/assets/scss/highlight.scss'
+import 'viewerjs/dist/viewer.min.css'
 
 const converter = new showdown.Converter({
     omitExtraWLInCodeBlocks: true,
@@ -40,3 +42,5 @@ Vue.directive('highlight', (el, binding, vnode) => {
         hljs.highlightElement(elem)
     })
 })
+
+Vue.directive('viewer', viewer())
