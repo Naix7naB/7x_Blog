@@ -29,9 +29,9 @@ export default {
 
 .intro-enter--button {
     position: absolute;
-    bottom: 2PX;
+    bottom: 2px;
     left: 50%;
-    padding: 10PX;
+    padding: 10px;
     color: $cl-theme;
     background-color: transparent;
     transform: translateX(-50%);

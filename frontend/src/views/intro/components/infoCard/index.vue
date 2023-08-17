@@ -66,7 +66,7 @@ export default {
 /* 介绍页信息卡片样式 */
 .intro-info--card {
     top: 50%;
-    max-width: 800PX;
+    max-width: 800px;
     margin: auto;
     transform: translateY(-50%);
 }
@@ -76,11 +76,11 @@ export default {
 }
 
 .info-avatar--pic {
-    width: 130PX;
-    height: 130PX;
-    border: 6PX solid $bg-gray-ll;
+    width: 130px;
+    height: 130px;
+    border: 6px solid $bg-gray-ll;
     border-radius: 50%;
-    box-shadow: 0 0 20PX $bg-theme;
+    box-shadow: 0 0 20px $bg-theme;
     transition: transform .8s ease;
     cursor: pointer;
 
@@ -91,21 +91,21 @@ export default {
 
 .intro-info--desc {
     width: 63%;
-    margin: 32PX auto 40PX;
-    padding: 28PX 20PX;
+    margin: 32px auto 40px;
+    padding: 28px 20px;
     text-align: center;
-    border-radius: 12PX;
-    backdrop-filter: blur(10PX);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
     background-color: $bg-theme-ll;
 }
 
 .info-desc--name {
-    font-size: 30PX;
+    font-size: 30px;
     font-weight: 700;
 }
 
 .info-desc--content {
-    padding-top: 20PX;
+    padding-top: 20px;
     font-size: $fz-medium;
 }
 
@@ -116,15 +116,15 @@ export default {
 }
 
 .info-social--item {
-    margin: 0 10PX;
+    margin: 0 10px;
     cursor: pointer;
 }
 
 .info-social--pic {
-    width: 50PX;
-    height: 50PX;
-    padding: 10PX;
-    border-radius: 15PX;
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    border-radius: 15px;
     background-color: $bg-reverse-l;
 }
 </style>

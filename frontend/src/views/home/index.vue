@@ -24,11 +24,11 @@ export default {
     justify-content: center;
     width: 90%;
     margin: 0 auto;
-    padding: 40PX;
+    padding: 40px;
 }
 
 /* 媒体查询样式 */
-@media screen and (max-width: 1100PX) {
+@media screen and (max-width: 1100px) {
     .home-page {
         flex-direction: column;
         width: 100%;

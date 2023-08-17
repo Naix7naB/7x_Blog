@@ -82,7 +82,7 @@ export default {
 }
 
 .form-title {
-    margin-bottom: 30PX;
+    margin-bottom: 30px;
     text-align: center;
     font-weight: bold;
     font-size: 36px;

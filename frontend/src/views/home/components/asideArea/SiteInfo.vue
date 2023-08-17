@@ -41,13 +41,13 @@ export default {
 }
 
 .site-info--avatar {
-    margin-top: 20PX;
+    margin-top: 20px;
 }
 
 .site-info--name {
     font-size: 30px;
     font-weight: 700;
-    margin: 20PX 0;
+    margin: 20px 0;
 }
 
 .site-info--data {
@@ -63,7 +63,7 @@ export default {
 }
 
 .info-data--num {
-    margin-top: 12PX;
+    margin-top: 12px;
 }
 
 .site-info--button {
@@ -71,9 +71,9 @@ export default {
     position: relative;
     z-index: 1;
     width: 64%;
-    height: 36PX;
-    line-height: 36PX;
-    margin: 20PX 0 32PX;
+    height: 36px;
+    line-height: 36px;
+    margin: 20px 0 32px;
     text-align: center;
     border-radius: 1rem;
     background-color: #2e9e96;

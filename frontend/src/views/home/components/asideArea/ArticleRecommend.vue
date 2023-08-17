@@ -46,20 +46,20 @@ export default {
     cursor: pointer;
 
     &:not(:first-of-type) {
-        margin-top: 20PX;
+        margin-top: 20px;
     }
 }
 
 .article-recommend--label {
-    margin-bottom: 20PX;
+    margin-bottom: 20px;
     font-size: $fz-medium-x;
 }
 
 .article-recommend--inset {
     flex-shrink: 0;
-    width: calc(40% - 10PX);
-    margin-right: 10PX;
-    border-radius: 4PX;
+    width: calc(40% - 10px);
+    margin-right: 10px;
+    border-radius: 4px;
 }
 
 .article-recommend--info {
@@ -73,7 +73,7 @@ export default {
 }
 
 .article-info--date {
-    margin-top: 12PX;
+    margin-top: 12px;
     font-size: $fz-small-s;
 }
 </style>

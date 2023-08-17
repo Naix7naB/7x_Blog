@@ -36,7 +36,7 @@ export default {
 <style lang="scss" scoped>
 /* 搜索栏卡片样式 */
 .search-bar--label {
-    margin-bottom: 16PX;
+    margin-bottom: 16px;
     font-size: $fz-medium-x;
     font-weight: 700;
 }
@@ -47,18 +47,18 @@ export default {
 
 .search-bar--input input {
     width: 100%;
-    height: 30PX;
-    padding: 0 32PX 0 14PX;
-    border: 2PX solid #39c5bb;
+    height: 30px;
+    padding: 0 32px 0 14px;
+    border: 2px solid #39c5bb;
     border-radius: 2rem;
     background-color: #ffffff;
 }
 
 .search-bar--clear {
     position: absolute;
-    top: 3PX;
-    right: 12PX;
-    padding: 4PX;
+    top: 3px;
+    right: 12px;
+    padding: 4px;
     cursor: pointer;
 }
 

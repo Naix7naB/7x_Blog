@@ -21,19 +21,19 @@ export default {
 <style lang="scss" scoped>
 /* 文章分类卡片样式 */
 .article-classify--label {
-    margin-bottom: 20PX;
+    margin-bottom: 20px;
     font-size: $fz-medium-x;
 }
 
 .article-classify-item {
     line-height: $lh-large-x;
-    padding: 0 20PX;
+    padding: 0 20px;
     border-radius: 1rem;
     transition: background-color .3s ease;
     cursor: pointer;
 
     &:not(:first-of-type) {
-        margin-top: 6PX;
+        margin-top: 6px;
     }
 
     &:hover {

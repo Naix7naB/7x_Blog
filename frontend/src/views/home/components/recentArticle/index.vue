@@ -91,16 +91,16 @@ export default {
 /* 最近文章样式 */
 .recent-article--wrapper {
     width: 70%;
-    max-width: 980PX;
+    max-width: 980px;
 }
 
 .recent-article--item {
     overflow: hidden;
     position: relative;
     display: flex;
-    height: 300PX;
-    margin-bottom: 40PX;
-    border-radius: 10PX;
+    height: 300px;
+    margin-bottom: 40px;
+    border-radius: 10px;
     background-color: #24272d;
     cursor: pointer;
 
@@ -124,7 +124,7 @@ export default {
     }
 
     &.right .article-info--label {
-        right: 36PX;
+        right: 36px;
     }
 }
 
@@ -134,7 +134,7 @@ export default {
 
 .recent-article--info {
     width: 60%;
-    padding: 24PX 36PX;
+    padding: 24px 36px;
 }
 
 .article-info--meta {
@@ -142,17 +142,17 @@ export default {
     font-size: $fz-small;
 
     &.data {
-        margin-bottom: 14PX;
+        margin-bottom: 14px;
     }
 
     &.data>span:not(:first-of-type) {
-        margin-left: 12PX;
+        margin-left: 12px;
     }
 }
 
 .article-info--title {
     @include nowrap();
-    margin: 22PX 0;
+    margin: 22px 0;
     font-size: $fz-large;
 }
 
@@ -163,11 +163,11 @@ export default {
 
 .article-info--label {
     position: absolute;
-    bottom: 24PX;
+    bottom: 24px;
 }
 
 /* 媒体查询样式 */
-@media screen and (max-width: 1100PX) {
+@media screen and (max-width: 1100px) {
     .recent-article--wrapper {
         width: 100%;
         max-width: 100%;
@@ -177,7 +177,7 @@ export default {
 @media screen and (max-width: 700px) {
     .recent-article--item {
         flex-direction: column;
-        height: 500PX;
+        height: 500px;
     }
 
     .article-item--wrapper {
@@ -190,16 +190,16 @@ export default {
     }
 
     .recent-article--image {
-        height: 200PX;
+        height: 200px;
     }
 
     .recent-article--info {
         position: relative;
-        height: 300PX;
+        height: 300px;
     }
 
     .article-info--label {
-        right: 36PX;
+        right: 36px;
     }
 }
 </style>

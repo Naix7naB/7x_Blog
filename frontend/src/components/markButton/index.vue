@@ -45,9 +45,9 @@ export default {
 
 <style lang="scss" scoped>
 .mark-button {
-    padding: 2PX 12PX;
-    line-height: 20PX;
-    border-radius: 2PX;
+    padding: 2px 12px;
+    line-height: 20px;
+    border-radius: 2px;
     font-size: $fz-small;
     color: #777;
     background-color: #ddd;
