@@ -1,3 +1,8 @@
 import './elementUI'
-import './faIcon'
-import './directive'
+import FontAwesomeIcon from './faIcon'
+
+export default {
+    install(Vue) {
+        Vue.component('fa-icon', FontAwesomeIcon)
+    }
+}

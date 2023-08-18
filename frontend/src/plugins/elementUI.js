@@ -2,7 +2,15 @@ import 'element-ui/lib/theme-chalk/index.css'
 import 'element-ui/lib/theme-chalk/display.css'
 
 import Vue from 'vue'
-import ElementUI from 'element-ui'
+import { Row, Col, Form, FormItem, Input, Button, Avatar, Image, Message } from 'element-ui'
 
-// TODO 优化: 暂时全部引入, 后续应该为按需引入
-Vue.use(ElementUI)
+Vue.use(Row)
+Vue.use(Col)
+Vue.use(Form)
+Vue.use(FormItem)
+Vue.use(Input)
+Vue.use(Button)
+Vue.use(Avatar)
+Vue.use(Image)
+
+Vue.prototype.$message = Message

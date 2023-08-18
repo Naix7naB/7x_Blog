@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -8,14 +6,10 @@ import {
     faBlog as fasBlog,
     faHome as fasHome,
     faBook as fasBook,
-    faImage as fasImage,
-    faTags as fasTags,
     faMagnifyingGlass as fasMagnifyingGlass,
-    faComments as fasComments,
     faPenToSquare as fasPenToSquare,
     faQuoteLeft as fasQuoteLeft,
     faQuoteRight as fasQuoteRight,
-    faPlaneUp as fasPlaneUp,
     faCaretDown as fasCaretDown,
     faWindowMinimize as fasWindowMinimize,
     faXmark as fasXmark,
@@ -31,26 +25,32 @@ import {
     faUser as fasUser,
     faLock as fasLock,
     faPoo as fasPoo,
-    faEnvelope as fasEnvelope
+    faEnvelope as fasEnvelope,
+    faFolderOpen as fasFolderOpen,
+    faBookmark as fasBookmark,
+    faBoxArchive as fasBoxArchive,
+    faMessage as fasMessage,
+    faRotateRight as fasRotateRight,
+    faSpinner as fasSpinner
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
     faStar as farStar,
-    faFolderOpen as farFolderOpen
+    faFolderOpen as farFolderOpen,
+    faFaceLaugh as farFaceLaugh,
+    faImage as farImage,
+    faHeart as farHeart,
+    faComment as farComment
 } from '@fortawesome/free-regular-svg-icons'
 
 library.add([
     fasBlog,
     fasHome,
     fasBook,
-    fasImage,
-    fasTags,
     fasMagnifyingGlass,
-    fasComments,
     fasPenToSquare,
     fasQuoteLeft,
     fasQuoteRight,
-    fasPlaneUp,
     fasCaretDown,
     fasWindowMinimize,
     fasXmark,
@@ -63,12 +63,22 @@ library.add([
     fasComment,
     fasTag,
     fasSliders,
-    farStar,
-    farFolderOpen,
     fasUser,
     fasLock,
     fasPoo,
-    fasEnvelope
+    fasEnvelope,
+    fasFolderOpen,
+    fasBookmark,
+    fasBoxArchive,
+    fasMessage,
+    fasRotateRight,
+    fasSpinner,
+    farStar,
+    farFolderOpen,
+    farFaceLaugh,
+    farImage,
+    farHeart,
+    farComment
 ])
 
-Vue.component('fa-icon', FontAwesomeIcon)
+export default FontAwesomeIcon
