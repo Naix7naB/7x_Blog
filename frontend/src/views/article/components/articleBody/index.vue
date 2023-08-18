@@ -34,9 +34,11 @@ export default {
                 <span style="margin-right: 8px;">文章最后更新于</span>
                 <span>{{ formatDate(info.updated_at) }}</span>
             </p>
-            <div class="article-content--tag">
+            <div class="article-content--mark">
                 <MarkButton type="classify">{{ info.classify.name }}</MarkButton>
-                <MarkButton type="tag">{{ info.classify.name }}</MarkButton>
+                <MarkButton type="tag" v-for="tag in info.tags" :key="tag.id">
+                    {{ tag.name }}
+                </MarkButton>
             </div>
             <div class="article-content--copyright">
                 <p>作者：{{ info.author.nickname }}</p>
@@ -72,7 +74,7 @@ export default {
     line-height: $lh-small-s;
 }
 
-.article-content--tag {
+.article-content--mark {
     text-align: right;
 }
 

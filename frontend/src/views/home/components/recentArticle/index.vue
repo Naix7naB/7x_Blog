@@ -69,7 +69,9 @@ export default {
                 <p class="article-info--desc">{{item.description}}</p>
                 <div class="article-info--label">
                     <MarkButton type="classify">{{item.classify.name}}</MarkButton>
-                    <MarkButton type="tag">{{item.classify.name}}</MarkButton>
+                    <MarkButton type="tag" v-for="tag in item.tags" :key="tag.id">
+                        {{tag.name}}
+                    </MarkButton>
                 </div>
             </div>
         </li>

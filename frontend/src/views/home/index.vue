@@ -3,10 +3,8 @@ import AsideArea from './components/asideArea'
 import RecentArticle from './components/recentArticle'
 
 export default {
-    components: { AsideArea, RecentArticle },
-    data() {
-        return {}
-    }
+    name: 'HomePage',
+    components: { AsideArea, RecentArticle }
 }
 </script>
 
