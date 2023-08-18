@@ -23,6 +23,7 @@ export default {
     width: 90%;
     margin: 0 auto;
     padding: 40px;
+    padding-top: 120px;
 }
 
 /* 媒体查询样式 */

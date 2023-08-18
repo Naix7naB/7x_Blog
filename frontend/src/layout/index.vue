@@ -78,13 +78,4 @@ export default {
     width: 100%;
     transition: transform .5s;
 }
-
-.layout-main {
-    &::before {
-        content: '';
-        display: block;
-        height: 0;
-        padding-top: 80px;
-    }
-}
 </style>

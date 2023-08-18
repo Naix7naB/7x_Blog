@@ -65,7 +65,7 @@ export default {
 }
 
 .article-content > * {
-    margin-bottom: 24px;
+    margin-bottom: 32px;
 }
 
 .article-content--updated {
@@ -80,7 +80,7 @@ export default {
 
 .article-content--copyright {
     user-select: none;
-    margin-bottom: 40px;
+    margin-bottom: 54px;
     padding: 10px 20px;
     line-height: 2;
     border-left: 3px solid #03a9f4;
