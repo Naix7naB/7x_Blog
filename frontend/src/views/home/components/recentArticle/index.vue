@@ -41,7 +41,7 @@ export default {
 </script>
 
 <template>
-    <ul class="recent-article--wrapper" @click="selected">
+    <ul class="recent-article--wrapper" v-loading="!recentArticles.length" @click="selected">
         <li
             class="recent-article--item shadow-box"
             v-for="(item, idx) in recentArticles"
@@ -94,6 +94,7 @@ export default {
 .recent-article--wrapper {
     width: 70%;
     max-width: 980px;
+    min-height: calc(100vh - 160px);
 }
 
 .recent-article--item {

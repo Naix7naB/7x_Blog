@@ -9,14 +9,16 @@ export default {
         getArticleInfo: state => state.articleInfo || Storage.get('_article_info_', null)
     },
     mutations: {
-        _set_article_info_(state, data) {
-            state.articleInfo = data
-            Storage.set('_article_info_', data)
+        _set_article_info_(state, info) {
+            state.articleInfo = info
+            Storage.set('_article_info_', info)
         }
     },
     actions: {
-        setArticleInfo({ commit }, data) {
-            commit('_set_article_info_', data)
+        setArticleInfo({ state, commit }, info) {
+            const aid = state.articleInfo && state.articleInfo.aid
+            if (aid === info.aid) return false
+            commit('_set_article_info_', info)
         }
     }
 }

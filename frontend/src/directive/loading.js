@@ -20,7 +20,6 @@ function removeElement(parent) {
 
 export default {
     bind(el, binding) {
-        console.log(binding)
         const instance = new LoadingInstance({
             el: document.createElement('div')
         })

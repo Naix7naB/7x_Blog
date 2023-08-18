@@ -28,7 +28,7 @@ export default {
 
 <template>
     <div class="article-body">
-        <article class="article-content">
+        <article>
             <div class="markdown-body" v-highlight="info.content" v-viewer="viewerOption"></div>
             <p class="article-content--updated">
                 <span style="margin-right: 8px;">文章最后更新于</span>
@@ -53,15 +53,12 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 文章内容样式 */
 .article-body {
     min-width: 360px;
     max-width: 800px;
     margin: 0 auto;
     padding: 40px 20px;
-}
-
-.article-content {
-    overflow: hidden;
 }
 
 .article-content > * {
