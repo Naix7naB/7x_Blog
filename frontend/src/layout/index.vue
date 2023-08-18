@@ -66,13 +66,25 @@ export default {
 .layout {
     width: 100%;
     height: 100%;
+    background-color: #24272d;
 }
 
 /* 版面导航栏样式 */
 .layout-navbar {
     z-index: 100;
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    width: 100%;
     transition: transform .5s;
+}
+
+.layout-main {
+    &::before {
+        content: '';
+        display: block;
+        height: 0;
+        padding-top: 80px;
+    }
 }
 </style>
