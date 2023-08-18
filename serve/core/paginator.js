@@ -4,7 +4,16 @@ const mongoPagination = require('mongoose-sex-page')
 const Populate = require('../plugins/populate')
 
 module.exports = class Paginator {
-    static paging({ model = null, page = 1, size = 5, dis = null, condition = null, populate = null, select = null }) {
+    static paging({
+        model = null,
+        page = 1,
+        size = 5,
+        dis = null,
+        condition = null,
+        sort = null,
+        populate = null,
+        select = null
+    }) {
         if (!populate) {
             populate = Populate[model.modelName]
         }
@@ -23,6 +32,7 @@ module.exports = class Paginator {
         }
         return mongoPagination(model)
             .find(condition)
+            .sort(sort)
             .populate(populate)
             .select(select)
             .page(page)
