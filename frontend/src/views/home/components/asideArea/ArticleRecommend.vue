@@ -1,11 +1,23 @@
 <script>
-import inset from '@/assets/images/inset.png'
+import { getRecommendArticles } from '@/apis/article'
+import { formatDate } from '@/utils/util'
 
 export default {
+    name: 'ArticleRecommend',
     data() {
         return {
-            inset
+            recommendList: []
         }
+    },
+    methods: {
+        formatDate
+    },
+    created() {
+        getRecommendArticles().then(({ data }) => {
+            this.recommendList = data.list
+        }).catch(err => {
+            this.$message.error(err.errMsg)
+        })
     }
 }
 </script>
@@ -14,25 +26,13 @@ export default {
     <div class="article-recommend">
         <div class="article-recommend--label"><fa-icon icon="fas fa-book-open" /> 推荐文章</div>
         <ul>
-            <li class="article-recommend--item">
-                <el-image class="article-recommend--inset" :src="inset" fit="cover" />
+            <li class="article-recommend--item" v-for="article in recommendList" :key="article.id">
+                <el-image class="article-recommend--inset" fit="cover" :src="article.cover_img" />
                 <div class="article-recommend--info">
-                    <p class="article-info--title">推荐文章标题1;推荐文章标题1</p>
-                    <p class="article-info--date"><fa-icon icon="fas fa-clock" /> 2023-07-22</p>
-                </div>
-            </li>
-            <li class="article-recommend--item">
-                <el-image class="article-recommend--inset" :src="inset" fit="cover" />
-                <div class="article-recommend--info">
-                    <p class="article-info--title">推荐文章标题2;推荐文章标题2</p>
-                    <p class="article-info--date"><fa-icon icon="fas fa-clock" /> 2023-07-24</p>
-                </div>
-            </li>
-            <li class="article-recommend--item">
-                <el-image class="article-recommend--inset" :src="inset" fit="cover" />
-                <div class="article-recommend--info">
-                    <p class="article-info--title">推荐文章标题3;推荐文章标题3</p>
-                    <p class="article-info--date"><fa-icon icon="fas fa-clock" /> 2023-07-18</p>
+                    <p class="article-info--title">{{ article.description }}</p>
+                    <p class="article-info--date">
+                        <fa-icon icon="fas fa-clock" /> {{ formatDate(article.created_at) }}
+                    </p>
                 </div>
             </li>
         </ul>
