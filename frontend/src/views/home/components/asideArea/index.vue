@@ -4,8 +4,8 @@ export default {
         return {
             componentList: [
                 {
-                    name: 'SiteInfo',
-                    cmp: () => import('./SiteInfo')
+                    name: 'WebsiteInfo',
+                    cmp: () => import('./WebsiteInfo')
                 },
                 {
                     name: 'SearchBar',

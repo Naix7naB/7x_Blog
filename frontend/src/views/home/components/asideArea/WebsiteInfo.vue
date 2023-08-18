@@ -1,20 +1,19 @@
 <script>
-import avatar from '@/assets/images/avatar-default.png'
+import { mapGetters } from 'vuex'
 
 export default {
-    data() {
-        return {
-            avatar
-        }
+    name: 'WebsiteInfo',
+    computed: {
+        ...mapGetters(['getWebsiteInfo'])
     }
 }
 </script>
 
 <template>
-    <div class="site-info">
-        <el-avatar class="site-info--avatar" :size="120" :src="avatar" />
-        <span class="site-info--name">#7x</span>
-        <div class="site-info--data">
+    <div class="website-info">
+        <el-avatar class="website-info--avatar" :size="120" :src="getWebsiteInfo.host.avatar" />
+        <span class="website-info--name">{{ getWebsiteInfo.host.nickname }}</span>
+        <div class="website-info--data">
             <div class="info-data--wrapper">
                 <span>文章</span>
                 <span class="info-data--num">14</span>
@@ -28,29 +27,29 @@ export default {
                 <span class="info-data--num">1234</span>
             </div>
         </div>
-        <span class="site-info--button"><fa-icon icon="far fa-star" /> 朋友圈</span>
+        <span class="website-info--button"><fa-icon icon="far fa-star" /> 朋友圈</span>
     </div>
 </template>
 
 <style lang="scss" scoped>
 /* 网站信息卡片样式 */
-.site-info{
+.website-info{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.site-info--avatar {
+.website-info--avatar {
     margin-top: 20px;
 }
 
-.site-info--name {
+.website-info--name {
     font-size: 30px;
     font-weight: 700;
     margin: 20px 0;
 }
 
-.site-info--data {
+.website-info--data {
     display: flex;
     justify-content: space-around;
     width: 80%;
@@ -66,7 +65,7 @@ export default {
     margin-top: 12px;
 }
 
-.site-info--button {
+.website-info--button {
     overflow: hidden;
     position: relative;
     z-index: 1;
