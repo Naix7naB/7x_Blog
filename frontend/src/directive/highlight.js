@@ -1,12 +1,9 @@
-import Vue from 'vue'
 import showdown from 'showdown'
 import hljs from 'highlight.js'
-import { directive as viewer } from 'v-viewer'
 
 import 'github-markdown-css/github-markdown-dark.css'
 import 'highlight.js/styles/atom-one-dark.css'
 import '@/assets/scss/highlight.scss'
-import 'viewerjs/dist/viewer.min.css'
 
 const converter = new showdown.Converter({
     omitExtraWLInCodeBlocks: true,
@@ -35,12 +32,12 @@ hljs.addPlugin({
     }
 })
 
-Vue.directive('highlight', (el, binding, vnode) => {
-    el.innerHTML = converter.makeHtml(binding.value)
-    const elems = el.querySelectorAll('pre code')
-    elems.forEach(elem => {
-        hljs.highlightElement(elem)
-    })
-})
-
-Vue.directive('viewer', viewer())
+export default {
+    bind(el, binding) {
+        el.innerHTML = converter.makeHtml(binding.value)
+        const elems = el.querySelectorAll('pre code')
+        elems.forEach(elem => {
+            hljs.highlightElement(elem)
+        })
+    }
+}
