@@ -1,7 +1,19 @@
 <script>
+import { getClassifyList } from '@/apis/classify'
+
 export default {
+    name: 'ArticleClassify',
     data() {
-        return {}
+        return {
+            classifyList: []
+        }
+    },
+    created() {
+        getClassifyList().then(({ data }) => {
+            this.classifyList = data.list
+        }).catch(err => {
+            this.$message.error(err.errMsg)
+        })
     }
 }
 </script>
@@ -10,10 +22,10 @@ export default {
     <div class="article-classify">
         <div class="article-classify--label"><fa-icon icon="far fa-folder-open" /> 文章分类</div>
         <ul>
-            <li class="article-classify-item"><fa-icon icon="fas fa-angle-right" /> 生活</li>
-            <li class="article-classify-item"><fa-icon icon="fas fa-angle-right" /> 学习</li>
-            <li class="article-classify-item"><fa-icon icon="fas fa-angle-right" /> 笔记</li>
-            <li class="article-classify-item"><fa-icon icon="fas fa-angle-right" /> 影评</li>
+            <li class="article-classify-item" v-for="classify in classifyList" :key="classify.id">
+                <fa-icon icon="fas fa-angle-right" />
+                <span class="article-classify--name">{{ classify.name }}</span>
+            </li>
         </ul>
     </div>
 </template>
@@ -39,5 +51,9 @@ export default {
     &:hover {
         background-color: rgb(173, 121, 24);
     }
+}
+
+.article-classify--name {
+    margin-left: 4px;
 }
 </style>
