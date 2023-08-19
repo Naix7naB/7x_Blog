@@ -1,17 +1,30 @@
 <script>
 import AsideArea from './components/asideArea'
-import RecentArticle from './components/recentArticle'
+import ArticleList from '@/components/articleList'
+import { getArticleList } from '@/apis/article'
 
 export default {
     name: 'HomePage',
-    components: { AsideArea, RecentArticle }
+    components: { AsideArea, ArticleList },
+    data() {
+        return {
+            articleList: []
+        }
+    },
+    created() {
+        getArticleList().then(({ data }) => {
+            this.articleList = data.list
+        }).catch(err => {
+            this.$message.error(err.errMsg)
+        })
+    }
 }
 </script>
 
 <template>
     <section class="home-page">
         <AsideArea />
-        <RecentArticle />
+        <ArticleList :list="articleList" />
     </section>
 </template>
 
