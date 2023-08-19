@@ -1,19 +1,25 @@
 import Request from '@/utils/request'
 
 /* 获取文章列表 */
-function getArticleList(data) {
+function getArticleList({ page = 1, size = 10 } = {}) {
     return Request.requestForm({
         methodType: Request.GET,
         url: '/api/article',
-        data
-    })
-}
-
-/* 根据文章ID获取详细内容 */
-function getArticleInfoById(aid) {
-    return Request.request({
-        methodType: Request.GET,
-        url: `/api/article/${aid}`
+        data: {
+            page,
+            size,
+            populate: [
+                {
+                    path: 'classify',
+                    select: 'name'
+                },
+                {
+                    path: 'tags',
+                    select: 'name'
+                }
+            ],
+            select: '-author -content -comments -state'
+        }
     })
 }
 
@@ -37,4 +43,12 @@ function getRecommendArticles() {
     })
 }
 
-export { getArticleList, getArticleInfoById, getRecommendArticles }
+/* 根据文章ID获取详细内容 */
+function getArticleInfoById(aid) {
+    return Request.request({
+        methodType: Request.GET,
+        url: `/api/article/${aid}`
+    })
+}
+
+export { getArticleList, getRecommendArticles, getArticleInfoById }
