@@ -1,11 +1,11 @@
 <script>
-import AsideArea from './components/asideArea'
+import Sidebar from './components/sidebar'
 import ArticleList from '@/components/articleList'
 import { getArticleList } from '@/apis/article'
 
 export default {
     name: 'HomePage',
-    components: { AsideArea, ArticleList },
+    components: { Sidebar, ArticleList },
     data() {
         return {
             articleList: []
@@ -23,7 +23,7 @@ export default {
 
 <template>
     <section class="home-page">
-        <AsideArea />
+        <Sidebar />
         <ArticleList :list="articleList" />
     </section>
 </template>
