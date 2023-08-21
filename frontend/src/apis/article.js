@@ -43,6 +43,32 @@ function getRecommendArticles() {
     })
 }
 
+/* 获取所属分类文章列表 */
+function getClassifyArticles({ page = 1, size = 10, classify_id } = {}) {
+    return Request.requestForm({
+        methodType: Request.GET,
+        url: '/api/article',
+        data: {
+            page,
+            size,
+            condition: {
+                classify: classify_id
+            },
+            populate: [
+                {
+                    path: 'classify',
+                    select: 'name'
+                },
+                {
+                    path: 'tags',
+                    select: 'name'
+                }
+            ],
+            select: '-author -content -comments -state'
+        }
+    })
+}
+
 /* 根据文章ID获取详细内容 */
 function getArticleInfoById(aid) {
     return Request.request({
@@ -51,4 +77,4 @@ function getArticleInfoById(aid) {
     })
 }
 
-export { getArticleList, getRecommendArticles, getArticleInfoById }
+export { getArticleList, getRecommendArticles, getClassifyArticles, getArticleInfoById }

@@ -1,4 +1,5 @@
 <script>
+import { getClassifyArticles } from '@/apis/article'
 import { getClassifyList } from '@/apis/classify'
 
 export default {
@@ -6,6 +7,22 @@ export default {
     data() {
         return {
             classifyList: []
+        }
+    },
+    methods: {
+        select(e) {
+            let target = e.target
+            while(target.className !== 'classify-item') {
+                target = target.parentElement
+            }
+            const classifyId = target.dataset.classifyId
+            getClassifyArticles({ classify_id: classifyId })
+                .then(({ data }) => {
+                    this.$bus.$emit('changeList', data.list)
+                })
+                .catch(err => {
+                    this.$message.error(err.errMsg)
+                })
         }
     },
     created() {
@@ -20,7 +37,13 @@ export default {
 
 <template>
     <ul>
-        <li class="classify-item" v-for="classify in classifyList" :key="classify.id">
+        <li
+            class="classify-item"
+            v-for="classify in classifyList"
+            :key="classify.id"
+            :data-classify-id="classify.id"
+            @click="select"
+        >
             <div class="classify-item--wrapper">
                 <fa-icon icon="fas fa-angle-right" />
                 <span class="classify-item--name">{{ classify.name }}</span>
