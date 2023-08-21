@@ -11,20 +11,20 @@ export default {
 
 <template>
     <div class="website-info">
-        <el-avatar class="website-info--avatar" :size="120" :src="getWebsiteInfo.host.avatar" />
+        <el-avatar :size="120" :src="getWebsiteInfo.host.avatar" />
         <span class="website-info--name">{{ getWebsiteInfo.host.nickname }}</span>
-        <div class="website-info--data">
-            <div class="info-data--wrapper">
+        <div class="website-info--meta">
+            <div class="info-meta--item">
                 <span>文章</span>
-                <span class="info-data--num">14</span>
+                <span class="info-meta--num">14</span>
             </div>
-            <div class="info-data--wrapper">
+            <div class="info-meta--item">
                 <span>分类</span>
-                <span class="info-data--num">5</span>
+                <span class="info-meta--num">5</span>
             </div>
-            <div class="info-data--wrapper">
+            <div class="info-meta--item">
                 <span>访问量</span>
-                <span class="info-data--num">1234</span>
+                <span class="info-meta--num">1234</span>
             </div>
         </div>
         <span class="website-info--button"><fa-icon icon="far fa-star" /> 朋友圈</span>
@@ -39,29 +39,25 @@ export default {
     align-items: center;
 }
 
-.website-info--avatar {
-    margin-top: 20px;
-}
-
 .website-info--name {
     font-size: 30px;
     font-weight: 700;
-    margin: 20px 0;
+    padding: 20px 0;
 }
 
-.website-info--data {
+.website-info--meta {
     display: flex;
     justify-content: space-around;
     width: 80%;
 }
 
-.info-data--wrapper {
+.info-meta--item {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.info-data--num {
+.info-meta--num {
     margin-top: 12px;
 }
 
@@ -72,7 +68,7 @@ export default {
     width: 64%;
     height: 36px;
     line-height: 36px;
-    margin: 20px 0 32px;
+    margin-top: 32px;
     text-align: center;
     border-radius: 1rem;
     background-color: #2e9e96;

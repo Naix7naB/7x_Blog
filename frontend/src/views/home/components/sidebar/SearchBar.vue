@@ -23,29 +23,20 @@ export default {
 
 <template>
     <div class="search-bar">
-        <div class="search-bar--label"><fa-icon icon="fas fa-magnifying-glass" /> 搜索文章</div>
-        <div class="search-bar--input">
-            <input type="text" placeholder="搜索文章" v-model="value" @keyup.enter="search" />
-            <span v-if="clearable" class="search-bar--clear" @click="clear">
-                <fa-icon icon="fas fa-xmark" />
-            </span>
-        </div>
+        <input type="text" placeholder="搜索文章" v-model="value" @keyup.enter="search" />
+        <span v-if="clearable" class="search-bar--clear" @click="clear">
+            <fa-icon icon="fas fa-xmark" />
+        </span>
     </div>
 </template>
 
 <style lang="scss" scoped>
 /* 搜索栏卡片样式 */
-.search-bar--label {
-    margin-bottom: 16px;
-    font-size: $fz-medium-x;
-    font-weight: 700;
-}
-
-.search-bar--input {
+.search-bar {
     position: relative;
 }
 
-.search-bar--input input {
+.search-bar input {
     width: 100%;
     height: 30px;
     padding: 0 32px 0 14px;
@@ -60,9 +51,5 @@ export default {
     right: 12px;
     padding: 4px;
     cursor: pointer;
-}
-
-[data-icon="magnifying-glass"] {
-    vertical-align: -.2em;
 }
 </style>

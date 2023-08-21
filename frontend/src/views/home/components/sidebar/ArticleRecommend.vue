@@ -23,25 +23,22 @@ export default {
 </script>
 
 <template>
-    <div class="article-recommend">
-        <div class="article-recommend--label"><fa-icon icon="fas fa-book-open" /> 推荐文章</div>
-        <ul>
-            <li class="article-recommend--item" v-for="article in recommendList" :key="article.id">
-                <el-image class="article-recommend--inset" fit="cover" :src="article.cover_img" />
-                <div class="article-recommend--info">
-                    <p class="article-info--title">{{ article.description }}</p>
-                    <p class="article-info--date">
-                        <fa-icon icon="fas fa-clock" /> {{ formatDate(article.created_at) }}
-                    </p>
-                </div>
-            </li>
-        </ul>
-    </div>
+    <ul>
+        <li class="recommend-item" v-for="article in recommendList" :key="article.id">
+            <el-image class="recommend-inset" fit="cover" :src="article.cover_img" />
+            <div class="recommend-info">
+                <p class="recommend-info--title">{{ article.description }}</p>
+                <p class="recommend-info--date">
+                    <fa-icon icon="fas fa-clock" /> {{ formatDate(article.created_at) }}
+                </p>
+            </div>
+        </li>
+    </ul>
 </template>
 
 <style lang="scss" scoped>
 /* 推荐文章卡片样式 */
-.article-recommend--item {
+.recommend-item {
     display: flex;
     cursor: pointer;
 
@@ -50,29 +47,24 @@ export default {
     }
 }
 
-.article-recommend--label {
-    margin-bottom: 20px;
-    font-size: $fz-medium-x;
-}
-
-.article-recommend--inset {
+.recommend-inset {
     flex-shrink: 0;
     width: calc(40% - 10px);
     margin-right: 10px;
     border-radius: 4px;
 }
 
-.article-recommend--info {
+.recommend-info {
     width: 60%;
     font-size: $fz-medium;
 }
 
-.article-info--title,
-.article-info--date {
+.recommend-info--title,
+.recommend-info--date {
     @include nowrap();
 }
 
-.article-info--date {
+.recommend-info--date {
     margin-top: 12px;
     font-size: $fz-small-s;
 }
