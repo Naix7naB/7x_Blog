@@ -76,10 +76,12 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 样式穿透 hook ElementUI 样式 */
 :deep(.el-textarea__inner) {
     padding: 16px;
 }
 
+/* 评论输入框样式 */
 .comment-editor--action {
     display: flex;
     justify-content: space-between;

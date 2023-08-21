@@ -16,8 +16,8 @@ export default {
     },
     actions: {
         setArticleInfo({ state, commit }, info) {
-            const aid = state.articleInfo && state.articleInfo.aid
-            if (aid === info.aid) return false
+            const id = state.articleInfo && state.articleInfo.id
+            if (id === info.id) return false
             commit('_set_article_info_', info)
         }
     }

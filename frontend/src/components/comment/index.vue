@@ -26,7 +26,7 @@ export default {
     methods: {
         async getComments() {
             try {
-                const { data } = await getArticleComments(this.getArticleInfo.aid)
+                const { data } = await getArticleComments(this.getArticleInfo.id)
                 this.comments = data.list
             } catch (err) {
                 this.$message.error(err.errMsg)
@@ -35,7 +35,7 @@ export default {
         handlePost(comment) {
             leaveComment({
                 topic_type: 'article_comment',
-                topic_id: this.getArticleInfo.aid,
+                topic_id: this.getArticleInfo.id,
                 content: comment
             }).then(res => {
                 this.$message.success(res.errMsg)
@@ -71,6 +71,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 评论样式 */
 .comment-container {
     overflow: hidden;
 }

@@ -105,6 +105,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 评论内容样式 */
 .comment-info--wrapper {
     display: flex;
 }
