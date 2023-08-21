@@ -61,7 +61,7 @@ export default {
                     <fa-icon icon="fas fa-calendar-days" />
                     <span>发布于 {{ formatDate(article.created_at) }}</span>
                 </p>
-                <h3 class="article-info--title">{{ article.title }}</h3>
+                <h4 class="article-info--title">{{ article.title }}</h4>
                 <div class="article-info--meta">
                     <span class="article-meta--item">
                         <fa-icon icon="fas fa-fire" />
@@ -144,11 +144,11 @@ export default {
     }
 }
 
-.article-item--wrapper.article-image {
+.article-image {
     width: 40%;
 }
 
-.article-item--wrapper.article-info {
+.article-info {
     width: 60%;
     padding: 24px 36px;
 }

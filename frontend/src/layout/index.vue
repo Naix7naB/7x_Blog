@@ -74,8 +74,11 @@ export default {
     z-index: 100;
     position: fixed;
     top: 0;
-    left: 0;
     width: 100%;
     transition: transform .5s;
+}
+
+.layout-main {
+    overflow: hidden;
 }
 </style>

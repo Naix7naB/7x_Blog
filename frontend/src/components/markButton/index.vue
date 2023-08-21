@@ -51,7 +51,7 @@ export default {
     font-size: $fz-small;
     color: #777;
     background-color: #ddd;
-    transition: all  .2s;
+    transition: all .2s;
     cursor: pointer;
 
     &:not(:first-of-type) {

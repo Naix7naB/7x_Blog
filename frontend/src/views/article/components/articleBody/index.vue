@@ -28,7 +28,7 @@ export default {
 
 <template>
     <div class="article-body">
-        <article>
+        <article class="article-content">
             <div class="markdown-body" v-highlight="info.content" v-viewer="viewerOption"></div>
             <p class="article-content--updated">
                 <span style="margin-right: 8px;">文章最后更新于</span>
