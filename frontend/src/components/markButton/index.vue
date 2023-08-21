@@ -44,6 +44,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/* 标记按钮样式 */
 .mark-button {
     padding: 2px 12px;
     line-height: 20px;

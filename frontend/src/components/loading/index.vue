@@ -23,6 +23,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/* 加载覆盖层样式 */
 .loading-overlay {
     position: absolute;
     top: 0;

@@ -36,6 +36,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* emoji表情容器样式 */
 .emoji-wrapper {
     user-select: none;
     position: relative;
