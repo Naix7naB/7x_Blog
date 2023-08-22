@@ -36,7 +36,7 @@ function getRecommendArticles() {
             },
             populate: {
                 path: 'author',
-                select: 'nickname avatar'
+                select: 'nickname'
             },
             select: 'title description cover_img view_num'
         }
