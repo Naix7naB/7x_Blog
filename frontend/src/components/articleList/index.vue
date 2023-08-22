@@ -6,6 +6,7 @@ import { formatDate } from '@/utils/util'
 import { mapActions } from 'vuex'
 
 export default {
+    name: 'ArticleList',
     components: { MarkButton },
     props: {
         list: {

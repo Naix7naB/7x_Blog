@@ -31,7 +31,8 @@ import {
     faBoxArchive as fasBoxArchive,
     faMessage as fasMessage,
     faRotateRight as fasRotateRight,
-    faSpinner as fasSpinner
+    faSpinner as fasSpinner,
+    faArrowLeft as fasArrowLeft
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -73,6 +74,7 @@ library.add([
     fasMessage,
     fasRotateRight,
     fasSpinner,
+    fasArrowLeft,
     farStar,
     farFolderOpen,
     farFaceLaugh,

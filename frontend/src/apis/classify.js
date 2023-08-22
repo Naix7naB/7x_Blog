@@ -11,8 +11,7 @@ function getClassifyList() {
             populate: {
                 path: 'creator',
                 select: 'nickname avatar'
-            },
-            select: '-articles'
+            }
         }
     })
 }

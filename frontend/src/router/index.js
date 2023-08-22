@@ -15,11 +15,11 @@ const routes = [
     },
     {
         path: '/home',
-        redirect: '/home/index',
+        redirect: '/home',
         component: Layout,
         children: [
             {
-                path: 'index',
+                path: '/',
                 name: 'Home',
                 meta: {
                     icon: 'home',
@@ -31,27 +31,27 @@ const routes = [
     },
     {
         path: '/classify',
-        redirect: '/classify/index',
+        redirect: '/classify',
         component: Layout,
         children: [
             {
-                path: 'index',
+                path: '/classify',
                 name: 'Classify',
                 meta: {
                     icon: 'folder-open',
                     title: '分类'
                 },
-                component: () => import('@/views/home')
+                component: () => import('@/views/classify')
             }
         ]
     },
     {
         path: '/tag',
-        redirect: '/tag/index',
+        redirect: '/tag',
         component: Layout,
         children: [
             {
-                path: 'index',
+                path: '/tag',
                 name: 'Tag',
                 meta: {
                     icon: 'bookmark',
@@ -63,11 +63,11 @@ const routes = [
     },
     {
         path: '/archive',
-        redirect: '/archive/index',
+        redirect: '/archive',
         component: Layout,
         children: [
             {
-                path: 'index',
+                path: '/archive',
                 name: 'Archive',
                 meta: {
                     icon: 'box-archive',
@@ -79,11 +79,11 @@ const routes = [
     },
     {
         path: '/message',
-        redirect: '/message/index',
+        redirect: '/message',
         component: Layout,
         children: [
             {
-                path: 'index',
+                path: '/message',
                 name: 'message',
                 meta: {
                     icon: 'message',
