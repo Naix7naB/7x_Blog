@@ -5,7 +5,7 @@ const config = {
     ops: {
         vuescroll: {
             mode: 'native',
-            sizeStrategy: 'percent',
+            sizeStrategy: 'number',
             renderMethod: 'position',
             detectResize: false,
             paging: false,
