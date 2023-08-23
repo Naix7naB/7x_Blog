@@ -66,15 +66,15 @@ export default {
                 <div class="article-info--meta">
                     <span class="article-meta--item">
                         <fa-icon icon="fas fa-fire" />
-                        <span>热度 {{ article.view_num }}</span>
+                        <span>热度 {{ article.view_count }}</span>
                     </span>
                     <span class="article-meta--item">
                         <fa-icon icon="fas fa-comment" />
-                        <span>评论 {{ article.comment_num }}</span>
+                        <span>评论 {{ article.comment_count }}</span>
                     </span>
                     <span class="article-meta--item">
                         <fa-icon icon="fas fa-heart" />
-                        <span>喜欢 {{ article.like_num }}</span>
+                        <span>喜欢 {{ article.like_count }}</span>
                     </span>
                 </div>
                 <p class="article-info--desc">{{ article.description }}</p>

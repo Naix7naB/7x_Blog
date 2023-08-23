@@ -32,13 +32,13 @@ function getRecommendArticles() {
             page: 1,
             size: 3,
             sort: {
-                view_num: -1
+                view_count: -1
             },
             populate: {
                 path: 'author',
                 select: 'nickname'
             },
-            select: 'title description cover_img view_num'
+            select: 'title description cover_img view_count'
         }
     })
 }

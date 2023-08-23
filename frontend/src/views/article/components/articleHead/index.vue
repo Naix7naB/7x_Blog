@@ -29,15 +29,15 @@ export default {
                 </div>
                 <div class="article-meta--item">
                     <fa-icon icon="fas fa-fire" />
-                    <span class="article-meta--num">{{ info.view_num }}</span>
+                    <span class="article-meta--num">{{ info.view_count }}</span>
                 </div>
                 <div class="article-meta--item">
                     <fa-icon icon="fas fa-comment" />
-                    <span class="article-meta--num">{{ info.comment_num }}</span>
+                    <span class="article-meta--num">{{ info.comment_count }}</span>
                 </div>
                 <div class="article-meta--item">
                     <fa-icon icon="fas fa-heart" />
-                    <span class="article-meta--num">{{ info.like_num }}</span>
+                    <span class="article-meta--num">{{ info.like_count }}</span>
                 </div>
             </div>
         </div>
