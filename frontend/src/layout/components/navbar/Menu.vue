@@ -2,15 +2,14 @@
 import avatar from '@/assets/images/avatar-default.png'
 
 export default {
-    props: {
-        list: {
-            type: Array,
-            required: true
-        }
-    },
     data() {
         return {
             avatar
+        }
+    },
+    computed: {
+        showing() {
+            return this.$router.options.routes.filter(route => !route.hide)
         }
     }
 }
@@ -19,9 +18,11 @@ export default {
 <template>
     <div class="navbar-menu">
         <ul class="navbar-menu--list">
-            <li class="navbar-menu--item" v-for="item in list" :key="item.name">
-                <fa-icon :icon="['fas', item.icon]" />
-                <span class="menu-item--title">{{item.title}}</span>
+            <li class="navbar-menu--item" v-for="item in showing" :key="item.path">
+                <router-link :to="item.redirect">
+                    <fa-icon :icon="['fas', item.children[0].meta.icon]" />
+                    <span class="menu-item--title">{{ item.children[0].meta.title }}</span>
+                </router-link>
             </li>
         </ul>
         <div class="navbar-menu--avatar">
@@ -53,11 +54,10 @@ export default {
 
 .navbar-menu--item {
     float: left;
-    margin: 0 4PX;
-    padding: 8PX;
-    border-radius: 6PX;
+    margin: 0 4px;
+    padding: 6px 8px;
+    border-radius: 6px;
     transition: background-color .3s ease-in;
-    cursor: pointer;
 
     &:hover {
         background-color: $bg-theme-ll;
@@ -65,7 +65,7 @@ export default {
 }
 
 .menu-item--title {
-    margin-left: 8PX;
+    margin-left: 6px;
 }
 
 /* 菜单头像样式 */
