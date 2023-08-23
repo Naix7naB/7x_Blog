@@ -20,7 +20,7 @@ export default {
         pickOne(e) {
             let target = e.target
             if (target.className === 'article-list') return false
-            while(!target.classList.contains('article-list--item')) {
+            while(!target.classList.contains('article-item')) {
                 target = target.parentElement
             }
             this.toArticleDetail(target.dataset.aid)
