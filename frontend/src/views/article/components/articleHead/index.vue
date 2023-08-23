@@ -3,7 +3,7 @@ import { formatDate } from '@/utils/util'
 import { mapGetters } from 'vuex'
 
 export default {
-    name: 'ArticleHeader',
+    name: 'ArticleHead',
     computed: {
         ...mapGetters('article', { info: 'getArticleInfo' })
     },
