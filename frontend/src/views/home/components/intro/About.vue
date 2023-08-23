@@ -36,22 +36,22 @@ export default {
 </script>
 
 <template>
-    <div class="intro-info--card g-relative">
-        <div class="intro-info--avatar">
-            <el-image class="info-avatar--pic" alt="avatar" fit="cover" :src="defaultAvatar" />
+    <div class="about">
+        <div class="about-avatar">
+            <el-image class="about-avatar--pic" alt="avatar" fit="cover" :src="defaultAvatar" />
         </div>
-        <div class="intro-info--desc">
-            <span class="info-desc--name">{{siteName}}</span>
-            <p class="info-desc--content">
+        <div class="about-info">
+            <span class="about-info--name">{{ siteName }}</span>
+            <p class="about-info--slogan">
                 <fa-icon style="padding-right: 6px;" icon="fas fa-quote-left" size="lg" />
                 <Typical :text="['秦时明月汉时关，万里长征人未还。']" />
                 <fa-icon style="padding-left: 6px;" icon="fas fa-quote-right" size="lg" />
             </p>
         </div>
-        <ul class="intro-info--social">
-            <li class="info-social--item" v-for="item in socialList" :key="item.title">
+        <ul class="about-social">
+            <li class="about-social--item" v-for="item in socialList" :key="item.title">
                 <el-image
-                    class="info-social--pic"
+                    class="about-social--pic"
                     fit="cover"
                     :alt="item.title"
                     :title="item.title"
@@ -63,19 +63,20 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-/* 介绍页信息卡片样式 */
-.intro-info--card {
+/* 网站相关信息样式 */
+.about {
+    position: relative;
     top: 50%;
     max-width: 800px;
     margin: auto;
     transform: translateY(-50%);
 }
 
-.intro-info--avatar {
+.about-avatar {
     text-align: center;
 }
 
-.info-avatar--pic {
+.about-avatar--pic {
     width: 130px;
     height: 130px;
     border: 6px solid $bg-gray-ll;
@@ -89,7 +90,7 @@ export default {
     }
 }
 
-.intro-info--desc {
+.about-info {
     width: 63%;
     margin: 32px auto 40px;
     padding: 28px 20px;
@@ -99,28 +100,28 @@ export default {
     background-color: $bg-theme-ll;
 }
 
-.info-desc--name {
+.about-info--name {
     font-size: 30px;
     font-weight: 700;
 }
 
-.info-desc--content {
+.about-info--slogan {
     padding-top: 20px;
     font-size: $fz-medium;
 }
 
-.intro-info--social {
+.about-social {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.info-social--item {
+.about-social--item {
     margin: 0 10px;
     cursor: pointer;
 }
 
-.info-social--pic {
+.about-social--pic {
     width: 50px;
     height: 50px;
     padding: 10px;

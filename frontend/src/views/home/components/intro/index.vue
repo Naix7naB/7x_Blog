@@ -1,15 +1,22 @@
 <script>
-import InfoCard from './components/infoCard'
+import About from './About'
 
 export default {
-    components: { InfoCard }
+    name: 'Intro',
+    components: { About },
+    methods: {
+        jumpEnter() {
+            const offset = this.$refs.introRef.clientHeight
+            this.$bus.$emit('scrollTo', { offset })
+        }
+    }
 }
 </script>
 
 <template>
-    <section class="intro-page">
-        <InfoCard />
-        <span class="intro-enter--button" @click="$router.push({ name: 'Home' })">
+    <section class="intro" ref="introRef">
+        <About />
+        <span class="intro-enter" @click="jumpEnter">
             <fa-icon
                 bounce
                 size="3x"
@@ -22,13 +29,14 @@ export default {
 
 <style lang="scss" scoped>
 /* 网站介绍页面样式 */
-.intro-page {
-    @include full-fixed();
-    @include layer-mask(fixed);
+.intro {
+    @include layer-mask();
     @include bg-image('@/assets/images/bg.png', no-repeat, center, cover);
+    width: 100%;
+    height: 100%;
 }
 
-.intro-enter--button {
+.intro-enter {
     position: absolute;
     bottom: 2px;
     left: 50%;
