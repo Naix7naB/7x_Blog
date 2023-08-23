@@ -1,4 +1,4 @@
-import vuescroll from 'vuescroll/dist/vuescroll-native'
+import vuescroll from 'vuescroll'
 
 const config = {
     name: 'v-scroll',

@@ -1,7 +1,6 @@
 export default {
     data() {
         return {
-            scroller: null,
             scrollY: 0,
             deltaY: 0,
             maxTransformY: 600
@@ -16,29 +15,32 @@ export default {
         }
     },
     methods: {
+        initScroller() {
+            this.$bus.$on('scrollTo', this.scrollTo)
+            this.refreshScroller()
+        },
         onScroll(e) {
             this.deltaY = e.scrollTop - this.scrollY
             this.scrollY = e.scrollTop
         },
         scrollTo({ offset, duration = 1000 }) {
-            this.$refs.scroller.scrollTo({ y: offset }, duration, 'easeOutCubic')
+            this.$refs.scroller.scrollTo({ y: offset }, duration, 'easeInOutCubic')
         },
-        refresh() {
+        refreshScroller() {
             this.$refs.scroller.refresh()
         },
-        stop() {
+        destroyScroller() {
             this.$refs.scroller.stop()
         }
     },
     mounted() {
         if (this.$refs.scroller) {
-            this.refresh()
-            this.$bus.$on('scrollTo', this.scrollTo)
+            this.initScroller()
         }
     },
     beforeDestroy() {
         if (this.$refs.scroller) {
-            this.stop()
+            this.destroyScroller()
         }
     }
 }
