@@ -5,6 +5,10 @@ export default {
     name: 'CommentEditor',
     components: { EmojiPicker },
     props: {
+        title: {
+            type: String,
+            default: ''
+        },
         autosize: {
             type: [Boolean, Object],
             default: false
@@ -50,6 +54,9 @@ export default {
 
 <template>
     <div v-if="visible">
+        <div v-if="title" class="comment-editor--title">
+            <fa-icon icon="fas fa-pen-to-square" /> {{ title }}
+        </div>
         <el-input
             v-model="comment"
             type="textarea"
@@ -82,6 +89,13 @@ export default {
 }
 
 /* 评论输入框样式 */
+.comment-editor--title {
+    user-select: none;
+    margin-bottom: 20px;
+    font-size: $fz-large;
+    font-weight: 700;
+}
+
 .comment-editor--action {
     display: flex;
     justify-content: space-between;

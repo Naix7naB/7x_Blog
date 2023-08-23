@@ -47,17 +47,18 @@ export default {
 
 <template>
     <div class="article-comment">
-        <div class="article-comment--editor">
-            <div class="comment-editor--title"><fa-icon icon="fas fa-pen-to-square" /> 评论</div>
-            <CommentEditor :autosize="{ minRows: 7, maxRows: 10 }" @post="handlePost" />
-        </div>
-        <div>
-            <div class="comment-stats">
-                <span>Comments</span>
-                <span class="comment-stats--count">{{ comments.length }}条评论</span>
-            </div>
-            <CommentList :comments="comments" />
-        </div>
+        <CommentEditor
+            class="article-comment--item"
+            title="评论"
+            :autosize="{ minRows: 7, maxRows: 10 }"
+            @post="handlePost"
+        />
+        <CommentList
+            class="article-comment--item"
+            statsLabel="Comments"
+            :showStats="true"
+            :comments="comments"
+        />
     </div>
 </template>
 
@@ -67,38 +68,7 @@ export default {
     overflow: hidden;
 }
 
-.article-comment--editor {
-    margin: 40px 0;
-}
-
-.comment-editor--title {
-    user-select: none;
-    margin-bottom: 20px;
-    font-size: $fz-large;
-    font-weight: 700;
-}
-
-.comment-stats {
-    user-select: none;
-    margin-bottom: 30px;
-    line-height: $lh-medium-x;
-    font-size: $fz-medium-x;
-    color: #999999;
-}
-
-.comment-stats--count {
-    position: relative;
-    margin-left: 16px;
-
-    &::before {
-        content: '';
-        position: absolute;
-        top: 4px;
-        left: -8px;
-        width: 1px;
-        height: 16px;
-        background-color: #999999;
-        transform: scaleX(.5);
-    }
+.article-comment--item {
+    margin-top: 40px;
 }
 </style>
