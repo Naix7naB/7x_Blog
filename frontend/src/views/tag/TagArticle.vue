@@ -8,7 +8,6 @@ export default {
     components: { ArticleList },
     data() {
         return {
-            title: '',
             articles: []
         }
     },
@@ -31,6 +30,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 标签文章列表样式 */
 .tag-article {
     padding: 40px;
 }

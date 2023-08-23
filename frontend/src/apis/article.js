@@ -69,6 +69,34 @@ function getClassifyArticles({ page = 1, size = 10, classify_id } = {}) {
     })
 }
 
+/* 获取所属分类文章列表 */
+function getTagArticles({ page = 1, size = 10, tag_id } = {}) {
+    return Request.requestForm({
+        methodType: Request.GET,
+        url: '/api/article',
+        data: {
+            page,
+            size,
+            condition: {
+                tags: {
+                    $in: [tag_id]
+                }
+            },
+            populate: [
+                {
+                    path: 'classify',
+                    select: 'name'
+                },
+                {
+                    path: 'tags',
+                    select: 'name'
+                }
+            ],
+            select: '-author -content -comments -state'
+        }
+    })
+}
+
 /* 根据文章ID获取详细内容 */
 function getArticleInfoById(aid) {
     return Request.request({
@@ -77,4 +105,10 @@ function getArticleInfoById(aid) {
     })
 }
 
-export { getArticleList, getRecommendArticles, getClassifyArticles, getArticleInfoById }
+export {
+    getArticleList,
+    getRecommendArticles,
+    getClassifyArticles,
+    getTagArticles,
+    getArticleInfoById
+}

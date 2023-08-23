@@ -45,6 +45,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 标签列表样式 */
 .tag-list {
     display: flex;
     flex-wrap: wrap;
