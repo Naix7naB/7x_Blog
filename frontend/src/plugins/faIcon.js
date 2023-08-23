@@ -41,7 +41,8 @@ import {
     faFaceLaugh as farFaceLaugh,
     faImage as farImage,
     faHeart as farHeart,
-    faComment as farComment
+    faComment as farComment,
+    faBookmark as farBookmark
 } from '@fortawesome/free-regular-svg-icons'
 
 library.add([
@@ -80,7 +81,8 @@ library.add([
     farFaceLaugh,
     farImage,
     farHeart,
-    farComment
+    farComment,
+    farBookmark
 ])
 
 export default FontAwesomeIcon

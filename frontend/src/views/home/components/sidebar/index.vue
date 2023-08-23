@@ -38,6 +38,15 @@ export default {
                     },
                     label: '分类',
                     cmp: () => import('./Classify')
+                },
+                {
+                    name: 'Tag',
+                    icon: {
+                        type: 'regular',
+                        name: 'bookmark'
+                    },
+                    label: '标签',
+                    cmp: () => import('./Tag')
                 }
             ]
         }
