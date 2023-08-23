@@ -6,19 +6,28 @@ export default {
     data() {
         return {
             cover,
-            title: ''
+            label: ''
+        }
+    },
+    computed: {
+        secondTitle() {
+            const base = this.$route.meta.secondTitle
+            return this.label ? base + ' - ' + this.label : base
+        },
+        showBack() {
+            return this.$route.meta.showBack
         }
     },
     methods: {
-        assignTitle(text) {
-            this.title = text
+        setLabel(plain) {
+            this.label = plain
         },
         goBack() {
             this.$router.back()
         }
     },
     mounted() {
-        this.$bus.$on('assignTitle', this.assignTitle)
+        this.$bus.$on('setLabel', this.setLabel)
     }
 }
 </script>
@@ -27,8 +36,8 @@ export default {
     <div>
         <div class="secondary-cover">
             <el-image fit="cover" :src="cover" />
-            <h3 class="cover-title">{{ title }}</h3>
-            <span v-if="$route.meta.showBack" class="back-button" @click="goBack">
+            <h3 class="cover-title">{{ secondTitle }}</h3>
+            <span v-if="showBack" class="back-button" @click="goBack">
                 <fa-icon icon="fas fa-arrow-left" /> 返回
             </span>
         </div>

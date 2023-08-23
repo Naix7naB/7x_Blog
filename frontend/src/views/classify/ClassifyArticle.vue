@@ -15,7 +15,7 @@ export default {
         const { classifyId, classifyName } = this.$route.params
         getClassifyArticles({ classify_id: classifyId }).then(({ data }) => {
             this.articles = data.list
-            this.$bus.$emit('assignTitle', classifyName)
+            this.$bus.$emit('setLabel', classifyName)
         }).catch(err => {
             this.$message.error(err.errMsg)
         })

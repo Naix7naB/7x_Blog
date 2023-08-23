@@ -50,6 +50,7 @@ const routes = [
                         path: ':classifyId',
                         name: 'ClassifyArticle',
                         meta: {
+                            secondTitle: '分类',
                             showBack: true
                         },
                         component: () => import('@/views/classify/ClassifyArticle')
@@ -84,6 +85,7 @@ const routes = [
                         path: ':tagId',
                         name: 'TagArticle',
                         meta: {
+                            secondTitle: '标签',
                             showBack: true
                         },
                         component: () => import('@/views/tag/TagArticle')

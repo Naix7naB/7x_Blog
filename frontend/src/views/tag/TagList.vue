@@ -22,7 +22,6 @@ export default {
     created() {
         getTagList().then(({ data }) => {
             this.tags = data.list
-            this.$bus.$emit('assignTitle', this.$route.meta.secondTitle)
         }).catch(err => {
             this.$message.error(err.errMsg)
         })

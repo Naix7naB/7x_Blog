@@ -15,7 +15,7 @@ export default {
         const { tagId, tagName } = this.$route.params
         getTagArticles({ tag_id: tagId }).then(({ data }) => {
             this.articles = data.list
-            this.$bus.$emit('assignTitle', tagName)
+            this.$bus.$emit('setLabel', tagName)
         }).catch(err => {
             this.$message.error(err.errMsg)
         })
