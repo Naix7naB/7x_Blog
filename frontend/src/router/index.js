@@ -117,12 +117,22 @@ const routes = [
         children: [
             {
                 path: '/message',
-                name: 'message',
                 meta: {
                     icon: 'message',
                     title: '留言'
                 },
-                component: () => import('@/views/home')
+                component: SecondaryLayout,
+                children: [
+                    {
+                        path: '',
+                        name: 'Message',
+                        meta: {
+                            secondTitle: '留言板',
+                            showBack: false
+                        },
+                        component: () => import('@/views/message')
+                    }
+                ]
             }
         ]
     },
