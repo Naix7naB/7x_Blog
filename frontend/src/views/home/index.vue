@@ -41,7 +41,7 @@ export default {
     display: flex;
     justify-content: center;
     width: 90%;
-    margin: 0 auto;
+    margin: 80px auto 0;
     padding: 40px;
 }
 

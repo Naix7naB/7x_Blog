@@ -1,84 +1,33 @@
 <script>
-import ScrollContainer from './components/scrollContainer'
 import Navbar from './components/navbar'
 import AppMain from './components/appMain'
+import ScrollMixin from './mixins/scroll'
 
 export default {
     name: 'Layout',
-    components: { ScrollContainer, Navbar, AppMain },
-    data() {
-        return {
-            scrollY: 0,
-            deltaY: 0,
-            maxTransY: 560
-        }
-    },
-    computed: {
-        isDown() {
-            return this.deltaY > 0
-        },
-        ratio() {
-            return Math.min(this.scrollY / this.maxTransY * 100, 100) / 100
-        },
-        headerStyle() {
-            let blurCount = 0, bgColor = 'transparent', shadow = 'none', transform = 'none'
-            if (this.scrollY > 0) {
-                blurCount = Math.min(this.scrollY / 50, 20)
-                bgColor = `rgba(57, 57, 57, ${Math.min(this.ratio, .7)})`
-                shadow = `0 2px 20px rgba(57, 57, 57, ${Math.min(this.ratio, .7)})`
-            }
-            if (this.scrollY > this.maxTransY && this.isDown) {
-                const headerHeight = this.$refs.headerRef.clientHeight
-                transform = `translate3d(0, ${-headerHeight}px, 1px)`
-            }
-            return {
-                backgroundColor: bgColor,
-                boxShadow: shadow,
-                backdropFilter: `blur(${blurCount}px)`,
-                transform: transform
-            }
-        }
-    },
-    methods: {
-        handleScroll(e) {
-            this.deltaY = e.scrollTop - this.scrollY
-            this.scrollY = e.scrollTop
-        }
-    }
+    components: { Navbar, AppMain },
+    mixins: [ScrollMixin]
 }
 </script>
 
 <template>
     <div class="layout">
-        <ScrollContainer @handle-scroll="handleScroll">
-            <header ref="headerRef" class="layout-navbar" :style="headerStyle">
-                <Navbar />
-            </header>
-            <main class="layout-main">
-                <AppMain />
-            </main>
-        </ScrollContainer>
+        <v-scroll ref="scroller" @handle-scroll="onScroll">
+            <Navbar />
+            <AppMain />
+        </v-scroll>
     </div>
 </template>
 
 <style lang="scss" scoped>
-/* 版面样式 */
+/* 样式穿透 hook VueScroll 样式 */
+:deep(.__rail-is-vertical) {
+  z-index: 900 !important;
+}
+
+/* 页面排版样式 */
 .layout {
     @include full-fixed();
     background-color: #24272d;
-}
-
-/* 版面导航栏样式 */
-.layout-navbar {
-    z-index: 100;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    transition: transform .5s;
-}
-
-.layout-main {
-    overflow: hidden;
-    padding-top: 80px;
 }
 </style>
