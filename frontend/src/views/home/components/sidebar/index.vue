@@ -46,7 +46,7 @@ export default {
 </script>
 
 <template>
-    <div class="sidebar">
+    <div>
         <InfoCard
             custom-class="sidebar-item shadow-box"
             v-for="item in componentList"
@@ -62,23 +62,7 @@ export default {
 
 <style lang="scss" scoped>
 /* 侧边栏样式 */
-.sidebar {
-    width: 30%;
-    max-width: 320px;
-    margin-right: 40px;
-}
-
 .sidebar-item:not(:first-of-type) {
     margin-top: 40px;
-}
-
-/* 媒体查询样式 */
-@media screen and (max-width: 1100px) {
-    .sidebar {
-        width: 100%;
-        max-width: 100%;
-        margin-right: 0;
-        margin-bottom: 40px;
-    }
 }
 </style>

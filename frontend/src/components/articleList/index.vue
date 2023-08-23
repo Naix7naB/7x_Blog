@@ -41,7 +41,7 @@ export default {
 <template>
     <ul class="article-list" v-loading="!list.length" @click="pickOne">
         <li
-            class="article-list--item shadow-box"
+            class="article-item shadow-box"
             v-for="(article, idx) in list"
             :key="article.id"
             :data-aid="article.id"
@@ -106,12 +106,11 @@ export default {
 
 /* 文章列表样式 */
 .article-list {
-    width: 70%;
-    max-width: 980px;
-    min-height: calc(100vh - 160px);
+    width: 100%;
+    height: 100%;
 }
 
-.article-list--item {
+.article-item {
     overflow: hidden;
     position: relative;
     display: flex;
@@ -146,11 +145,11 @@ export default {
 }
 
 .article-image {
-    width: 40%;
+    width: 45%;
 }
 
 .article-info {
-    width: 60%;
+    width: 55%;
     padding: 24px 36px;
 }
 
@@ -194,15 +193,8 @@ export default {
 }
 
 /* 媒体查询样式 */
-@media screen and (max-width: 1100px) {
-    .article-list {
-        width: 100%;
-        max-width: 100%;
-    }
-}
-
 @media screen and (max-width: 700px) {
-    .article-list--item {
+    .article-item {
         flex-direction: column;
         height: 500px;
     }
