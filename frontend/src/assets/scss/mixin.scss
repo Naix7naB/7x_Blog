@@ -36,8 +36,8 @@
     }
 }
 
-@mixin layer-mask() {
-    position: relative;
+@mixin layer-mask($pos: relative) {
+    position: $pos;
 
     &::before {
         content: '';

@@ -21,7 +21,7 @@ html {
 
 .shadow-box {
     user-select: none;
-    box-shadow: 0 1px 20px -6px rgba($color: #4f4f4f, $alpha: 0.7);
+    box-shadow: 0 2px 30px -4px rgba($color: #4f4f4f, $alpha: 0.8);
     transition: box-shadow 0.3s ease;
 
     &:hover {

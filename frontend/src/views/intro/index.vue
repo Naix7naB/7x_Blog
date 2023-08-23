@@ -23,8 +23,9 @@ export default {
 <style lang="scss" scoped>
 /* 网站介绍页面样式 */
 .intro-page {
-    width: 100%;
-    height: 100%;
+    @include full-fixed();
+    @include layer-mask(fixed);
+    @include bg-image('@/assets/images/bg.png', no-repeat, center, cover);
 }
 
 .intro-enter--button {

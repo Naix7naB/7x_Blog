@@ -64,8 +64,7 @@ export default {
 <style lang="scss" scoped>
 /* 版面样式 */
 .layout {
-    width: 100%;
-    height: 100%;
+    @include full-fixed();
     background-color: #24272d;
 }
 
@@ -80,5 +79,6 @@ export default {
 
 .layout-main {
     overflow: hidden;
+    padding-top: 80px;
 }
 </style>
