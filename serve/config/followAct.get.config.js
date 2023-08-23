@@ -4,7 +4,7 @@ module.exports = {
         opt() {
             return {
                 $inc: {
-                    view_num: 1
+                    view_count: 1
                 }
             }
         }

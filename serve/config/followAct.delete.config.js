@@ -51,7 +51,7 @@ module.exports = {
             opt() {
                 return {
                     $inc: {
-                        article_num: -1
+                        article_count: -1
                     }
                 }
             }
@@ -77,7 +77,7 @@ module.exports = {
             opt() {
                 return {
                     $inc: {
-                        classify_num: -1
+                        classify_count: -1
                     }
                 }
             }
@@ -112,7 +112,7 @@ module.exports = {
             opt() {
                 return {
                     $inc: {
-                        tag_num: -1
+                        tag_count: -1
                     }
                 }
             }

@@ -30,7 +30,7 @@ Router.post('/leave', postBodyMiddleware('Comment'), async (req, res, next) => {
         if (resource.topic_type === 'article_comment') {
             await Article.findByIdAndUpdate(resource.topic_id, {
                 $inc: {
-                    comment_num: 1
+                    comment_count: 1
                 },
                 $push: {
                     comments: resource.id
@@ -67,7 +67,7 @@ Router.post('/reply', postBodyMiddleware('Reply'), async (req, res, next) => {
         if (comment.topic_type === 'article_comment') {
             await Article.findByIdAndUpdate(comment.topic_id, {
                 $inc: {
-                    comment_num: 1
+                    comment_count: 1
                 }
             })
         }

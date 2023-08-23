@@ -47,15 +47,15 @@ const schema = new mongoose.Schema(
                 type: mongoose.SchemaTypes.ObjectId
             }
         ],
-        view_num: {
+        view_count: {
             type: Number,
             default: 0
         },
-        like_num: {
+        like_count: {
             type: Number,
             default: 0
         },
-        comment_num: {
+        comment_count: {
             type: Number,
             default: 0
         },
@@ -65,12 +65,6 @@ const schema = new mongoose.Schema(
         },
         created_at: Number,
         updated_at: Number
-        // TODO 引用 Like 模型
-        // likes: {
-        //     ref: 'Like',
-        //     type: mongoose.SchemaTypes.ObjectId,
-        //     default: []
-        // },
     },
     schemaOption
 )
