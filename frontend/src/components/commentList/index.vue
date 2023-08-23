@@ -1,5 +1,5 @@
 <script>
-import CommentItem from '../commentItem'
+import CommentItem from './CommentItem'
 
 export default {
     name: 'CommentList',
@@ -15,12 +15,8 @@ export default {
 
 <template>
     <ul v-if="comments && comments.length !== 0">
-        <CommentItem
-            v-for="comment in comments"
-            :key="comment.id"
-            :comment="comment"
-            :comment_id="comment.id"
-            :reviewer="comment.reviewer"
-        />
+        <li v-for="comment in comments" :key="comment.id">
+            <CommentItem :comment="comment" :comment_id="comment.id" :reviewer="comment.reviewer" />
+        </li>
     </ul>
 </template>

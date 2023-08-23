@@ -1,5 +1,5 @@
 <script>
-import CommentEditor from '../commentEditor'
+import CommentEditor from '@/components/commentEditor'
 
 import { replyComment } from '@/apis/comment'
 import { formatDate } from '@/utils/util'
@@ -60,48 +60,44 @@ export default {
 </script>
 
 <template>
-    <li>
-        <div class="comment-info--wrapper">
-            <el-avatar :src="comment.reviewer.avatar" />
-            <div class="comment-info">
-                <div class="comment-info--head">
-                    <span
-                        v-text="comment.reviewer.nickname"
-                        class="comment-info--name"
-                        :data-host="isHost(comment.reviewer.id)"
-                        :data-uid="comment.reviewer.id"
-                    />
-                    <span class="comment-info--date">{{formatDate(comment.created_at)}}</span>
-                </div>
-                <div class="comment-info--body">
-                    <span
-                        v-if="comment.mention && comment.reply_id !== comment_id"
-                        class="comment-info--metion"
-                        :data-mention="comment.mention.nickname"
-                    />
-                    <span class="comment-info--content">{{comment.content}}</span>
-                    <span class="comment-info--reply" @click="showEditor">回复</span>
-                </div>
-                <ul v-if="comment.replies && comment.replies.length !== 0">
+    <div class="comment-info--wrapper">
+        <el-avatar :src="comment.reviewer.avatar" />
+        <div class="comment-info">
+            <div class="comment-info--head">
+                <span
+                    v-text="comment.reviewer.nickname"
+                    class="comment-info--name"
+                    :data-host="isHost(comment.reviewer.id)"
+                    :data-uid="comment.reviewer.id"
+                />
+                <span class="comment-info--date">{{ formatDate(comment.created_at) }}</span>
+            </div>
+            <div class="comment-info--body">
+                <span
+                    v-if="comment.mention && comment.reply_id !== comment_id"
+                    class="comment-info--metion"
+                    :data-mention="comment.mention.nickname"
+                />
+                <span class="comment-info--content">{{ comment.content }}</span>
+                <span class="comment-info--reply" @click="showEditor">回复</span>
+            </div>
+            <ul v-if="comment.replies && comment.replies.length !== 0">
+                <li v-for="reply in comment.replies" :key="reply.id">
                     <CommentItem
-                        v-for="reply in comment.replies"
-                        :key="reply.id"
                         :comment="reply"
                         :comment_id="comment.id"
                         :reviewer="comment.reviewer"
                     />
-                </ul>
-                <transition>
-                    <CommentEditor
-                        ref="editor"
-                        :autosize="{ minRows: 1, maxRows: 3 }"
-                        :showCancelBtn="true"
-                        @post="handlePost"
-                    />
-                </transition>
-            </div>
+                </li>
+            </ul>
+            <CommentEditor
+                ref="editor"
+                :autosize="{ minRows: 1, maxRows: 3 }"
+                :showCancelBtn="true"
+                @post="handlePost"
+            />
         </div>
-    </li>
+    </div>
 </template>
 
 <style lang="scss" scoped>
