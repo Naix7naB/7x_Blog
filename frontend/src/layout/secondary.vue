@@ -61,6 +61,7 @@ export default {
 
 /* 次级页面排版样式 */
 .secondary-cover {
+    user-select: none;
     position: relative;
     height: 30vh;
 }
@@ -74,7 +75,6 @@ export default {
 }
 
 .back-button {
-    user-select: none;
     position: relative;
     bottom: 50px;
     left: 20%;

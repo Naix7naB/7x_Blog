@@ -32,6 +32,6 @@ export default {
 <style lang="scss" scoped>
 /* 分类文章列表样式 */
 .classify-article {
-    padding: 40px;
+    padding: 80px 40px;
 }
 </style>
