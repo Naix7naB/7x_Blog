@@ -3,16 +3,11 @@ import VueRouter from 'vue-router'
 
 import store from '@/store'
 import Layout from '@/layout'
+import SecondaryLayout from '@/layout/secondary'
 
 Vue.use(VueRouter)
 
 const routes = [
-    {
-        hide: true,
-        path: '/intro',
-        name: 'Intro',
-        component: () => import('@/views/intro')
-    },
     {
         path: '/home',
         redirect: '/home',
@@ -36,12 +31,30 @@ const routes = [
         children: [
             {
                 path: '/classify',
-                name: 'Classify',
                 meta: {
                     icon: 'folder-open',
                     title: '分类'
                 },
-                component: () => import('@/views/classify')
+                component: SecondaryLayout,
+                children: [
+                    {
+                        path: '',
+                        name: 'ClassifyList',
+                        meta: {
+                            secondTitle: '分类',
+                            showBack: false
+                        },
+                        component: () => import('@/views/classify/ClassifyList')
+                    },
+                    {
+                        path: ':classifyId',
+                        name: 'ClassifyArticle',
+                        meta: {
+                            showBack: true
+                        },
+                        component: () => import('@/views/classify/ClassifyArticle')
+                    }
+                ]
             }
         ]
     },
@@ -52,12 +65,30 @@ const routes = [
         children: [
             {
                 path: '/tag',
-                name: 'Tag',
                 meta: {
                     icon: 'bookmark',
                     title: '标签'
                 },
-                component: () => import('@/views/home')
+                component: SecondaryLayout,
+                children: [
+                    {
+                        path: '',
+                        name: 'TagList',
+                        meta: {
+                            secondTitle: '标签',
+                            showBack: false
+                        },
+                        component: () => import('@/views/tag/TagList')
+                    },
+                    {
+                        path: ':tagId',
+                        name: 'TagArticle',
+                        meta: {
+                            showBack: true
+                        },
+                        component: () => import('@/views/tag/TagArticle')
+                    }
+                ]
             }
         ]
     },
@@ -114,7 +145,7 @@ const routes = [
     {
         hide: true,
         path: '/',
-        redirect: '/intro'
+        redirect: '/home'
     }
 ]
 
