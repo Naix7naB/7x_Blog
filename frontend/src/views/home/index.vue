@@ -13,13 +13,7 @@ export default {
             articleList: []
         }
     },
-    methods: {
-        changeList(list) {
-            this.articleList = list
-        }
-    },
     created() {
-        this.$bus.$on('changeList', this.changeList)
         getArticleList().then(({ data }) => {
             this.articleList = data.list
         }).catch(err => {

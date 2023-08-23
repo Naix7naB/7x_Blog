@@ -1,5 +1,4 @@
 <script>
-import { getClassifyArticles } from '@/apis/article'
 import { getClassifyList } from '@/apis/classify'
 
 export default {
@@ -15,14 +14,11 @@ export default {
             while(target.className !== 'classify-item') {
                 target = target.parentElement
             }
-            const classifyId = target.dataset.classifyId
-            getClassifyArticles({ classify_id: classifyId })
-                .then(({ data }) => {
-                    this.$bus.$emit('changeList', data.list)
-                })
-                .catch(err => {
-                    this.$message.error(err.errMsg)
-                })
+            const { classifyId, classifyName } = target.dataset
+            this.$router.push({
+                name: 'ClassifyArticle',
+                params: { classifyId, classifyName }
+            })
         }
     },
     created() {
@@ -42,6 +38,7 @@ export default {
             v-for="classify in classifyList"
             :key="classify.id"
             :data-classify-id="classify.id"
+            :data-classify-name="classify.name"
             @click="select"
         >
             <div class="classify-item--wrapper">
