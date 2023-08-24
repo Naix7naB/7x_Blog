@@ -47,28 +47,18 @@ export default {
 
 <template>
     <div class="article-comment">
-        <CommentEditor
-            class="article-comment--item"
-            title="评论"
-            :autosize="{ minRows: 7, maxRows: 10 }"
-            @post="handlePost"
-        />
-        <CommentList
-            class="article-comment--item"
-            statsLabel="Comments"
-            :showStats="true"
-            :comments="comments"
-        />
+        <CommentEditor title="评论" :autosize="{ minRows: 7, maxRows: 10 }" @post="handlePost" />
+        <CommentList statsLabel="Comments" :showStats="true" :comments="comments" />
     </div>
 </template>
 
 <style lang="scss" scoped>
 /* 文章评论样式 */
 .article-comment {
-    overflow: hidden;
-}
+    padding: 40px 0;
 
-.article-comment--item {
-    margin-top: 40px;
+    & > div:not(:first-of-type) {
+        margin-top: 40px;
+    }
 }
 </style>
