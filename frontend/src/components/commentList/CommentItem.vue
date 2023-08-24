@@ -38,6 +38,9 @@ export default {
         showEditor() {
             this.$refs.editor.show()
         },
+        deleteComment() {
+            console.log(1)
+        },
         handlePost(comment) {
             replyComment({
                 comment_id: this.comment_id,
@@ -71,6 +74,7 @@ export default {
                     :data-uid="comment.reviewer.id"
                 />
                 <span class="comment-info--date">{{ formatDate(comment.created_at) }}</span>
+                <span class="comment-action--reply" @click="showEditor">回复</span>
             </div>
             <div class="comment-info--body">
                 <span
@@ -79,7 +83,6 @@ export default {
                     :data-mention="comment.mention.nickname"
                 />
                 <span class="comment-info--content">{{ comment.content }}</span>
-                <span class="comment-info--reply" @click="showEditor">回复</span>
             </div>
             <ul v-if="comment.replies && comment.replies.length !== 0">
                 <li v-for="reply in comment.replies" :key="reply.id">
@@ -120,10 +123,8 @@ export default {
     font-size: $fz-medium;
     font-weight: 700;
     color: #f29141;
-}
 
-[data-host=true] {
-    &::after {
+    &[data-host=true]::after {
         content: '博主';
         margin-left: 6px;
         padding: 0 4px;
@@ -136,6 +137,21 @@ export default {
     }
 }
 
+.comment-action--reply {
+    float: right;
+    padding: 0 6px;
+    border-radius: 3px;
+    font-size: $fz-small;
+    color: #e1e1e1;
+    background-color: #1363bfe6;
+    transition: background-color .2s;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #2f7ad0e6;
+    }
+}
+
 .comment-info--date {
     margin-left: 12px;
     font-size: $fz-small-s;
@@ -144,7 +160,7 @@ export default {
 
 .comment-info--body {
     position: relative;
-    margin: 16px 0 24px 0;
+    margin: 16px 0 24px;
     padding: 20px;
     line-height: $lh-small-s;
     border-radius: 8px;
@@ -164,25 +180,6 @@ export default {
 
     &::before {
         content: '@' attr(data-mention) ':';
-    }
-}
-
-.comment-info--reply {
-    opacity: 0;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    padding: 0 6px;
-    border-radius: 4px;
-    border: 1px solid #1f7ce7eb;
-    color: #1f7ce7eb;
-    font-size: $fz-small;
-    cursor: pointer;
-    transition: all .2s;
-
-    &:hover {
-        color: #e1e1e1;
-        background-color: #1f7ce7eb;
     }
 }
 </style>
