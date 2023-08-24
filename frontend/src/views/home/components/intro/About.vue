@@ -37,9 +37,7 @@ export default {
 
 <template>
     <div class="about">
-        <div class="about-avatar">
-            <el-image class="about-avatar--pic" alt="avatar" fit="cover" :src="defaultAvatar" />
-        </div>
+        <el-image class="about-avatar" alt="avatar" fit="cover" :src="defaultAvatar" />
         <div class="about-info">
             <span class="about-info--name">{{ siteName }}</span>
             <p class="about-info--slogan">
@@ -63,6 +61,11 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 样式穿透 hook ElementUI 样式 */
+:deep(.el-image::before) {
+    background-color: transparent;
+}
+
 /* 网站相关信息样式 */
 .about {
     position: relative;
@@ -73,12 +76,9 @@ export default {
 }
 
 .about-avatar {
-    text-align: center;
-}
-
-.about-avatar--pic {
     width: 130px;
     height: 130px;
+    margin: auto;
     border: 6px solid $bg-gray-ll;
     border-radius: 50%;
     box-shadow: 0 0 20px $bg-theme;

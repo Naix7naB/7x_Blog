@@ -24,26 +24,3 @@ export default {
         <router-view />
     </transition>
 </template>
-
-<style lang="scss" scoped>
-/* 过渡效果 */
-.slide-down-enter-active,
-.slide-down-leave-active,
-.slide-up-enter-active,
-.slide-up-leave-active {
-    position: absolute;
-    transition: all .7s;
-}
-
-.slide-down-enter,
-.slide-up-leave-to {
-    opacity: 0;
-    transform: translate3d(0, 100%, 0);
-}
-
-.slide-up-enter,
-.slide-down-leave-to {
-    opacity: 0;
-    transform: translate3d(0, -100%, 0);
-}
-</style>

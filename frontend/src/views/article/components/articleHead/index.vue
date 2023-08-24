@@ -45,17 +45,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-/* 样式穿透 hook ElementUI 样式 */
-:deep(.el-image) {
-    @include layer-mask();
-    display: block;
-    height: 100%;
-}
-
-:deep(.el-image img) {
-    object-position: top;
-}
-
 /* 文章头部样式 */
 .article-head {
     position: relative;

@@ -56,7 +56,18 @@ export default {
     </div>
 </template>
 
-<style lang="scss" scope>
+<style lang="scss">
+/* 样式穿透 hook ElementUI 样式 */
+div.el-image {
+    @include layer-mask();
+    display: block;
+    height: 100%;
+}
+
+img.el-image__inner {
+    object-position: top;
+}
+
 /* 样式穿透 hook VueScroll 样式 */
 .__rail-is-vertical {
   z-index: 900 !important;

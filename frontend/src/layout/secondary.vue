@@ -48,17 +48,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-/* 样式穿透 hook ElementUI 样式 */
-:deep(.el-image) {
-    @include layer-mask();
-    display: block;
-    height: 100%;
-}
-
-:deep(.el-image img) {
-    object-position: top;
-}
-
 /* 次级页面排版样式 */
 .secondary-cover {
     user-select: none;

@@ -37,6 +37,11 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 样式穿透 hook ElementUI 样式 */
+:deep(.el-image__inner) {
+    aspect-ratio: 16 / 9;
+}
+
 /* 推荐文章卡片样式 */
 .recommend-item {
     display: flex;
