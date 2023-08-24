@@ -60,6 +60,9 @@ Router.post('/reply', postBodyMiddleware('Reply'), async (req, res, next) => {
         const resource = await Reply.create(body)
         // 后续操作
         const comment = await Comment.findByIdAndUpdate(resource.comment_id, {
+            $inc: {
+                reply_count: 1
+            },
             $push: {
                 replies: resource.id
             }

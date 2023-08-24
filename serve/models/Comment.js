@@ -26,6 +26,7 @@ const schema = new mongoose.Schema(
                 type: mongoose.SchemaTypes.ObjectId
             }
         ],
+        reply_count: 0,
         created_at: Number,
         updated_at: Number
     },
