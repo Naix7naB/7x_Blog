@@ -16,6 +16,22 @@ function getArticleComments({ page = 1, size = 20, aid } = {}) {
     })
 }
 
+/* 获取浏览板评论列表 */
+function getMessageComments({ page = 1, size = 20, mid } = {}) {
+    return Request.requestForm({
+        methodType: Request.GET,
+        url: '/api/comment',
+        data: {
+            page,
+            size,
+            condition: {
+                topic_type: 'message_comment',
+                topic_id: mid
+            }
+        }
+    })
+}
+
 /* 发表评论 */
 function leaveComment(data) {
     return Request.request({
@@ -34,4 +50,4 @@ function replyComment(data) {
     })
 }
 
-export { getArticleComments, leaveComment, replyComment }
+export { getArticleComments, getMessageComments, leaveComment, replyComment }
