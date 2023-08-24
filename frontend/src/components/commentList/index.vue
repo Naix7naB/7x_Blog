@@ -17,6 +17,13 @@ export default {
             type: Array,
             default: () => []
         }
+    },
+    computed: {
+        totalComment() {
+            return this.comments.reduce((total, comment, idx) => {
+                return idx + comment.reply_count + 1
+            }, 0)
+        }
     }
 }
 </script>
@@ -25,7 +32,7 @@ export default {
     <div>
         <div v-if="showStats" class="comment-stats">
             <span>{{ statsLabel }}</span>
-            <span class="comment-stats--count">{{ comments.length }}条评论</span>
+            <span class="comment-stats--count">{{ totalComment }}条评论</span>
         </div>
         <ul v-if="comments && comments.length !== 0">
             <li v-for="comment in comments" :key="comment.id">
@@ -50,16 +57,16 @@ export default {
 
 .comment-stats--count {
     position: relative;
-    margin-left: 16px;
+    margin-left: 20px;
 
     &::before {
         content: '';
         position: absolute;
-        top: 4px;
-        left: -8px;
+        top: 6px;
+        left: -10px;
         width: 1px;
-        height: 16px;
-        background-color: #999999;
+        height: 12px;
+        background-color: rgba($color: #aaa, $alpha: .5);
         transform: scaleX(.5);
     }
 }
