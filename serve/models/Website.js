@@ -28,9 +28,18 @@ const schema = new mongoose.Schema(
                 return resolveUrl(url)
             }
         },
-        article_count: 0,
-        classify_count: 0,
-        tag_count: 0,
+        article_count: {
+            type: Number,
+            default: 0
+        },
+        classify_count: {
+            type: Number,
+            default: 0
+        },
+        tag_count: {
+            type: Number,
+            default: 0
+        },
         created_at: Number,
         updated_at: Number
     },
