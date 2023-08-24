@@ -44,7 +44,12 @@ export default {
             :data-tag-name="tag.name"
             @click="select"
         >
-            <span :style="{ color: tag.color }">{{ tag.name }}</span>
+            <span
+                v-text="tag.name"
+                class="tag-name"
+                :data-count="tag.articles.length"
+                :style="{ color: tag.color }"
+            />
         </li>
     </ul>
 </template>
@@ -57,16 +62,26 @@ export default {
 }
 
 .tag-item {
-    margin: 6px;
-    padding: 3px 8px;
-    font-size: $fz-small;
-    border-radius: 4px;
-    background-color: #333;
-    transition: all .3s;
-    cursor: pointer;
+    margin: 8px 4px;
+    transition: transform .3s;
 
     &:hover {
         transform: scale(1.15);
+    }
+}
+
+.tag-name {
+    position: relative;
+    padding: 2px 10px;
+    font-size: $fz-large;
+    cursor: pointer;
+
+    &::after {
+        content: attr(data-count);
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: $fz-small;
     }
 }
 </style>

@@ -41,10 +41,10 @@ export default {
             :data-classify-name="classify.name"
             @click="select"
         >
-            <div class="classify-item--wrapper">
-                <fa-icon icon="fas fa-angle-right" />
-                <span class="classify-item--name">{{ classify.name }}</span>
-            </div>
+            <span class="classify-item--name">
+                <fa-icon icon="fas fa-angle-right" />&nbsp;<span>{{ classify.name }}</span>
+            </span>
+            <span class="classify-item--count">{{ classify.articles.length }}</span>
         </li>
     </ul>
 </template>
@@ -52,6 +52,11 @@ export default {
 <style lang="scss" scoped>
 /* 分类卡片样式 */
 .classify-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    line-height: $lh-large-x;
     border-radius: 2em;
     cursor: pointer;
 
@@ -63,22 +68,18 @@ export default {
         background-color: rgb(173, 121, 24);
     }
 
-    &:hover .classify-item--wrapper {
+    &:hover .classify-item--name {
         transform: translate3d(10px, 0, 0);
+    }
+
+    &:hover .classify-item--count {
+        transform: translate3d(-10px, 0, 0);
     }
 }
 
-.classify-item--wrapper {
-    padding: 0 20px;
-    line-height: $lh-large-x;
-}
-
 .classify-item,
-.classify-item--wrapper {
-    transition: all .2s ease;
-}
-
-.classify-item--name {
-    margin-left: 4px;
+.classify-item--name,
+.classify-item--count {
+    transition: all .3s ease;
 }
 </style>
