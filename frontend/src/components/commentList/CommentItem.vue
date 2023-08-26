@@ -9,21 +9,27 @@ export default {
     name: 'CommentItem',
     components: { CommentEditor },
     props: {
+        topId: {
+            type: String,
+            required: true
+        },
         comment: {
             type: Object,
             required: true
         },
-        comment_id: {
-            type: String,
-            required: true
-        },
-        reviewer: {
-            type: Object,
-            default: () => {}
+        replying: {
+            type: Boolean,
+            default: false
+        }
+    },
+    data() {
+        return {
+            pReplyId: ''
         }
     },
     computed: {
         ...mapGetters(['getWebsiteInfo']),
+        ...mapGetters('comment', ['currentReplyId']),
         isHost() {
             return uid => {
                 return uid === this.getWebsiteInfo.host.id
@@ -32,32 +38,29 @@ export default {
     },
     methods: {
         formatDate,
-        hideEditor() {
-            this.$refs.editor.hide()
+        onReply() {
+            this.$emit('reply', this.comment.id)
         },
-        showEditor() {
-            this.$refs.editor.show()
+        onReplyReply(id) {
+            this.$emit('reply', id)
         },
-        deleteComment() {
-            console.log(1)
+        cancelReply() {
+            this.$emit('reply', '')
         },
-        handlePost(comment) {
+        postReply(reply) {
             replyComment({
-                comment_id: this.comment_id,
+                comment_id: this.topId,
                 reply_id: this.comment.id,
                 mention: this.comment.reviewer.id,
-                content: comment
+                content: reply
             }).then(res => {
                 this.$message.success(res.errMsg)
                 this.$bus.$emit('refreshComments')
-                this.hideEditor()
+                this.$emit('reply', '')
             }).catch(err => {
                 this.$message.error(err.errMsg)
             })
         }
-    },
-    mounted() {
-        this.hideEditor()
     }
 }
 </script>
@@ -65,7 +68,7 @@ export default {
 <template>
     <div class="comment-info--wrapper">
         <el-avatar :src="comment.reviewer.avatar" />
-        <div class="comment-info">
+        <div ref="commentRef" class="comment-info">
             <div class="comment-info--head">
                 <span
                     v-text="comment.reviewer.nickname"
@@ -74,31 +77,33 @@ export default {
                     :data-uid="comment.reviewer.id"
                 />
                 <span class="comment-info--date">{{ formatDate(comment.created_at) }}</span>
-                <span class="comment-action--reply" @click="showEditor">回复</span>
+                <span class="comment-action--reply" @click="onReply">回复</span>
             </div>
             <div class="comment-info--body">
                 <span
-                    v-if="comment.mention && comment.reply_id !== comment_id"
+                    v-if="comment.mention && comment.reply_id !== topId"
                     class="comment-info--metion"
                     :data-mention="comment.mention.nickname"
                 />
                 <span class="comment-info--content">{{ comment.content }}</span>
             </div>
+            <CommentEditor
+                ref="editor"
+                v-if="replying"
+                :replyId="comment.id"
+                @cancel="cancelReply"
+                @post="postReply"
+            />
             <ul v-if="comment.replies && comment.replies.length !== 0">
                 <li v-for="reply in comment.replies" :key="reply.id">
                     <CommentItem
+                        :topId="comment.id"
                         :comment="reply"
-                        :comment_id="comment.id"
-                        :reviewer="comment.reviewer"
+                        :replying="currentReplyId === reply.id"
+                        @reply="onReplyReply"
                     />
                 </li>
             </ul>
-            <CommentEditor
-                ref="editor"
-                :autosize="{ minRows: 1, maxRows: 3 }"
-                :showCancelBtn="true"
-                @post="handlePost"
-            />
         </div>
     </div>
 </template>

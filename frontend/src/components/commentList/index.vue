@@ -1,6 +1,8 @@
 <script>
 import CommentItem from './CommentItem'
 
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
     name: 'CommentList',
     components: { CommentItem },
@@ -19,11 +21,18 @@ export default {
         }
     },
     computed: {
+        ...mapGetters('comment', ['currentReplyId']),
         totalComment() {
             return this.comments.reduce((total, comment) => {
                 total += comment.reply_count + 1
                 return total
             }, 0)
+        }
+    },
+    methods: {
+        ...mapActions('comment', ['setReplyId']),
+        onReply(id) {
+            this.setReplyId(id)
         }
     }
 }
@@ -38,9 +47,10 @@ export default {
         <ul v-if="comments && comments.length !== 0">
             <li v-for="comment in comments" :key="comment.id">
                 <CommentItem
+                    :top-id="comment.id"
                     :comment="comment"
-                    :comment_id="comment.id"
-                    :reviewer="comment.reviewer"
+                    :replying="currentReplyId === comment.id"
+                    @reply="onReply"
                 />
             </li>
         </ul>
