@@ -25,7 +25,7 @@ export default {
                 this.$message.error(err || err.errMsg)
             }
         },
-        handlePost(comment) {
+        postComment(comment) {
             leaveComment({
                 topic_type: 'article_comment',
                 topic_id: this.info.id,
@@ -47,7 +47,7 @@ export default {
 
 <template>
     <div class="article-comment">
-        <CommentEditor title="评论" :autosize="{ minRows: 7, maxRows: 10 }" @post="handlePost" />
+        <CommentEditor title="评论" :autosize="{ minRows: 7, maxRows: 10 }" @post="postComment" />
         <CommentList statsLabel="Comments" :showStats="true" :comments="comments" />
     </div>
 </template>

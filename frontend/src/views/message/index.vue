@@ -25,11 +25,11 @@ export default {
                 this.$message.error(err || err.errMsg)
             }
         },
-        handlePost(comment) {
+        postMessage(message) {
             leaveComment({
                 topic_type: 'message_comment',
                 topic_id: this.getWebsiteInfo.id,
-                content: comment
+                content: message
             }).then(res => {
                 this.$message.success(res.errMsg)
                 this.getComments()
@@ -47,7 +47,7 @@ export default {
 
 <template>
     <div class="message-comment">
-        <CommentEditor title="留言" :autosize="{ minRows: 7, maxRows: 10 }" @post="handlePost" />
+        <CommentEditor title="留言" :autosize="{ minRows: 7, maxRows: 10 }" @post="postMessage" />
         <CommentList statsLabel="Messages" :showStats="true" :comments="comments" />
     </div>
 </template>
