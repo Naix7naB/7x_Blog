@@ -4,6 +4,7 @@ import Storage from '@/utils/storage'
 
 import user from './modules/user'
 import article from './modules/article'
+import comment from './modules/comment'
 
 import { getWebsiteInfo } from '@/apis/website'
 
@@ -33,6 +34,7 @@ export default new Vuex.Store({
     },
     modules: {
         user,
-        article
+        article,
+        comment
     }
 })
