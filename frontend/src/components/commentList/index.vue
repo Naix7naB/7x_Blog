@@ -20,8 +20,9 @@ export default {
     },
     computed: {
         totalComment() {
-            return this.comments.reduce((total, comment, idx) => {
-                return idx + comment.reply_count + 1
+            return this.comments.reduce((total, comment) => {
+                total += comment.reply_count + 1
+                return total
             }, 0)
         }
     }
