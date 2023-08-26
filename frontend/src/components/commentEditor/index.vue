@@ -9,22 +9,26 @@ export default {
             type: String,
             default: ''
         },
+        replyId: {
+            type: String,
+            default: ''
+        },
         autosize: {
-            type: [Boolean, Object],
-            default: false
+            type: Object,
+            default: () => {
+                return {
+                    minRows: 1,
+                    maxRows: 5
+                }
+            }
         },
         maxLenth: {
             type: Number,
             default: 500
-        },
-        showCancelBtn: {
-            type: Boolean,
-            default: false
         }
     },
     data() {
         return {
-            visible: true,
             comment: ''
         }
     },
@@ -35,17 +39,12 @@ export default {
         clear() {
             this.comment = ''
         },
-        submit() {
-            this.$emit('post', this.comment)
+        cancel() {
+            this.$emit('cancel')
             this.clear()
         },
-        show() {
-            if (this.visible) return false
-            this.visible = true
-        },
-        hide() {
-            if (!this.visible) return false
-            this.visible = false
+        submit() {
+            this.$emit('post', this.comment)
             this.clear()
         }
     }
@@ -53,7 +52,7 @@ export default {
 </script>
 
 <template>
-    <div v-if="visible">
+    <div>
         <div v-if="title" class="comment-editor--title">
             <fa-icon icon="fas fa-pen-to-square" /> {{ title }}
         </div>
@@ -71,7 +70,7 @@ export default {
                 <span class="editor-action--image"><fa-icon icon="far fa-image" /></span>
             </div>
             <div class="editor-action--end">
-                <el-button v-if="showCancelBtn" type="plain" size="small" @click="hide">
+                <el-button v-if="!!replyId" type="plain" size="small" @click="cancel">
                     取消
                 </el-button>
                 <el-button type="primary" size="small" :disabled="!comment" @click="submit">
