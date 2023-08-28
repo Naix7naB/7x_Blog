@@ -45,6 +45,11 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 样式穿透 hook ElementUI 样式 */
+:deep(.el-image) {
+    @include layer-mask();
+}
+
 /* 文章头部样式 */
 .article-head {
     position: relative;
