@@ -2,14 +2,36 @@
 import Logo from './Logo'
 import Menu from './Menu'
 
+import { mapGetters } from 'vuex'
+
 export default {
     name: 'navbar',
-    components: { Logo, Menu }
+    components: { Logo, Menu },
+    computed: {
+        ...mapGetters(['getScrollY', 'getScrollRatio', 'getNavbarShowState']),
+        navbarStyle() {
+            let blurCount = 0, bgColor = 'transparent', shadow = 'none', transform = 'none'
+            if (this.getScrollY > 0) {
+                blurCount = Math.min(this.getScrollY / 50, 20)
+                bgColor = `rgba(55, 56, 58, ${Math.min(this.getScrollRatio, .9)})`
+                shadow = `0 2px 30px 0 rgba(85, 86, 88, ${Math.min(this.getScrollRatio, .8)})`
+            }
+            if (this.getNavbarShowState) {
+                transform = 'translate3d(0, -80px, 1px)'
+            }
+            return {
+                backdropFilter: `blur(${blurCount}px)`,
+                backgroundColor: bgColor,
+                boxShadow: shadow,
+                transform: transform
+            }
+        }
+    }
 }
 </script>
 
 <template>
-    <header class="navbar">
+    <header class="navbar" :style="navbarStyle">
         <el-row type="flex" align="middle">
             <el-col :xs="16" :sm="8">
                 <Logo />
