@@ -31,16 +31,14 @@ export default {
 </script>
 
 <template>
-    <header class="navbar" :style="navbarStyle">
-        <el-row type="flex" align="middle">
-            <el-col :xs="16" :sm="8">
-                <Logo />
-            </el-col>
-            <el-col :xs="8" :sm="16">
-                <Menu />
-            </el-col>
-        </el-row>
-    </header>
+    <el-row class="navbar" tag="header" type="flex" align="middle" :style="navbarStyle">
+        <el-col :xs="16" :sm="8">
+            <Logo />
+        </el-col>
+        <el-col :xs="8" :sm="16">
+            <Menu />
+        </el-col>
+    </el-row>
 </template>
 
 <style lang="scss" scoped>
