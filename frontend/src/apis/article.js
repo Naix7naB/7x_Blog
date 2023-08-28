@@ -97,6 +97,22 @@ function getTagArticles({ page = 1, size = 10, tag_id } = {}) {
     })
 }
 
+/* 获取按照日期排序(降序)的文章列表 */
+function getArticlesAndSortedByDate({ page = 1, size = 10 } = {}) {
+    return Request.requestForm({
+        methodType: Request.GET,
+        url: '/api/article',
+        data: {
+            page,
+            size,
+            sort: {
+                created_at: -1
+            },
+            select: 'title description cover_img'
+        }
+    })
+}
+
 /* 根据文章ID获取详细内容 */
 function getArticleInfoById(aid) {
     return Request.request({
@@ -110,5 +126,6 @@ export {
     getRecommendArticles,
     getClassifyArticles,
     getTagArticles,
+    getArticlesAndSortedByDate,
     getArticleInfoById
 }
