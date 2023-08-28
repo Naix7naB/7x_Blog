@@ -13,17 +13,11 @@ export default {
         secondTitle() {
             const base = this.$route.meta.secondTitle
             return this.label ? base + ' - ' + this.label : base
-        },
-        showBack() {
-            return this.$route.meta.showBack
         }
     },
     methods: {
         setLabel(plain) {
             this.label = plain
-        },
-        goBack() {
-            this.$router.back()
         }
     },
     mounted() {
@@ -37,9 +31,6 @@ export default {
         <div class="secondary-cover">
             <el-image fit="cover" :src="cover" />
             <h3 class="cover-title">{{ secondTitle }}</h3>
-            <span v-if="showBack" class="back-button" @click="goBack">
-                <fa-icon icon="fas fa-arrow-left" /> 返回
-            </span>
         </div>
         <div class="secondary-content">
             <router-view />
@@ -48,6 +39,11 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 样式穿透 hook ElementUI 样式 */
+:deep(.el-image) {
+    @include layer-mask();
+}
+
 /* 次级页面排版样式 */
 .secondary-cover {
     user-select: none;
@@ -61,16 +57,6 @@ export default {
     left: 50%;
     font-size: 36px;
     transform: translate(-50%, -50%);
-}
-
-.back-button {
-    position: relative;
-    bottom: 50px;
-    left: 20%;
-    padding: 4px 10px;
-    border-radius: 6px;
-    background-color: #8f5b23;
-    cursor: pointer;
 }
 
 .secondary-content {

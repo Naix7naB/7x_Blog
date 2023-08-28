@@ -58,14 +58,13 @@ export default {
 
 <style lang="scss">
 /* 样式穿透 hook ElementUI 样式 */
-div.el-image {
-    @include layer-mask();
-    display: block;
-    height: 100%;
+.el-image {
+    display: block !important;
+    height: 100% !important;
 }
 
-img.el-image__inner {
-    object-position: top;
+.el-image__inner {
+    object-position: top !important;
 }
 
 /* 样式穿透 hook VueScroll 样式 */

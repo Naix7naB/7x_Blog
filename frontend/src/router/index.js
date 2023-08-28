@@ -41,8 +41,7 @@ const routes = [
                         path: '',
                         name: 'ClassifyList',
                         meta: {
-                            secondTitle: '分类',
-                            showBack: false
+                            secondTitle: '分类'
                         },
                         component: () => import('@/views/classify/ClassifyList')
                     },
@@ -50,8 +49,7 @@ const routes = [
                         path: ':classifyId',
                         name: 'ClassifyArticle',
                         meta: {
-                            secondTitle: '分类',
-                            showBack: true
+                            secondTitle: '分类'
                         },
                         component: () => import('@/views/classify/ClassifyArticle')
                     }
@@ -76,8 +74,7 @@ const routes = [
                         path: '',
                         name: 'TagList',
                         meta: {
-                            secondTitle: '标签',
-                            showBack: false
+                            secondTitle: '标签'
                         },
                         component: () => import('@/views/tag/TagList')
                     },
@@ -85,8 +82,7 @@ const routes = [
                         path: ':tagId',
                         name: 'TagArticle',
                         meta: {
-                            secondTitle: '标签',
-                            showBack: true
+                            secondTitle: '标签'
                         },
                         component: () => import('@/views/tag/TagArticle')
                     }
@@ -101,12 +97,21 @@ const routes = [
         children: [
             {
                 path: '/archive',
-                name: 'Archive',
                 meta: {
                     icon: 'box-archive',
                     title: '归档'
                 },
-                component: () => import('@/views/home')
+                component: SecondaryLayout,
+                children: [
+                    {
+                        path: '',
+                        name: 'Archive',
+                        meta: {
+                            secondTitle: '归档'
+                        },
+                        component: () => import('@/views/archive')
+                    }
+                ]
             }
         ]
     },
@@ -127,8 +132,7 @@ const routes = [
                         path: '',
                         name: 'Message',
                         meta: {
-                            secondTitle: '留言板',
-                            showBack: false
+                            secondTitle: '留言板'
                         },
                         component: () => import('@/views/message')
                     }
