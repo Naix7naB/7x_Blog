@@ -49,6 +49,5 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 80px 40px;
 }
 </style>

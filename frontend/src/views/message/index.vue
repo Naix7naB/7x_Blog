@@ -55,12 +55,17 @@ export default {
 <style lang="scss" scoped>
 /* 留言板样式 */
 .message-comment {
-    width: 90%;
-    margin: 0 auto;
-    padding: 80px 5%;
+    width: 85%;
+    margin: auto;
 
     & > div:not(:first-of-type) {
         margin-top: 40px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .message-comment {
+        width: 100%;
     }
 }
 </style>

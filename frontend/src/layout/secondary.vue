@@ -62,5 +62,6 @@ export default {
 .secondary-content {
     max-width: 1000px;
     margin: 0 auto;
+    padding: 80px 40px;
 }
 </style>
