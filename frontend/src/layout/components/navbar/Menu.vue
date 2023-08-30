@@ -35,11 +35,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-/* 样式穿透 hook ElementUI 样式 */
-:deep(.el-avatar) {
-    display: block;
-}
-
 /* 导航栏菜单样式 */
 .navbar-menu {
     display: flex;

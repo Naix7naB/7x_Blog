@@ -94,10 +94,6 @@ export default {
 
 <style lang="scss" scoped>
 /* 样式穿透 hook ElementUI 样式 */
-:deep(.el-image::before) {
-    background-color: transparent;
-}
-
 :deep(.el-image__inner) {
     transition: transform .7s ease;
 }

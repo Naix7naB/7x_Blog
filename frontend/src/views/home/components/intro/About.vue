@@ -61,11 +61,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-/* 样式穿透 hook ElementUI 样式 */
-:deep(.el-image::before) {
-    background-color: transparent;
-}
-
 /* 网站相关信息样式 */
 .about {
     position: relative;

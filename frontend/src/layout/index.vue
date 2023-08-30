@@ -37,6 +37,10 @@ export default {
 
 <style lang="scss">
 /* 样式穿透 hook ElementUI 样式 */
+.el-avatar {
+    display: block !important;
+}
+
 .el-image {
     display: block !important;
     height: 100% !important;
