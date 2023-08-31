@@ -4,7 +4,6 @@ import JSEncrypt from 'jsencrypt'
  * @description: 数字补零
  * @param {Number} num 数字
  * @return {Number} 补零后的字符串数字
- * @Date: 2022-09-11
  */
 function padLeft(num) {
     return (String(num)[1] && String(num)) || '0' + num
@@ -15,7 +14,6 @@ function padLeft(num) {
  * @param {String} date 日期(日期字符串 | 时间戳 | Date对象)
  * @param {String} format 日期格式化字符串
  * @return {String} 格式化后的日期字符串
- * @Date: 2022-09-07
  */
 function formatDate(date, format = 'YYYY-MM-DD hh:mm:ss') {
     if (typeof date === 'number') {
@@ -36,7 +34,7 @@ function formatDate(date, format = 'YYYY-MM-DD hh:mm:ss') {
     Object.keys(o).forEach(key => {
         const reg = new RegExp(`(${key})`)
         if (reg.test(format)) {
-            format = format.replace(reg, padLeft(o[key]))
+            format = format.replace(reg, m => (m.length === 2 ? padLeft(o[key]) : o[key]))
         }
     })
     return format
