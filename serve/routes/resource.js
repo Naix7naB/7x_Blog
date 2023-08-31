@@ -15,13 +15,27 @@ const Router = express.Router()
 // 获取资源列表
 Router.get('/', async (req, res, next) => {
     try {
-        // 数据分页
-        const { records: list, ...result } = await Paginator.paging({
-            model: req.Model,
-            ...req.query
-        })
+        const data = {}
+        const Model = req.Model
+        const { page, ...options } = req.query
+        if (typeof page === 'undefined') {
+            // 数据不分页
+            const records = await Paginator.unpageing({
+                model: Model,
+                ...options
+            })
+            Object.assign(data, { list: records })
+        } else {
+            // 数据分页
+            const { records, ...result } = await Paginator.paging({
+                model: Model,
+                page,
+                ...options
+            })
+            Object.assign(data, { ...result, list: records })
+        }
         // 返回响应
-        Response.send(res, { data: { ...result, list } })
+        Response.send(res, { data })
     } catch (err) {
         next(err)
     }
