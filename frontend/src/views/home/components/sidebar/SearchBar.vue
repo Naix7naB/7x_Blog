@@ -1,4 +1,6 @@
 <script>
+import { searchArticleList } from '@/apis/article'
+
 export default {
     data() {
         return {
@@ -13,9 +15,14 @@ export default {
     methods: {
         clear() {
             this.value = ''
+            this.$bus.$emit('refreshList')
         },
         search() {
-            console.log(this.value)
+            searchArticleList({ q: this.value }).then(({ data }) => {
+                this.$bus.$emit('changeList', data)
+            }).catch(err => {
+                this.$message.error(err.errMsg)
+            })
         }
     }
 }

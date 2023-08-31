@@ -23,6 +23,32 @@ function getArticleList({ page = 1, size = 10 } = {}) {
     })
 }
 
+/* 搜索文章列表 */
+function searchArticleList({ page = 1, size = 10, q }) {
+    return Request.requestForm({
+        methodType: Request.GET,
+        url: '/api/article',
+        data: {
+            page,
+            size,
+            condition: {
+                q
+            },
+            populate: [
+                {
+                    path: 'classify',
+                    select: 'name'
+                },
+                {
+                    path: 'tags',
+                    select: 'name'
+                }
+            ],
+            select: '-author -content -comments -state'
+        }
+    })
+}
+
 /* 获取推荐文章列表 */
 function getRecommendArticles() {
     return Request.requestForm({
@@ -120,6 +146,7 @@ function getArticleInfoById(aid) {
 
 export {
     getArticleList,
+    searchArticleList,
     getRecommendArticles,
     getClassifyArticles,
     getTagArticles,

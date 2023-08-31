@@ -13,12 +13,22 @@ export default {
             articleList: []
         }
     },
-    created() {
-        getArticleList().then(({ data }) => {
+    methods: {
+        loadArticleList(data) {
             this.articleList = data.list
-        }).catch(err => {
-            this.$message.error(err.errMsg)
-        })
+        },
+        getList() {
+            getArticleList().then(({ data }) => {
+                this.loadArticleList(data)
+            }).catch(err => {
+                this.$message.error(err.errMsg)
+            })
+        }
+    },
+    created() {
+        this.$bus.$on('refreshList', this.getList)
+        this.$bus.$on('changeList', this.loadArticleList)
+        this.getList()
     }
 }
 </script>
