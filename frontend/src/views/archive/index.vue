@@ -1,6 +1,7 @@
 <script>
-import { getArticlesAndSortedByDate } from '@/apis/article'
+import { getArticlesAndSortedByDate, getArticleInfoById } from '@/apis/article'
 import { formatDate } from '@/utils/util'
+import { mapActions } from 'vuex'
 
 export default {
     data() {
@@ -8,9 +9,6 @@ export default {
             archives: [],
             activeName: ''
         }
-    },
-    methods: {
-        formatDate
     },
     computed: {
         condition() {
@@ -25,6 +23,19 @@ export default {
         archiveTitle() {
             return archive => {
                 return archive.label + ' - 共' + archive.articles.length + '篇'
+            }
+        }
+    },
+    methods: {
+        ...mapActions('article', ['setArticleInfo']),
+        formatDate,
+        async toArticleDetail(aid) {
+            try {
+                const { data } = await getArticleInfoById(aid)
+                this.setArticleInfo(data)
+                this.$router.push(`/article/${aid}`)
+            } catch (err) {
+                this.$message.error(err.errMsg)
             }
         }
     },
@@ -58,7 +69,12 @@ export default {
                 :name="archive.label"
                 :title="archiveTitle(archive)"
             >
-                <div class="archive-article" v-for="article in archive.articles" :key="article.id">
+                <div
+                    class="archive-article"
+                    v-for="article in archive.articles"
+                    :key="article.id"
+                    @click="() => toArticleDetail(article.id)"
+                >
                     <div class="archive-article--label">
                         <fa-icon icon="fas fa-calendar-days" />
                         <span style="margin-left: 6px;">
