@@ -95,16 +95,17 @@ function getTagArticles({ page = 1, size = 10, tag_id } = {}) {
 }
 
 /* 获取按照日期排序(降序)的文章列表 */
-function getArticlesAndSortedByDate() {
+function getArticlesAndSortedByDate(condition) {
     return Request.requestForm({
         methodType: Request.GET,
         url: '/api/article',
         data: {
+            condition,
             populate: '',
             sort: {
                 created_at: -1
             },
-            select: 'title cover_img description'
+            select: '-author -content -classify -tags -comments -state'
         }
     })
 }
