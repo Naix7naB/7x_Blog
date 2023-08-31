@@ -8,9 +8,7 @@ function getClassifyList() {
         data: {
             page: 1,
             size: 10,
-            populate: {
-                path: '-'
-            }
+            populate: ''
         }
     })
 }

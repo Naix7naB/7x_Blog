@@ -34,10 +34,7 @@ function getRecommendArticles() {
             sort: {
                 view_count: -1
             },
-            populate: {
-                path: 'author',
-                select: 'nickname'
-            },
+            populate: '',
             select: 'title description cover_img view_count'
         }
     })
@@ -69,7 +66,7 @@ function getClassifyArticles({ page = 1, size = 10, classify_id } = {}) {
     })
 }
 
-/* 获取所属分类文章列表 */
+/* 获取所属标签文章列表 */
 function getTagArticles({ page = 1, size = 10, tag_id } = {}) {
     return Request.requestForm({
         methodType: Request.GET,
@@ -98,17 +95,16 @@ function getTagArticles({ page = 1, size = 10, tag_id } = {}) {
 }
 
 /* 获取按照日期排序(降序)的文章列表 */
-function getArticlesAndSortedByDate({ page = 1, size = 10 } = {}) {
+function getArticlesAndSortedByDate() {
     return Request.requestForm({
         methodType: Request.GET,
         url: '/api/article',
         data: {
-            page,
-            size,
+            populate: '',
             sort: {
                 created_at: -1
             },
-            select: 'title description cover_img'
+            select: 'title cover_img description'
         }
     })
 }
