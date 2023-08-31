@@ -2,6 +2,7 @@
 import avatar from '@/assets/images/avatar-default.png'
 
 export default {
+    name: 'Menu',
     data() {
         return {
             avatar

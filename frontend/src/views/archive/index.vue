@@ -4,6 +4,7 @@ import { formatDate } from '@/utils/util'
 import { mapActions } from 'vuex'
 
 export default {
+    name: 'ArchivePage',
     data() {
         return {
             archives: [],

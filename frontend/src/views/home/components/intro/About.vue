@@ -7,6 +7,7 @@ import ncmPic from '@/assets/images/ncm.png'
 import mailPic from '@/assets/images/mail.png'
 
 export default {
+    name: 'About',
     components: { Typical },
     data() {
         return {

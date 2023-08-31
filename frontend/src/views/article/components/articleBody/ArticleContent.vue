@@ -5,6 +5,7 @@ import { formatDate } from '@/utils/util'
 import { mapGetters } from 'vuex'
 
 export default {
+    name: 'ArticleContent',
     components: { MarkButton },
     data() {
         return {

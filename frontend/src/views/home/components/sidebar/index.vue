@@ -2,6 +2,7 @@
 import InfoCard from '@/components/infoCard'
 
 export default {
+    name: 'Sidebar',
     components: { InfoCard },
     data() {
         return {

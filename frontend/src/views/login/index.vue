@@ -3,7 +3,7 @@ import LoginBox from './components/loginBox'
 import LoginOverlay from './components/loginOverlay'
 
 export default {
-    name: 'Login',
+    name: 'LoginPage',
     components: { LoginBox, LoginOverlay },
     data() {
         return {

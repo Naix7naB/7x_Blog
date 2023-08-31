@@ -1,5 +1,6 @@
 <script>
 export default {
+    name: 'LoginForm',
     props: {
         title: {
             type: String,

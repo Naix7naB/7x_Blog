@@ -2,6 +2,7 @@
 import Typed from 'typed.js'
 
 export default {
+    name: 'Typical',
     props: {
         text: {
             type: Array,

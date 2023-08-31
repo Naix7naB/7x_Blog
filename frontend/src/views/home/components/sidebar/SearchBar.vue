@@ -2,6 +2,7 @@
 import { searchArticleList } from '@/apis/article'
 
 export default {
+    name: 'SearchBar',
     data() {
         return {
             value: ''

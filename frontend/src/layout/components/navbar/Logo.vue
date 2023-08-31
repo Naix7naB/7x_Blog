@@ -1,5 +1,6 @@
 <script>
 export default {
+    name: 'Logo',
     data() {
         return {
             siteName: '#7x\'s blog'
@@ -10,9 +11,7 @@ export default {
 
 <template>
     <h1 class="navbar-logo">
-        <span class="navbar-logo--wrapper" @click="$router.push({ name: 'Intro' })">
-            <fa-icon icon="fas fa-blog" /> {{siteName}}
-        </span>
+        <span class="navbar-logo--wrapper"><fa-icon icon="fas fa-blog" /> {{ siteName }}</span>
     </h1>
 </template>
 

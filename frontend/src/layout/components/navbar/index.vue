@@ -5,7 +5,7 @@ import Menu from './Menu'
 import { mapGetters } from 'vuex'
 
 export default {
-    name: 'navbar',
+    name: 'Navbar',
     components: { Logo, Menu },
     computed: {
         ...mapGetters(['getScrollY', 'getScrollRatio', 'getNavbarShowState']),
