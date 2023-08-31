@@ -1,6 +1,7 @@
 <script>
-import { getRecommendArticles } from '@/apis/article'
+import { getRecommendArticles, getArticleInfoById } from '@/apis/article'
 import { formatDate } from '@/utils/util'
+import { mapActions } from 'vuex'
 
 export default {
     name: 'ArticleRecommend',
@@ -10,7 +11,17 @@ export default {
         }
     },
     methods: {
-        formatDate
+        ...mapActions('article', ['setArticleInfo']),
+        formatDate,
+        async toArticleDetail(aid) {
+            try {
+                const { data } = await getArticleInfoById(aid)
+                this.setArticleInfo(data)
+                this.$router.push(`/article/${aid}`)
+            } catch (err) {
+                this.$message.error(err.errMsg)
+            }
+        }
     },
     created() {
         getRecommendArticles().then(({ data }) => {
@@ -24,7 +35,12 @@ export default {
 
 <template>
     <ul>
-        <li class="recommend-item" v-for="article in recommendList" :key="article.id">
+        <li
+            class="recommend-item"
+            v-for="article in recommendList"
+            :key="article.id"
+            @click="() => toArticleDetail(article.id)"
+        >
             <el-image class="recommend-inset" fit="cover" :src="article.cover_img" />
             <div class="recommend-info">
                 <p class="recommend-info--title">{{ article.description }}</p>
