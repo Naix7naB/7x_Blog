@@ -17,14 +17,6 @@ export default {
     methods: {
         ...mapActions('article', ['setArticleInfo']),
         formatDate,
-        pickOne(e) {
-            let target = e.target
-            if (target.className === 'article-list') return false
-            while(!target.classList.contains('article-item')) {
-                target = target.parentElement
-            }
-            this.toArticleDetail(target.dataset.aid)
-        },
         async toArticleDetail(aid) {
             try {
                 const { data } = await getArticleInfoById(aid)
@@ -33,18 +25,38 @@ export default {
             } catch (err) {
                 this.$message.error(err.errMsg)
             }
+        },
+        toClassifyArticle(classify) {
+            if (this.$route.name === 'ClassifyArticle') return false
+            this.$router.push({
+                name: 'ClassifyArticle',
+                params: {
+                    classifyId: classify.id,
+                    classifyName: classify.name
+                }
+            })
+        },
+        toTagArticle(tag) {
+            if (this.$route.name === 'TagArticle') return false
+            this.$router.push({
+                name: 'TagArticle',
+                params: {
+                    tagId: tag.id,
+                    tagName: tag.name
+                }
+            })
         }
     }
 }
 </script>
 
 <template>
-    <ul class="article-list" v-loading="!list.length" @click="pickOne">
+    <ul class="article-list" v-loading="!list.length">
         <li
             class="article-item shadow-box"
             v-for="(article, idx) in list"
             :key="article.id"
-            :data-aid="article.id"
+            @click="() => toArticleDetail(article.id)"
         >
             <div
                 class="article-item--wrapper article-image"
@@ -79,12 +91,17 @@ export default {
                 </div>
                 <p class="article-info--desc">{{ article.description }}</p>
                 <div class="article-info--marked">
-                    <MarkButton type="classify" :text="article.classify.name" />
+                    <MarkButton
+                        type="classify"
+                        :text="article.classify.name"
+                        @click.stop="() => toClassifyArticle(article.classify)"
+                    />
                     <MarkButton
                         type="tag"
                         v-for="tag in article.tags"
                         :key="tag.id"
                         :text="tag.name"
+                        @click.stop="() => toTagArticle(tag)"
                     />
                 </div>
             </div>
