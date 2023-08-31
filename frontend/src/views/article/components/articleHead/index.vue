@@ -15,7 +15,7 @@ export default {
 
 <template>
     <div class="article-head">
-        <el-image fit="cover" :src="info.cover_img" />
+        <el-image class="background" fit="cover" :src="info.cover_img" />
         <div class="article-head--meta">
             <h3 class="article-meta--title">{{ info.title }}</h3>
             <div class="article-meta--content">
@@ -45,11 +45,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-/* 样式穿透 hook ElementUI 样式 */
-:deep(.el-image) {
-    @include layer-mask();
-}
-
 /* 文章头部样式 */
 .article-head {
     position: relative;

@@ -46,8 +46,12 @@ export default {
     height: 100% !important;
 }
 
+.el-image.background {
+    @include layer-mask();
+}
+
 .el-image__inner {
-    object-position: top !important;
+    object-position: center !important;
 }
 
 /* 样式穿透 hook VueScroll 样式 */

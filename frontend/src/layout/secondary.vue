@@ -29,7 +29,7 @@ export default {
 <template>
     <div>
         <div class="secondary-cover">
-            <el-image fit="cover" :src="cover" />
+            <el-image class="background" fit="cover" :src="cover" />
             <h3 class="cover-title">{{ secondTitle }}</h3>
         </div>
         <div class="secondary-content">
@@ -39,11 +39,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-/* 样式穿透 hook ElementUI 样式 */
-:deep(.el-image) {
-    @include layer-mask();
-}
-
 /* 次级页面排版样式 */
 .secondary-cover {
     user-select: none;
