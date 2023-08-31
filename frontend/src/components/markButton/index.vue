@@ -38,7 +38,18 @@ export default {
             )
         }
 
-        return h('span', { class: 'mark-button' }, children)
+        return h(
+            'span',
+            {
+                class: 'mark-button',
+                on: {
+                    click(e) {
+                        ctx.listeners.click(e)
+                    }
+                }
+            },
+            children
+        )
     }
 }
 </script>
