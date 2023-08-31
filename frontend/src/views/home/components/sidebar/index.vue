@@ -42,7 +42,7 @@ export default {
                 {
                     name: 'Tag',
                     icon: {
-                        type: 'regular',
+                        type: 'solid',
                         name: 'bookmark'
                     },
                     label: '标签',
