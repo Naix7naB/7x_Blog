@@ -34,7 +34,7 @@ export default class Storage {
      * @param {String} key 键名
      */
     static remove(key) {
-        if (!Storage.GET(key)) return false
+        if (!Storage.get(key)) return false
         window.localStorage.removeItem(key)
     }
 
