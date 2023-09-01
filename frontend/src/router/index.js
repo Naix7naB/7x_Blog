@@ -155,8 +155,15 @@ const routes = [
     {
         hide: true,
         path: '/login',
-        name: 'Login',
-        component: () => import('@/views/login')
+        redirect: '/login',
+        component: Layout,
+        children: [
+            {
+                path: '/login',
+                name: 'Login',
+                component: () => import('@/views/login')
+            }
+        ]
     },
     {
         hide: true,

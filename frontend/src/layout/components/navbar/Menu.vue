@@ -17,6 +17,9 @@ export default {
         dropdownCommand() {
             return this.isLogin ? 'logout' : 'login'
         },
+        routeName() {
+            return this.$route.name
+        },
         showing() {
             return this.$router.options.routes.filter(route => !route.hide)
         }
@@ -33,16 +36,17 @@ export default {
             console.log('personal center')
         },
         commandLogin() {
-            this.$router.push('/login')
+            this.goPath('Login')
         },
         commandLogout() {
             this.clearUserInfo()
             this.clearArticleInfo()
-            if (this.$route.name === 'Home') {
-                this.$forceUpdate()
-            } else {
-                this.$router.push('/')
-            }
+            this.goPath('Home')
+            this.$forceUpdate()
+        },
+        goPath(pathName) {
+            if (pathName === this.routeName) return false
+            this.$router.push({ name: pathName })
         }
     }
 }
