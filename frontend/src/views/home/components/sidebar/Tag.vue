@@ -1,5 +1,6 @@
 <script>
 import { getTagList } from '@/apis/tag'
+import { goToPath } from '@/utils/util'
 
 export default {
     name: 'Tag',
@@ -12,15 +13,13 @@ export default {
 
     },
     methods: {
-        select(e) {
-            let target = e.target
-            while(target.className !== 'tag-item') {
-                target = target.parentElement
-            }
-            const { tagId, tagName } = target.dataset
-            this.$router.push({
-                name: 'TagArticle',
-                params: { tagId, tagName }
+        select({ id, name }) {
+            goToPath({
+                target: 'ClassifyArticle',
+                params: {
+                    cid: id,
+                    name: name
+                }
             })
         }
     },
@@ -36,14 +35,7 @@ export default {
 
 <template>
     <ul class="tags">
-        <li
-            class="tag-item"
-            v-for="tag in tags"
-            :key="tag.id"
-            :data-tag-id="tag.id"
-            :data-tag-name="tag.name"
-            @click="select"
-        >
+        <li class="tag-item" v-for="tag in tags" :key="tag.id" @click="() => select(tag)">
             <span
                 v-text="tag.name"
                 class="tag-name"

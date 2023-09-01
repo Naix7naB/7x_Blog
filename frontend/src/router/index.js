@@ -46,7 +46,7 @@ const routes = [
                         component: () => import('@/views/classify/ClassifyList')
                     },
                     {
-                        path: ':classifyId',
+                        path: ':cid',
                         name: 'ClassifyArticle',
                         meta: {
                             secondTitle: '分类'
@@ -79,7 +79,7 @@ const routes = [
                         component: () => import('@/views/tag/TagList')
                     },
                     {
-                        path: ':tagId',
+                        path: ':tid',
                         name: 'TagArticle',
                         meta: {
                             secondTitle: '标签'

@@ -2,7 +2,7 @@
 import LoginForm from './LoginForm'
 import { mapGetters, mapActions } from 'vuex'
 import { login, registry } from '@/apis/login'
-import { encrypt } from '@/utils/util'
+import { encrypt, goToPath } from '@/utils/util'
 import { loginData, loginItems } from '@/config/login.config'
 import { registerData, registerItems } from '@/config/register.config'
 
@@ -75,7 +75,7 @@ export default {
                 const { token, ...userInfo } = res.data
                 this.setToken(token)
                 this.setUserInfo(userInfo)
-                this.$router.push('/')
+                goToPath({ target: 'Home' })
                 this.$message.success(res.errMsg)
             }).catch(err => {
                 this.$message.error(err.errMsg)

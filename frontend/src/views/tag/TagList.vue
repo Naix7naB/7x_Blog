@@ -2,9 +2,10 @@
 import Hashtag from '@/components/hashtag'
 
 import { getTagList } from '@/apis/tag'
+import { goToPath } from '@/utils/util'
 
 export default {
-    name: 'ClassifyList',
+    name: 'TagList',
     components: { Hashtag },
     data() {
         return {
@@ -13,9 +14,12 @@ export default {
     },
     methods: {
         choose({ tagId, tagName }) {
-            this.$router.push({
-                name: 'TagArticle',
-                params: { tagId, tagName }
+            goToPath({
+                target: 'TagArticle',
+                params: {
+                    tid: tagId,
+                    name: tagName
+                }
             })
         }
     },

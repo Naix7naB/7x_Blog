@@ -38,8 +38,8 @@ export default {
             return () => {
                 const targetRouteName = type === 'tag' ? 'TagArticle' : 'ClassifyArticle'
                 const targetRouteParams = type === 'tag' ?
-                    { tagId: item.id, tagName: item.name } :
-                    { classifyId: item.id, classifyName: item.name }
+                    { tid: item.id, name: item.name } :
+                    { cid: item.id, name: item.name }
                 goToPath({
                     target: targetRouteName,
                     params: targetRouteParams

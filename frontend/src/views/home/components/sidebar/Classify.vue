@@ -1,5 +1,6 @@
 <script>
 import { getClassifyList } from '@/apis/classify'
+import { goToPath } from '@/utils/util'
 
 export default {
     name: 'Classify',
@@ -9,15 +10,13 @@ export default {
         }
     },
     methods: {
-        select(e) {
-            let target = e.target
-            while(target.className !== 'classify-item') {
-                target = target.parentElement
-            }
-            const { classifyId, classifyName } = target.dataset
-            this.$router.push({
-                name: 'ClassifyArticle',
-                params: { classifyId, classifyName }
+        select( id, name ) {
+            goToPath({
+                target: 'ClassifyArticle',
+                params: {
+                    cid: id,
+                    name: name
+                }
             })
         }
     },
@@ -37,9 +36,7 @@ export default {
             class="classify-item"
             v-for="classify in classifyList"
             :key="classify.id"
-            :data-classify-id="classify.id"
-            :data-classify-name="classify.name"
-            @click="select"
+            @click="() => select(classify)"
         >
             <span class="classify-item--name">
                 <fa-icon icon="fas fa-angle-right" />&nbsp;<span>{{ classify.name }}</span>

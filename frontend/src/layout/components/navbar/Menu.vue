@@ -1,5 +1,6 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { goToPath } from '@/utils/util'
 
 export default {
     name: 'Menu',
@@ -17,9 +18,6 @@ export default {
         dropdownCommand() {
             return this.isLogin ? 'logout' : 'login'
         },
-        routeName() {
-            return this.$route.name
-        },
         showing() {
             return this.$router.options.routes.filter(route => !route.hide)
         }
@@ -36,17 +34,13 @@ export default {
             console.log('personal center')
         },
         commandLogin() {
-            this.goPath('Login')
+            goToPath({ target: 'Login' })
         },
         commandLogout() {
             this.clearUserInfo()
             this.clearArticleInfo()
-            this.goPath('Home')
+            goToPath({ target: 'Home' })
             this.$forceUpdate()
-        },
-        goPath(pathName) {
-            if (pathName === this.routeName) return false
-            this.$router.push({ name: pathName })
         }
     }
 }

@@ -2,6 +2,7 @@
 import Hashtag from '@/components/hashtag'
 
 import { getClassifyList } from '@/apis/classify'
+import { goToPath } from '@/utils/util'
 
 export default {
     name: 'ClassifyList',
@@ -13,11 +14,11 @@ export default {
     },
     methods: {
         choose({ tagId, tagName }) {
-            this.$router.push({
-                name: 'ClassifyArticle',
+            goToPath({
+                target: 'ClassifyArticle',
                 params: {
-                    classifyId: tagId,
-                    classifyName: tagName
+                    cid: tagId,
+                    name: tagName
                 }
             })
         }

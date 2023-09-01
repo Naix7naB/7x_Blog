@@ -1,6 +1,6 @@
 <script>
 import { getArticlesAndSortedByDate, getArticleInfoById } from '@/apis/article'
-import { formatDate } from '@/utils/util'
+import { formatDate, goToPath } from '@/utils/util'
 import { mapActions } from 'vuex'
 
 export default {
@@ -34,7 +34,7 @@ export default {
             try {
                 const { data } = await getArticleInfoById(aid)
                 this.setArticleInfo(data)
-                this.$router.push(`/article/${aid}`)
+                goToPath({ target: 'Article', params: { aid } })
             } catch (err) {
                 this.$message.error(err.errMsg)
             }
