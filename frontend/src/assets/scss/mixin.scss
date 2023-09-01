@@ -36,7 +36,7 @@
     }
 }
 
-@mixin layer-mask($pos: relative) {
+@mixin layer-mask($pos: relative, $color: #000, $alpha: 0.3) {
     position: $pos;
 
     &::before {
@@ -46,6 +46,6 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba($color: #000, $alpha: 0.3);
+        background-color: rgba($color: $color, $alpha: $alpha);
     }
 }
