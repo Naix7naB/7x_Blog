@@ -12,10 +12,10 @@ export default {
         }
     },
     created() {
-        const { tagId, tagName } = this.$route.params
-        getTagArticles({ tag_id: tagId }).then(({ data }) => {
+        const { tid, name } = this.$route.params
+        getTagArticles({ tag_id: tid }).then(({ data }) => {
             this.articles = data.list
-            this.$bus.$emit('setLabel', tagName)
+            this.$bus.$emit('setLabel', name)
         }).catch(err => {
             this.$message.error(err.errMsg)
         })

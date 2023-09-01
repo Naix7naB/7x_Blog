@@ -12,10 +12,10 @@ export default {
         }
     },
     created() {
-        const { classifyId, classifyName } = this.$route.params
-        getClassifyArticles({ classify_id: classifyId }).then(({ data }) => {
+        const { cid, name } = this.$route.params
+        getClassifyArticles({ classify_id: cid }).then(({ data }) => {
             this.articles = data.list
-            this.$bus.$emit('setLabel', classifyName)
+            this.$bus.$emit('setLabel', name)
         }).catch(err => {
             this.$message.error(err.errMsg)
         })

@@ -10,7 +10,7 @@ export default {
         }
     },
     methods: {
-        select( id, name ) {
+        select({ id, name }) {
             goToPath({
                 target: 'ClassifyArticle',
                 params: {

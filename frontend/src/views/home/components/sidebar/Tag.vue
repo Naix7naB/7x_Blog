@@ -15,9 +15,9 @@ export default {
     methods: {
         select({ id, name }) {
             goToPath({
-                target: 'ClassifyArticle',
+                target: 'TagArticle',
                 params: {
-                    cid: id,
+                    tid: id,
                     name: name
                 }
             })
