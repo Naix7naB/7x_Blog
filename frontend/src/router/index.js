@@ -168,9 +168,9 @@ const routes = [
 const router = new VueRouter({ routes })
 
 router.beforeEach((to, from, next) => {
-    let websiteInfo = store.getters['getWebsiteInfo']
+    let websiteInfo = store.getters['website/getWebsiteInfo']
     if (!websiteInfo) {
-        store.dispatch('loadWebsiteInfo')
+        store.dispatch('website/loadWebsiteInfo')
     }
     next()
 })

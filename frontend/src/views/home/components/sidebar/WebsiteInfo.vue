@@ -4,7 +4,7 @@ import { mapGetters } from 'vuex'
 export default {
     name: 'WebsiteInfo',
     computed: {
-        ...mapGetters(['getWebsiteInfo'])
+        ...mapGetters('website', ['getWebsiteInfo'])
     }
 }
 </script>
