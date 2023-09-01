@@ -14,7 +14,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getWebsiteInfo'])
+        ...mapGetters('website', ['getWebsiteInfo'])
     },
     methods: {
         async getComments() {

@@ -28,7 +28,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getWebsiteInfo']),
+        ...mapGetters('website', ['getWebsiteInfo']),
         ...mapGetters('comment', ['currentReplyId']),
         isHost() {
             return uid => {
