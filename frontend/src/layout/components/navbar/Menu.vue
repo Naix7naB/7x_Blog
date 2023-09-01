@@ -41,6 +41,7 @@ export default {
             this.clearArticleInfo()
             goToPath({ target: 'Home' })
             this.$forceUpdate()
+            this.$notify.success('退出登陆')
         }
     }
 }

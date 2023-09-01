@@ -76,7 +76,7 @@ export default {
                 this.setToken(token)
                 this.setUserInfo(userInfo)
                 goToPath({ target: 'Home' })
-                this.$message.success(res.errMsg)
+                this.$notify.success(res.errMsg)
             }).catch(err => {
                 this.$message.error(err.errMsg)
             })
