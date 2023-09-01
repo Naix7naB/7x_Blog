@@ -54,6 +54,14 @@ export default {
         _set_user_role_(state, role) {
             state.userRole = role
             Storage.set('_user_role_', role)
+        },
+        _clear_user_info_(state) {
+            state.token = null
+            state.userInfo = null
+            state.userRole = null
+            Storage.remove('_uat_')
+            Storage.remove('_user_info_')
+            Storage.remove('_user_role_')
         }
     },
     actions: {
@@ -79,6 +87,9 @@ export default {
                 .catch(err => {
                     console.error(err)
                 })
+        },
+        clearUserInfo({ commit }) {
+            commit('_clear_user_info_')
         }
     }
 }

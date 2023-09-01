@@ -1,16 +1,48 @@
 <script>
-import avatar from '@/assets/images/avatar-default.png'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
     name: 'Menu',
     data() {
         return {
-            avatar
+            titleMap: {
+                login: '登陆',
+                logout: '登出',
+                personal: '个人中心'
+            }
         }
     },
     computed: {
+        ...mapGetters('user', ['isLogin', 'getUserInfo']),
+        dropdownCommand() {
+            return this.isLogin ? 'logout' : 'login'
+        },
         showing() {
             return this.$router.options.routes.filter(route => !route.hide)
+        }
+    },
+    methods: {
+        ...mapActions('user', ['clearUserInfo']),
+        ...mapActions('article', ['clearArticleInfo']),
+        handleCommand(command) {
+            command = command.charAt(0).toUpperCase() + command.slice(1)
+            const methodName = 'command' + command
+            this[methodName]()
+        },
+        commandPersonal() {
+            console.log('personal center')
+        },
+        commandLogin() {
+            this.$router.push('/login')
+        },
+        commandLogout() {
+            this.clearUserInfo()
+            this.clearArticleInfo()
+            if (this.$route.name === 'Home') {
+                this.$forceUpdate()
+            } else {
+                this.$router.push('/')
+            }
         }
     }
 }
@@ -26,11 +58,27 @@ export default {
                 </router-link>
             </li>
         </ul>
-        <div class="navbar-menu--avatar">
-            <el-avatar size="small" :src="avatar">
+        <el-dropdown
+            class="navbar-menu--avatar"
+            placement="bottom"
+            trigger="click"
+            size="small"
+            @command="handleCommand"
+        >
+            <el-avatar size="small" :src="getUserInfo?.avatar">
                 <fa-icon icon="fas fa-user" />
             </el-avatar>
-        </div>
+            <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item v-if="isLogin" command="personal">
+                    <fa-icon icon="fas fa-user" />
+                    <span class="dropdown-item--title">{{ titleMap['personal'] }}</span>
+                </el-dropdown-item>
+                <el-dropdown-item :command="dropdownCommand">
+                    <fa-icon icon="fas fa-right-from-bracket" />
+                    <span class="dropdown-item--title">{{ titleMap[dropdownCommand] }}</span>
+                </el-dropdown-item>
+            </el-dropdown-menu>
+        </el-dropdown>
         <span class="navbar-menu--operation"><fa-icon icon="fas fa-sliders" size="2x" /></span>
     </div>
 </template>
@@ -72,6 +120,10 @@ export default {
 
 .navbar-menu--operation {
     cursor: pointer;
+}
+
+.dropdown-item--title {
+    margin-left: 6px;
 }
 
 /* 媒体查询样式 */

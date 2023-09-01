@@ -13,6 +13,9 @@ import {
     Image,
     Collapse,
     CollapseItem,
+    Dropdown,
+    DropdownMenu,
+    DropdownItem,
     Message
 } from 'element-ui'
 
@@ -25,6 +28,9 @@ Vue.use(Button)
 Vue.use(Avatar)
 Vue.use(Collapse)
 Vue.use(CollapseItem)
+Vue.use(Dropdown)
+Vue.use(DropdownMenu)
+Vue.use(DropdownItem)
 Vue.use(Image)
 
 Vue.prototype.$message = Message
