@@ -1,4 +1,5 @@
 import JSEncrypt from 'jsencrypt'
+import router from '@/router'
 
 /**
  * @description: 数字补零
@@ -53,4 +54,22 @@ function encrypt(plain, key) {
     return encryptor.encrypt(plain)
 }
 
-export { padLeft, formatDate, encrypt }
+/**
+ * @function goToPath
+ * @description 路由跳转
+ * @param {Object} route 路由信息
+ * @param {String} route.target 路由路由跳转的目标名称
+ * @param {Object} route.params 路由跳转时的携带参数
+ * @param {Object} route.query 路由跳转时的查询参数
+ */
+function goToPath({ target, params = {}, query = {} }) {
+    const currentRouteName = router.currentRoute.name
+    if (target === currentRouteName) return false
+    router.push({
+        name: target,
+        params,
+        query
+    })
+}
+
+export { padLeft, formatDate, encrypt, goToPath }
