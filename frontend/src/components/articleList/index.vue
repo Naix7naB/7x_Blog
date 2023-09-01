@@ -25,26 +25,6 @@ export default {
             } catch (err) {
                 this.$message.error(err.errMsg)
             }
-        },
-        toClassifyArticle(classify) {
-            if (this.$route.name === 'ClassifyArticle') return false
-            this.$router.push({
-                name: 'ClassifyArticle',
-                params: {
-                    classifyId: classify.id,
-                    classifyName: classify.name
-                }
-            })
-        },
-        toTagArticle(tag) {
-            if (this.$route.name === 'TagArticle') return false
-            this.$router.push({
-                name: 'TagArticle',
-                params: {
-                    tagId: tag.id,
-                    tagName: tag.name
-                }
-            })
         }
     }
 }
@@ -91,18 +71,8 @@ export default {
                 </div>
                 <p class="article-info--desc">{{ article.description }}</p>
                 <div class="article-info--marked">
-                    <MarkButton
-                        type="classify"
-                        :text="article.classify.name"
-                        @click.stop="() => toClassifyArticle(article.classify)"
-                    />
-                    <MarkButton
-                        type="tag"
-                        v-for="tag in article.tags"
-                        :key="tag.id"
-                        :text="tag.name"
-                        @click.stop="() => toTagArticle(tag)"
-                    />
+                    <MarkButton type="classify" :item="article.classify" />
+                    <MarkButton type="tag" v-for="tag in article.tags" :key="tag.id" :item="tag" />
                 </div>
             </div>
         </li>

@@ -33,10 +33,8 @@ export default {
             <span>{{ formatDate(info.updated_at) }}</span>
         </p>
         <div class="article-content--mark">
-            <MarkButton type="classify">{{ info.classify.name }}</MarkButton>
-            <MarkButton type="tag" v-for="tag in info.tags" :key="tag.id">
-                {{ tag.name }}
-            </MarkButton>
+            <MarkButton type="classify" :item="info.classify" />
+            <MarkButton type="tag" v-for="tag in info.tags" :key="tag.id" :item="tag" />
         </div>
         <div class="article-content--copyright">
             <p>作者：{{ info.author.nickname }}</p>

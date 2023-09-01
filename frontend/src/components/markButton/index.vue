@@ -1,4 +1,6 @@
 <script>
+import { goToPath } from '@/utils/util'
+
 export default {
     functional: true,
     name: 'MarkButton',
@@ -7,35 +9,42 @@ export default {
             type: String,
             required: true
         },
-        text: {
-            type: String,
-            default: ''
+        item: {
+            type: Object,
+            default() {
+                return {
+                    id: Date.now() + '',
+                    name: ''
+                }
+            }
         }
     },
     render(h, ctx) {
-        const { type, text } = ctx.props
+        const { type, item } = ctx.props
         const children = []
         if (type) {
+            const icon = type === 'tag' ? 'tag' : 'folder-open'
             children.push(
-                <fa-icon class={['mark-button--icon', type]} icon={['fas', type === 'tag' ? 'tag' : 'folder-open']} />
+                <fa-icon class={['mark-button--icon', type]} icon={['fas', icon]} />
             )
         }
-        if (text) {
+        if (item.name) {
             children.push(
-                <span>{ text }</span>
+                <span>{ item.name }</span>
             )
         }
-        if (!text && ctx.slots().default) {
-            children.push(
-                ctx.slots().default.map(vnode => {
-                    if (!vnode.tag) {
-                        return (
-                            <span>{ vnode.text.trim() }</span>
-                        )
-                    }
-                    return vnode
+
+        const getCurrentEvent = type => {
+            return () => {
+                const targetRouteName = type === 'tag' ? 'TagArticle' : 'ClassifyArticle'
+                const targetRouteParams = type === 'tag' ?
+                    { tagId: item.id, tagName: item.name } :
+                    { classifyId: item.id, classifyName: item.name }
+                goToPath({
+                    target: targetRouteName,
+                    params: targetRouteParams
                 })
-            )
+            }
         }
 
         return h(
@@ -44,7 +53,9 @@ export default {
                 class: 'mark-button',
                 on: {
                     click(e) {
-                        ctx.listeners.click(e)
+                        e.stopPropagation()
+                        const clickEvent = getCurrentEvent(type)
+                        clickEvent()
                     }
                 }
             },
