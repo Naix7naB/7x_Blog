@@ -6,7 +6,12 @@ export default {
         articleInfo: null
     },
     getters: {
-        getArticleInfo: state => state.articleInfo || Storage.get('_article_info_', null)
+        getArticleInfo: state => {
+            if (!state.articleInfo) {
+                state.articleInfo = Storage.get('_article_info_', null)
+            }
+            return state.articleInfo
+        }
     },
     mutations: {
         _set_article_info_(state, info) {

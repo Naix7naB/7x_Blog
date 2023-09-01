@@ -12,10 +12,31 @@ export default {
         userRole: null
     },
     getters: {
-        getKey: state => state.key || Storage.get('_uak_', null),
-        getToken: state => state.token || Storage.get('_uat_', null),
-        getUserInfo: state => state.userInfo || Storage.get('_user_info_', null),
-        getUserRole: state => state.userRole || Storage.get('_user_role_', null)
+        isLogin: state => (state.token && true) || false,
+        getKey: state => {
+            if (!state.key) {
+                state.key = Storage.get('_uak_', null)
+            }
+            return state.key
+        },
+        getToken: state => {
+            if (!state.token) {
+                state.token = Storage.get('_uat_', null)
+            }
+            return state.token
+        },
+        getUserInfo: state => {
+            if (!state.userInfo) {
+                state.userInfo = Storage.get('_user_info_', null)
+            }
+            return state.userInfo
+        },
+        getUserRole: state => {
+            if (!state.userRole) {
+                state.userRole = Storage.get('_user_role_', null)
+            }
+            return state.userRole
+        }
     },
     mutations: {
         _set_key_(state, key) {
