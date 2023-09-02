@@ -2,36 +2,16 @@
 import Navbar from './components/navbar'
 import AppMain from './components/appMain'
 
-import { mapActions } from 'vuex'
-
 export default {
     name: 'PageLayout',
-    components: { Navbar, AppMain },
-    methods: {
-        ...mapActions(['setScrollY']),
-        onScroll({ scrollTop }) {
-            this.setScrollY(scrollTop)
-        },
-        scrollTo({ offset, duration = 1000 }) {
-            this.$refs.scroller.scrollTo({ y: offset }, duration, 'easeInOutCubic')
-        }
-    },
-    mounted() {
-        this.$bus.$on('scrollTo', this.scrollTo)
-        this.$refs.scroller.refresh()
-    },
-    beforeDestroy() {
-        this.$refs.scroller.stop()
-    }
+    components: { Navbar, AppMain }
 }
 </script>
 
 <template>
     <div class="page-layout">
-        <v-scroll ref="scroller" @handle-scroll="onScroll">
-            <Navbar />
-            <AppMain />
-        </v-scroll>
+        <Navbar />
+        <AppMain />
     </div>
 </template>
 
