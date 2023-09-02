@@ -17,7 +17,7 @@ export default {
             this.articles = data.list
             this.$bus.$emit('setLabel', name)
         }).catch(err => {
-            this.$message.error(err.errMsg)
+            this.$message.error(err.errMsg || err)
         })
     }
 }

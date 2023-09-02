@@ -78,7 +78,7 @@ export default {
                 goToPath({ target: 'Home' })
                 this.$notify.success(res.errMsg)
             }).catch(err => {
-                this.$message.error(err.errMsg)
+                this.$message.error(err.errMsg || err)
             })
         },
         reset() {

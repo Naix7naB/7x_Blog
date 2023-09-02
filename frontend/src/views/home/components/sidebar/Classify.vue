@@ -24,7 +24,7 @@ export default {
         getClassifyList().then(({ data }) => {
             this.classifyList = data.list
         }).catch(err => {
-            this.$message.error(err.errMsg)
+            this.$message.error(err.errMsg || err)
         })
     }
 }

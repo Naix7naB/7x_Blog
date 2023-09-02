@@ -69,7 +69,7 @@ export default {
                 this.$bus.$emit('refreshComments')
                 this.$emit('reply', '')
             }).catch(err => {
-                this.$message.error(err.errMsg)
+                this.$message.error(err.errMsg || err)
             })
         }
     }

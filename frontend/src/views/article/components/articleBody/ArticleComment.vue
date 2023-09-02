@@ -22,7 +22,7 @@ export default {
                 const { data } = await getArticleComments({ aid: this.info.id })
                 this.comments = data.list
             } catch (err) {
-                this.$message.error(err || err.errMsg)
+                this.$message.error(err.errMsg || err)
             }
         },
         postComment(comment) {
@@ -34,7 +34,7 @@ export default {
                 this.$message.success(res.errMsg)
                 this.getComments()
             }).catch(err => {
-                this.$message.error(err.errMsg)
+                this.$message.error(err.errMsg || err)
             })
         }
     },

@@ -34,7 +34,7 @@ export default {
                 this.$message.success(res.errMsg)
                 this.getComments()
             }).catch(err => {
-                this.$message.error(err.errMsg)
+                this.$message.error(err.errMsg || err)
             })
         }
     },

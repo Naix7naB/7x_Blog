@@ -19,7 +19,7 @@ export default {
                 this.setArticleInfo(data)
                 goToPath({ target: 'Article', params: { aid } })
             } catch (err) {
-                this.$message.error(err.errMsg)
+                this.$message.error(err.errMsg || err)
             }
         }
     },
@@ -27,7 +27,7 @@ export default {
         getRecommendArticles().then(({ data }) => {
             this.recommendList = data.list
         }).catch(err => {
-            this.$message.error(err.errMsg)
+            this.$message.error(err.errMsg || err)
         })
     }
 }

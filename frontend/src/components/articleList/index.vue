@@ -23,7 +23,7 @@ export default {
                 this.setArticleInfo(data)
                 goToPath({ target: 'Article', params: { aid } })
             } catch (err) {
-                this.$message.error(err.errMsg)
+                this.$message.error(err.errMsg || err)
             }
         }
     }

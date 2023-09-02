@@ -22,7 +22,7 @@ export default {
             searchArticleList({ q: this.value }).then(({ data }) => {
                 this.$bus.$emit('changeList', data)
             }).catch(err => {
-                this.$message.error(err.errMsg)
+                this.$message.error(err.errMsg || err)
             })
         }
     }

@@ -21,7 +21,7 @@ export default {
             getArticleList().then(({ data }) => {
                 this.loadArticleList(data)
             }).catch(err => {
-                this.$message.error(err.errMsg)
+                this.$message.error(err.errMsg || err)
             })
         }
     },
