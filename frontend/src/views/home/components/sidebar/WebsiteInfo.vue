@@ -11,8 +11,8 @@ export default {
 
 <template>
     <div class="website-info">
-        <el-avatar :size="120" :src="getWebsiteInfo.host.avatar" />
-        <span class="website-info--name">{{ getWebsiteInfo.host.nickname }}</span>
+        <el-avatar :size="120" :src="getWebsiteInfo?.host.avatar" />
+        <span class="website-info--name">{{ getWebsiteInfo?.host.nickname }}</span>
         <div class="website-info--meta">
             <div class="info-meta--item">
                 <span>文章</span>
