@@ -8,13 +8,22 @@ export default {
             scroller: null
         }
     },
+    watch: {
+        $route() {
+            this.refresh()
+            this.scrollTo({ offset: 0 })
+        }
+    },
     methods: {
         ...mapActions(['setScrollY']),
         onScroll(position) {
-            this.setScrollY(Math.floor(position.scrollTop))
+            this.setScrollY(position.scrollTop)
         },
         scrollTo({ offset, duration = 1000 }) {
-            this.scroller.scrollTo({ y: offset }, duration)
+            this.scroller && this.scroller.scrollTo({ y: offset }, duration)
+        },
+        refresh() {
+            this.scroller && this.scroller.refresh()
         }
     },
     mounted() {
