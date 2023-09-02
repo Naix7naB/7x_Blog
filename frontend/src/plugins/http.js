@@ -5,7 +5,6 @@
 
 import axios from 'axios'
 import store from '@/store'
-import router from '@/router'
 
 const service = axios.create({
     baseURL: process.env.VUE_APP_BASE_URL,
@@ -80,8 +79,6 @@ service.interceptors.response.use(
                     case service.statusCode.SUCCESS:
                         return Promise.resolve(data)
                     case service.statusCode.UNAUTHORIZED:
-                        router.push({ name: 'Login' })
-                        return Promise.reject(data)
                     case service.statusCode.FORBIDDEN:
                     case service.statusCode.FAIL:
                     default:
