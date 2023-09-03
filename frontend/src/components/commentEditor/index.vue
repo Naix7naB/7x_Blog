@@ -29,7 +29,18 @@ export default {
     },
     data() {
         return {
-            comment: ''
+            comment: '',
+            showEmoji: false,
+            showUpload: false
+        }
+    },
+    computed: {
+        pickerStyle() {
+            return {
+                width: '100%',
+                height: '200px',
+                marginBottom: '20px'
+            }
         }
     },
     methods: {
@@ -46,6 +57,12 @@ export default {
         submit() {
             this.$emit('post', this.comment)
             this.clear()
+        },
+        toggleEmojiShowing() {
+            this.showEmoji = !this.showEmoji
+        },
+        toggleUploadShowing() {
+            this.showUpload = !this.showUpload
         }
     }
 }
@@ -66,8 +83,12 @@ export default {
         />
         <div class="comment-editor--action">
             <div class="editor-action--start">
-                <emoji-picker @insert="insert" />
-                <span class="editor-action--image"><fa-icon icon="far fa-image" /></span>
+                <span class="action-button" @click="toggleEmojiShowing">
+                    <fa-icon icon="far fa-face-laugh" />
+                </span>
+                <span class="action-button" @click="toggleUploadShowing">
+                    <fa-icon icon="far fa-image" />
+                </span>
             </div>
             <div class="editor-action--end">
                 <el-button v-if="!!replyId" type="plain" size="small" @click="cancel">
@@ -78,6 +99,13 @@ export default {
                 </el-button>
             </div>
         </div>
+        <EmojiPicker
+            v-if="showEmoji"
+            :showCategory="false"
+            :showSearch="false"
+            :pickerStyle="pickerStyle"
+            @emoji="insert"
+        />
     </div>
 </template>
 
@@ -107,13 +135,16 @@ export default {
     font-size: $fz-medium-x;
 }
 
-.editor-action--image {
-    margin-left: 10px;
+.action-button {
     transition: transform .2s;
     cursor: pointer;
 
     &:hover {
         transform: scale(1.1);
+    }
+
+    &:not(:first-of-type) {
+        margin-left: 10px;
     }
 }
 </style>
