@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const schemaOption = require('../config/schemaOption.config')
 
-const { resolveUrl } = require('../utils/helpers')
+const { parseUrl } = require('../utils/helpers')
 
 const schema = new mongoose.Schema(
     {
@@ -25,7 +25,7 @@ const schema = new mongoose.Schema(
             type: String,
             default: '/website/default_background.png',
             get(url) {
-                return resolveUrl(url)
+                return parseUrl(url).href
             }
         },
         article_count: {

@@ -82,13 +82,18 @@ function formatDate(date, format = 'YYYY-MM-DD') {
 }
 
 /**
- * @function resolveUrl
- * @description 补全URL
+ * @function parseUrl
+ * @description 解析URL
  * @param {String} url URL字符串
- * @return {String} 有域名地址的URL
+ * @return {Object} 解析后的URL信息
  */
-function resolveUrl(url) {
-    return new URL(url, ORIGIN).href
+function parseUrl(url) {
+    const { href, origin, pathname } = new URL(url, ORIGIN)
+    return {
+        href,
+        origin,
+        pathname
+    }
 }
 
 module.exports = {
@@ -98,5 +103,5 @@ module.exports = {
     hasOwn,
     padLeft,
     formatDate,
-    resolveUrl
+    parseUrl
 }

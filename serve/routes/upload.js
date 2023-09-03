@@ -6,7 +6,7 @@ const multer = require('multer')
 
 const Response = require('../core/response')
 const { UPLOAD_PATH } = require('../config/base.config')
-const { resolveUrl } = require('../utils/helpers')
+const { parseUrl } = require('../utils/helpers')
 
 const categories = ['user', 'article', 'website', 'other']
 
@@ -54,10 +54,12 @@ Router.post('/:category', upload.any(), async (req, res, next) => {
         const fileUrls = req.files.map(file => {
             const { fieldname, destination, filename } = file
             const url = path.join('/', path.parse(destination).name, filename)
+            const { href, pathname } = parseUrl(url)
             return {
                 fieldname,
                 filename,
-                url: resolveUrl(url)
+                pathname: pathname,
+                url: href
             }
         })
         Response.send(res, {
