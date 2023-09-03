@@ -6,7 +6,7 @@ const multer = require('multer')
 
 const Response = require('../core/response')
 const { UPLOAD_PATH } = require('../config/base.config')
-const { normalizeUrl } = require('../utils/helpers')
+const { resolveUrl } = require('../utils/helpers')
 
 const categoryMap = {
     user: 'user',
@@ -46,7 +46,7 @@ Router.post('/:category', upload.any(), async (req, res, next) => {
             return {
                 fieldname,
                 filename,
-                url: normalizeUrl(url)
+                url: resolveUrl(url)
             }
         })
         Response.send(res, {

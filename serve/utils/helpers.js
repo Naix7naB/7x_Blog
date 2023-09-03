@@ -91,16 +91,6 @@ function resolveUrl(url) {
     return new URL(url, ORIGIN).href
 }
 
-/**
- * @function normalizeUrl
- * @description 规格化URL字符串
- * @param {String} url URL字符串
- * @return {String} 转换成前端可用的URL字符串
- */
-function normalizeUrl(url) {
-    return url.replace(/\\/g, '/')
-}
-
 module.exports = {
     isObject,
     isArray,
@@ -108,6 +98,5 @@ module.exports = {
     hasOwn,
     padLeft,
     formatDate,
-    resolveUrl,
-    normalizeUrl
+    resolveUrl
 }
