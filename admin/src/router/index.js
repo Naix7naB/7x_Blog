@@ -28,6 +28,7 @@ const routes = [
         redirect: '/article/list',
         component: Layout,
         meta: {
+            category: 'article',
             icon: 'file-pen',
             title: '文章管理'
         },
@@ -93,6 +94,7 @@ const routes = [
         path: '/user',
         component: Layout,
         meta: {
+            category: 'user',
             icon: 'user',
             title: '用户管理'
         },

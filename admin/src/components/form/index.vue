@@ -1,4 +1,7 @@
 <script>
+import { uploadFile, deleteFile } from '@/apis/upload'
+import { parseUrl } from '@/utils'
+
 export default {
     props: {
         size: {
@@ -41,23 +44,60 @@ export default {
     data() {
         return {
             showData: this.formData,
-            fileList: []
+            fileList: [],
+            categories: {
+                article: 'cover_img',
+                user: 'avatar'
+            }
+        }
+    },
+    computed: {
+        routes() {
+            return this.$router.options.routes
+        },
+        currentCategory() {
+            const currentPath = this.$route.path
+            const idx = this.routes.findIndex(route => {
+                const pathRegex = new RegExp(`^${route.path}/(.+)`)
+                return pathRegex.test(currentPath)
+            })
+            return this.routes[idx].meta['category']
+        },
+        filename() {
+            return this.categories[this.currentCategory]
         }
     },
     methods: {
+        handleFileUpload(params) {
+            uploadFile({
+                classify: this.currentCategory,
+                filename: params.filename,
+                file: params.file
+            }).then(({ data }) => {
+                data.fileUrls.forEach(file => {
+                    this.showData[file.fieldname] = file.pathname
+                    this.fileList.push({
+                        field: file.fieldname,
+                        name: file.filename,
+                        url: file.url
+                    })
+                })
+            }).catch(err => {
+                this.$message.error(err.errMsg || err)
+            })
+        },
         handleFileExceed() {
             this.$message.warning('超出文件上传限制')
         },
-        handleFileChange(file, list) {
-            this.fileList.push({
-                name: file.name,
-                url: file.url,
-                file: file.raw
+        handleFileRemove(file) {
+            const { classify, filename } = parseUrl(file.url)
+            deleteFile({ classify, filename }).then(() => {
+                this.showData[file.field] = ''
+                const idx = this.fileList.findIndex(file => file.name === filename)
+                this.fileList.splice(idx, 1)
+            }).catch(err => {
+                this.$message.error(err.errMsg || err)
             })
-        },
-        handleFileRemove(file, list) {
-            const idx = this.fileList.findIndex(item => item.name === file.name)
-            this.fileList.splice(idx, 1)
         },
         addFile(file) {
             this.fileList.push(file)
@@ -70,7 +110,7 @@ export default {
                         message: '表单校验失败'
                     })
                 }
-                callback(this.fileList.length !== 0 && this.fileList)
+                callback()
             })
         },
         /* 重置表单信息 */
@@ -146,9 +186,10 @@ export default {
                         action=""
                         multiple
                         v-bind="others"
+                        :name="filename"
                         :file-list="fileList"
+                        :http-request="handleFileUpload"
                         :on-exceed="handleFileExceed"
-                        :on-change="handleFileChange"
                         :on-remove="handleFileRemove"
                     >
                         <template #tip v-if="others.tip || false">

@@ -56,6 +56,29 @@ function encrypt(plain, key) {
 }
 
 /**
+ * @function parseUrl
+ * @description 公钥加密
+ * @param {String} plain 文本内容
+ * @param {String} key 密钥
+ * @return {String} 加密后的内容
+ */
+function parseUrl(url) {
+    const { host, hostname, href, origin, pathname, port, protocol } = new URL(url)
+    const [classify, filename] = pathname.match(/^\/(.+)/)[1].split('/')
+    return {
+        classify,
+        filename,
+        host,
+        hostname,
+        href,
+        origin,
+        pathname,
+        port,
+        protocol
+    }
+}
+
+/**
  * @function debounce
  * @description 防抖
  * @param {Function} callback 回调方法
@@ -94,4 +117,4 @@ function throttle(callback, delay) {
     }
 }
 
-export { padLeft, formatDate, encrypt, debounce, throttle }
+export { padLeft, formatDate, encrypt, parseUrl, debounce, throttle }
