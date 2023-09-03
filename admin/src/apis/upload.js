@@ -1,16 +1,13 @@
 import Request from '@/utils/request'
 
 /* 上传文件 */
-async function uploadFile({ classify, filename, file }) {
-    const { data } = await Request.postFile({
+function uploadFile({ classify, filename, file }) {
+    return Request.postFile({
         url: `/upload/${classify}`,
         data: {
             [filename]: file
         }
     })
-    return {
-        ...data.fileUrls[0]
-    }
 }
 
 /* 删除文件 */
