@@ -1,6 +1,5 @@
 <script>
 import OperationBtn from './components/operationBtn'
-import { resolveUrl } from '@/utils'
 
 const OPT_TYPE = {
     edit: 'optEdit',
@@ -50,7 +49,6 @@ export default {
         }
     },
     methods: {
-        resolveUrl,
         /* 获取数据源 */
         getDatasource() {
             this.$store.dispatch('setLoadingState', true)
@@ -111,7 +109,7 @@ export default {
                             <el-image
                                 fit="contain"
                                 :style="{ height: '80px' }"
-                                :src="resolveUrl(row[item.prop])"
+                                :src="row[item.prop]"
                                 :title="item.label"
                             />
                         </template>
