@@ -54,7 +54,6 @@ const formItems = [
         label: '选择封面',
         others: {
             uploadType: 0,
-            autoUpload: false,
             listType: 'picture-card',
             limit: 1
         }

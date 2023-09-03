@@ -1,10 +1,11 @@
 <script>
 import BaseForm from '@/components/form'
 import { formData, formItems } from '@/config/articleWrite.config'
-import { uploadImg, createArticle, updateArticleById } from '@/apis/article'
+import { createArticle, updateArticleById } from '@/apis/article'
 import { getClassifyList } from '@/apis/classify'
 import { getTagList } from '@/apis/tag'
-import { deleteFile } from '@/apis/upload'
+import { uploadFile, deleteFile } from '@/apis/upload'
+import { parseUrl } from '@/utils'
 
 export default {
     name: 'ArticleWrite',
@@ -76,15 +77,14 @@ export default {
             }
         },
         addImg(pos, file) {
-            uploadImg({ filename: pos, file }).then(res => {
-                this.$refs.editor.$img2Url(pos, res.url)
+            uploadFile({ classify: 'article', filename: pos, file }).then(({ data }) => {
+                this.$refs.editor.$img2Url(pos, data.fileUrls[0].url)
             }).catch(err => {
                 this.$message.error(err.errMsg)
             })
         },
         delImg([url, file]) {
-            const { pathname } = new URL(url)
-            const [classify, filename] = pathname.match(/^\/(.+)/)[1].split('/')
+            const { classify, filename } = parseUrl(url)
             deleteFile({ classify, filename }).then(res => {
                 this.$message.success(res.errMsg)
             }).catch(err => {
@@ -92,14 +92,7 @@ export default {
             })
         },
         submit(data) {
-            this.$refs.form.submitForm(async fileList => {
-                if (fileList) {
-                    const { fieldname, url } = await uploadImg({
-                        filename: 'cover_img',
-                        file: fileList[0].file
-                    })
-                    data[fieldname] = url
-                }
+            this.$refs.form.submitForm(() => {
                 createArticle(data).then(res => {
                     this.resetData()
                     this.$message.success(res.errMsg)
@@ -135,6 +128,7 @@ export default {
     mounted() {
         if (this.formData.cover_img) {
             this.$refs.form.addFile({
+                field: 'cover_img',
                 name: 'cover_img',
                 url: this.formData.cover_img
             })
