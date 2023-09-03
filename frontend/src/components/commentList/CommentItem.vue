@@ -22,28 +22,12 @@ export default {
             default: false
         }
     },
-    data() {
-        return {
-            editorHeight: 0
-        }
-    },
     computed: {
         ...mapGetters('website', ['getWebsiteInfo']),
         ...mapGetters('comment', ['currentReplyId']),
         isHost() {
             return uid => {
                 return uid === this.getWebsiteInfo.host.id
-            }
-        }
-    },
-    watch: {
-        replying(newVal) {
-            if (newVal) {
-                this.$nextTick(() => {
-                    this.editorHeight = this.$refs.editor.$el.clientHeight
-                })
-            } else {
-                this.editorHeight = 0
             }
         }
     },
@@ -98,19 +82,12 @@ export default {
                 />
                 <span class="comment-info--content">{{ comment.content }}</span>
             </div>
-            <div class="reply-editor--wrapper" :style="{ paddingTop: `${editorHeight}px` }">
-                <transition name="expand">
-                    <CommentEditor
-                        ref="editor"
-                        class="reply-editor"
-                        v-if="replying"
-                        :key="comment.id"
-                        :replyId="comment.id"
-                        @cancel="cancelReply"
-                        @post="postReply"
-                    />
-                </transition>
-            </div>
+            <CommentEditor
+                v-if="replying"
+                :replyId="comment.id"
+                @cancel="cancelReply"
+                @post="postReply"
+            />
             <ul v-if="comment.replies && comment.replies.length !== 0">
                 <li v-for="reply in comment.replies" :key="reply.id">
                     <CommentItem
@@ -126,6 +103,11 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 样式穿透 hook ElementUI 样式 */
+:deep(.el-avatar) {
+    margin-right: 12px;
+}
+
 /* 评论内容样式 */
 .comment-info--wrapper {
     display: flex;
@@ -134,7 +116,6 @@ export default {
 .comment-info {
     flex: 1;
     position: relative;
-    margin-left: 12px;
 }
 
 .comment-info--head {
@@ -183,7 +164,7 @@ export default {
 
 .comment-info--body {
     position: relative;
-    margin: 16px 0 24px;
+    margin: 16px 0 20px;
     padding: 20px;
     line-height: $lh-small-s;
     border-radius: 8px;
@@ -204,18 +185,5 @@ export default {
     &::before {
         content: '@' attr(data-mention) ':';
     }
-}
-
-.reply-editor--wrapper {
-    position: relative;
-    width: 100%;
-    height: 0;
-    transition: all .3s;
-}
-
-.reply-editor {
-    position: absolute;
-    top: 0;
-    width: 100%;
 }
 </style>
