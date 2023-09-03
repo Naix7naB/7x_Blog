@@ -69,8 +69,8 @@ export default {
                 const { data: { list: tagList } } = await getTagList({ select: '-articles name' })
                 const classify = this.formItems.find(item => item.prop === 'classify')
                 const tags = this.formItems.find(item => item.prop === 'tags')
-                classify.options = classifyList.map(item => ({ label: item.name, value: item._id }))
-                tags.options = tagList.map(tag => ({ label: tag.name, value: tag._id }))
+                classify.options = classifyList.map(item => ({ label: item.name, value: item.id }))
+                tags.options = tagList.map(tag => ({ label: tag.name, value: tag.id }))
             } catch (err) {
                 this.$message.error(err.errMsg)
             }
@@ -117,14 +117,14 @@ export default {
         const data = this.$route.params
         if (JSON.stringify(data) !== '{}') {
             this.isEdit = true
-            this.aid = data._id
+            this.aid = data.id
             this.formData = Object.fromEntries(
                 Object.entries(this.formData).map(([key, val]) => {
                     if (key === 'tags') {
-                        data[key] = data[key].map(t => t._id)
+                        data[key] = data[key].map(t => t.id)
                     }
                     if (key === 'classify') {
-                        data[key] = data[key]?._id
+                        data[key] = data[key]?.id
                     }
                     return [key, data[key]]
                 })

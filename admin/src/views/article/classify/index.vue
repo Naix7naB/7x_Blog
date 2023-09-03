@@ -41,7 +41,7 @@ export default {
         },
         /* 删除文章分类 */
         deleteClassify(data) {
-            deleteClassifyById(data._id).then(res => {
+            deleteClassifyById(data.id).then(res => {
                 this.$refs.classifyTable.getDatasource()
                 this.$message.success(res.errMsg)
             }).catch(err => {
@@ -60,7 +60,7 @@ export default {
                 this.$message.error(err.errMsg)
             })
         },
-        dialogChange({ _id: id, ...data }) {
+        dialogChange({ id: id, ...data }) {
             modifyClassifyById(id, data).then(res => {
                 this.refreshDatasource()
                 this.$message.success(res.errMsg)

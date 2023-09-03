@@ -20,7 +20,7 @@ export default {
             })
         },
         deleteArticle(data) {
-            deleteArticleById(data._id).then(res => {
+            deleteArticleById(data.id).then(res => {
                 this.$refs.articleTable.getDatasource()
                 this.$message.success(res.errMsg)
             }).catch(err => {
@@ -46,7 +46,7 @@ export default {
                 v-else
                 v-for="tag in row.tags"
                 :style="{ backgroundColor: tag.color, borderColor: tag.color }"
-                :key="tag._id"
+                :key="tag.id"
                 effect="dark"
                 size="mini"
             >

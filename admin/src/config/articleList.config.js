@@ -21,19 +21,19 @@ const tableColumns = [
         align: 'center'
     },
     {
-        prop: 'view_num',
+        prop: 'view_count',
         label: '浏览量',
         minWidth: 120,
         align: 'center'
     },
     {
-        prop: 'like_num',
+        prop: 'like_count',
         label: '点赞数',
         minWidth: 120,
         align: 'center'
     },
     {
-        prop: 'comment_num',
+        prop: 'comment_count',
         label: '评论数',
         minWidth: 120,
         align: 'center'

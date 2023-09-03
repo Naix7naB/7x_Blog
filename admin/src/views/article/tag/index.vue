@@ -47,7 +47,7 @@ export default {
         },
         /* 点击删除按钮 */
         deleteTag(data) {
-            deleteTagById(data._id).then(res => {
+            deleteTagById(data.id).then(res => {
                 this.refreshDatasource()
                 this.$message.success(res.errMsg)
             }).catch(err => {
