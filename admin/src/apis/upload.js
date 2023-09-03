@@ -14,16 +14,11 @@ async function uploadFile({ classify, filename, file }) {
 }
 
 /* 删除文件 */
-async function deleteFile({ classify, filename, file }) {
-    const { data } = await Request.postFile({
-        url: `/upload/${classify}`,
-        data: {
-            [filename]: file
-        }
+function deleteFile({ classify, filename }) {
+    return Request.requestJson({
+        methodType: Request.DELETE,
+        url: `/upload/${classify}/${filename}`
     })
-    return {
-        ...data.fileUrls[0]
-    }
 }
 
 export { uploadFile, deleteFile }

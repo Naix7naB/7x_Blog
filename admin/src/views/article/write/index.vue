@@ -1,10 +1,10 @@
 <script>
 import BaseForm from '@/components/form'
 import { formData, formItems } from '@/config/articleWrite.config'
-import { resolveUrl } from '@/utils'
 import { uploadImg, createArticle, updateArticleById } from '@/apis/article'
 import { getClassifyList } from '@/apis/classify'
 import { getTagList } from '@/apis/tag'
+import { deleteFile } from '@/apis/upload'
 
 export default {
     name: 'ArticleWrite',
@@ -77,14 +77,19 @@ export default {
         },
         addImg(pos, file) {
             uploadImg({ filename: pos, file }).then(res => {
-                this.$refs.editor.$img2Url(pos, resolveUrl(res.url))
+                this.$refs.editor.$img2Url(pos, res.url)
             }).catch(err => {
                 this.$message.error(err.errMsg)
             })
         },
         delImg([url, file]) {
             const { pathname } = new URL(url)
-            console.log(pathname)
+            const [classify, filename] = pathname.match(/^\/(.+)/)[1].split('/')
+            deleteFile({ classify, filename }).then(res => {
+                this.$message.success(res.errMsg)
+            }).catch(err => {
+                this.$message.error(err.errMsg || err)
+            })
         },
         submit(data) {
             this.$refs.form.submitForm(async fileList => {
@@ -131,7 +136,7 @@ export default {
         if (this.formData.cover_img) {
             this.$refs.form.addFile({
                 name: 'cover_img',
-                url: resolveUrl(this.formData.cover_img)
+                url: this.formData.cover_img
             })
         }
     }
