@@ -1,0 +1,13 @@
+import * as echarts from 'echarts/core'
+import { TooltipComponent, LegendComponent } from 'echarts/components'
+import { PieChart } from 'echarts/charts'
+import { LabelLayout } from 'echarts/features'
+import { CanvasRenderer } from 'echarts/renderers'
+
+echarts.use([TooltipComponent, LegendComponent, PieChart, CanvasRenderer, LabelLayout])
+
+export default (ele, option) => {
+    const chart = echarts.init(ele)
+    chart.setOption(option)
+    return chart
+}
