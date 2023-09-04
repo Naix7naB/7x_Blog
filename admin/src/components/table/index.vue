@@ -92,7 +92,7 @@ export default {
         </div>
         <div class="table-box base-table">
             <div v-if="showTabs">tabs</div>
-            <el-table v-loading="$store.state.loading" :data="datasource">
+            <el-table v-loading="$store.state.loading" :data="datasource" border>
                 <!-- 选择列 -->
                 <el-table-column v-if="showSelection" type="selection" width="55" />
                 <!-- 序号列 -->
@@ -113,8 +113,7 @@ export default {
                     >
                         <template slot-scope="{ row }">
                             <el-image
-                                fit="contain"
-                                :style="{ height: '80px' }"
+                                fit="cover"
                                 :src="handleValue(row, item.prop)"
                                 :alt="item.label"
                                 :title="item.label"
@@ -156,6 +155,18 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+:deep(.cell) {
+    display: flex !important;
+    justify-content: center !important;
+    text-align: center !important;
+}
+
+:deep(.el-image) {
+    display: block;
+    height: 50px;
+    border-radius: 4px;
+}
+
 .table-box {
     padding: 30px 40px;
     border-radius: 6px;

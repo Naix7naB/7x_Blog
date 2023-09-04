@@ -57,12 +57,12 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+:deep(.el-image__inner) {
+    aspect-ratio: 16 / 9;
+}
+
 :deep(.el-tag + .el-tag),
 :deep(.el-button + .el-button) {
     margin-left: 6px;
-}
-
-:deep(.el-image) {
-    display: block;
 }
 </style>
