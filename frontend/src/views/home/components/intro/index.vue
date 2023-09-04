@@ -1,9 +1,18 @@
 <script>
 import About from './About'
+import { mapGetters } from 'vuex'
 
 export default {
     name: 'Intro',
     components: { About },
+    computed: {
+        ...mapGetters('website', ['getWebsiteInfo']),
+        introStyle() {
+            return {
+                background: `url(${this.getWebsiteInfo.background})`
+            }
+        }
+    },
     methods: {
         jumpEnter() {
             const offset = this.$refs.introRef.clientHeight
@@ -14,7 +23,7 @@ export default {
 </script>
 
 <template>
-    <section class="intro" ref="introRef">
+    <section ref="introRef" class="intro" :style="introStyle">
         <About />
         <span class="intro-enter" @click="jumpEnter">
             <fa-icon
@@ -31,9 +40,11 @@ export default {
 /* 网站介绍页面样式 */
 .intro {
     @include layer-mask();
-    @include bg-image('@/assets/images/bg.png', no-repeat, center, cover);
     width: 100%;
     height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 
 .intro-enter {

@@ -1,18 +1,16 @@
 <script>
 import Typical from './Typical'
-import avatarPic from '@/assets/images/avatar-default.png'
 import wechatPic from '@/assets/images/wechat.png'
 import qqPic from '@/assets/images/qq.png'
 import ncmPic from '@/assets/images/ncm.png'
 import mailPic from '@/assets/images/mail.png'
+import { mapGetters } from 'vuex'
 
 export default {
     name: 'About',
     components: { Typical },
     data() {
         return {
-            siteName: '#7x\'s blog',
-            defaultAvatar: avatarPic,
             socialList: [
                 {
                     title: 'Wechat',
@@ -32,18 +30,26 @@ export default {
                 }
             ]
         }
+    },
+    computed: {
+        ...mapGetters('website', ['getWebsiteInfo'])
     }
 }
 </script>
 
 <template>
     <div class="about">
-        <el-image class="about-avatar" alt="avatar" fit="cover" :src="defaultAvatar" />
+        <el-image
+            class="about-avatar"
+            alt="avatar"
+            fit="cover"
+            :src="getWebsiteInfo?.host.avatar"
+        />
         <div class="about-info">
-            <span class="about-info--name">{{ siteName }}</span>
+            <span class="about-info--name">{{ getWebsiteInfo?.name }}</span>
             <p class="about-info--slogan">
                 <fa-icon style="padding-right: 6px;" icon="fas fa-quote-left" size="lg" />
-                <Typical :text="['秦时明月汉时关，万里长征人未还。']" />
+                <Typical :text="[getWebsiteInfo.slogan]" />
                 <fa-icon style="padding-left: 6px;" icon="fas fa-quote-right" size="lg" />
             </p>
         </div>

@@ -16,15 +16,15 @@ export default {
         <div class="website-info--meta">
             <div class="info-meta--item">
                 <span>文章</span>
-                <span class="info-meta--num">14</span>
+                <span class="info-meta--num">{{ getWebsiteInfo.article_count }}</span>
             </div>
             <div class="info-meta--item">
                 <span>分类</span>
-                <span class="info-meta--num">5</span>
+                <span class="info-meta--num">{{ getWebsiteInfo.classify_count }}</span>
             </div>
             <div class="info-meta--item">
-                <span>访问量</span>
-                <span class="info-meta--num">1234</span>
+                <span>标签</span>
+                <span class="info-meta--num">{{ getWebsiteInfo.tag_count }}</span>
             </div>
         </div>
         <span class="website-info--button"><fa-icon icon="far fa-star" /> 朋友圈</span>

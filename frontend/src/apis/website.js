@@ -4,7 +4,13 @@ import Request from '@/utils/request'
 function getWebsiteInfo() {
     return Request.requestForm({
         methodType: Request.GET,
-        url: '/api/website'
+        url: '/api/website',
+        data: {
+            populate: {
+                path: 'host',
+                select: 'nickname username avatar email'
+            }
+        }
     })
 }
 
