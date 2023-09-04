@@ -28,7 +28,13 @@ const tableColumns = [
         align: 'center'
     },
     {
-        prop: 'dateRange',
+        prop: 'articles.length',
+        label: '文章数',
+        minWidth: 120,
+        align: 'center'
+    },
+    {
+        prop: 'created_at',
         label: '创建时间',
         minWidth: 120,
         align: 'center',

@@ -9,6 +9,9 @@ export default {
             isRefresh: false,
             dialogState: 'create',
             isVisible: false,
+            rowData: {
+                name: ''
+            },
             formData: {
                 name: ''
             },
@@ -39,11 +42,15 @@ export default {
         /* 打开弹窗 */
         openDialog(data) {
             if (this.isVisible) return false
-            if (data) {
-                this.dialogState = 'change'
-                this.formData = Object.assign(this.formData, data)
-            }
             this.isVisible = true
+            this.$nextTick(() => {
+                if (data) {
+                    this.dialogState = 'change'
+                    this.formData = Object.assign(this.formData, data)
+                } else {
+                    this.formData = Object.assign({}, this.rowData)
+                }
+            })
         },
         /* 关闭弹窗 */
         closeDialog() {
