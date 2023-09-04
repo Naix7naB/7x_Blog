@@ -17,7 +17,7 @@ function padLeft(num) {
  * @param {String} format 日期格式化字符串
  * @return {String} 格式化后的日期字符串
  */
-function formatDate(date, format = 'YYYY-MM-DD') {
+function formatDate(date, format = 'YYYY-MM-DD hh:mm:ss') {
     if (typeof date === 'number') {
         // 如果传入的时间戳单位为秒 转为毫秒
         date = date.toString().length === 10 ? date * 1000 : date
