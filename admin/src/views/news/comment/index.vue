@@ -1,16 +1,14 @@
 <script>
 export default {
-    name: 'ArticleComment',
+    name: 'CommentManagement',
     data() {
-        return {
-
-        }
+        return {}
     }
 }
 </script>
 
 <template>
-    <div>文章评论</div>
+    <div>评论管理</div>
 </template>
 
 <style lang="scss" scoped></style>

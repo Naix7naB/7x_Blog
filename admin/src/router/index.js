@@ -64,29 +64,33 @@ const routes = [
                     title: '文章标签'
                 },
                 component: () => import('@/views/article/tag')
-            },
-            {
-                path: 'comment',
-                name: 'ArticleComment',
-                meta: {
-                    title: '文章评论'
-                },
-                component: () => import('@/views/article/comment')
             }
         ]
     },
     {
-        path: '/message',
+        path: '/news',
+        redirect: '/news/comment',
         component: Layout,
+        meta: {
+            icon: 'comment-dots',
+            title: '消息管理'
+        },
         children: [
             {
-                path: 'index',
+                path: 'comment',
+                name: 'CommentManagement',
+                meta: {
+                    title: '评论管理'
+                },
+                component: () => import('@/views/news/comment')
+            },
+            {
+                path: 'message',
                 name: 'MessageManagement',
                 meta: {
-                    icon: 'pen-to-square',
                     title: '留言管理'
                 },
-                component: () => import('@/views/message')
+                component: () => import('@/views/news/message')
             }
         ]
     },
