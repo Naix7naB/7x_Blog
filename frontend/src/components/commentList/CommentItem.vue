@@ -8,7 +8,7 @@ import { mapGetters } from 'vuex'
 export default {
     name: 'CommentItem',
     components: { CommentEditor },
-    inject: ['topic_type', 'topic_id'],
+    inject: ['topic'],
     props: {
         topId: {
             type: String,
@@ -45,8 +45,9 @@ export default {
         },
         postReply(reply) {
             leaveComment({
-                topic_type: this.topic_type,
-                topic_id: this.topic_id,
+                topic_type: this.topic.type,
+                topic_title: this.topic.title,
+                topic_id: this.topic.id,
                 mention: this.comment.reviewer.id,
                 comment_id: this.topId,
                 reply_id: this.comment.id,

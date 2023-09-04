@@ -10,8 +10,7 @@ export default {
     components: { CommentEditor, CommentList },
     provide() {
         return {
-            topic_type: 'article_comment',
-            topic_id: this.getArticleInfo.id
+            topic: this.topic
         }
     },
     data() {
@@ -20,7 +19,14 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('article', ['getArticleInfo'])
+        ...mapGetters('article', ['getArticleInfo']),
+        topic() {
+            return {
+                type: 'article_comment',
+                title: this.getArticleInfo.title,
+                id: this.getArticleInfo.id
+            }
+        }
     },
     methods: {
         async getComments() {
@@ -33,8 +39,9 @@ export default {
         },
         postComment(comment) {
             leaveComment({
-                topic_type: 'article_comment',
-                topic_id: this.getArticleInfo.id,
+                topic_type: this.topic.type,
+                topic_title: this.topic.title,
+                topic_id: this.topic.id,
                 content: comment
             }).then(res => {
                 this.$message.success(res.errMsg)
