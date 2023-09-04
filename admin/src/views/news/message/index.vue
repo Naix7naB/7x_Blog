@@ -1,14 +1,43 @@
 <script>
+import BaseTable from '@/components/table'
+
+import { getMessageComments } from '@/apis/comment'
+import { tableColumns } from '@/config/messageList.config'
+
 export default {
     name: 'MessageManagement',
+    components: { BaseTable },
     data() {
-        return {}
+        return {
+            list: []
+        }
+    },
+    computed: {
+        columns() {
+            return tableColumns
+        }
+    },
+    methods: {
+        getMessageComments,
+        deleteArticle(e) {
+            console.log(e)
+        }
     }
 }
 </script>
 
 <template>
-    <div>留言管理</div>
+    <BaseTable
+        showPagination
+        :requestApi="getMessageComments"
+        :columns="columns"
+        @optDelete="deleteArticle"
+    >
+        <template #mention="{ val }">
+            <span v-if="val">{{ val }}</span>
+            <span v-else>无</span>
+        </template>
+    </BaseTable>
 </template>
 
 <style lang="scss" scoped></style>
