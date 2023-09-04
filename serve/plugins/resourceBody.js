@@ -33,11 +33,4 @@ module.exports = class ResourceBody {
             ...data
         }
     }
-
-    static Reply(uid, data) {
-        return {
-            reviewer: uid,
-            ...data
-        }
-    }
 }

@@ -16,16 +16,31 @@ const schema = new mongoose.Schema(
             type: mongoose.SchemaTypes.ObjectId,
             required: [true, '请先登录后操作']
         },
+        mention: {
+            ref: 'User',
+            type: mongoose.SchemaTypes.ObjectId,
+            default: null
+        },
         content: {
             type: String,
             required: [true, '评论内容不能为空']
         },
+        comment_id: {
+            ref: 'Comment',
+            type: mongoose.SchemaTypes.ObjectId,
+            default: null
+        },
         replies: [
             {
-                ref: 'Reply',
+                ref: 'Comment',
                 type: mongoose.SchemaTypes.ObjectId
             }
         ],
+        reply_id: {
+            ref: 'Comment',
+            type: mongoose.SchemaTypes.ObjectId,
+            default: null
+        },
         reply_count: {
             type: Number,
             default: 0

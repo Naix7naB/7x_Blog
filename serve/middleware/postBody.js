@@ -1,8 +1,8 @@
 const ResourceBody = require('../plugins/resourceBody')
 
-module.exports = modelName => {
+module.exports = () => {
     return (req, res, next) => {
-        modelName = req.Model?.modelName || modelName
+        const modelName = req.Model.modelName
         if (ResourceBody[modelName]) {
             req.body = ResourceBody[modelName](req.auth.uid, req.body)
         }
