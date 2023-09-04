@@ -91,10 +91,10 @@ export default {
         },
         handleFileRemove(file) {
             const { classify, filename } = parseUrl(file.url)
+            const idx = this.fileList.findIndex(file => file.name === filename)
+            this.fileList.splice(idx, 1)
             deleteFile({ classify, filename }).then(() => {
                 this.showData[file.field] = ''
-                const idx = this.fileList.findIndex(file => file.name === filename)
-                this.fileList.splice(idx, 1)
             }).catch(err => {
                 this.$message.error(err.errMsg || err)
             })
