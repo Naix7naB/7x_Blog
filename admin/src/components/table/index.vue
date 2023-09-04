@@ -49,6 +49,9 @@ export default {
         }
     },
     methods: {
+        isEmptyVal(val) {
+            return (typeof val === 'object' && val === null) || typeof val === 'undefined'
+        },
         handleValue(row, item) {
             let value = item.prop.split('.').reduce((pre, cur) => {
                 pre = pre?.[cur]
@@ -143,7 +146,7 @@ export default {
                     <!-- 普通列 -->
                     <el-table-column v-else v-bind="item" :key="item.label">
                         <template slot-scope="{ row }">
-                            <span v-if="!handleValue(row, item)">无</span>
+                            <span v-if="isEmptyVal(handleValue(row, item))">无</span>
                             <span v-else>{{ handleValue(row, item) }}</span>
                         </template>
                     </el-table-column>
