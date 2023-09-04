@@ -23,10 +23,17 @@ export default {
     computed: {
         ...mapGetters('comment', ['currentReplyId']),
         totalComment() {
-            return this.comments.reduce((total, comment) => {
-                total += comment.reply_count + 1
-                return total
-            }, 0)
+            return this.comments.length
+        },
+        resolvedComment() {
+            const commentList = this.comments.filter(comment => !comment.comment_id)
+            const replyList = this.comments.filter(comment => comment.comment_id)
+            replyList.forEach(reply => {
+                const comment = commentList.find(comment => comment.id === reply.comment_id)
+                comment.replies || (comment.replies = [])
+                comment.replies.push(reply)
+            })
+            return commentList
         }
     },
     methods: {
@@ -44,8 +51,8 @@ export default {
             <span>{{ statsLabel }}</span>
             <span class="comment-stats--count">{{ totalComment }}条评论</span>
         </div>
-        <ul v-if="comments && comments.length !== 0">
-            <li v-for="comment in comments" :key="comment.id">
+        <ul v-if="resolvedComment && resolvedComment.length !== 0">
+            <li v-for="comment in resolvedComment" :key="comment.id">
                 <CommentItem
                     :top-id="comment.id"
                     :comment="comment"

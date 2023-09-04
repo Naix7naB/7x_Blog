@@ -8,18 +8,24 @@ import { mapGetters } from 'vuex'
 export default {
     name: 'ArticleComment',
     components: { CommentEditor, CommentList },
+    provide() {
+        return {
+            topic_type: 'article_comment',
+            topic_id: this.getArticleInfo.id
+        }
+    },
     data() {
         return {
             comments: []
         }
     },
     computed: {
-        ...mapGetters('article', { info: 'getArticleInfo' })
+        ...mapGetters('article', ['getArticleInfo'])
     },
     methods: {
         async getComments() {
             try {
-                const { data } = await getArticleComments({ aid: this.info.id })
+                const { data } = await getArticleComments({ aid: this.getArticleInfo.id })
                 this.comments = data.list
             } catch (err) {
                 this.$message.error(err.errMsg || err)
@@ -28,7 +34,7 @@ export default {
         postComment(comment) {
             leaveComment({
                 topic_type: 'article_comment',
-                topic_id: this.info.id,
+                topic_id: this.getArticleInfo.id,
                 content: comment
             }).then(res => {
                 this.$message.success(res.errMsg)

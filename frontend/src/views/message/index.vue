@@ -8,6 +8,12 @@ import { mapGetters } from 'vuex'
 export default {
     name: 'MessagePage',
     components: { CommentEditor, CommentList },
+    provide() {
+        return {
+            topic_type: 'message_comment',
+            topic_id: this.getWebsiteInfo.id
+        }
+    },
     data() {
         return {
             comments: []

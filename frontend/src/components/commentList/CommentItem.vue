@@ -1,13 +1,14 @@
 <script>
 import CommentEditor from '@/components/commentEditor'
 
-import { replyComment } from '@/apis/comment'
+import { leaveComment } from '@/apis/comment'
 import { formatDate } from '@/utils/util'
 import { mapGetters } from 'vuex'
 
 export default {
     name: 'CommentItem',
     components: { CommentEditor },
+    inject: ['topic_type', 'topic_id'],
     props: {
         topId: {
             type: String,
@@ -43,10 +44,12 @@ export default {
             this.$emit('reply', '')
         },
         postReply(reply) {
-            replyComment({
+            leaveComment({
+                topic_type: this.topic_type,
+                topic_id: this.topic_id,
+                mention: this.comment.reviewer.id,
                 comment_id: this.topId,
                 reply_id: this.comment.id,
-                mention: this.comment.reviewer.id,
                 content: reply
             }).then(res => {
                 this.$message.success(res.errMsg)
