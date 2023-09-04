@@ -49,11 +49,15 @@ export default {
         }
     },
     methods: {
-        handleValue(row, prop) {
-            return prop.split('.').reduce((pre, cur) => {
+        handleValue(row, item) {
+            let value = item.prop.split('.').reduce((pre, cur) => {
                 pre = pre?.[cur]
                 return pre
             }, row)
+            if (item.formatter && typeof item.formatter === 'function') {
+                value = item.formatter(value)
+            }
+            return value
         },
         /* 获取数据源 */
         getDatasource() {
@@ -102,7 +106,7 @@ export default {
                     <!-- 插槽列 -->
                     <el-table-column v-if="item.type === 'slot'" v-bind="item" :key="item.label">
                         <template slot-scope="{ row }">
-                            <slot :name="item.slotName" :val="handleValue(row, item.prop)" />
+                            <slot :name="item.slotName" :val="handleValue(row, item)" />
                         </template>
                     </el-table-column>
                     <!-- 图片 -->
@@ -114,7 +118,7 @@ export default {
                         <template slot-scope="{ row }">
                             <el-image
                                 fit="cover"
-                                :src="handleValue(row, item.prop)"
+                                :src="handleValue(row, item)"
                                 :alt="item.label"
                                 :title="item.label"
                             />
@@ -137,7 +141,12 @@ export default {
                         </template>
                     </el-table-column>
                     <!-- 普通列 -->
-                    <el-table-column v-else v-bind="item" :key="item.label" />
+                    <el-table-column v-else v-bind="item" :key="item.label">
+                        <template slot-scope="{ row }">
+                            <span v-if="!handleValue(row, item)">无</span>
+                            <span v-else>{{ handleValue(row, item) }}</span>
+                        </template>
+                    </el-table-column>
                 </template>
             </el-table>
             <el-pagination

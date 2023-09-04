@@ -33,8 +33,8 @@ const tableColumns = [
         prop: 'created_at',
         label: '创建时间',
         minWidth: 160,
-        formatter: (row, column, cellVal, idx) => {
-            return formatDate(cellVal)
+        formatter(val) {
+            return formatDate(val)
         }
     },
     {
