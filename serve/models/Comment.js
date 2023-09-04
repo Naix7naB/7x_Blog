@@ -7,6 +7,10 @@ const schema = new mongoose.Schema(
             type: String,
             required: [true, '评论主题类型不正确']
         },
+        topic_title: {
+            type: String,
+            required: [true, '评论主题标题不能为空']
+        },
         topic_id: {
             type: mongoose.SchemaTypes.ObjectId,
             required: [true, '评论主题ID不能为空']
@@ -30,20 +34,10 @@ const schema = new mongoose.Schema(
             type: mongoose.SchemaTypes.ObjectId,
             default: null
         },
-        replies: [
-            {
-                ref: 'Comment',
-                type: mongoose.SchemaTypes.ObjectId
-            }
-        ],
         reply_id: {
             ref: 'Comment',
             type: mongoose.SchemaTypes.ObjectId,
             default: null
-        },
-        reply_count: {
-            type: Number,
-            default: 0
         },
         created_at: Number,
         updated_at: Number

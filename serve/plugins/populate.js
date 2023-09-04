@@ -82,6 +82,10 @@ module.exports = class Populate {
             {
                 path: 'mention',
                 select: 'nickname avatar'
+            },
+            {
+                path: 'reply_id',
+                select: 'content'
             }
         ]
     }
