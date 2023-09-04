@@ -49,6 +49,12 @@ export default {
         }
     },
     methods: {
+        handleValue(row, prop) {
+            return prop.split('.').reduce((pre, cur) => {
+                pre = pre?.[cur]
+                return pre
+            }, row)
+        },
         /* 获取数据源 */
         getDatasource() {
             this.$store.dispatch('setLoadingState', true)
@@ -94,22 +100,23 @@ export default {
                 <!-- 数据源 -->
                 <template v-for="item in columns">
                     <!-- 插槽列 -->
-                    <el-table-column v-if="item.type === 'slot'" v-bind="item" :key="item.prop">
-                        <template slot-scope="{ $index, row }">
-                            <slot :name="item.slotName" :row="row" :index="$index" />
+                    <el-table-column v-if="item.type === 'slot'" v-bind="item" :key="item.label">
+                        <template slot-scope="{ row }">
+                            <slot :name="item.slotName" :val="handleValue(row, item.prop)" />
                         </template>
                     </el-table-column>
                     <!-- 图片 -->
                     <el-table-column
                         v-else-if="item.type === 'image'"
                         v-bind="item"
-                        :key="item.prop"
+                        :key="item.label"
                     >
                         <template slot-scope="{ row }">
                             <el-image
                                 fit="contain"
                                 :style="{ height: '80px' }"
-                                :src="row[item.prop]"
+                                :src="handleValue(row, item.prop)"
+                                :alt="item.label"
                                 :title="item.label"
                             />
                         </template>
@@ -118,7 +125,7 @@ export default {
                     <el-table-column
                         v-else-if="item.type === 'opt'"
                         v-bind="item"
-                        :key="item.prop"
+                        :key="item.label"
                         :min-width="80 * item.optType.length"
                     >
                         <template slot-scope="{ row }">
@@ -131,7 +138,7 @@ export default {
                         </template>
                     </el-table-column>
                     <!-- 普通列 -->
-                    <el-table-column v-else v-bind="item" :key="item.prop" />
+                    <el-table-column v-else v-bind="item" :key="item.label" />
                 </template>
             </el-table>
             <el-pagination

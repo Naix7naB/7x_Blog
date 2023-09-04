@@ -40,11 +40,11 @@ export default {
         @optEdit="editArticle"
         @optDelete="deleteArticle"
     >
-        <template #tag="{ row }">
-            <span v-if="row.tags.length === 0" style="color: #bbb">暂无标签</span>
+        <template #tag="{ val }">
+            <span v-if="val === 0" style="color: #bbb">暂无标签</span>
             <el-tag
                 v-else
-                v-for="tag in row.tags"
+                v-for="tag in val"
                 :style="{ backgroundColor: tag.color, borderColor: tag.color }"
                 :key="tag.id"
                 effect="dark"

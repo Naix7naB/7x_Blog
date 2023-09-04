@@ -16,6 +16,7 @@ const tableColumns = [
     },
     {
         type: 'slot',
+        prop: 'color',
         slotName: 'tagColor',
         label: '标签背景色',
         minWidth: 120,

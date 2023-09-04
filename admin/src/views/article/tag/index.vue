@@ -80,8 +80,8 @@ export default {
                     :optItems="headerOptItems"
                 />
             </template>
-            <template #tagColor="{ row }">
-                <ColorBlock :color="row.color" :style="{ margin: 'auto' }" />
+            <template #tagColor="{ val }">
+                <ColorBlock :color="val" :style="{ margin: 'auto' }" />
             </template>
         </BaseTable>
         <TagDialog ref="tagDialog" @refresh="refreshDatasource" />
