@@ -28,22 +28,18 @@ export default {
             type: Boolean,
             default: false
         },
-        formData: {
+        data: {
             type: Object,
             required: true
         },
-        formItems: {
+        items: {
             type: Array,
             required: true
-        },
-        optItems: {
-            type: Array,
-            default: () => []
         }
     },
     data() {
         return {
-            showData: this.formData,
+            showData: this.data,
             fileList: [],
             categories: {
                 article: 'cover_img',
@@ -132,7 +128,7 @@ export default {
         :hide-required-asterisk="hideRequiredAsterisk"
         :model="showData"
     >
-        <template v-for="{ others, options, ...item } in formItems">
+        <template v-for="{ others, options, ...item } in items">
             <el-form-item v-bind="item" :style="{ textAlign: item.position }" :key="item.prop">
                 <!-- 输入框 -->
                 <template v-if="item.type === 'input'">
@@ -199,20 +195,9 @@ export default {
                         <fa-icon v-else :icon="['fas', 'plus']" />
                     </el-upload>
                 </template>
-                <!-- 操作按钮 -->
-                <template v-if="item.type === 'opt'">
-                    <el-button
-                        v-for="{ action, ...btnConf } in optItems"
-                        v-bind="btnConf"
-                        :key="btnConf.text"
-                        @click="action(showData)"
-                    >
-                        {{ btnConf.text }}
-                    </el-button>
-                </template>
                 <!-- 自定义组件插槽 -->
                 <template v-if="item.type === 'slot'">
-                    <slot :name="item.slotName" />
+                    <slot :name="item.slotName" :item="item" />
                 </template>
             </el-form-item>
         </template>
