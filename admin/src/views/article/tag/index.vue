@@ -2,14 +2,14 @@
 import BaseTable from '@/components/table'
 import BaseForm from '@/components/form'
 import ColorBlock from './components/colorBlock'
-import TagDialog from './components/tagDialog'
 import TagDrawer from './components/tagDrawer'
 import { tableColumns, headerFormItems } from '@/config/tagList.config'
-import { getTagList, deleteTagById } from '@/apis/tag'
+import { config as popupConfig, form as popupForm } from '@/config/tagPopup.config'
+import { getTagList, createTag, deleteTagById } from '@/apis/tag'
 
 export default {
     name: 'ArticleTag',
-    components: { BaseForm, BaseTable, ColorBlock, TagDialog, TagDrawer },
+    components: { BaseForm, BaseTable, ColorBlock,  TagDrawer },
     data() {
         return {
             currentTagInfo: {},
@@ -34,6 +34,14 @@ export default {
             ]
         }
     },
+    computed: {
+        popup() {
+            return {
+                config: popupConfig,
+                form: popupForm
+            }
+        }
+    },
     methods: {
         getTagList,
         /* 查询文章标签 */
@@ -54,9 +62,26 @@ export default {
                 this.$message.error(err.errMsg)
             })
         },
+        /* 弹窗点击取消按钮 */
+        onBeforePopupCancel(done) {
+            this.$refs.popupForm.resetForm()
+            done()
+        },
+        /* 弹窗点击确认按钮 */
+        onBeforePopupConfirm(done) {
+            this.$refs.popupForm.submitForm(data => {
+                createTag(data).then(res => {
+                    this.$message.success(res.errMsg)
+                    this.refreshDatasource()
+                    done()
+                }).catch(err => {
+                    this.$message.error(err.errMsg || err)
+                })
+            })
+        },
         /* 刷新表格数据源 */
         refreshDatasource() {
-            this.$refs.tableRef.getDatasource()
+            this.$refs.table.refresh()
         }
     }
 }
@@ -65,12 +90,15 @@ export default {
 <template>
     <div>
         <BaseTable
-            ref="tableRef"
+            ref="table"
             showPagination
             :requestApi="getTagList"
             :columns="tableColumns"
+            :popupConfig="popup.config"
             @optCheck="checkTagInfo"
             @optDelete="deleteTag"
+            @beforePopupCancel="onBeforePopupCancel"
+            @beforePopupConfirm="onBeforePopupConfirm"
         >
             <template #tableHeader>
                 <BaseForm
@@ -83,15 +111,18 @@ export default {
             <template #tagColor="{ val }">
                 <ColorBlock :color="val" :style="{ margin: 'auto' }" />
             </template>
+            <template #popup>
+                <BaseForm ref="popupForm" :formData="popup.form.data" :formItems="popup.form.items">
+                    <template #colorPicker>
+                        <el-color-picker
+                            v-model="popup.form.data.color"
+                            color-format="rgb"
+                            show-alpha
+                        />
+                    </template>
+                </BaseForm>
+            </template>
         </BaseTable>
-        <TagDialog ref="tagDialog" @refresh="refreshDatasource" />
         <TagDrawer ref="tagDrawer" :tagInfo="currentTagInfo" />
     </div>
 </template>
-
-<style lang="scss" scoped>
-:deep(.el-dialog) {
-    min-width: 420px;
-    max-width: 640px;
-}
-</style>
