@@ -3,9 +3,10 @@ import BaseTable from '@/components/table'
 import BaseForm from '@/components/form'
 import ColorBlock from './components/colorBlock'
 import TagDrawer from './components/tagDrawer'
+
 import { columns as tagTableColumns } from '@/config/tagTable.config'
-import { form as queryForm } from '@/config/tagQuery.config'
-import { config as popupConfig, form as popupForm } from '@/config/tagPopup.config'
+import { form as tagQueryForm } from '@/config/tagQuery.config'
+import { config as tagPopupConfig, form as tagPopupForm } from '@/config/tagPopup.config'
 import { getTagList, createTag, deleteTagById } from '@/apis/tag'
 
 export default {
@@ -21,21 +22,17 @@ export default {
             return tagTableColumns
         },
         queryForm() {
-            return queryForm
+            return tagQueryForm
         },
         popupConfig() {
-            return popupConfig
+            return tagPopupConfig
         },
         popupForm() {
-            return popupForm
+            return tagPopupForm
         }
     },
     methods: {
         getTagList,
-        /* 查询文章标签 */
-        queryTags() {
-            console.log(this.headerFormData)
-        },
         /* 点击查看按钮 */
         checkTagInfo(data) {
             this.currentTagInfo = data

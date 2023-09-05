@@ -20,14 +20,6 @@ const form = {
             prop: 'name',
             label: '标签名称',
             placeholder: '输入标签名称'
-        },
-        {
-            type: 'slot',
-            slotName: 'query'
-        },
-        {
-            type: 'slot',
-            slotName: 'reset'
         }
     ]
 }
