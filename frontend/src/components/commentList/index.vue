@@ -28,12 +28,12 @@ export default {
         resolvedComment() {
             const commentList = this.comments.filter(comment => !comment.comment_id)
             const replyList = this.comments.filter(comment => comment.comment_id)
-            replyList.forEach(reply => {
-                const comment = commentList.find(comment => comment.id === reply.comment_id)
-                comment.replies || (comment.replies = [])
-                comment.replies.push(reply)
+            return commentList.map(comment => {
+                comment.replies = comment.replies.map(reply_id => {
+                    return replyList.find(reply => reply.id === reply_id)
+                })
+                return comment
             })
-            return commentList
         }
     },
     methods: {

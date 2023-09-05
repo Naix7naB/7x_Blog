@@ -11,7 +11,17 @@ function getArticleComments({ page = 1, size = 20, aid } = {}) {
             condition: {
                 topic_type: 'article_comment',
                 topic_id: aid
-            }
+            },
+            populate: [
+                {
+                    path: 'reviewer',
+                    select: 'avatar nickname'
+                },
+                {
+                    path: 'mention',
+                    select: 'avatar nickname'
+                }
+            ]
         }
     })
 }
@@ -27,7 +37,17 @@ function getMessageComments({ page = 1, size = 20, mid } = {}) {
             condition: {
                 topic_type: 'message_comment',
                 topic_id: mid
-            }
+            },
+            populate: [
+                {
+                    path: 'reviewer',
+                    select: 'avatar nickname'
+                },
+                {
+                    path: 'mention',
+                    select: 'avatar nickname'
+                }
+            ]
         }
     })
 }
@@ -36,18 +56,9 @@ function getMessageComments({ page = 1, size = 20, mid } = {}) {
 function leaveComment(data) {
     return Request.request({
         methodType: Request.POST,
-        url: '/comment/leave',
+        url: '/comment',
         data
     })
 }
 
-/* 回复评论 */
-function replyComment(data) {
-    return Request.request({
-        methodType: Request.POST,
-        url: '/comment/reply',
-        data
-    })
-}
-
-export { getArticleComments, getMessageComments, leaveComment, replyComment }
+export { getArticleComments, getMessageComments, leaveComment }
