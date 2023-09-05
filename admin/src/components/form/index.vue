@@ -110,7 +110,7 @@ export default {
                         message: '表单校验失败'
                     })
                 }
-                callback()
+                callback(this.showData)
             })
         },
         /* 重置表单信息 */
