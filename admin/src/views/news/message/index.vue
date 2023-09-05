@@ -1,7 +1,7 @@
 <script>
 import BaseTable from '@/components/table'
 
-import { getMessageComments } from '@/apis/comment'
+import { getMessageComments, deleteCommentById } from '@/apis/comment'
 import { tableColumns } from '@/config/messageList.config'
 
 export default {
@@ -19,8 +19,13 @@ export default {
     },
     methods: {
         getMessageComments,
-        deleteArticle(e) {
-            console.log(e)
+        deleteComment(data) {
+            deleteCommentById(data.id).then(res => {
+                this.$refs.table.refresh()
+                this.$message.success(res.errMsg)
+            }).catch(err => {
+                this.$message.error(err.errMsg || err)
+            })
         }
     }
 }
@@ -28,10 +33,11 @@ export default {
 
 <template>
     <BaseTable
+        ref="table"
         showPagination
         :requestApi="getMessageComments"
         :columns="columns"
-        @optDelete="deleteArticle"
+        @optDelete="deleteComment"
     >
         <template #mention="{ val }">
             <span v-if="val">{{ val }}</span>

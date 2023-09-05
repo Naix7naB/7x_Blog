@@ -49,9 +49,11 @@ export default {
         }
     },
     methods: {
+        /* 判断数据是否为空 */
         isEmptyVal(val) {
             return (typeof val === 'object' && val === null) || typeof val === 'undefined'
         },
+        /* 处理数据 */
         handleValue(row, item) {
             let value = item.prop.split('.').reduce((pre, cur) => {
                 pre = pre?.[cur]
@@ -78,6 +80,11 @@ export default {
                 this.$store.dispatch('setLoadingState', false)
             })
         },
+        /* 刷新数据 */
+        refresh() {
+            this.getDatasource()
+        },
+        /* 操作选项按钮的执行函数 */
         optHandler(type, row) {
             this.$emit(OPT_TYPE[type], row)
         },

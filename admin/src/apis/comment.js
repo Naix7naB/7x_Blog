@@ -30,12 +30,12 @@ function getMessageComments({ page = 1, size = 10 } = {}) {
     })
 }
 
-/* 删除 */
-// function deleteClassifyById(id) {
-//     return Request.request({
-//         methodType: Request.DELETE,
-//         url: `/api/classify/${id}`
-//     })
-// }
+/* 根据id删除评论 */
+function deleteCommentById(id) {
+    return Request.request({
+        methodType: Request.DELETE,
+        url: `/comment/${id}`
+    })
+}
 
-export { getArticleComments, getMessageComments }
+export { getArticleComments, getMessageComments, deleteCommentById }

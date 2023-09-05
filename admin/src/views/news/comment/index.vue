@@ -1,7 +1,7 @@
 <script>
 import BaseTable from '@/components/table'
 
-import { getArticleComments } from '@/apis/comment'
+import { getArticleComments, deleteCommentById } from '@/apis/comment'
 import { tableColumns } from '@/config/commentList.config'
 
 export default {
@@ -19,8 +19,13 @@ export default {
     },
     methods: {
         getArticleComments,
-        deleteArticle(e) {
-            console.log(e)
+        deleteArticle(data) {
+            deleteCommentById(data.id).then(res => {
+                this.$refs.table.refresh()
+                this.$message.success(res.errMsg)
+            }).catch(err => {
+                this.$message.error(err.errMsg || err)
+            })
         }
     }
 }
@@ -28,6 +33,8 @@ export default {
 
 <template>
     <BaseTable
+        ref="table"
+        showSelection
         showPagination
         :requestApi="getArticleComments"
         :columns="columns"
