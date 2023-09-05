@@ -136,14 +136,11 @@ export default {
     <div class="table-wrapper">
         <div v-if="showTabs">tabs</div>
         <div v-if="queryConfig" class="table-query">
-            <BaseForm ref="queryForm" v-bind="queryConfig" size="small" inline>
-                <template #query>
-                    <OperationBtn type="query" size="small" showIcon @click="queryTable" />
-                </template>
-                <template #reset>
-                    <OperationBtn type="reset" size="small" showIcon @click="resetQuery" />
-                </template>
-            </BaseForm>
+            <BaseForm ref="queryForm" v-bind="queryConfig" size="small" inline />
+            <div class="table-query--opts">
+                <OperationBtn type="query" size="small" showIcon @click="queryTable" />
+                <OperationBtn type="reset" size="small" showIcon @click="resetQuery" />
+            </div>
         </div>
         <div class="table-operate">
             <el-button type="primary" icon="el-icon-plus" size="small" @click="addRow">
@@ -248,11 +245,24 @@ export default {
     border-radius: 4px;
 }
 
+:deep(.table-query--opts > .el-button) {
+    margin: 0 10px 18px 0;
+}
+
 .table-wrapper {
     overflow: hidden;
     padding: 30px 40px;
     border-radius: 6px;
     background-color: #fff;
+}
+
+.table-query {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.table-query--opts {
+    flex-shrink: 0;
 }
 
 .table-operate {
