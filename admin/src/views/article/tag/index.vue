@@ -3,7 +3,7 @@ import BaseTable from '@/components/table'
 import BaseForm from '@/components/form'
 import ColorBlock from './components/colorBlock'
 import TagDrawer from './components/tagDrawer'
-import { tableColumns } from '@/config/tagList.config'
+import { columns as tagTableColumns } from '@/config/tagTable.config'
 import { form as queryForm } from '@/config/tagQuery.config'
 import { config as popupConfig, form as popupForm } from '@/config/tagPopup.config'
 import { getTagList, createTag, deleteTagById } from '@/apis/tag'
@@ -13,11 +13,13 @@ export default {
     components: { BaseForm, BaseTable, ColorBlock,  TagDrawer },
     data() {
         return {
-            currentTagInfo: {},
-            tableColumns
+            currentTagInfo: {}
         }
     },
     computed: {
+        columns() {
+            return tagTableColumns
+        },
         queryForm() {
             return queryForm
         },
@@ -79,7 +81,7 @@ export default {
             ref="table"
             showPagination
             :requestApi="getTagList"
-            :columns="tableColumns"
+            :columns="columns"
             :queryConfig="queryForm"
             :popupConfig="popupConfig"
             @optCheck="checkTagInfo"

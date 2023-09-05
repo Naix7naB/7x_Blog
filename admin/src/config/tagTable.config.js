@@ -1,7 +1,6 @@
 import { formatDate } from '@/utils'
 
-/* 表格表头配置项 */
-const tableColumns = [
+const columns = [
     {
         prop: 'name',
         label: '标签名称',
@@ -45,23 +44,4 @@ const tableColumns = [
     }
 ]
 
-/* 头部表单配置项 */
-const headerFormItems = [
-    {
-        type: 'date',
-        prop: 'dateRange',
-        label: '创建时间',
-        others: {
-            type: 'daterange',
-            startPlaceholder: '开始日期',
-            endPlaceholder: '结束日期',
-            rangeSeparator: '至'
-        }
-    },
-    {
-        type: 'opt',
-        prop: 'opt'
-    }
-]
-
-export { tableColumns, headerFormItems }
+export { columns }
