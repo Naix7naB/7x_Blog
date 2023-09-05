@@ -10,6 +10,10 @@ export default {
             type: String,
             default: '40%'
         },
+        offset: {
+            type: String,
+            default: '20vh'
+        },
         fullscreen: {
             type: Boolean,
             default: false
@@ -36,6 +40,7 @@ export default {
         :visible="visible"
         :title="title"
         :width="width"
+        :top="offset"
         :fullscreen="fullscreen"
         :center="true"
         :append-to-body="true"
@@ -51,3 +56,15 @@ export default {
         </template>
     </el-dialog>
 </template>
+
+<style lang="scss" scoped>
+:deep(.el-dialog) {
+    min-width: 420px;
+    max-width: 640px;
+}
+
+:deep(.el-dialog.is-fullscreen) {
+    min-width: 100%;
+    max-width: 100%;
+}
+</style>
