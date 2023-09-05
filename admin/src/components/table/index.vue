@@ -1,4 +1,5 @@
 <script>
+import Popup from '@/components/popup'
 import OperationBtn from './components/operationBtn'
 
 const OPT_TYPE = {
@@ -9,6 +10,7 @@ const OPT_TYPE = {
 
 export default {
     name: 'BaseTable',
+    components: { Popup, OperationBtn },
     props: {
         requestApi: {
             type: Function,
@@ -37,12 +39,16 @@ export default {
         pagerPos: {
             type: String,
             default: 'center'
+        },
+        popupConfig: {
+            type: Object,
+            default: () => {}
         }
     },
-    components: { OperationBtn },
     data() {
         return {
             datasource: [],
+            selection: [],
             currentPage: 1,
             pageSize: 10,
             total: 0
@@ -91,6 +97,18 @@ export default {
         /* 更改页码时 */
         changePage(page) {
             this.currentPage = page
+        },
+        /* 修改复选框状态时 */
+        onSelectionChange(selection) {
+            this.selection = selection
+        },
+        /* 添加一项数据 */
+        addRow() {
+            this.$refs.popup.open()
+        },
+        /* 批量删除 */
+        batchDelete() {
+            this.$emit('onBatchDelete', this.selection)
         }
     },
     created() {
@@ -106,7 +124,28 @@ export default {
         </div>
         <div class="table-box base-table">
             <div v-if="showTabs">tabs</div>
-            <el-table v-loading="$store.state.loading" :data="datasource" border>
+            <div class="table-query">查询</div>
+            <div class="table-operate">
+                <el-button type="primary" icon="el-icon-plus" size="small" @click="addRow">
+                    添加
+                </el-button>
+                <el-button
+                    v-if="showSelection"
+                    type="danger"
+                    icon="el-icon-delete"
+                    size="small"
+                    :disabled="selection.length === 0"
+                    @click.stop="batchDelete"
+                >
+                    批量删除
+                </el-button>
+            </div>
+            <el-table
+                v-loading="$store.state.loading"
+                :data="datasource"
+                border
+                @selection-change="onSelectionChange"
+            >
                 <!-- 选择列 -->
                 <el-table-column v-if="showSelection" type="selection" width="55" />
                 <!-- 序号列 -->
@@ -170,6 +209,9 @@ export default {
                 @current-change="changePage"
             />
         </div>
+        <Popup ref="popup" v-bind="popupConfig">
+            <slot name="popup"></slot>
+        </Popup>
     </div>
 </template>
 
@@ -187,6 +229,7 @@ export default {
 }
 
 .table-box {
+    overflow: hidden;
     padding: 30px 40px;
     border-radius: 6px;
     background-color: #fff;
@@ -194,5 +237,10 @@ export default {
 
 .table-header {
     margin-bottom: 20px;
+}
+
+.table-opts {
+    margin-bottom: 4px;
+    white-space: nowrap;
 }
 </style>
