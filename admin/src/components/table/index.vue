@@ -43,7 +43,7 @@ export default {
         },
         queryConfig: {
             type: Object,
-            default: () => {}
+            default: () => null
         },
         popupConfig: {
             type: Object,
@@ -95,11 +95,15 @@ export default {
         refresh() {
             this.getDatasource()
         },
-        query() {
-            console.log(1)
+        /* TODO 查找表格匹配项 */
+        queryTable() {
+            this.$refs.queryForm.submitForm(data => {
+                console.log(data)
+            })
         },
-        reset() {
-            console.log(2)
+        /* 重置查询条件 */
+        resetQuery() {
+            this.$refs.queryForm.resetForm()
         },
         /* 修改复选框状态时 */
         onSelectionChange(selection) {
@@ -131,13 +135,13 @@ export default {
 <template>
     <div class="table-wrapper">
         <div v-if="showTabs">tabs</div>
-        <div class="table-query">
-            <BaseForm v-bind="queryConfig" size="small" inline>
+        <div v-if="queryConfig" class="table-query">
+            <BaseForm ref="queryForm" v-bind="queryConfig" size="small" inline>
                 <template #query>
-                    <OperationBtn type="query" size="small" showIcon @click="query" />
+                    <OperationBtn type="query" size="small" showIcon @click="queryTable" />
                 </template>
                 <template #reset>
-                    <OperationBtn type="reset" size="small" showIcon @click="reset" />
+                    <OperationBtn type="reset" size="small" showIcon @click="resetQuery" />
                 </template>
             </BaseForm>
         </div>
