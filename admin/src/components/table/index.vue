@@ -1,4 +1,5 @@
 <script>
+import BaseForm from '@/components/form'
 import Popup from '@/components/popup'
 import OperationBtn from './components/operationBtn'
 
@@ -10,7 +11,7 @@ const OPT_TYPE = {
 
 export default {
     name: 'BaseTable',
-    components: { Popup, OperationBtn },
+    components: { BaseForm, Popup, OperationBtn },
     props: {
         requestApi: {
             type: Function,
@@ -39,6 +40,10 @@ export default {
         pagerPos: {
             type: String,
             default: 'center'
+        },
+        queryConfig: {
+            type: Object,
+            default: () => {}
         },
         popupConfig: {
             type: Object,
@@ -90,13 +95,11 @@ export default {
         refresh() {
             this.getDatasource()
         },
-        /* 操作选项按钮的执行函数 */
-        optHandler(type, row) {
-            this.$emit(OPT_TYPE[type], row)
+        query() {
+            console.log(1)
         },
-        /* 更改页码时 */
-        changePage(page) {
-            this.currentPage = page
+        reset() {
+            console.log(2)
         },
         /* 修改复选框状态时 */
         onSelectionChange(selection) {
@@ -109,6 +112,14 @@ export default {
         /* 批量删除 */
         batchDelete() {
             this.$emit('onBatchDelete', this.selection)
+        },
+        /* 操作选项按钮的执行函数 */
+        optHandler(type, row) {
+            this.$emit(OPT_TYPE[type], row)
+        },
+        /* 更改页码时 */
+        changePage(page) {
+            this.currentPage = page
         }
     },
     created() {
@@ -118,97 +129,97 @@ export default {
 </script>
 
 <template>
-    <div class="table-wrap">
-        <div v-if="$slots.tableHeader" class="table-box table-header">
-            <slot name="tableHeader"></slot>
-        </div>
-        <div class="table-box base-table">
-            <div v-if="showTabs">tabs</div>
-            <div class="table-query">查询</div>
-            <div class="table-operate">
-                <el-button type="primary" icon="el-icon-plus" size="small" @click="addRow">
-                    添加
-                </el-button>
-                <el-button
-                    v-if="showSelection"
-                    type="danger"
-                    icon="el-icon-delete"
-                    size="small"
-                    :disabled="selection.length === 0"
-                    @click.stop="batchDelete"
-                >
-                    批量删除
-                </el-button>
-            </div>
-            <el-table
-                v-loading="$store.state.loading"
-                :data="datasource"
-                border
-                @selection-change="onSelectionChange"
-            >
-                <!-- 选择列 -->
-                <el-table-column v-if="showSelection" type="selection" width="55" />
-                <!-- 序号列 -->
-                <el-table-column v-if="showIndex" type="index" width="55" />
-                <!-- 数据源 -->
-                <template v-for="item in columns">
-                    <!-- 插槽列 -->
-                    <el-table-column v-if="item.type === 'slot'" v-bind="item" :key="item.label">
-                        <template slot-scope="{ row }">
-                            <slot :name="item.slotName" :val="handleValue(row, item)" />
-                        </template>
-                    </el-table-column>
-                    <!-- 图片 -->
-                    <el-table-column
-                        v-else-if="item.type === 'image'"
-                        v-bind="item"
-                        :key="item.label"
-                    >
-                        <template slot-scope="{ row }">
-                            <el-image
-                                fit="cover"
-                                :src="handleValue(row, item)"
-                                :alt="item.label"
-                                :title="item.label"
-                            />
-                        </template>
-                    </el-table-column>
-                    <!-- 操作列 -->
-                    <el-table-column
-                        v-else-if="item.type === 'opt'"
-                        v-bind="item"
-                        :key="item.label"
-                        :min-width="80 * item.optType.length"
-                    >
-                        <template slot-scope="{ row }">
-                            <OperationBtn
-                                v-for="opt in item.optType"
-                                :key="opt"
-                                :type="opt"
-                                @click="optHandler(opt, row)"
-                            />
-                        </template>
-                    </el-table-column>
-                    <!-- 普通列 -->
-                    <el-table-column v-else v-bind="item" :key="item.label">
-                        <template slot-scope="{ row }">
-                            <span v-if="isEmptyVal(handleValue(row, item))">无</span>
-                            <span v-else>{{ handleValue(row, item) }}</span>
-                        </template>
-                    </el-table-column>
+    <div class="table-wrapper">
+        <div v-if="showTabs">tabs</div>
+        <div class="table-query">
+            <BaseForm v-bind="queryConfig" size="small" inline>
+                <template #query>
+                    <OperationBtn type="query" size="small" showIcon @click="query" />
                 </template>
-            </el-table>
-            <el-pagination
-                v-if="showPagination"
-                layout="total, prev, pager, next"
-                :current-page="currentPage"
-                :page-size="pageSize"
-                :total="total"
-                :style="{ marginTop: '24px', textAlign: pagerPos }"
-                :background="true"
-                @current-change="changePage"
-            />
+                <template #reset>
+                    <OperationBtn type="reset" size="small" showIcon @click="reset" />
+                </template>
+            </BaseForm>
         </div>
+        <div class="table-operate">
+            <el-button type="primary" icon="el-icon-plus" size="small" @click="addRow">
+                添加
+            </el-button>
+            <el-button
+                v-if="showSelection"
+                type="danger"
+                icon="el-icon-delete"
+                size="small"
+                :disabled="selection.length === 0"
+                @click.stop="batchDelete"
+            >
+                批量删除
+            </el-button>
+        </div>
+        <el-table
+            v-loading="$store.state.loading"
+            :data="datasource"
+            border
+            @selection-change="onSelectionChange"
+        >
+            <!-- 选择列 -->
+            <el-table-column v-if="showSelection" type="selection" width="55" />
+            <!-- 序号列 -->
+            <el-table-column v-if="showIndex" type="index" width="55" />
+            <!-- 数据源 -->
+            <template v-for="item in columns">
+                <!-- 插槽列 -->
+                <el-table-column v-if="item.type === 'slot'" v-bind="item" :key="item.label">
+                    <template slot-scope="{ row }">
+                        <slot :name="item.slotName" :val="handleValue(row, item)" />
+                    </template>
+                </el-table-column>
+                <!-- 图片 -->
+                <el-table-column v-else-if="item.type === 'image'" v-bind="item" :key="item.label">
+                    <template slot-scope="{ row }">
+                        <el-image
+                            fit="cover"
+                            :src="handleValue(row, item)"
+                            :alt="item.label"
+                            :title="item.label"
+                        />
+                    </template>
+                </el-table-column>
+                <!-- 操作列 -->
+                <el-table-column
+                    v-else-if="item.type === 'opt'"
+                    v-bind="item"
+                    :key="item.label"
+                    :min-width="80 * item.optType.length"
+                >
+                    <template slot-scope="{ row }">
+                        <OperationBtn
+                            v-for="opt in item.optType"
+                            :key="opt"
+                            :type="opt"
+                            @click="optHandler(opt, row)"
+                        />
+                    </template>
+                </el-table-column>
+                <!-- 普通列 -->
+                <el-table-column v-else v-bind="item" :key="item.label">
+                    <template slot-scope="{ row }">
+                        <span v-if="isEmptyVal(handleValue(row, item))">无</span>
+                        <span v-else>{{ handleValue(row, item) }}</span>
+                    </template>
+                </el-table-column>
+            </template>
+        </el-table>
+        <el-pagination
+            v-if="showPagination"
+            layout="total, prev, pager, next"
+            :current-page="currentPage"
+            :page-size="pageSize"
+            :total="total"
+            :style="{ marginTop: '24px', textAlign: pagerPos }"
+            :background="true"
+            @current-change="changePage"
+        />
         <Popup
             ref="popup"
             v-bind="popupConfig"
@@ -233,19 +244,15 @@ export default {
     border-radius: 4px;
 }
 
-.table-box {
+.table-wrapper {
     overflow: hidden;
     padding: 30px 40px;
     border-radius: 6px;
     background-color: #fff;
 }
 
-.table-header {
-    margin-bottom: 20px;
-}
-
-.table-opts {
-    margin-bottom: 4px;
+.table-operate {
+    margin-bottom: 6px;
     white-space: nowrap;
 }
 </style>
