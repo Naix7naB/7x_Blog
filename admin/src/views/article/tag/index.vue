@@ -100,25 +100,13 @@ export default {
             @beforePopupCancel="onBeforePopupCancel"
             @beforePopupConfirm="onBeforePopupConfirm"
         >
-            <template #tableHeader>
-                <BaseForm
-                    inline
-                    :formData="headerFormData"
-                    :formItems="headerFormItems"
-                    :optItems="headerOptItems"
-                />
-            </template>
             <template #tagColor="{ val }">
                 <ColorBlock :color="val" :style="{ margin: 'auto' }" />
             </template>
             <template #popup>
-                <BaseForm ref="popupForm" :formData="popup.form.data" :formItems="popup.form.items">
-                    <template #colorPicker>
-                        <el-color-picker
-                            v-model="popup.form.data.color"
-                            color-format="rgb"
-                            show-alpha
-                        />
+                <BaseForm ref="popupForm" :data="popup.form.data" :items="popup.form.items">
+                    <template #colorPicker="{ data }">
+                        <el-color-picker v-model="data.color" color-format="rgb" show-alpha />
                     </template>
                 </BaseForm>
             </template>

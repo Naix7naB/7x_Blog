@@ -197,7 +197,7 @@ export default {
                 </template>
                 <!-- 自定义组件插槽 -->
                 <template v-if="item.type === 'slot'">
-                    <slot :name="item.slotName" :item="item" />
+                    <slot :name="item.slotName" :data="showData" :item="item" />
                 </template>
             </el-form-item>
         </template>
