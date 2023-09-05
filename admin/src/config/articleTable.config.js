@@ -1,6 +1,6 @@
 import { formatDate } from '@/utils'
 
-const tableColumns = [
+const columns = [
     {
         prop: 'title',
         label: '文章标题',
@@ -59,4 +59,4 @@ const tableColumns = [
     }
 ]
 
-export { tableColumns }
+export { columns }
