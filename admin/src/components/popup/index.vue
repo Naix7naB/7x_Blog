@@ -30,6 +30,12 @@ export default {
         },
         close() {
             this.visible = false
+        },
+        cancel() {
+            this.$emit('beforePopupCancel', this.close)
+        },
+        confirm() {
+            this.$emit('beforePopupConfirm', this.close)
         }
     }
 }
@@ -51,8 +57,8 @@ export default {
             <slot></slot>
         </template>
         <template slot="footer">
-            <el-button plain size="small" @click="close">取消</el-button>
-            <el-button type="primary" size="small" @click="close">确认</el-button>
+            <el-button plain size="small" @click="cancel">取消</el-button>
+            <el-button type="primary" size="small" @click="confirm">确认</el-button>
         </template>
     </el-dialog>
 </template>

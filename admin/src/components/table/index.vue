@@ -209,7 +209,12 @@ export default {
                 @current-change="changePage"
             />
         </div>
-        <Popup ref="popup" v-bind="popupConfig">
+        <Popup
+            ref="popup"
+            v-bind="popupConfig"
+            @beforePopupCancel="$listeners.beforePopupCancel"
+            @beforePopupConfirm="$listeners.beforePopupConfirm"
+        >
             <slot name="popup"></slot>
         </Popup>
     </div>
