@@ -3,7 +3,8 @@ import BaseTable from '@/components/table'
 import BaseForm from '@/components/form'
 import ColorBlock from './components/colorBlock'
 import TagDrawer from './components/tagDrawer'
-import { tableColumns, headerFormItems } from '@/config/tagList.config'
+import { tableColumns } from '@/config/tagList.config'
+import { form as queryForm } from '@/config/tagQuery.config'
 import { config as popupConfig, form as popupForm } from '@/config/tagPopup.config'
 import { getTagList, createTag, deleteTagById } from '@/apis/tag'
 
@@ -13,33 +14,18 @@ export default {
     data() {
         return {
             currentTagInfo: {},
-            headerFormData: {
-                dateRange: []
-            },
-            tableColumns,
-            headerFormItems,
-            headerOptItems: [
-                {
-                    text: '查询',
-                    type: 'primary',
-                    action: this.queryTags
-                },
-                {
-                    text: '创建',
-                    type: 'primary',
-                    action: () => {
-                        this.$refs.tagDialog.openDialog()
-                    }
-                }
-            ]
+            tableColumns
         }
     },
     computed: {
-        popup() {
-            return {
-                config: popupConfig,
-                form: popupForm
-            }
+        queryForm() {
+            return queryForm
+        },
+        popupConfig() {
+            return popupConfig
+        },
+        popupForm() {
+            return popupForm
         }
     },
     methods: {
@@ -94,7 +80,8 @@ export default {
             showPagination
             :requestApi="getTagList"
             :columns="tableColumns"
-            :popupConfig="popup.config"
+            :queryConfig="queryForm"
+            :popupConfig="popupConfig"
             @optCheck="checkTagInfo"
             @optDelete="deleteTag"
             @beforePopupCancel="onBeforePopupCancel"
@@ -104,7 +91,7 @@ export default {
                 <ColorBlock :color="val" :style="{ margin: 'auto' }" />
             </template>
             <template #popup>
-                <BaseForm ref="popupForm" :data="popup.form.data" :items="popup.form.items">
+                <BaseForm ref="popupForm" :data="popupForm.data" :items="popupForm.items">
                     <template #colorPicker="{ data }">
                         <el-color-picker v-model="data.color" color-format="rgb" show-alpha />
                     </template>
