@@ -109,9 +109,13 @@ export default {
         onSelectionChange(selection) {
             this.selection = selection
         },
+        /* 打开弹窗表单 */
+        showPopup() {
+            this.$refs.popup.open()
+        },
         /* 添加一项数据 */
         addRow() {
-            this.$refs.popup.open()
+            this.showPopup()
         },
         /* 批量删除 */
         batchDelete() {

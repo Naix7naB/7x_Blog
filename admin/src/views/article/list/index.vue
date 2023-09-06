@@ -30,9 +30,24 @@ export default {
     },
     methods: {
         getArticleList,
-        /* TODO 编辑文章 */
+        /* 编辑文章 */
         editArticle(data) {
-            console.log(data)
+            this.$refs.articleTable.showPopup()
+            this.$nextTick(() => {
+                const mapData = Object.fromEntries(
+                    Object.entries(this.popupForm.data).map(([key, val]) => {
+                        let value = data[key]
+                        if (key === 'classify') {
+                            value = value?.id
+                        }
+                        if (key === 'tags') {
+                            value = value.map(t => t.id)
+                        }
+                        return [key, value]
+                    })
+                )
+                this.$refs.popupForm.setFormData(mapData)
+            })
         },
         /* 删除文章 */
         deleteArticle(data) {
@@ -84,7 +99,7 @@ export default {
         },
         /* 弹窗点击确认按钮 */
         onBeforePopupConfirm(done) {
-            this.$refs.form.submitForm(data => {
+            this.$refs.popupForm.submitForm(data => {
                 createArticle(data).then(res => {
                     this.$message.success(res.errMsg)
                     done()
