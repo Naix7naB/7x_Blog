@@ -2,9 +2,11 @@
 import BaseTable from '@/components/table'
 import BaseForm from '@/components/form'
 
-import { columns as classifyTableColumns } from '@/config/classifyTable.config'
-import { form as classifyQueryForm } from '@/config/classifyQuery.config'
-import { config as classifyPopupConfig, form as classifyPopupForm } from '@/config/classifyPopup.config'
+import {
+    columns as classifyTableColumns,
+    query as classifyTableQuery,
+    popup as classifyTablePopup
+} from '@/config/classifyTable.config'
 import { getClassifyList, createClassify, modifyClassifyById, deleteClassifyById } from '@/apis/classify'
 
 export default {
@@ -20,13 +22,13 @@ export default {
             return classifyTableColumns
         },
         queryForm() {
-            return classifyQueryForm
+            return classifyTableQuery.form
         },
         popupConfig() {
-            return classifyPopupConfig
+            return classifyTablePopup.config
         },
         popupForm() {
-            return classifyPopupForm
+            return classifyTablePopup.form
         }
     },
     methods: {

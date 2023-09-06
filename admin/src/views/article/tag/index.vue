@@ -4,9 +4,11 @@ import BaseForm from '@/components/form'
 import ColorBlock from './components/colorBlock'
 import TagDrawer from './components/tagDrawer'
 
-import { columns as tagTableColumns } from '@/config/tagTable.config'
-import { form as tagQueryForm } from '@/config/tagQuery.config'
-import { config as tagPopupConfig, form as tagPopupForm } from '@/config/tagPopup.config'
+import {
+    columns as tagTableColumns,
+    query as tagTableQuery,
+    popup as tagTablePopup
+} from '@/config/tagTable.config'
 import { getTagList, createTag, deleteTagById } from '@/apis/tag'
 
 export default {
@@ -22,13 +24,13 @@ export default {
             return tagTableColumns
         },
         queryForm() {
-            return tagQueryForm
+            return tagTableQuery.form
         },
         popupConfig() {
-            return tagPopupConfig
+            return tagTablePopup.config
         },
         popupForm() {
-            return tagPopupForm
+            return tagTablePopup.form
         }
     },
     methods: {
@@ -66,7 +68,7 @@ export default {
         },
         /* 刷新表格数据源 */
         refreshDatasource() {
-            this.$refs.table.refresh()
+            this.$refs.tagTable.refresh()
         }
     }
 }
@@ -75,7 +77,7 @@ export default {
 <template>
     <div>
         <BaseTable
-            ref="table"
+            ref="tagTable"
             showPagination
             :requestApi="getTagList"
             :columns="columns"

@@ -2,9 +2,11 @@
 import BaseTable from '@/components/table'
 import BaseForm from '@/components/form'
 
-import { columns as articleTableColumns } from '@/config/articleTable.config'
-import { form as articleQueryForm } from '@/config/articleQuery.config'
-import { config as articlePopupConfig, form as articlePopupForm } from '@/config/articlePopup.config'
+import {
+    columns as articleTableColumns,
+    query as articleTableQuery,
+    popup as articleTablePopup
+} from '@/config/articleTable.config'
 import { getArticleList, createArticle, updateArticleById, deleteArticleById } from '@/apis/article'
 import { getClassifyList } from '@/apis/classify'
 import { getTagList } from '@/apis/tag'
@@ -24,13 +26,13 @@ export default {
             return articleTableColumns
         },
         queryForm() {
-            return articleQueryForm
+            return articleTableQuery.form
         },
         popupConfig() {
-            return articlePopupConfig
+            return articleTablePopup.config
         },
         popupForm() {
-            return articlePopupForm
+            return articleTablePopup.form
         }
     },
     methods: {
@@ -79,7 +81,6 @@ export default {
                 createArticle(data).then(res => {
                     this.refreshTableData()
                     this.resetPopupFormData()
-                    this.$refs.articleTable.refresh()
                     this.$message.success(res.errMsg)
                 }).catch(err => {
                     this.$message.error(err.errMsg || err)
