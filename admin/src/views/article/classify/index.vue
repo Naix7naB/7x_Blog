@@ -1,96 +1,120 @@
 <script>
 import BaseTable from '@/components/table'
 import BaseForm from '@/components/form'
-import ClassifyDialog from './components/classifyDialog'
-import { tableColumns, headerFormItems } from '@/config/articleClassify.config'
+
+import { columns as classifyTableColumns } from '@/config/classifyTable.config'
+import { form as classifyQueryForm } from '@/config/classifyQuery.config'
+import { config as classifyPopupConfig, form as classifyPopupForm } from '@/config/classifyPopup.config'
 import { getClassifyList, createClassify, modifyClassifyById, deleteClassifyById } from '@/apis/classify'
 
 export default {
     name: 'ArticleClassify',
-    components: { BaseForm, BaseTable, ClassifyDialog },
+    components: { BaseForm, BaseTable },
     data() {
         return {
-            tableColumns,
-            headerFormItems,
-            headerFormData: {
-                dateRange: []
-            },
-            headerOptItems: [
-                {
-                    text: '查询',
-                    type: 'primary',
-                    action: () => {
-                        console.log('query')
-                    }
-                },
-                {
-                    text: '创建',
-                    type: 'primary',
-                    action: () => {
-                        this.$refs.classifyDialog.openDialog()
-                    }
-                }
-            ]
+            execution: null
+        }
+    },
+    computed: {
+        columns() {
+            return classifyTableColumns
+        },
+        queryForm() {
+            return classifyQueryForm
+        },
+        popupConfig() {
+            return classifyPopupConfig
+        },
+        popupForm() {
+            return classifyPopupForm
         }
     },
     methods: {
         getClassifyList,
+        /* 触发添加操作按钮 */
+        optAdd() {
+            this.execution = () => this.addClassify()
+            this.$refs.classifyTable.showPopup()
+        },
+        /* 触发编辑操作按钮 */
+        optEdit(data) {
+            this.execution = () => this.editClassify(data.id)
+            this.$refs.classifyTable.showPopup()
+            this.$nextTick(() => {
+                this.$refs.popupForm.setFormData(data)
+            })
+        },
+        /* 添加文章分类 */
+        addClassify() {
+            this.$refs.popupForm.submitForm(data => {
+                createClassify(data).then(res => {
+                    this.refreshTableData()
+                    this.resetPopupFormData()
+                    this.$message.success(res.errMsg)
+                }).catch(err => {
+                    this.$message.error(err.errMsg || err)
+                })
+            })
+        },
         /* 编辑文章分类 */
-        editClassify(data) {
-            this.$refs.classifyDialog.openDialog(data)
+        editClassify(id) {
+            this.$refs.popupForm.submitForm(data => {
+                modifyClassifyById(id, data).then(res => {
+                    this.refreshTableData()
+                    this.resetPopupFormData()
+                    this.$message.success(res.errMsg)
+                }).catch(err => {
+                    this.$message.error(err.errMsg || err)
+                })
+            })
         },
         /* 删除文章分类 */
         deleteClassify(data) {
             deleteClassifyById(data.id).then(res => {
-                this.$refs.classifyTable.getDatasource()
+                this.refreshTableData()
                 this.$message.success(res.errMsg)
             }).catch(err => {
-                this.$message.error(err.errMsg)
+                this.$message.error(err.errMsg || err)
             })
         },
-        /* 刷新表格数据源 */
-        refreshDatasource() {
-            this.$refs.classifyTable.getDatasource()
+        /* 刷新表格数据 */
+        refreshTableData() {
+            this.$refs.classifyTable.refresh()
         },
-        dialogConfirm(data) {
-            createClassify(data).then(res => {
-                this.refreshDatasource()
-                this.$message.success(res.errMsg)
-            }).catch(err => {
-                this.$message.error(err.errMsg)
-            })
+        /* 重置弹窗表单数据 */
+        resetPopupFormData() {
+            this.$refs.popupForm.resetForm()
         },
-        dialogChange({ id: id, ...data }) {
-            modifyClassifyById(id, data).then(res => {
-                this.refreshDatasource()
-                this.$message.success(res.errMsg)
-            }).catch(err => {
-                this.$message.error(err.errMsg)
-            })
+        /* 弹窗点击取消按钮 */
+        onBeforePopupCancel(done) {
+            this.resetPopupFormData()
+            done()
+        },
+        /* 弹窗点击确认按钮 */
+        onBeforePopupConfirm(done) {
+            this.execution()
+            done()
         }
     }
 }
 </script>
 
 <template>
-    <div>
-        <BaseTable
-            ref="classifyTable"
-            showPagination
-            :requestApi="getClassifyList"
-            :columns="tableColumns"
-            @optEdit="editClassify"
-            @optDelete="deleteClassify"
-        >
-            <template #tableHeader>
-                <BaseForm
-                    inline
-                    :formData="headerFormData"
-                    :formItems="headerFormItems"
-                    :optItems="headerOptItems"
-                />
-            </template>
-        </BaseTable>
-        <ClassifyDialog ref="classifyDialog" @confirm="dialogConfirm" @change="dialogChange" />
-    </div>
+    <BaseTable
+        ref="classifyTable"
+        showPagination
+        :requestApi="getClassifyList"
+        :columns="columns"
+        :queryConfig="queryForm"
+        :popupConfig="popupConfig"
+        @optAdd="optAdd"
+        @optEdit="optEdit"
+        @optDelete="deleteClassify"
+        @beforePopupCancel="onBeforePopupCancel"
+        @beforePopupConfirm="onBeforePopupConfirm"
+    >
+        <template #popup>
+            <BaseForm ref="popupForm" :data="popupForm.data" :items="popupForm.items" />
+        </template>
+    </BaseTable>
 </template>
