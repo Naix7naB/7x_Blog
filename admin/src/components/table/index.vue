@@ -1,7 +1,7 @@
 <script>
 import BaseForm from '@/components/form'
 import Popup from '@/components/popup'
-import OperationBtn from './components/operationBtn'
+import Operator from '@/components/operator'
 
 const OPT_TYPE = {
     add: 'optAdd',
@@ -13,7 +13,7 @@ const OPT_TYPE = {
 
 export default {
     name: 'BaseTable',
-    components: { BaseForm, Popup, OperationBtn },
+    components: { BaseForm, Popup, Operator },
     props: {
         requestApi: {
             type: Function,
@@ -136,13 +136,13 @@ export default {
         <div v-if="queryConfig" class="table-query">
             <BaseForm ref="queryForm" v-bind="queryConfig" size="small" inline />
             <div class="table-query--opts">
-                <OperationBtn type="query" size="small" showIcon @click="queryTable" />
-                <OperationBtn type="reset" size="small" showIcon @click="resetQuery" />
+                <Operator type="query" size="small" showIcon @click="queryTable" />
+                <Operator type="reset" size="small" showIcon @click="resetQuery" />
             </div>
         </div>
         <div class="table-operate">
-            <OperationBtn type="add" size="small" showIcon @click="optHandler('add')" />
-            <OperationBtn
+            <Operator type="add" size="small" showIcon @click="optHandler('add')" />
+            <Operator
                 v-if="showSelection"
                 type="batchDelete"
                 size="small"
@@ -188,7 +188,7 @@ export default {
                     :min-width="80 * item.optType.length"
                 >
                     <template slot-scope="{ row }">
-                        <OperationBtn
+                        <Operator
                             v-for="opt in item.optType"
                             :key="opt"
                             :type="opt"
