@@ -89,6 +89,7 @@ const routes = [
     {
         path: '/user',
         component: Layout,
+        redirect: '/user/list',
         meta: {
             category: 'user',
             icon: 'user',
@@ -114,17 +115,29 @@ const routes = [
         ]
     },
     {
-        path: '/link',
+        path: '/site',
         component: Layout,
+        redirect: '/site/wegConfig',
+        meta: {
+            icon: 'link',
+            title: '网站管理'
+        },
         children: [
             {
-                path: 'index',
+                path: 'wegConfig',
+                name: 'WebConfig',
+                meta: {
+                    title: '网站配置'
+                },
+                component: () => import('@/views/site/webConfig')
+            },
+            {
+                path: 'friendLink',
                 name: 'FriendLink',
                 meta: {
-                    icon: 'link',
                     title: '友情链接'
                 },
-                component: () => import('@/views/friendLink')
+                component: () => import('@/views/site/friendLink')
             }
         ]
     },
