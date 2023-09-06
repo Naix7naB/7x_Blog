@@ -3,10 +3,10 @@ import BaseForm from '@/components/form'
 import Popup from '@/components/popup'
 import Operator from '@/components/operator'
 
-const OPT_TYPE = {
+const OPT_EVENT_MAP = {
     add: 'optAdd',
-    edit: 'optEdit',
     check: 'optCheck',
+    edit: 'optEdit',
     delete: 'optDelete',
     batchDelete: 'optBatchDelete'
 }
@@ -93,35 +93,35 @@ export default {
                 this.$store.dispatch('setLoadingState', false)
             })
         },
-        /* 刷新数据 */
-        refreshData() {
-            this.getDatasource()
+        /* 修改复选框状态时 */
+        onSelectionChange(selection) {
+            this.selection = selection
         },
-        /* TODO 查找表格匹配项 */
+        /* 查找表格匹配项 */
         queryTable() {
-            this.$refs.queryForm.submitForm(data => {
-                console.log(data)
+            this.$refs.query.submitForm(data => {
+                this.$emit('optQuery', data)
             })
         },
         /* 重置查询条件 */
         resetQuery() {
-            this.$refs.queryForm.resetForm()
+            this.$refs.query.resetFormData()
         },
-        /* 修改复选框状态时 */
-        onSelectionChange(selection) {
-            this.selection = selection
+        /* 操作选项按钮的执行函数 */
+        optHandler(type, data) {
+            this.$emit(OPT_EVENT_MAP[type], data)
+        },
+        /* 更改页码时 */
+        changePage(page) {
+            this.currentPage = page
         },
         /* 打开弹窗 */
         openPopup() {
             this.$refs.popup.open()
         },
-        /* 操作选项按钮的执行函数 */
-        optHandler(type, data) {
-            this.$emit(OPT_TYPE[type], data)
-        },
-        /* 更改页码时 */
-        changePage(page) {
-            this.currentPage = page
+        /* 刷新数据 */
+        refreshData() {
+            this.getDatasource()
         }
     },
     created() {
@@ -134,7 +134,7 @@ export default {
     <div class="table-wrapper">
         <div v-if="showTabs">tabs</div>
         <div v-if="queryConfig" class="table-query">
-            <BaseForm ref="queryForm" v-bind="queryConfig" size="small" inline />
+            <BaseForm ref="query" v-bind="queryConfig" size="small" inline />
             <div class="table-query--opts">
                 <Operator type="query" size="small" showIcon @click="queryTable" />
                 <Operator type="reset" size="small" showIcon @click="resetQuery" />
