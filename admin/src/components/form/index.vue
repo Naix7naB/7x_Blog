@@ -133,7 +133,7 @@ export default {
             }
         },
         /* 重置表单信息 */
-        resetForm() {
+        resetFormData() {
             this.$refs.elForm.resetFields()
             this.$refs.elUpload && this.$refs.elUpload[0].clearFiles()
         }

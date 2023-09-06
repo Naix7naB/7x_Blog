@@ -2,6 +2,7 @@
 import BaseTable from '@/components/table'
 import BaseForm from '@/components/form'
 
+import mixin from '@/views/mixins'
 import {
     columns as classifyTableColumns,
     query as classifyTableQuery,
@@ -12,11 +13,7 @@ import { getClassifyList, createClassify, modifyClassifyById, deleteClassifyById
 export default {
     name: 'ArticleClassify',
     components: { BaseForm, BaseTable },
-    data() {
-        return {
-            execution: null
-        }
-    },
+    mixins: [mixin],
     computed: {
         columns() {
             return classifyTableColumns
@@ -35,20 +32,18 @@ export default {
         getClassifyList,
         /* 触发添加操作按钮 */
         optAdd() {
+            this.openPopup()
             this.execution = () => this.addClassify()
-            this.$refs.classifyTable.showPopup()
         },
         /* 触发编辑操作按钮 */
         optEdit(data) {
+            this.openPopup()
             this.execution = () => this.editClassify(data.id)
-            this.$refs.classifyTable.showPopup()
-            this.$nextTick(() => {
-                this.$refs.popupForm.setFormData(data)
-            })
+            this.$nextTick(() => this.setPopupFormData(data))
         },
         /* 添加文章分类 */
         addClassify() {
-            this.$refs.popupForm.submitForm(data => {
+            this.submitPopupForm(data => {
                 createClassify(data).then(res => {
                     this.refreshTableData()
                     this.resetPopupFormData()
@@ -60,7 +55,7 @@ export default {
         },
         /* 编辑文章分类 */
         editClassify(id) {
-            this.$refs.popupForm.submitForm(data => {
+            this.submitPopupForm(data => {
                 modifyClassifyById(id, data).then(res => {
                     this.refreshTableData()
                     this.resetPopupFormData()
@@ -78,24 +73,6 @@ export default {
             }).catch(err => {
                 this.$message.error(err.errMsg || err)
             })
-        },
-        /* 刷新表格数据 */
-        refreshTableData() {
-            this.$refs.classifyTable.refresh()
-        },
-        /* 重置弹窗表单数据 */
-        resetPopupFormData() {
-            this.$refs.popupForm.resetForm()
-        },
-        /* 弹窗点击取消按钮 */
-        onBeforePopupCancel(done) {
-            this.resetPopupFormData()
-            done()
-        },
-        /* 弹窗点击确认按钮 */
-        onBeforePopupConfirm(done) {
-            this.execution()
-            done()
         }
     }
 }
@@ -103,7 +80,7 @@ export default {
 
 <template>
     <BaseTable
-        ref="classifyTable"
+        ref="table"
         showPagination
         :requestApi="getClassifyList"
         :columns="columns"
@@ -116,7 +93,7 @@ export default {
         @beforePopupConfirm="onBeforePopupConfirm"
     >
         <template #popup>
-            <BaseForm ref="popupForm" :data="popupForm.data" :items="popupForm.items" />
+            <BaseForm ref="popup" :data="popupForm.data" :items="popupForm.items" />
         </template>
     </BaseTable>
 </template>

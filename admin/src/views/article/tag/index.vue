@@ -4,6 +4,7 @@ import BaseForm from '@/components/form'
 import ColorBlock from './components/colorBlock'
 import TagDrawer from './components/tagDrawer'
 
+import mixin from '@/views/mixins'
 import {
     columns as tagTableColumns,
     query as tagTableQuery,
@@ -13,7 +14,8 @@ import { getTagList, createTag, deleteTagById } from '@/apis/tag'
 
 export default {
     name: 'ArticleTag',
-    components: { BaseForm, BaseTable, ColorBlock,  TagDrawer },
+    components: { BaseForm, BaseTable, ColorBlock, TagDrawer },
+    mixins: [mixin],
     data() {
         return {
             currentTagInfo: {}
@@ -35,40 +37,46 @@ export default {
     },
     methods: {
         getTagList,
-        /* 点击查看按钮 */
-        checkTagInfo(data) {
-            this.currentTagInfo = data
-            this.$refs.tagDrawer.openDrawer()
+        /* 触发添加操作按钮 */
+        optAdd() {
+            this.openPopup()
+            this.execution = () => this.addTag()
         },
-        /* 点击删除按钮 */
-        deleteTag(data) {
-            deleteTagById(data.id).then(res => {
-                this.refreshDatasource()
-                this.$message.success(res.errMsg)
-            }).catch(err => {
-                this.$message.error(err.errMsg)
-            })
+        /* 触发编辑操作按钮 */
+        optEdit(data) {
+            this.openPopup()
+            this.execution = () => this.editTag(data.id)
+            this.$nextTick(() => this.setPopupFormData(data))
         },
-        /* 弹窗点击取消按钮 */
-        onBeforePopupCancel(done) {
-            this.$refs.popupForm.resetForm()
-            done()
-        },
-        /* 弹窗点击确认按钮 */
-        onBeforePopupConfirm(done) {
-            this.$refs.popupForm.submitForm(data => {
+        /* 添加文章标签 */
+        addTag() {
+            this.submitPopupForm(data => {
                 createTag(data).then(res => {
+                    this.refreshTableData()
+                    this.resetPopupFormData()
                     this.$message.success(res.errMsg)
-                    this.refreshDatasource()
-                    done()
                 }).catch(err => {
                     this.$message.error(err.errMsg || err)
                 })
             })
         },
-        /* 刷新表格数据源 */
-        refreshDatasource() {
-            this.$refs.tagTable.refresh()
+        /* TODO 修改文章标签 */
+        editTag(id) {
+            console.log(id)
+        },
+        /* 点击查看按钮 */
+        optCheck(data) {
+            this.currentTagInfo = data
+            this.$refs.tagDrawer.openDrawer()
+        },
+        /* 删除文章标签 */
+        deleteTag(data) {
+            deleteTagById(data.id).then(res => {
+                this.refreshTableData()
+                this.$message.success(res.errMsg)
+            }).catch(err => {
+                this.$message.error(err.errMsg || err)
+            })
         }
     }
 }
@@ -77,13 +85,15 @@ export default {
 <template>
     <div>
         <BaseTable
-            ref="tagTable"
+            ref="table"
             showPagination
             :requestApi="getTagList"
             :columns="columns"
             :queryConfig="queryForm"
             :popupConfig="popupConfig"
-            @optCheck="checkTagInfo"
+            @optAdd="optAdd"
+            @optEdit="optEdit"
+            @optCheck="optCheck"
             @optDelete="deleteTag"
             @beforePopupCancel="onBeforePopupCancel"
             @beforePopupConfirm="onBeforePopupConfirm"
@@ -92,7 +102,7 @@ export default {
                 <ColorBlock :color="val" :style="{ margin: 'auto' }" />
             </template>
             <template #popup>
-                <BaseForm ref="popupForm" :data="popupForm.data" :items="popupForm.items">
+                <BaseForm ref="popup" :data="popupForm.data" :items="popupForm.items">
                     <template #colorPicker="{ data }">
                         <el-color-picker v-model="data.color" color-format="rgb" show-alpha />
                     </template>

@@ -94,7 +94,7 @@ export default {
             })
         },
         /* 刷新数据 */
-        refresh() {
+        refreshData() {
             this.getDatasource()
         },
         /* TODO 查找表格匹配项 */
@@ -111,8 +111,8 @@ export default {
         onSelectionChange(selection) {
             this.selection = selection
         },
-        /* 打开弹窗表单 */
-        showPopup() {
+        /* 打开弹窗 */
+        openPopup() {
             this.$refs.popup.open()
         },
         /* 操作选项按钮的执行函数 */

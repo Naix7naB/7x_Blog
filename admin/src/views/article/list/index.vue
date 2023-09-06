@@ -2,6 +2,7 @@
 import BaseTable from '@/components/table'
 import BaseForm from '@/components/form'
 
+import mixin from '@/views/mixins'
 import {
     columns as articleTableColumns,
     query as articleTableQuery,
@@ -16,11 +17,7 @@ import { parseUrl } from '@/utils'
 export default {
     name: 'ArticleList',
     components: { BaseTable, BaseForm },
-    data() {
-        return {
-            execution: null
-        }
-    },
+    mixins: [mixin],
     computed: {
         columns() {
             return articleTableColumns
@@ -52,13 +49,13 @@ export default {
         },
         /* 触发添加操作按钮 */
         optAdd() {
+            this.openPopup()
             this.execution = () => this.addArticle()
-            this.$refs.articleTable.showPopup()
         },
         /* 触发编辑操作按钮 */
         optEdit(data) {
+            this.openPopup()
             this.execution = () => this.editArticle(data.id)
-            this.$refs.articleTable.showPopup()
             this.$nextTick(() => {
                 const mapData = Object.fromEntries(
                     Object.entries(this.popupForm.data).map(([key, val]) => {
@@ -72,12 +69,12 @@ export default {
                         return [key, value]
                     })
                 )
-                this.$refs.popupForm.setFormData(mapData)
+                this.setPopupFormData(mapData)
             })
         },
         /* 添加文章 */
         addArticle() {
-            this.$refs.popupForm.submitForm(data => {
+            this.submitPopupForm(data => {
                 createArticle(data).then(res => {
                     this.refreshTableData()
                     this.resetPopupFormData()
@@ -89,7 +86,7 @@ export default {
         },
         /* 编辑文章 */
         editArticle(id) {
-            this.$refs.popupForm.submitForm(data => {
+            this.submitPopupForm(data => {
                 updateArticleById(id, data).then(res => {
                     this.refreshTableData()
                     this.resetPopupFormData()
@@ -105,7 +102,7 @@ export default {
                 this.refreshTableData()
                 this.$message.success(res.errMsg)
             }).catch(err => {
-                this.$message.error(err.errMsg)
+                this.$message.error(err.errMsg || err)
             })
         },
         /* 添加图片到文章内容 */
@@ -113,7 +110,7 @@ export default {
             uploadFile({ classify: 'article', filename: pos, file }).then(({ data }) => {
                 this.$refs.editor.$img2Url(pos, data.fileUrls[0].url)
             }).catch(err => {
-                this.$message.error(err.errMsg)
+                this.$message.error(err.errMsg || err)
             })
         },
         /* 将文章内容中已添加的图片删除 */
@@ -124,24 +121,6 @@ export default {
             }).catch(err => {
                 this.$message.error(err.errMsg || err)
             })
-        },
-        /* 刷新表格数据 */
-        refreshTableData() {
-            this.$refs.articleTable.refresh()
-        },
-        /* 重置弹窗表单数据 */
-        resetPopupFormData() {
-            this.$refs.popupForm.resetForm()
-        },
-        /* 弹窗点击取消按钮 */
-        onBeforePopupCancel(done) {
-            this.resetPopupFormData()
-            done()
-        },
-        /* 弹窗点击确认按钮 */
-        onBeforePopupConfirm(done) {
-            this.execution()
-            done()
         }
     },
     created() {
@@ -152,7 +131,7 @@ export default {
 
 <template>
     <BaseTable
-        ref="articleTable"
+        ref="table"
         showPagination
         :requestApi="getArticleList"
         :columns="columns"
@@ -178,7 +157,7 @@ export default {
             </el-tag>
         </template>
         <template #popup>
-            <BaseForm ref="popupForm" :data="popupForm.data" :items="popupForm.items">
+            <BaseForm ref="popup" :data="popupForm.data" :items="popupForm.items">
                 <template #editor="{ data }">
                     <mavon-editor
                         ref="editor"
