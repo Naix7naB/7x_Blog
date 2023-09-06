@@ -9,7 +9,7 @@ import {
     query as tagTableQuery,
     popup as tagTablePopup
 } from '@/config/tagTable.config'
-import { getTagList, createTag, deleteTagById } from '@/apis/tag'
+import { getTagList, createTag, modifyTagById, deleteTagById } from '@/apis/tag'
 
 export default {
     name: 'ArticleTag',
@@ -54,9 +54,17 @@ export default {
                 })
             })
         },
-        /* TODO 修改文章标签 */
+        /* 修改文章标签 */
         editTag(id) {
-            console.log(id)
+            this.submitPopupForm(data => {
+                modifyTagById(id, data).then(res => {
+                    this.refreshTableData()
+                    this.resetPopupFormData()
+                    this.$message.success(res.errMsg)
+                }).catch(err => {
+                    this.$message.error(err.errMsg || err)
+                })
+            })
         },
         /* 删除文章标签 */
         deleteTag(data) {

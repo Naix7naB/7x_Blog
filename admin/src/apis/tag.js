@@ -18,6 +18,15 @@ function createTag(data) {
     })
 }
 
+/* 修改文章标签 */
+function modifyTagById(id, data) {
+    return Request.requestForm({
+        methodType: Request.PUT,
+        url: `/api/tag/${id}`,
+        data
+    })
+}
+
 /* 删除文章标签 */
 function deleteTagById(id) {
     return Request.request({
@@ -26,4 +35,4 @@ function deleteTagById(id) {
     })
 }
 
-export { getTagList, createTag, deleteTagById }
+export { getTagList, createTag, modifyTagById, deleteTagById }
