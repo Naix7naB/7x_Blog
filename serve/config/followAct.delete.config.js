@@ -29,7 +29,7 @@ module.exports = {
             condition(res) {
                 if (res.tags.length === 0) return {}
                 return {
-                    id: {
+                    _id: {
                         $in: res.tags
                     }
                 }
@@ -90,7 +90,7 @@ module.exports = {
             condition(res) {
                 if (res.articles.length === 0) return {}
                 return {
-                    id: {
+                    _id: {
                         $in: res.articles
                     }
                 }
