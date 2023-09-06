@@ -59,11 +59,12 @@ export default {
             })
             return this.routes[idx].meta['category']
         },
-        filename() {
+        fieldname() {
             return this.categories[this.currentCategory]
         }
     },
     methods: {
+        /* 上传文件 */
         handleFileUpload(params) {
             uploadFile({
                 classify: this.currentCategory,
@@ -82,19 +83,29 @@ export default {
                 this.$message.error(err.errMsg || err)
             })
         },
-        handleFileExceed() {
+        /* 超出上传限制 */
+        onFileExceed() {
             this.$message.warning('超出文件上传限制')
         },
-        handleFileRemove(file) {
-            const { classify, filename } = parseUrl(file.url)
-            const idx = this.fileList.findIndex(file => file.name === filename)
+        /* 删除文件之前 */
+        onBeforeFileRemove(file) {
+            const idx = this.fileList.findIndex(item => item.name === file.name)
+            if (idx === -1) {
+                this.$message.error('删除失败')
+                return false
+            }
             this.fileList.splice(idx, 1)
-            deleteFile({ classify, filename }).then(() => {
+            return true
+        },
+        /* 删除文件 */
+        onFileRemove(file) {
+            deleteFile({ classify: this.currentCategory, filename: file.name }).then(() => {
                 this.showData[file.field] = ''
             }).catch(err => {
                 this.$message.error(err.errMsg || err)
             })
         },
+        /* 添加文件 */
         addFile(file) {
             this.fileList.push(file)
         },
@@ -108,6 +119,18 @@ export default {
                 }
                 callback(this.showData)
             })
+        },
+        /* 设置表单数据 */
+        setFormData(data) {
+            Object.assign(this.showData, data)
+            if (this.fieldname) {
+                const { filename, href } = parseUrl(this.showData[this.fieldname])
+                this.addFile({
+                    field: this.fieldname,
+                    name: filename,
+                    url: href
+                })
+            }
         },
         /* 重置表单信息 */
         resetForm() {
@@ -182,11 +205,12 @@ export default {
                         action=""
                         multiple
                         v-bind="others"
-                        :name="filename"
+                        :name="fieldname"
                         :file-list="fileList"
                         :http-request="handleFileUpload"
-                        :on-exceed="handleFileExceed"
-                        :on-remove="handleFileRemove"
+                        :on-exceed="onFileExceed"
+                        :before-remove="onBeforeFileRemove"
+                        :on-remove="onFileRemove"
                     >
                         <template #tip v-if="others.tip || false">
                             <div>{{ others.tip }}</div>
