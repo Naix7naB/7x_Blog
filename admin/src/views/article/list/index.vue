@@ -5,7 +5,7 @@ import BaseForm from '@/components/form'
 import { columns as articleTableColumns } from '@/config/articleTable.config'
 import { form as articleQueryForm } from '@/config/articleQuery.config'
 import { config as articlePopupConfig, form as articlePopupForm } from '@/config/articlePopup.config'
-import { getArticleList, createArticle, deleteArticleById } from '@/apis/article'
+import { getArticleList, createArticle, updateArticleById, deleteArticleById } from '@/apis/article'
 import { getClassifyList } from '@/apis/classify'
 import { getTagList } from '@/apis/tag'
 import { uploadFile, deleteFile } from '@/apis/upload'
@@ -14,6 +14,11 @@ import { parseUrl } from '@/utils'
 export default {
     name: 'ArticleList',
     components: { BaseTable, BaseForm },
+    data() {
+        return {
+            execution: null
+        }
+    },
     computed: {
         columns() {
             return articleTableColumns
@@ -30,8 +35,27 @@ export default {
     },
     methods: {
         getArticleList,
-        /* 编辑文章 */
-        editArticle(data) {
+        /* 加载表单选项数据 */
+        async loadOptions() {
+            try {
+                const { data: { list: classifyList } } = await getClassifyList()
+                const { data: { list: tagList } } = await getTagList({ select: '-articles name' })
+                const classify = this.popupForm.items.find(item => item.prop === 'classify')
+                const tags = this.popupForm.items.find(item => item.prop === 'tags')
+                classify.options = classifyList.map(item => ({ label: item.name, value: item.id }))
+                tags.options = tagList.map(tag => ({ label: tag.name, value: tag.id }))
+            } catch (err) {
+                this.$message.error(err.errMsg || err)
+            }
+        },
+        /* 触发添加操作按钮 */
+        optAdd() {
+            this.execution = () => this.addArticle()
+            this.$refs.articleTable.showPopup()
+        },
+        /* 触发编辑操作按钮 */
+        optEdit(data) {
+            this.execution = () => this.editArticle(data.id)
             this.$refs.articleTable.showPopup()
             this.$nextTick(() => {
                 const mapData = Object.fromEntries(
@@ -49,10 +73,35 @@ export default {
                 this.$refs.popupForm.setFormData(mapData)
             })
         },
+        /* 添加文章 */
+        addArticle() {
+            this.$refs.popupForm.submitForm(data => {
+                createArticle(data).then(res => {
+                    this.refreshTableData()
+                    this.resetPopupFormData()
+                    this.$refs.articleTable.refresh()
+                    this.$message.success(res.errMsg)
+                }).catch(err => {
+                    this.$message.error(err.errMsg || err)
+                })
+            })
+        },
+        /* 编辑文章 */
+        editArticle(id) {
+            this.$refs.popupForm.submitForm(data => {
+                updateArticleById(id, data).then(res => {
+                    this.refreshTableData()
+                    this.resetPopupFormData()
+                    this.$message.success(res.errMsg)
+                }).catch(err => {
+                    this.$message.error(err.errMsg || err)
+                })
+            })
+        },
         /* 删除文章 */
         deleteArticle(data) {
             deleteArticleById(data.id).then(res => {
-                this.$refs.articleTable.getDatasource()
+                this.refreshTableData()
                 this.$message.success(res.errMsg)
             }).catch(err => {
                 this.$message.error(err.errMsg)
@@ -75,18 +124,9 @@ export default {
                 this.$message.error(err.errMsg || err)
             })
         },
-        /* 加载表单选项数据 */
-        async loadOptions() {
-            try {
-                const { data: { list: classifyList } } = await getClassifyList()
-                const { data: { list: tagList } } = await getTagList({ select: '-articles name' })
-                const classify = this.popupForm.items.find(item => item.prop === 'classify')
-                const tags = this.popupForm.items.find(item => item.prop === 'tags')
-                classify.options = classifyList.map(item => ({ label: item.name, value: item.id }))
-                tags.options = tagList.map(tag => ({ label: tag.name, value: tag.id }))
-            } catch (err) {
-                this.$message.error(err.errMsg || err)
-            }
+        /* 刷新表格数据 */
+        refreshTableData() {
+            this.$refs.articleTable.refresh()
         },
         /* 重置弹窗表单数据 */
         resetPopupFormData() {
@@ -99,16 +139,8 @@ export default {
         },
         /* 弹窗点击确认按钮 */
         onBeforePopupConfirm(done) {
-            this.$refs.popupForm.submitForm(data => {
-                createArticle(data).then(res => {
-                    this.$message.success(res.errMsg)
-                    done()
-                }).catch(err => {
-                    this.$message.error(err.errMsg)
-                }).finally(() => {
-                    this.resetPopupFormData()
-                })
-            })
+            this.execution()
+            done()
         }
     },
     created() {
@@ -125,7 +157,8 @@ export default {
         :columns="columns"
         :queryConfig="queryForm"
         :popupConfig="popupConfig"
-        @optEdit="editArticle"
+        @optAdd="optAdd"
+        @optEdit="optEdit"
         @optDelete="deleteArticle"
         @beforePopupCancel="onBeforePopupCancel"
         @beforePopupConfirm="onBeforePopupConfirm"

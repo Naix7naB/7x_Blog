@@ -42,14 +42,6 @@ const routes = [
                 component: () => import('@/views/article/list')
             },
             {
-                path: 'write',
-                name: 'ArticleWrite',
-                meta: {
-                    title: '编写文章'
-                },
-                component: () => import('@/views/article/write')
-            },
-            {
                 path: 'classify',
                 name: 'ArticleClassify',
                 meta: {
