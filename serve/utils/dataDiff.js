@@ -45,14 +45,6 @@ function dataDiff(origin, compare) {
             }
         }
     })
-    Object.keys(compare).forEach(key => {
-        if (!hasOwn(origin, key)) {
-            result[key] = {
-                origin: origin[key],
-                current: compare[key]
-            }
-        }
-    })
     return result
 }
 
