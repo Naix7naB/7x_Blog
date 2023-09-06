@@ -1,8 +1,7 @@
 <script>
 import BaseTable from '@/components/table'
 import BaseForm from '@/components/form'
-import ColorBlock from './components/colorBlock'
-import TagDrawer from './components/tagDrawer'
+import ColorBlock from '@/components/colorBlock'
 
 import mixin from '@/views/mixins'
 import {
@@ -14,13 +13,8 @@ import { getTagList, createTag, deleteTagById } from '@/apis/tag'
 
 export default {
     name: 'ArticleTag',
-    components: { BaseForm, BaseTable, ColorBlock, TagDrawer },
+    components: { BaseForm, BaseTable, ColorBlock },
     mixins: [mixin],
-    data() {
-        return {
-            currentTagInfo: {}
-        }
-    },
     computed: {
         columns() {
             return tagTableColumns
@@ -64,11 +58,6 @@ export default {
         editTag(id) {
             console.log(id)
         },
-        /* 点击查看按钮 */
-        optCheck(data) {
-            this.currentTagInfo = data
-            this.$refs.tagDrawer.openDrawer()
-        },
         /* 删除文章标签 */
         deleteTag(data) {
             deleteTagById(data.id).then(res => {
@@ -93,7 +82,6 @@ export default {
             :popupConfig="popupConfig"
             @optAdd="optAdd"
             @optEdit="optEdit"
-            @optCheck="optCheck"
             @optDelete="deleteTag"
             @beforePopupCancel="onBeforePopupCancel"
             @beforePopupConfirm="onBeforePopupConfirm"
@@ -109,6 +97,5 @@ export default {
                 </BaseForm>
             </template>
         </BaseTable>
-        <TagDrawer ref="tagDrawer" :tagInfo="currentTagInfo" />
     </div>
 </template>

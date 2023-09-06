@@ -7,16 +7,16 @@ export default {
             type: String,
             default: 'rgba(0, 0, 0, 0)'
         },
-        sideWidth: {
+        size: {
             type: String,
             default: '32px'
         }
     },
     render(h, ctx) {
-        const { color, sideWidth } = ctx.props
+        const { color, size } = ctx.props
         const colorBlockStyle = {
-            width: sideWidth,
-            height: sideWidth,
+            width: size,
+            height: size,
             backgroundColor: color
         }
         return <i class="color-block" style={ Object.assign(colorBlockStyle, ctx.data.style) } />

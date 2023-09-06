@@ -41,7 +41,7 @@ const columns = [
         type: 'opt',
         prop: 'opt',
         label: '操作',
-        optType: ['check', 'delete']
+        optType: ['edit', 'delete']
     }
 ]
 
