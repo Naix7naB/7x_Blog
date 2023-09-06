@@ -50,7 +50,6 @@ export default {
         :fullscreen="fullscreen"
         :center="true"
         :append-to-body="true"
-        :destroy-on-close="true"
         @close="close"
     >
         <template #default>
