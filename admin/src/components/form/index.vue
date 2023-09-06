@@ -123,7 +123,7 @@ export default {
         /* 设置表单数据 */
         setFormData(data) {
             Object.assign(this.showData, data)
-            if (this.fieldname) {
+            if (this.fieldname && this.showData.hasOwnProperty.call(this.fieldname)) {
                 const { filename, href } = parseUrl(this.showData[this.fieldname])
                 this.addFile({
                     field: this.fieldname,
