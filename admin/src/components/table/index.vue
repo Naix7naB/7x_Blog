@@ -4,9 +4,11 @@ import Popup from '@/components/popup'
 import OperationBtn from './components/operationBtn'
 
 const OPT_TYPE = {
+    add: 'optAdd',
     edit: 'optEdit',
     check: 'optCheck',
-    delete: 'optDelete'
+    delete: 'optDelete',
+    batchDelete: 'optBatchDelete'
 }
 
 export default {
@@ -113,17 +115,9 @@ export default {
         showPopup() {
             this.$refs.popup.open()
         },
-        /* 添加一项数据 */
-        addRow() {
-            this.showPopup()
-        },
-        /* 批量删除 */
-        batchDelete() {
-            this.$emit('onBatchDelete', this.selection)
-        },
         /* 操作选项按钮的执行函数 */
-        optHandler(type, row) {
-            this.$emit(OPT_TYPE[type], row)
+        optHandler(type, data) {
+            this.$emit(OPT_TYPE[type], data)
         },
         /* 更改页码时 */
         changePage(page) {
@@ -147,19 +141,15 @@ export default {
             </div>
         </div>
         <div class="table-operate">
-            <el-button type="primary" icon="el-icon-plus" size="small" @click="addRow">
-                添加
-            </el-button>
-            <el-button
+            <OperationBtn type="add" size="small" showIcon @click="optHandler('add')" />
+            <OperationBtn
                 v-if="showSelection"
-                type="danger"
-                icon="el-icon-delete"
+                type="batchDelete"
                 size="small"
+                showIcon
                 :disabled="selection.length === 0"
-                @click.stop="batchDelete"
-            >
-                批量删除
-            </el-button>
+                @click="optHandler('batchDelete', selection)"
+            />
         </div>
         <el-table
             v-loading="$store.state.loading"
