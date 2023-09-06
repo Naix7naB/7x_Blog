@@ -123,7 +123,7 @@ export default {
         /* 设置表单数据 */
         setFormData(data) {
             Object.assign(this.showData, data)
-            if (this.fieldname && this.showData.hasOwnProperty.call(this.fieldname)) {
+            if (this.fieldname && Object.prototype.hasOwnProperty.call(this.showData, this.fieldname)) {
                 const { filename, href } = parseUrl(this.showData[this.fieldname])
                 this.addFile({
                     field: this.fieldname,
@@ -136,6 +136,7 @@ export default {
         resetFormData() {
             this.$refs.elForm.resetFields()
             this.$refs.elUpload && this.$refs.elUpload[0].clearFiles()
+            this.fileList = []
         }
     }
 }
