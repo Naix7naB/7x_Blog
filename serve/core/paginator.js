@@ -29,7 +29,7 @@ module.exports = class Paginator {
         return populate
     }
 
-    static unpageing({ model, condition, sort = null, populate = null, select = null }) {
+    static unpaging({ model, condition, sort = null, populate = null, select = null }) {
         condition = Paginator.handleCondition(condition)
         populate = Paginator.handlePopulate(populate, model)
         return model.find(condition).sort(sort).populate(populate).select(select).exec()

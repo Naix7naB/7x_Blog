@@ -20,7 +20,7 @@ Router.get('/', async (req, res, next) => {
         const { page, ...options } = req.query
         if (typeof page === 'undefined') {
             // 数据不分页
-            const records = await Paginator.unpageing({
+            const records = await Paginator.unpaging({
                 model: Model,
                 ...options
             })
