@@ -1,31 +1,36 @@
 <script>
 import BaseTable from '@/components/table'
 
+import mixin from '@/views/mixins'
 import { getMessageComments, deleteCommentById } from '@/apis/comment'
-import { tableColumns } from '@/config/messageList.config'
+import { columns as messageTableColumns, query as messageTableQuery } from '@/config/messageTable.config'
 
 export default {
     name: 'MessageManagement',
     components: { BaseTable },
-    data() {
-        return {
-            list: []
-        }
-    },
+    mixins: [mixin],
     computed: {
         columns() {
-            return tableColumns
+            return messageTableColumns
+        },
+        queryForm() {
+            return messageTableQuery.form
         }
     },
     methods: {
         getMessageComments,
-        deleteComment(data) {
+        /* 删除留言 */
+        deleteMessage(data) {
             deleteCommentById(data.id).then(res => {
-                this.$refs.table.refresh()
+                this.refreshTableData()
                 this.$message.success(res.errMsg)
             }).catch(err => {
                 this.$message.error(err.errMsg || err)
             })
+        },
+        /* 批量删除 */
+        optBatchDelete(selection) {
+            console.log(selection)
         }
     }
 }
@@ -34,16 +39,12 @@ export default {
 <template>
     <BaseTable
         ref="table"
+        showSelection
         showPagination
         :requestApi="getMessageComments"
         :columns="columns"
-        @optDelete="deleteComment"
-    >
-        <template #mention="{ val }">
-            <span v-if="val">{{ val }}</span>
-            <span v-else>无</span>
-        </template>
-    </BaseTable>
+        :queryConfig="queryForm"
+        @optDelete="deleteMessage"
+        @optBatchDelete="optBatchDelete"
+    />
 </template>
-
-<style lang="scss" scoped></style>
