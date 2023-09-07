@@ -1,9 +1,9 @@
 import Request from '@/utils/request'
 
 /* 上传文件 */
-function uploadFile({ classify, filename, file }) {
+function uploadFile({ category, filename, file }) {
     return Request.postFile({
-        url: `/upload/${classify}`,
+        url: `/upload/${category}`,
         data: {
             [filename]: file
         }
@@ -11,10 +11,10 @@ function uploadFile({ classify, filename, file }) {
 }
 
 /* 删除文件 */
-function deleteFile({ classify, filename }) {
+function deleteFile({ category, filename }) {
     return Request.requestJson({
         methodType: Request.DELETE,
-        url: `/upload/${classify}/${filename}`
+        url: `/upload/${category}/${filename}`
     })
 }
 

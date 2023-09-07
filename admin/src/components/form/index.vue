@@ -39,12 +39,7 @@ export default {
     },
     data() {
         return {
-            showData: this.data,
-            fileList: [],
-            categories: {
-                article: 'cover_img',
-                user: 'avatar'
-            }
+            showData: this.data
         }
     },
     computed: {
@@ -58,49 +53,27 @@ export default {
                 return pathRegex.test(currentPath)
             })
             return this.routes[idx].meta['category']
-        },
-        fieldname() {
-            return this.categories[this.currentCategory]
         }
     },
     methods: {
         /* 上传文件 */
         handleFileUpload(params) {
             uploadFile({
-                classify: this.currentCategory,
+                category: this.currentCategory,
                 filename: params.filename,
                 file: params.file
             }).then(({ data }) => {
-                data.fileUrls.forEach(file => {
-                    this.showData[file.fieldname] = file.pathname
-                    this.fileList.push({
-                        field: file.fieldname,
-                        name: file.filename,
-                        url: file.url
-                    })
-                })
+                const file = data.fileUrls[0]
+                this.showData[file.fieldname] = file.url
             }).catch(err => {
                 this.$message.error(err.errMsg || err)
             })
         },
-        /* 超出上传限制 */
-        onFileExceed() {
-            this.$message.warning('超出文件上传限制')
-        },
-        /* 删除文件之前 */
-        onBeforeFileRemove(file) {
-            const idx = this.fileList.findIndex(item => item.name === file.name)
-            if (idx === -1) {
-                this.$message.error('删除失败')
-                return false
-            }
-            this.fileList.splice(idx, 1)
-            return true
-        },
         /* 删除文件 */
-        onFileRemove(file) {
-            deleteFile({ classify: this.currentCategory, filename: file.name }).then(() => {
-                this.showData[file.field] = ''
+        onFileRemove(field, url) {
+            const { filename } = parseUrl(url)
+            deleteFile({ category: this.currentCategory, filename: filename }).then(res => {
+                this.showData[field] = ''
             }).catch(err => {
                 this.$message.error(err.errMsg || err)
             })
@@ -123,20 +96,11 @@ export default {
         /* 设置表单数据 */
         setFormData(data) {
             Object.assign(this.showData, data)
-            if (this.fieldname && Object.prototype.hasOwnProperty.call(this.showData, this.fieldname)) {
-                const { filename, href } = parseUrl(this.showData[this.fieldname])
-                this.addFile({
-                    field: this.fieldname,
-                    name: filename,
-                    url: href
-                })
-            }
         },
         /* 重置表单信息 */
         resetFormData() {
             this.$refs.elForm.resetFields()
             this.$refs.elUpload && this.$refs.elUpload[0].clearFiles()
-            this.fileList = []
         }
     }
 }
@@ -156,11 +120,7 @@ export default {
             <el-form-item v-bind="item" :style="{ textAlign: item.position }" :key="item.prop">
                 <!-- 输入框 -->
                 <template v-if="item.type === 'input'">
-                    <el-input
-                        clearable
-                        v-model="showData[item.prop]"
-                        :placeholder="item.placeholder"
-                    >
+                    <el-input v-model="showData[item.prop]" :placeholder="item.placeholder">
                         <fa-icon v-if="item.icon" slot="prefix" :icon="['fas', item.icon]" />
                     </el-input>
                 </template>
@@ -201,23 +161,28 @@ export default {
                 </template>
                 <!-- 文件上传 -->
                 <template v-if="item.type === 'upload'">
+                    <div v-if="showData[item.prop]" class="upload-image--wrapper">
+                        <el-image :src="showData[item.prop]" />
+                        <span class="upload-actions">
+                            <i
+                                class="el-icon-delete"
+                                @click.stop="onFileRemove(item.prop, showData[item.prop])"
+                            />
+                        </span>
+                    </div>
                     <el-upload
-                        ref="elUpload"
                         action=""
-                        multiple
+                        ref="elUpload"
+                        class="form-upload"
+                        list-type="picture-card"
                         v-bind="others"
-                        :name="fieldname"
-                        :file-list="fileList"
+                        :show-file-list="false"
                         :http-request="handleFileUpload"
-                        :on-exceed="onFileExceed"
-                        :before-remove="onBeforeFileRemove"
-                        :on-remove="onFileRemove"
                     >
                         <template #tip v-if="others.tip || false">
                             <div>{{ others.tip }}</div>
                         </template>
-                        <el-button v-if="others.uploadType" type="primary">选择上传文件</el-button>
-                        <fa-icon v-else :icon="['fas', 'plus']" />
+                        <fa-icon :icon="['fas', 'plus']" />
                     </el-upload>
                 </template>
                 <!-- 自定义组件插槽 -->
@@ -232,5 +197,54 @@ export default {
 <style lang="scss" scoped>
 :deep(.el-range-separator) {
     width: 30px;
+}
+
+:deep(.el-image) {
+    height: 100%;
+    border-radius: 6px;
+}
+
+.upload-image--wrapper {
+    position: relative;
+    display: inline-block;
+    height: 148px;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+.upload-actions {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    background-color: rgba($color: #000, $alpha: .5);
+    transition: opacity .3s;
+
+    &::after {
+        content: '';
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+    }
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.el-icon-delete {
+    padding: 4px;
+    font-size: $fz-large;
+    cursor: pointer;
+}
+
+.form-upload {
+    display: inline-block;
+    vertical-align: middle;
 }
 </style>
