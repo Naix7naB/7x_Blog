@@ -141,7 +141,13 @@ export default {
             </div>
         </div>
         <div class="table-operate">
-            <Operator type="add" size="small" showIcon @click="optHandler('add')" />
+            <Operator
+                v-if="$slots.popup"
+                type="add"
+                size="small"
+                showIcon
+                @click="optHandler('add')"
+            />
             <Operator
                 v-if="showSelection"
                 type="batchDelete"
@@ -217,6 +223,7 @@ export default {
         />
         <Popup
             ref="popup"
+            v-if="$slots.popup"
             v-bind="popupConfig"
             @beforePopupCancel="$listeners.beforePopupCancel"
             @beforePopupConfirm="$listeners.beforePopupConfirm"
