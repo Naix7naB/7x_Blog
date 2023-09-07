@@ -1,5 +1,5 @@
 module.exports = class Populate {
-    static get Website() {
+    static get Site() {
         return [
             {
                 path: 'host',
@@ -37,7 +37,7 @@ module.exports = class Populate {
                 select: 'nickname avatar'
             },
             {
-                path: 'classify',
+                path: 'category',
                 select: 'name'
             },
             {
@@ -47,7 +47,7 @@ module.exports = class Populate {
         ]
     }
 
-    static get Classify() {
+    static get Category() {
         return [
             {
                 path: 'creator',

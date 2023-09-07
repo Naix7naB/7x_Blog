@@ -8,7 +8,7 @@ const Response = require('../core/response')
 const { UPLOAD_PATH } = require('../config/base.config')
 const { parseUrl } = require('../utils/helpers')
 
-const categories = ['user', 'article', 'website', 'other']
+const categories = ['user', 'article', 'site', 'other']
 
 /**
  * @function checkDirExistence

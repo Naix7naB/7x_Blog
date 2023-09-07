@@ -1,6 +1,6 @@
 module.exports = {
     POST: {
-        Website: {
+        Site: {
             permission: ['root']
         },
         User: {
@@ -12,7 +12,7 @@ module.exports = {
         Article: {
             permission: ['root', 'admin']
         },
-        Classify: {
+        Category: {
             permission: ['root', 'admin']
         },
         Tag: {
@@ -23,7 +23,7 @@ module.exports = {
         }
     },
     PUT: {
-        Website: {
+        Site: {
             authField: 'host',
             revisableFields: ['*']
         },
@@ -39,7 +39,7 @@ module.exports = {
             authField: 'author',
             revisableFields: ['*']
         },
-        Classify: {
+        Category: {
             authField: 'creator',
             revisableFields: ['name']
         },
@@ -58,7 +58,7 @@ module.exports = {
         Article: {
             authField: 'author'
         },
-        Classify: {
+        Category: {
             authField: 'creator'
         },
         Tag: {

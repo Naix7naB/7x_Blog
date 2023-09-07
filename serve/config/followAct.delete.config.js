@@ -1,19 +1,20 @@
 const fs = require('fs/promises')
 const path = require('path')
 const Article = require('../models/Article')
-const Classify = require('../models/Classify')
+const Category = require('../models/Category')
+const Comment = require('../models/Comment')
+const Site = require('../models/Site')
 const Tag = require('../models/Tag')
-const Website = require('../models/Website')
 
 const { UPLOAD_PATH } = require('../config/base.config')
 
 module.exports = {
     Article: [
         {
-            _model_: Classify,
+            _model_: Category,
             action: 'findByIdAndUpdate',
             condition(res) {
-                return res.classify
+                return res.category
             },
             opt(aid) {
                 return {
@@ -43,7 +44,22 @@ module.exports = {
             }
         },
         {
-            _model_: Website,
+            _model_: Comment,
+            action: 'deleteMany',
+            condition(res) {
+                if (res.comments.length === 0) return {}
+                return {
+                    _id: {
+                        $in: res.comments
+                    }
+                }
+            },
+            opt() {
+                return {}
+            }
+        },
+        {
+            _model_: Site,
             action: 'update',
             condition() {
                 return {}
@@ -67,9 +83,9 @@ module.exports = {
             }
         }
     ],
-    Classify: [
+    Category: [
         {
-            _model_: Website,
+            _model_: Site,
             action: 'update',
             condition() {
                 return {}
@@ -77,7 +93,7 @@ module.exports = {
             opt() {
                 return {
                     $inc: {
-                        classify_count: -1
+                        category_count: -1
                     }
                 }
             }
@@ -104,7 +120,7 @@ module.exports = {
             }
         },
         {
-            _model_: Website,
+            _model_: Site,
             action: 'update',
             condition() {
                 return {}

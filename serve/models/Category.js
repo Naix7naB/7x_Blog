@@ -25,4 +25,4 @@ const schema = new mongoose.Schema(
     schemaOption
 )
 
-module.exports = mongoose.model('Classify', schema)
+module.exports = mongoose.model('Category', schema)

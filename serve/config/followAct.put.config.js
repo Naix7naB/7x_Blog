@@ -1,14 +1,14 @@
-const Classify = require('../models/Classify')
+const Category = require('../models/Category')
 const Tag = require('../models/Tag')
 
 module.exports = {
     Article: [
         {
-            _model_: Classify,
+            _model_: Category,
             action: 'findByIdAndUpdate',
             condition(res) {
-                if (!res.classify) return null
-                return res.classify.origin
+                if (!res.category) return null
+                return res.category.origin
             },
             opt(aid) {
                 return {
@@ -19,11 +19,11 @@ module.exports = {
             }
         },
         {
-            _model_: Classify,
+            _model_: Category,
             action: 'findByIdAndUpdate',
             condition(res) {
-                if (!res.classify) return null
-                return res.classify.current
+                if (!res.category) return null
+                return res.category.current
             },
             opt(aid) {
                 return {

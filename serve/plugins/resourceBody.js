@@ -1,5 +1,5 @@
 module.exports = class ResourceBody {
-    static Website(uid, data) {
+    static Site(uid, data) {
         return {
             host: uid,
             ...data
@@ -13,7 +13,7 @@ module.exports = class ResourceBody {
         }
     }
 
-    static Classify(uid, data) {
+    static Category(uid, data) {
         return {
             creator: uid,
             ...data
