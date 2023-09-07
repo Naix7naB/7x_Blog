@@ -42,12 +42,12 @@ const routes = [
                 component: () => import('@/views/article/list')
             },
             {
-                path: 'classify',
-                name: 'ArticleClassify',
+                path: 'category',
+                name: 'ArticleCategory',
                 meta: {
                     title: '文章分类'
                 },
-                component: () => import('@/views/article/classify')
+                component: () => import('@/views/article/category')
             },
             {
                 path: 'tag',

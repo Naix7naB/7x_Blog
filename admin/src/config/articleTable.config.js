@@ -34,7 +34,7 @@ const columns = [
         minWidth: 80
     },
     {
-        prop: 'classify.name',
+        prop: 'category.name',
         label: '所属分类',
         minWidth: 100
     },

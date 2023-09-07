@@ -1,38 +1,38 @@
 import Request from '@/utils/request'
 
 /* 获取文章分类列表 */
-function getClassifyList(data) {
+function getCategoryList(data) {
     return Request.requestForm({
         methodType: Request.GET,
-        url: '/api/classify',
+        url: '/api/category',
         data
     })
 }
 
 /* 创建文章分类 */
-function createClassify(data) {
+function createCategory(data) {
     return Request.requestForm({
         methodType: Request.POST,
-        url: '/api/classify',
+        url: '/api/category',
         data
     })
 }
 
 /* 修改文章分类 */
-function modifyClassifyById(id, data) {
+function modifyCategoryById(id, data) {
     return Request.requestForm({
         methodType: Request.PUT,
-        url: `/api/classify/${id}`,
+        url: `/api/category/${id}`,
         data
     })
 }
 
 /* 删除文章分类 */
-function deleteClassifyById(id) {
+function deleteCategoryById(id) {
     return Request.request({
         methodType: Request.DELETE,
-        url: `/api/classify/${id}`
+        url: `/api/category/${id}`
     })
 }
 
-export { getClassifyList, createClassify, modifyClassifyById, deleteClassifyById }
+export { getCategoryList, createCategory, modifyCategoryById, deleteCategoryById }

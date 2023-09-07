@@ -9,7 +9,7 @@ import {
     popup as articleTablePopup
 } from '@/config/articleTable.config'
 import { getArticleList, createArticle, updateArticleById, deleteArticleById } from '@/apis/article'
-import { getClassifyList } from '@/apis/classify'
+import { getCategoryList } from '@/apis/category'
 import { getTagList } from '@/apis/tag'
 import { uploadFile, deleteFile } from '@/apis/upload'
 import { parseUrl } from '@/utils'
@@ -37,7 +37,7 @@ export default {
         /* 加载表单选项数据 */
         async loadOptions() {
             try {
-                const { data: { list: classifyList } } = await getClassifyList()
+                const { data: { list: classifyList } } = await getCategoryList()
                 const { data: { list: tagList } } = await getTagList({ select: '-articles name' })
                 const classify = this.popupForm.items.find(item => item.prop === 'classify')
                 const tags = this.popupForm.items.find(item => item.prop === 'tags')

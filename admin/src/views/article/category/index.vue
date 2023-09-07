@@ -4,47 +4,51 @@ import BaseForm from '@/components/form'
 
 import mixin from '@/views/mixins'
 import {
-    columns as classifyTableColumns,
-    query as classifyTableQuery,
-    popup as classifyTablePopup
-} from '@/config/classifyTable.config'
-import { getClassifyList, createClassify, modifyClassifyById, deleteClassifyById } from '@/apis/classify'
+    columns as categoryTableColumns,
+    query as categoryTableQuery,
+    popup as categoryTablePopup
+} from '@/config/categoryTable.config'
+import { getCategoryList, createCategory, modifyCategoryById, deleteCategoryById } from '@/apis/category'
 
 export default {
-    name: 'ArticleClassify',
+    name: 'ArticleCategory',
     components: { BaseForm, BaseTable },
     mixins: [mixin],
     computed: {
         columns() {
-            return classifyTableColumns
+            return categoryTableColumns
         },
         queryForm() {
-            return classifyTableQuery.form
+            return categoryTableQuery.form
         },
         popupConfig() {
-            return classifyTablePopup.config
+            return categoryTablePopup.config
         },
         popupForm() {
-            return classifyTablePopup.form
+            return categoryTablePopup.form
         }
     },
     methods: {
-        getClassifyList,
+        getCategoryList,
         /* 触发添加操作按钮 */
         optAdd() {
             this.openPopup()
-            this.execution = () => this.addClassify()
+            this.execution = () => this.addCategory()
         },
         /* 触发编辑操作按钮 */
         optEdit(data) {
             this.openPopup()
-            this.execution = () => this.editClassify(data.id)
+            this.execution = () => this.editCategory(data.id)
             this.$nextTick(() => this.setPopupFormData(data))
         },
+        /* 触发查询操作按钮 */
+        optQuery(data) {
+            console.log(data)
+        },
         /* 添加文章分类 */
-        addClassify() {
+        addCategory() {
             this.submitPopupForm(data => {
-                createClassify(data).then(res => {
+                createCategory(data).then(res => {
                     this.refreshTableData()
                     this.resetPopupFormData()
                     this.$message.success(res.errMsg)
@@ -54,9 +58,9 @@ export default {
             })
         },
         /* 编辑文章分类 */
-        editClassify(id) {
+        editCategory(id) {
             this.submitPopupForm(data => {
-                modifyClassifyById(id, data).then(res => {
+                modifyCategoryById(id, data).then(res => {
                     this.refreshTableData()
                     this.resetPopupFormData()
                     this.$message.success(res.errMsg)
@@ -66,8 +70,8 @@ export default {
             })
         },
         /* 删除文章分类 */
-        deleteClassify(data) {
-            deleteClassifyById(data.id).then(res => {
+        deleteCategory(data) {
+            deleteCategoryById(data.id).then(res => {
                 this.refreshTableData()
                 this.$message.success(res.errMsg)
             }).catch(err => {
@@ -82,13 +86,14 @@ export default {
     <BaseTable
         ref="table"
         showPagination
-        :requestApi="getClassifyList"
+        :requestApi="getCategoryList"
         :columns="columns"
         :queryConfig="queryForm"
         :popupConfig="popupConfig"
         @optAdd="optAdd"
         @optEdit="optEdit"
-        @optDelete="deleteClassify"
+        @optDelete="deleteCategory"
+        @optQuery="optQuery"
         @beforePopupCancel="onBeforePopupCancel"
         @beforePopupConfirm="onBeforePopupConfirm"
     >
