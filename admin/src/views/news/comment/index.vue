@@ -1,31 +1,36 @@
 <script>
 import BaseTable from '@/components/table'
 
+import mixin from '@/views/mixins'
 import { getArticleComments, deleteCommentById } from '@/apis/comment'
-import { tableColumns } from '@/config/commentList.config'
+import { columns as commentTableColumns, query as commentTableQuery } from '@/config/commentTable.config'
 
 export default {
     name: 'CommentManagement',
     components: { BaseTable },
-    data() {
-        return {
-            list: []
-        }
-    },
+    mixins: [mixin],
     computed: {
         columns() {
-            return tableColumns
+            return commentTableColumns
+        },
+        queryForm() {
+            return commentTableQuery.form
         }
     },
     methods: {
         getArticleComments,
-        deleteArticle(data) {
+        /* 删除评论 */
+        deleteComment(data) {
             deleteCommentById(data.id).then(res => {
-                this.$refs.table.refresh()
+                this.refreshTableData()
                 this.$message.success(res.errMsg)
             }).catch(err => {
                 this.$message.error(err.errMsg || err)
             })
+        },
+        /* 批量删除 */
+        optBatchDelete(selection) {
+            console.log(selection)
         }
     }
 }
@@ -38,13 +43,8 @@ export default {
         showPagination
         :requestApi="getArticleComments"
         :columns="columns"
-        @optDelete="deleteArticle"
-    >
-        <template #mention="{ val }">
-            <span v-if="val">{{ val }}</span>
-            <span v-else>无</span>
-        </template>
-    </BaseTable>
+        :queryConfig="queryForm"
+        @optDelete="deleteComment"
+        @optBatchDelete="optBatchDelete"
+    />
 </template>
-
-<style lang="scss" scoped></style>
