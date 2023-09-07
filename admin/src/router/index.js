@@ -119,6 +119,7 @@ const routes = [
         component: Layout,
         redirect: '/site/wegConfig',
         meta: {
+            category: 'site',
             icon: 'link',
             title: '网站管理'
         },

@@ -120,7 +120,7 @@ export default {
             <el-form-item v-bind="item" :style="{ textAlign: item.position }" :key="item.prop">
                 <!-- 输入框 -->
                 <template v-if="item.type === 'input'">
-                    <el-input v-model="showData[item.prop]" :placeholder="item.placeholder">
+                    <el-input v-model="showData[item.prop]" v-bind="item">
                         <fa-icon v-if="item.icon" slot="prefix" :icon="['fas', item.icon]" />
                     </el-input>
                 </template>
@@ -130,7 +130,7 @@ export default {
                         type="password"
                         show-password
                         v-model="showData[item.prop]"
-                        :placeholder="item.placeholder"
+                        v-bind="item"
                     >
                         <fa-icon v-if="item.icon" slot="prefix" :icon="['fas', item.icon]" />
                     </el-input>
@@ -163,7 +163,7 @@ export default {
                 <template v-if="item.type === 'upload'">
                     <div v-if="showData[item.prop]" class="upload-image--wrapper">
                         <el-image :src="showData[item.prop]" />
-                        <span class="upload-actions">
+                        <span v-if="!item.disabled" class="upload-actions">
                             <i
                                 class="el-icon-delete"
                                 @click.stop="onFileRemove(item.prop, showData[item.prop])"
@@ -171,11 +171,13 @@ export default {
                         </span>
                     </div>
                     <el-upload
+                        v-if="!item.disabled"
                         action=""
                         ref="elUpload"
                         class="form-upload"
                         list-type="picture-card"
                         v-bind="others"
+                        :disabled="item.disabled"
                         :show-file-list="false"
                         :http-request="handleFileUpload"
                     >
@@ -195,6 +197,10 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+:deep(.el-input.is-disabled .el-input__inner) {
+    color: #606266;
+}
+
 :deep(.el-range-separator) {
     width: 30px;
 }
@@ -205,6 +211,7 @@ export default {
 }
 
 .upload-image--wrapper {
+    overflow: hidden;
     position: relative;
     display: inline-block;
     height: 148px;
