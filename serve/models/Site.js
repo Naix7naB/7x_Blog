@@ -11,7 +11,10 @@ const schema = new mongoose.Schema(
         },
         logo: {
             type: String,
-            default: 'fa-blog'
+            default: '/site/default_logo.png',
+            get(url) {
+                return parseUrl(url).href
+            }
         },
         background: {
             type: String,

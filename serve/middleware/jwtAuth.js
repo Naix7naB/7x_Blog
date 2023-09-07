@@ -10,8 +10,9 @@ module.exports = () => {
         credentialsRequired: true
     }).unless({
         path: [
+            { url: /^\/api\/.*$/, methods: ['GET'] },
             { url: /^\/admin\/.*$/, methods: ['GET', 'POST'] },
-            { url: /^\/api\/.*$/, methods: ['GET'] }
+            { url: /^\/site\/.*$/, methods: ['GET'] }
         ]
     })
 }
