@@ -64,8 +64,8 @@ export default {
 
 <style lang="scss" scoped>
 :deep(.el-dialog) {
-    min-width: 420px;
-    max-width: 640px;
+    min-width: 360px;
+    max-width: 780px;
 }
 
 :deep(.el-dialog.is-fullscreen) {

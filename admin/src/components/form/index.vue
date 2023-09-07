@@ -197,6 +197,10 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+:deep(.el-input) {
+    min-width: 240px;
+}
+
 :deep(.el-input.is-disabled .el-input__inner) {
     color: #606266;
 }
