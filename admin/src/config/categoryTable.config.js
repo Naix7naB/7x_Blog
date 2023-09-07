@@ -65,7 +65,7 @@ const query = {
 /* 文章分类页弹窗配置内容 */
 const popup = {
     config: {
-        title: '新增文章',
+        title: '新增分类',
         width: '40%'
     },
     form: {

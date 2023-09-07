@@ -182,7 +182,6 @@ export default {
 }
 
 :deep(.el-input) {
-    min-width: 240px;
     max-width: 480px;
 }
 </style>
