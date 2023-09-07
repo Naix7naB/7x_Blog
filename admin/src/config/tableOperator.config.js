@@ -9,11 +9,6 @@ const operatorType = {
         text: '编辑',
         icon: 'el-icon-edit'
     },
-    check: {
-        type: '',
-        text: '查看',
-        icon: 'el-icon-view'
-    },
     delete: {
         type: 'danger',
         text: '删除',

@@ -5,7 +5,6 @@ import Operator from '@/components/operator'
 
 const OPT_EVENT_MAP = {
     add: 'optAdd',
-    check: 'optCheck',
     edit: 'optEdit',
     delete: 'optDelete',
     batchDelete: 'optBatchDelete'
