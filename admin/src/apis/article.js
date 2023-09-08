@@ -19,7 +19,7 @@ function createArticle(data) {
 }
 
 /* 更新文章内容 */
-function updateArticleById(id, updates) {
+function modifyArticleById(id, updates) {
     return Request.requestForm({
         methodType: Request.PUT,
         url: `/api/article/${id}`,
@@ -35,4 +35,4 @@ function deleteArticleById(id) {
     })
 }
 
-export { getArticleList, createArticle, updateArticleById, deleteArticleById }
+export { getArticleList, createArticle, modifyArticleById, deleteArticleById }

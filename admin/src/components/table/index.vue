@@ -42,7 +42,7 @@ export default {
             type: String,
             default: 'center'
         },
-        queryConfig: {
+        queryForm: {
             type: Object,
             default: () => null
         },
@@ -132,8 +132,8 @@ export default {
 <template>
     <div class="table-wrapper">
         <div v-if="showTabs">tabs</div>
-        <div v-if="queryConfig" class="table-query">
-            <BaseForm ref="query" v-bind="queryConfig" size="small" inline />
+        <div v-if="queryForm" class="table-query">
+            <BaseForm ref="query" v-bind="queryForm" size="small" inline />
             <div class="table-query--opts">
                 <Operator type="query" size="small" showIcon @click="queryTable" />
                 <Operator type="reset" size="small" showIcon @click="resetQuery" />
