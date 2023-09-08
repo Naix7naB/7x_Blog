@@ -1,6 +1,7 @@
 export default {
     data() {
         return {
+            action: '',
             table: null,
             popup: null,
             execution: null
@@ -9,11 +10,13 @@ export default {
     methods: {
         /* 触发添加操作按钮 */
         optAdd() {
+            this.action = 'add'
             this.openPopup()
             this.execution = () => this.addExecution()
         },
         /* 触发编辑操作按钮 */
         optEdit(data) {
+            this.action = 'edit'
             this.openPopup()
             this.execution = () => this.modifyExecution(data.id)
             this.$nextTick(() => this.setPopupFormData(data))
