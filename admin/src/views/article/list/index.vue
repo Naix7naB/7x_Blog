@@ -3,12 +3,8 @@ import BaseTable from '@/components/table'
 import BaseForm from '@/components/form'
 
 import mixin from '@/views/mixins'
-import {
-    columns as articleTableColumns,
-    query as articleTableQuery,
-    popup as articleTablePopup
-} from '@/config/articleTable.config'
-import { getArticleList, createArticle, updateArticleById, deleteArticleById } from '@/apis/article'
+import { columns, queryForm, popupForm } from '@/config/articleTable.config'
+import { getArticleList, createArticle, modifyArticleById, deleteArticleById } from '@/apis/article'
 import { getCategoryList } from '@/apis/category'
 import { getTagList } from '@/apis/tag'
 import { uploadFile, deleteFile } from '@/apis/upload'
@@ -19,61 +15,59 @@ export default {
     components: { BaseTable, BaseForm },
     mixins: [mixin],
     computed: {
-        columns() {
-            return articleTableColumns
+        /* 表格组件参数 */
+        tableProps() {
+            return {
+                requestApi: getArticleList,
+                showSelection: true,
+                showPagination: true,
+                columns,
+                queryForm,
+                popupConfig: {
+                    title: this.action === 'add' ? '新增文章' : '编辑文章',
+                    fullscreen: true
+                }
+            }
         },
-        queryForm() {
-            return articleTableQuery.form
-        },
-        popupConfig() {
-            return articleTablePopup.config
-        },
-        popupForm() {
-            return articleTablePopup.form
+        /* 弹窗组件参数 */
+        popupProps() {
+            return {
+                data: popupForm.data,
+                items: popupForm.items
+            }
         }
     },
     methods: {
-        getArticleList,
         /* 加载表单选项数据 */
         async loadOptions() {
             try {
                 const { data: { list: classifyList } } = await getCategoryList()
                 const { data: { list: tagList } } = await getTagList({ select: '-articles name' })
-                const classify = this.popupForm.items.find(item => item.prop === 'classify')
-                const tags = this.popupForm.items.find(item => item.prop === 'tags')
+                const classify = this.popupProps.items.find(item => item.prop === 'classify')
+                const tags = this.popupProps.items.find(item => item.prop === 'tags')
                 classify.options = classifyList.map(item => ({ label: item.name, value: item.id }))
                 tags.options = tagList.map(tag => ({ label: tag.name, value: tag.id }))
             } catch (err) {
                 this.$message.error(err.errMsg || err)
             }
         },
-        /* 触发添加操作按钮 */
-        optAdd() {
-            this.openPopup()
-            this.execution = () => this.addArticle()
-        },
-        /* 触发编辑操作按钮 */
-        optEdit(data) {
-            this.openPopup()
-            this.execution = () => this.editArticle(data.id)
-            this.$nextTick(() => {
-                const mapData = Object.fromEntries(
-                    Object.entries(this.popupForm.data).map(([key, val]) => {
-                        let value = data[key]
-                        if (key === 'classify') {
-                            value = value?.id
-                        }
-                        if (key === 'tags') {
-                            value = value.map(t => t.id)
-                        }
-                        return [key, value]
-                    })
-                )
-                this.setPopupFormData(mapData)
-            })
+        /* 修改弹窗表单的数据 */
+        modifyPopupFormData(data) {
+            data = Object.fromEntries(
+                Object.entries(this.popupProps.data).map(([key, val]) => {
+                    let value = data[key]
+                    if (key === 'classify') {
+                        value = value?.id
+                    }
+                    if (key === 'tags') {
+                        value = value.map(t => t.id)
+                    }
+                    return [key, value]
+                })
+            )
         },
         /* 添加文章 */
-        addArticle() {
+        addExecution() {
             this.submitPopupForm(data => {
                 createArticle(data).then(res => {
                     this.refreshTableData()
@@ -85,9 +79,9 @@ export default {
             })
         },
         /* 编辑文章 */
-        editArticle(id) {
+        modifyExecution(id) {
             this.submitPopupForm(data => {
-                updateArticleById(id, data).then(res => {
+                modifyArticleById(id, data).then(res => {
                     this.refreshTableData()
                     this.resetPopupFormData()
                     this.$message.success(res.errMsg)
@@ -97,7 +91,7 @@ export default {
             })
         },
         /* 删除文章 */
-        deleteArticle(data) {
+        deleteExecution(data) {
             deleteArticleById(data.id).then(res => {
                 this.refreshTableData()
                 this.$message.success(res.errMsg)
@@ -123,54 +117,60 @@ export default {
             })
         }
     },
+    render(h, ctx) {
+        const tableScopedSlots = {
+            tag: props => {
+                if (props.val.length === 0) {
+                    return <span style="color: #bbb;">暂无标签</span>
+                } else {
+                    return props.val.map(tag => {
+                        return (
+                            <el-tag
+                                effect="dark"
+                                size="mini"
+                                key={ tag.id }
+                                style={{ backgroundColor: tag.color, borderColor: tag.color }}
+                            >{ tag.name }</el-tag>
+                        )
+                    })
+                }
+            }
+        }
+        const popupScopedSlots = {
+            editor: props => {
+                return (
+                    <mavon-editor
+                        ref="editor"
+                        style="height: 640px;"
+                        v-model={ props.data.content }
+                        onImgAdd={ this.addImgOfContent }
+                        onImgDel={ this.delImgOfContent }
+                    />
+                )
+            }
+        }
+        return (
+            <BaseTable
+                ref='table'
+                props={{ ...this.tableProps }}
+                onOptAdd={ this.optAdd }
+                onOptEdit={ this.optEdit }
+                onOptDelete={ this.optDelete }
+                onOptBatchDelete={ this.optBatchDelete }
+                onBeforePopupCancel={ this.onBeforePopupCancel }
+                onBeforePopupConfirm={ this.onBeforePopupConfirm }
+                { ...{ scopedSlots: tableScopedSlots } }>
+                <template slot="popup">
+                    <BaseForm ref="popup" props={{ ...this.popupProps }} { ...{ scopedSlots: popupScopedSlots } } />
+                </template>
+            </BaseTable>
+        )
+    },
     created() {
         this.loadOptions()
     }
 }
 </script>
-
-<template>
-    <BaseTable
-        ref="table"
-        showPagination
-        :requestApi="getArticleList"
-        :columns="columns"
-        :queryConfig="queryForm"
-        :popupConfig="popupConfig"
-        @optAdd="optAdd"
-        @optEdit="optEdit"
-        @optDelete="deleteArticle"
-        @beforePopupCancel="onBeforePopupCancel"
-        @beforePopupConfirm="onBeforePopupConfirm"
-    >
-        <template #tag="{ val }">
-            <span v-if="val.length === 0" style="color: #bbb">暂无标签</span>
-            <el-tag
-                v-else
-                v-for="tag in val"
-                :style="{ backgroundColor: tag.color, borderColor: tag.color }"
-                :key="tag.id"
-                effect="dark"
-                size="mini"
-            >
-                {{ tag.name }}
-            </el-tag>
-        </template>
-        <template #popup>
-            <BaseForm ref="popup" :data="popupForm.data" :items="popupForm.items">
-                <template #editor="{ data }">
-                    <mavon-editor
-                        ref="editor"
-                        style="height: 700px;"
-                        v-model="data.content"
-                        @imgAdd="addImgOfContent"
-                        @imgDel="delImgOfContent"
-                    />
-                </template>
-            </BaseForm>
-        </template>
-    </BaseTable>
-</template>
 
 <style lang="scss" scoped>
 :deep(.el-image__inner) {

@@ -2,25 +2,32 @@
 import BaseTable from '@/components/table'
 
 import mixin from '@/views/mixins'
+import { columns, queryForm } from '@/config/commentTable.config'
 import { getArticleComments, deleteCommentById } from '@/apis/comment'
-import { columns as commentTableColumns, query as commentTableQuery } from '@/config/commentTable.config'
 
 export default {
     name: 'CommentManagement',
     components: { BaseTable },
     mixins: [mixin],
     computed: {
-        columns() {
-            return commentTableColumns
-        },
-        queryForm() {
-            return commentTableQuery.form
+        /* 表格组件参数 */
+        tableProps() {
+            return {
+                requestApi: getArticleComments,
+                showSelection: true,
+                showPagination: true,
+                columns,
+                queryForm
+            }
         }
     },
     methods: {
-        getArticleComments,
+        /* 查询评论 */
+        queryExecution(selection) {
+            console.log(selection)
+        },
         /* 删除评论 */
-        deleteComment(data) {
+        deleteExecution(data) {
             deleteCommentById(data.id).then(res => {
                 this.refreshTableData()
                 this.$message.success(res.errMsg)
@@ -29,22 +36,20 @@ export default {
             })
         },
         /* 批量删除 */
-        optBatchDelete(selection) {
+        batchDeleteExecution(selection) {
             console.log(selection)
         }
+    },
+    render(h, ctx) {
+        return (
+            <BaseTable
+                ref='table'
+                props={{ ...this.tableProps }}
+                onOptQuery={ this.optQuery }
+                onOptDelete={ this.optDelete }
+                onOptBatchDelete={ this.optBatchDelete }
+            />
+        )
     }
 }
 </script>
-
-<template>
-    <BaseTable
-        ref="table"
-        showSelection
-        showPagination
-        :requestApi="getArticleComments"
-        :columns="columns"
-        :queryConfig="queryForm"
-        @optDelete="deleteComment"
-        @optBatchDelete="optBatchDelete"
-    />
-</template>

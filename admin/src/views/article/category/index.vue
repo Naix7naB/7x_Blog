@@ -3,11 +3,7 @@ import BaseTable from '@/components/table'
 import BaseForm from '@/components/form'
 
 import mixin from '@/views/mixins'
-import {
-    columns as categoryTableColumns,
-    query as categoryTableQuery,
-    popup as categoryTablePopup
-} from '@/config/categoryTable.config'
+import { columns, queryForm, popupForm } from '@/config/categoryTable.config'
 import { getCategoryList, createCategory, modifyCategoryById, deleteCategoryById } from '@/apis/category'
 
 export default {
@@ -15,38 +11,31 @@ export default {
     components: { BaseForm, BaseTable },
     mixins: [mixin],
     computed: {
-        columns() {
-            return categoryTableColumns
+        /* 表格组件参数 */
+        tableProps() {
+            return {
+                requestApi: getCategoryList,
+                showSelection: true,
+                showPagination: true,
+                columns,
+                queryForm,
+                popupConfig: {
+                    title: this.action === 'add' ? '新增分类' : '编辑分类信息',
+                    width: '40%'
+                }
+            }
         },
-        queryForm() {
-            return categoryTableQuery.form
-        },
-        popupConfig() {
-            return categoryTablePopup.config
-        },
-        popupForm() {
-            return categoryTablePopup.form
+        /* 弹窗组件参数 */
+        popupProps() {
+            return {
+                data: popupForm.data,
+                items: popupForm.items
+            }
         }
     },
     methods: {
-        getCategoryList,
-        /* 触发添加操作按钮 */
-        optAdd() {
-            this.openPopup()
-            this.execution = () => this.addCategory()
-        },
-        /* 触发编辑操作按钮 */
-        optEdit(data) {
-            this.openPopup()
-            this.execution = () => this.editCategory(data.id)
-            this.$nextTick(() => this.setPopupFormData(data))
-        },
-        /* 触发查询操作按钮 */
-        optQuery(data) {
-            console.log(data)
-        },
         /* 添加文章分类 */
-        addCategory() {
+        addExecution() {
             this.submitPopupForm(data => {
                 createCategory(data).then(res => {
                     this.refreshTableData()
@@ -57,8 +46,8 @@ export default {
                 })
             })
         },
-        /* 编辑文章分类 */
-        editCategory(id) {
+        /* 修改文章分类 */
+        modifyExecution(id) {
             this.submitPopupForm(data => {
                 modifyCategoryById(id, data).then(res => {
                     this.refreshTableData()
@@ -69,8 +58,12 @@ export default {
                 })
             })
         },
+        /* 查询文章分类 */
+        queryExecution(selection) {
+            console.log(selection)
+        },
         /* 删除文章分类 */
-        deleteCategory(data) {
+        deleteExecution(data) {
             deleteCategoryById(data.id).then(res => {
                 this.refreshTableData()
                 this.$message.success(res.errMsg)
@@ -78,27 +71,30 @@ export default {
                 this.$message.error(err.errMsg || err)
             })
         }
+    },
+    render(h, ctx) {
+        const tableScopedSlots = {
+            tagColor: props => {
+                return <ColorBlock color={ props.val } style="margin: auto;" />
+            }
+        }
+        return (
+            <BaseTable
+                ref='table'
+                props={{ ...this.tableProps }}
+                onOptAdd={ this.optAdd }
+                onOptEdit={ this.optEdit }
+                onOptQuery={ this.optQuery }
+                onOptDelete={ this.optDelete }
+                onBeforePopupCancel={ this.onBeforePopupCancel }
+                onBeforePopupConfirm={ this.onBeforePopupConfirm }
+                { ...{ scopedSlots: tableScopedSlots } }
+            >
+                <template slot="popup">
+                    <BaseForm ref='popup' props={{ ...this.popupProps }} />
+                </template>
+            </BaseTable>
+        )
     }
 }
 </script>
-
-<template>
-    <BaseTable
-        ref="table"
-        showPagination
-        :requestApi="getCategoryList"
-        :columns="columns"
-        :queryConfig="queryForm"
-        :popupConfig="popupConfig"
-        @optAdd="optAdd"
-        @optEdit="optEdit"
-        @optDelete="deleteCategory"
-        @optQuery="optQuery"
-        @beforePopupCancel="onBeforePopupCancel"
-        @beforePopupConfirm="onBeforePopupConfirm"
-    >
-        <template #popup>
-            <BaseForm ref="popup" :data="popupForm.data" :items="popupForm.items" />
-        </template>
-    </BaseTable>
-</template>

@@ -4,11 +4,7 @@ import BaseForm from '@/components/form'
 import ColorBlock from '@/components/colorBlock'
 
 import mixin from '@/views/mixins'
-import {
-    columns as tagTableColumns,
-    query as tagTableQuery,
-    popup as tagTablePopup
-} from '@/config/tagTable.config'
+import { columns, queryForm, popupForm } from '@/config/tagTable.config'
 import { getTagList, createTag, modifyTagById, deleteTagById } from '@/apis/tag'
 
 export default {
@@ -16,34 +12,31 @@ export default {
     components: { BaseForm, BaseTable, ColorBlock },
     mixins: [mixin],
     computed: {
-        columns() {
-            return tagTableColumns
+        /* 表格组件参数 */
+        tableProps() {
+            return {
+                requestApi: getTagList,
+                showSelection: true,
+                showPagination: true,
+                columns,
+                queryForm,
+                popupConfig: {
+                    title: this.action === 'add' ? '新增标签' : '编辑标签信息',
+                    width: '40%'
+                }
+            }
         },
-        queryForm() {
-            return tagTableQuery.form
-        },
-        popupConfig() {
-            return tagTablePopup.config
-        },
-        popupForm() {
-            return tagTablePopup.form
+        /* 弹窗组件参数 */
+        popupProps() {
+            return {
+                data: popupForm.data,
+                items: popupForm.items
+            }
         }
     },
     methods: {
-        getTagList,
-        /* 触发添加操作按钮 */
-        optAdd() {
-            this.openPopup()
-            this.execution = () => this.addTag()
-        },
-        /* 触发编辑操作按钮 */
-        optEdit(data) {
-            this.openPopup()
-            this.execution = () => this.editTag(data.id)
-            this.$nextTick(() => this.setPopupFormData(data))
-        },
         /* 添加文章标签 */
-        addTag() {
+        addExecution() {
             this.submitPopupForm(data => {
                 createTag(data).then(res => {
                     this.refreshTableData()
@@ -55,7 +48,7 @@ export default {
             })
         },
         /* 修改文章标签 */
-        editTag(id) {
+        modifyExecution(id) {
             this.submitPopupForm(data => {
                 modifyTagById(id, data).then(res => {
                     this.refreshTableData()
@@ -67,7 +60,7 @@ export default {
             })
         },
         /* 删除文章标签 */
-        deleteTag(data) {
+        deleteExecution(data) {
             deleteTagById(data.id).then(res => {
                 this.refreshTableData()
                 this.$message.success(res.errMsg)
@@ -75,35 +68,35 @@ export default {
                 this.$message.error(err.errMsg || err)
             })
         }
+    },
+    render(h, ctx) {
+        const tableScopedSlots = {
+            tagColor: props => {
+                return <ColorBlock color={ props.val } style="margin: auto;" />
+            }
+        }
+        const popupScopedSlots = {
+            colorPicker: props => {
+                return <el-color-picker v-model={ props.data.color } color-formate="rgb" show-alpha />
+            }
+        }
+        return (
+            <BaseTable
+                ref='table'
+                props={{ ...this.tableProps }}
+                onOptAdd={ this.optAdd }
+                onOptEdit={ this.optEdit }
+                onOptDelete={ this.optDelete }
+                onOptBatchDelete={ this.optBatchDelete }
+                onBeforePopupCancel={ this.onBeforePopupCancel }
+                onBeforePopupConfirm={ this.onBeforePopupConfirm }
+                { ...{ scopedSlots: tableScopedSlots } }
+            >
+                <template slot="popup">
+                    <BaseForm ref='popup' props={{ ...this.popupProps }} { ...{ scopedSlots: popupScopedSlots } } />
+                </template>
+            </BaseTable>
+        )
     }
 }
 </script>
-
-<template>
-    <div>
-        <BaseTable
-            ref="table"
-            showPagination
-            :requestApi="getTagList"
-            :columns="columns"
-            :queryConfig="queryForm"
-            :popupConfig="popupConfig"
-            @optAdd="optAdd"
-            @optEdit="optEdit"
-            @optDelete="deleteTag"
-            @beforePopupCancel="onBeforePopupCancel"
-            @beforePopupConfirm="onBeforePopupConfirm"
-        >
-            <template #tagColor="{ val }">
-                <ColorBlock :color="val" :style="{ margin: 'auto' }" />
-            </template>
-            <template #popup>
-                <BaseForm ref="popup" :data="popupForm.data" :items="popupForm.items">
-                    <template #colorPicker="{ data }">
-                        <el-color-picker v-model="data.color" color-format="rgb" show-alpha />
-                    </template>
-                </BaseForm>
-            </template>
-        </BaseTable>
-    </div>
-</template>

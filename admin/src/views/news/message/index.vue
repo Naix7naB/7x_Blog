@@ -2,25 +2,32 @@
 import BaseTable from '@/components/table'
 
 import mixin from '@/views/mixins'
+import { columns, queryForm } from '@/config/messageTable.config'
 import { getMessageComments, deleteCommentById } from '@/apis/comment'
-import { columns as messageTableColumns, query as messageTableQuery } from '@/config/messageTable.config'
 
 export default {
     name: 'MessageManagement',
     components: { BaseTable },
     mixins: [mixin],
     computed: {
-        columns() {
-            return messageTableColumns
-        },
-        queryForm() {
-            return messageTableQuery.form
+        /* 表格组件参数 */
+        tableProps() {
+            return {
+                requestApi: getMessageComments,
+                showSelection: true,
+                showPagination: true,
+                columns,
+                queryForm
+            }
         }
     },
     methods: {
-        getMessageComments,
-        /* 删除留言 */
-        deleteMessage(data) {
+        /* 查询评论 */
+        queryExecution(selection) {
+            console.log(selection)
+        },
+        /* 删除评论 */
+        deleteExecution(data) {
             deleteCommentById(data.id).then(res => {
                 this.refreshTableData()
                 this.$message.success(res.errMsg)
@@ -29,22 +36,20 @@ export default {
             })
         },
         /* 批量删除 */
-        optBatchDelete(selection) {
+        batchDeleteExecution(selection) {
             console.log(selection)
         }
+    },
+    render(h, ctx) {
+        return (
+            <BaseTable
+                ref='table'
+                props={{ ...this.tableProps }}
+                onOptQuery={ this.optQuery }
+                onOptDelete={ this.optDelete }
+                onOptBatchDelete={ this.optBatchDelete }
+            />
+        )
     }
 }
 </script>
-
-<template>
-    <BaseTable
-        ref="table"
-        showSelection
-        showPagination
-        :requestApi="getMessageComments"
-        :columns="columns"
-        :queryConfig="queryForm"
-        @optDelete="deleteMessage"
-        @optBatchDelete="optBatchDelete"
-    />
-</template>
