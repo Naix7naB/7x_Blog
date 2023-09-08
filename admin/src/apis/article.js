@@ -1,11 +1,14 @@
 import Request from '@/utils/request'
 
 /* 获取文章列表 */
-function getArticleList(data) {
+function getArticleList({ page, size } = {}) {
     return Request.requestForm({
         methodType: Request.GET,
         url: '/api/article',
-        data
+        data: {
+            page,
+            size
+        }
     })
 }
 

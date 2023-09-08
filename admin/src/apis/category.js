@@ -1,11 +1,14 @@
 import Request from '@/utils/request'
 
 /* 获取文章分类列表 */
-function getCategoryList(data) {
+function getCategoryList({ page, size } = {}) {
     return Request.requestForm({
         methodType: Request.GET,
         url: '/api/category',
-        data
+        data: {
+            page,
+            size
+        }
     })
 }
 

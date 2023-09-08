@@ -1,7 +1,7 @@
 import Request from '@/utils/request'
 
 /* 获取文章评论列表 */
-function getArticleComments({ page = 1, size = 10 } = {}) {
+function getArticleComments({ page, size } = {}) {
     return Request.requestForm({
         methodType: Request.GET,
         url: '/api/comment',
@@ -16,7 +16,7 @@ function getArticleComments({ page = 1, size = 10 } = {}) {
 }
 
 /* 获取留言列表 */
-function getMessageComments({ page = 1, size = 10 } = {}) {
+function getMessageComments({ page, size }) {
     return Request.requestForm({
         methodType: Request.GET,
         url: '/api/comment',

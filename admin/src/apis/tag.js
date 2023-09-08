@@ -1,11 +1,14 @@
 import Request from '@/utils/request'
 
 /* 获取文章标签列表 */
-function getTagList(data) {
+function getTagList({ page, size } = {}) {
     return Request.requestForm({
         methodType: Request.GET,
         url: '/api/tag',
-        data
+        data: {
+            page,
+            size
+        }
     })
 }
 
