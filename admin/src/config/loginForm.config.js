@@ -55,7 +55,7 @@ const register = {
         {
             type: 'input',
             prop: 'nickname',
-            icon: 'poo',
+            icon: 'face-smile',
             placeholder: '输入昵称',
             rules: [{ required: true, message: '昵称不能为空', trigger: 'blur' }]
         },

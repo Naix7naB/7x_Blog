@@ -116,12 +116,12 @@ export default {
         :hide-required-asterisk="hideRequiredAsterisk"
         :model="showData"
     >
-        <template v-for="{ others, options, ...item } in items">
+        <template v-for="{ icon, others, options, ...item } in items">
             <el-form-item v-bind="item" :style="{ textAlign: item.position }" :key="item.prop">
                 <!-- 输入框 -->
                 <template v-if="item.type === 'input'">
-                    <el-input v-model="showData[item.prop]" v-bind="item">
-                        <fa-icon v-if="item.icon" slot="prefix" :icon="['fas', item.icon]" />
+                    <el-input v-bind="item" v-model="showData[item.prop]">
+                        <fa-icon v-if="icon" slot="prefix" :icon="['fas', icon]" />
                     </el-input>
                 </template>
                 <!-- 密码输入框 -->
@@ -129,10 +129,10 @@ export default {
                     <el-input
                         type="password"
                         show-password
-                        v-model="showData[item.prop]"
                         v-bind="item"
+                        v-model="showData[item.prop]"
                     >
-                        <fa-icon v-if="item.icon" slot="prefix" :icon="['fas', item.icon]" />
+                        <fa-icon v-if="icon" slot="prefix" :icon="['fas', icon]" />
                     </el-input>
                 </template>
                 <!-- 日期范围 -->
