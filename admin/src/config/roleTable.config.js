@@ -38,56 +38,48 @@ const columns = [
     }
 ]
 
-/* 用户角色页查找配置内容 */
-const query = {
-    form: {
-        data: {
-            dateRange: []
-        },
-        items: [
-            {
-                type: 'date',
-                prop: 'dateRange',
-                label: '创建时间',
-                others: {
-                    type: 'daterange',
-                    startPlaceholder: '开始日期',
-                    endPlaceholder: '结束日期',
-                    rangeSeparator: '至'
-                }
-            }
-        ]
-    }
-}
-
-/* 用户角色页弹窗配置内容 */
-const popup = {
-    config: {
-        title: '新增角色',
-        width: '40%'
+/* 用户角色页查询表单配置内容 */
+const queryForm = {
+    data: {
+        dateRange: []
     },
-    form: {
-        data: {
-            name: '',
-            label: ''
-        },
-        items: [
-            {
-                type: 'input',
-                prop: 'name',
-                label: '角色名称',
-                placeholder: '输入角色名称',
-                rules: [{ required: true, message: '角色名称不能为空', trigger: 'blur' }]
-            },
-            {
-                type: 'input',
-                prop: 'label',
-                label: '角色别称',
-                placeholder: '输入角色别称',
-                rules: [{ required: true, message: '角色别称不能为空', trigger: 'blur' }]
+    items: [
+        {
+            type: 'date',
+            prop: 'dateRange',
+            label: '创建时间',
+            others: {
+                type: 'daterange',
+                startPlaceholder: '开始日期',
+                endPlaceholder: '结束日期',
+                rangeSeparator: '至'
             }
-        ]
-    }
+        }
+    ]
 }
 
-export { columns, query, popup }
+/* 用户角色页弹窗表单配置内容 */
+const popupForm = {
+    data: {
+        name: '',
+        label: ''
+    },
+    items: [
+        {
+            type: 'input',
+            prop: 'name',
+            label: '角色名称',
+            placeholder: '输入角色名称',
+            rules: [{ required: true, message: '角色名称不能为空', trigger: 'blur' }]
+        },
+        {
+            type: 'input',
+            prop: 'label',
+            label: '角色别称',
+            placeholder: '输入角色别称',
+            rules: [{ required: true, message: '角色别称不能为空', trigger: 'blur' }]
+        }
+    ]
+}
+
+export { columns, queryForm, popupForm }

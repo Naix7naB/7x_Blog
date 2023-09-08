@@ -45,69 +45,61 @@ const columns = [
     }
 ]
 
-/* 文章标签页查找配置内容 */
-const query = {
-    form: {
-        data: {
-            dateRange: [],
-            name: ''
-        },
-        items: [
-            {
-                type: 'date',
-                prop: 'dateRange',
-                label: '创建时间',
-                others: {
-                    type: 'daterange',
-                    startPlaceholder: '开始日期',
-                    endPlaceholder: '结束日期',
-                    rangeSeparator: '至'
-                }
-            },
-            {
-                type: 'input',
-                prop: 'name',
-                label: '标签名称',
-                placeholder: '输入标签名称'
-            }
-        ]
-    }
-}
-
-/* 文章标签页弹窗配置内容 */
-const popup = {
-    config: {
-        title: '新增标签',
-        width: '40%'
+/* 文章标签页查询表单配置内容 */
+const queryForm = {
+    data: {
+        dateRange: [],
+        name: ''
     },
-    form: {
-        data: {
-            name: '',
-            description: '',
-            color: ''
-        },
-        items: [
-            {
-                type: 'input',
-                prop: 'name',
-                label: '标签名称',
-                placeholder: '输入标签名称',
-                rules: [{ required: true, message: '标签名称不能为空', trigger: 'blur' }]
-            },
-            {
-                type: 'input',
-                prop: 'description',
-                label: '标签描述',
-                placeholder: '输入标签描述'
-            },
-            {
-                type: 'slot',
-                slotName: 'colorPicker',
-                prop: 'color',
-                label: '标签颜色'
+    items: [
+        {
+            type: 'date',
+            prop: 'dateRange',
+            label: '创建时间',
+            others: {
+                type: 'daterange',
+                startPlaceholder: '开始日期',
+                endPlaceholder: '结束日期',
+                rangeSeparator: '至'
             }
-        ]
-    }
+        },
+        {
+            type: 'input',
+            prop: 'name',
+            label: '标签名称',
+            placeholder: '输入标签名称'
+        }
+    ]
 }
 
-export { columns, query, popup }
+/* 文章标签页弹窗表单配置内容 */
+const popupForm = {
+    data: {
+        name: '',
+        description: '',
+        color: ''
+    },
+    items: [
+        {
+            type: 'input',
+            prop: 'name',
+            label: '标签名称',
+            placeholder: '输入标签名称',
+            rules: [{ required: true, message: '标签名称不能为空', trigger: 'blur' }]
+        },
+        {
+            type: 'input',
+            prop: 'description',
+            label: '标签描述',
+            placeholder: '输入标签描述'
+        },
+        {
+            type: 'slot',
+            slotName: 'colorPicker',
+            prop: 'color',
+            label: '标签颜色'
+        }
+    ]
+}
+
+export { columns, queryForm, popupForm }

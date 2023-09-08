@@ -33,55 +33,47 @@ const columns = [
     }
 ]
 
-/* 文章分类页查找配置内容 */
-const query = {
-    form: {
-        data: {
-            dateRange: [],
-            name: ''
-        },
-        items: [
-            {
-                type: 'date',
-                prop: 'dateRange',
-                label: '创建时间',
-                others: {
-                    type: 'daterange',
-                    startPlaceholder: '开始日期',
-                    endPlaceholder: '结束日期',
-                    rangeSeparator: '至'
-                }
-            },
-            {
-                type: 'input',
-                prop: 'name',
-                label: '分类名称',
-                placeholder: '输入分类名称'
-            }
-        ]
-    }
-}
-
-/* 文章分类页弹窗配置内容 */
-const popup = {
-    config: {
-        title: '新增分类',
-        width: '40%'
+/* 文章分类页查询表单配置内容 */
+const queryForm = {
+    data: {
+        dateRange: [],
+        name: ''
     },
-    form: {
-        data: {
-            name: ''
-        },
-        items: [
-            {
-                type: 'input',
-                prop: 'name',
-                label: '分类名称',
-                placeholder: '输入分类名称',
-                rules: [{ required: true, message: '分类名称不能为空', trigger: 'blur' }]
+    items: [
+        {
+            type: 'date',
+            prop: 'dateRange',
+            label: '创建时间',
+            others: {
+                type: 'daterange',
+                startPlaceholder: '开始日期',
+                endPlaceholder: '结束日期',
+                rangeSeparator: '至'
             }
-        ]
-    }
+        },
+        {
+            type: 'input',
+            prop: 'name',
+            label: '分类名称',
+            placeholder: '输入分类名称'
+        }
+    ]
 }
 
-export { columns, query, popup }
+/* 文章分类页弹窗表单配置内容 */
+const popupForm = {
+    data: {
+        name: ''
+    },
+    items: [
+        {
+            type: 'input',
+            prop: 'name',
+            label: '分类名称',
+            placeholder: '输入分类名称',
+            rules: [{ required: true, message: '分类名称不能为空', trigger: 'blur' }]
+        }
+    ]
+}
+
+export { columns, queryForm, popupForm }
