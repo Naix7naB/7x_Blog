@@ -1,9 +1,9 @@
 <script>
 import BaseForm from '@/components/form'
-import { getKey, login, registry } from '@/apis/login'
+import { login, registry } from '@/apis/login'
 import { encrypt } from '@/utils'
-import { loginData, loginItems } from '@/config/login.config'
-import { registryData, registryItems } from '@/config/registry.config'
+import { login as loginForm, register as registerForm } from '@/config/loginForm.config'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
     name: 'LoginBox',
@@ -14,66 +14,51 @@ export default {
             required: true
         }
     },
-    data() {
-        return {
-            loginData,
-            loginItems,
-            registryData,
-            registryItems
-        }
-    },
     computed: {
-        currentForm() {
-            return this.isShow ? this.$refs.loginForm : this.$refs.registryForm
+        ...mapGetters('user', { encryptKey: 'getKey' }),
+        loginForm() {
+            return loginForm
         },
-        currentRequest() {
-            return this.isShow ? login : registry
+        registerForm() {
+            return registerForm
         },
-        getOptItems() {
-            return [
-                {
-                    text: this.isShow ? '登录' : '注册',
-                    type: 'primary',
-                    round: true,
-                    action: this.handleRequest
-                }
-            ]
+        transitionName() {
+            return this.isShow ? 'out-up' : 'pull-out'
         },
         getFormTitle() {
             return this.isShow ? '登录' : '注册'
         },
-        transitionName() {
-            return this.isShow ? 'out-up' : 'pull-out'
+        currentForm() {
+            return this.isShow ? this.$refs.login : this.$refs.registry
+        },
+        currentRequest() {
+            return this.isShow ? login : registry
         }
     },
     methods: {
-        async getEncryptKey() {
-            let key = this.$store.getters['user/getKey']
-            if (!key) {
-                const { data: { pubKey } } = await getKey()
-                this.$store.dispatch('user/setKey', pubKey)
-                key = pubKey
-            }
-            return key
-        },
-        async handleRequest(data) {
-            const { password, ...info } = data
-            const encryptKey = await this.getEncryptKey()
-            const encrypted = encrypt(password, encryptKey)
-            this.currentForm.submitForm(() => {
-                this.currentRequest({ password: encrypted, ...info }).then(res => {
-                    const { uid, token } = res.data
-                    this.$store.dispatch('user/setUid', uid)
-                    this.$store.dispatch('user/setToken', token)
+        ...mapActions('user', ['setToken', 'setUserInfo', { loadEncryptKey: 'loadKey' }]),
+        handleRequest() {
+            this.currentForm.submitForm(async data => {
+                /* 获取加密密钥 处理表单数据 */
+                if (!this.encryptKey) {
+                    await this.loadEncryptKey()
+                }
+                /* 对密码进行加密处理 */
+                data.password = encrypt(data.password, this.encryptKey)
+                this.currentRequest(data).then(res => {
+                    const { token, ...userInfo } = res.data
+                    this.setToken(token)
+                    this.setUserInfo(userInfo)
+                    this.reset()
                     this.$router.push('/')
-                    this.$message.success(res.errMsg)
+                    this.$notify.success(res.errMsg)
                 }).catch(err => {
-                    this.$message.error(err.errMsg)
+                    this.$message.error(err.errMsg || err)
                 })
             })
         },
         reset() {
-            this.currentForm.resetForm()
+            this.currentForm.resetFormData()
         }
     }
 }
@@ -83,25 +68,19 @@ export default {
     <div class="login-box">
         <transition :name="transitionName">
             <div v-if="isShow" class="form-container login-form" key="login">
-                <BaseForm
-                    ref="loginForm"
-                    hideRequiredAsterisk
-                    :formData="loginData"
-                    :formItems="loginItems"
-                    :optItems="getOptItems"
-                >
+                <BaseForm ref="login" v-bind="loginForm" hideRequiredAsterisk>
                     <span slot="title" class="form-title">{{ getFormTitle }}</span>
+                    <el-button slot="opt" type="primary" round @click="handleRequest">
+                        {{ getFormTitle }}
+                    </el-button>
                 </BaseForm>
             </div>
             <div v-else class="form-container registry-form" key="registry">
-                <BaseForm
-                    ref="registryForm"
-                    hideRequiredAsterisk
-                    :formData="registryData"
-                    :formItems="registryItems"
-                    :optItems="getOptItems"
-                >
+                <BaseForm ref="registry" v-bind="registerForm" hideRequiredAsterisk>
                     <span slot="title" class="form-title">{{ getFormTitle }}</span>
+                    <el-button slot="opt" type="primary" round @click="handleRequest">
+                        {{ getFormTitle }}
+                    </el-button>
                 </BaseForm>
             </div>
         </transition>
