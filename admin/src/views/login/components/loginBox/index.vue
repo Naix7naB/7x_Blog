@@ -36,12 +36,12 @@ export default {
         }
     },
     methods: {
-        ...mapActions('user', ['setToken', 'setUserInfo', { loadEncryptKey: 'loadKey' }]),
+        ...mapActions('user', ['loadKey', 'setToken', 'setUserInfo']),
         handleRequest() {
             this.currentForm.submitForm(async data => {
                 /* 获取加密密钥 处理表单数据 */
                 if (!this.encryptKey) {
-                    await this.loadEncryptKey()
+                    await this.loadKey()
                 }
                 /* 对密码进行加密处理 */
                 data.password = encrypt(data.password, this.encryptKey)
