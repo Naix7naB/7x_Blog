@@ -7,6 +7,29 @@ export default {
         }
     },
     methods: {
+        /* 触发添加操作按钮 */
+        optAdd() {
+            this.openPopup()
+            this.execution = () => this.addExecution()
+        },
+        /* 触发编辑操作按钮 */
+        optEdit(data) {
+            this.openPopup()
+            this.execution = () => this.modifyExecution(data.id)
+            this.$nextTick(() => this.setPopupFormData(data))
+        },
+        /* 触发查询操作按钮 */
+        optQuery(query) {
+            this.queryExecution(query)
+        },
+        /* 触发删除操作按钮 */
+        optDelete(data) {
+            this.deleteExecution(data)
+        },
+        /* 触发批量删除操作按钮 */
+        optBatchDelete(selection) {
+            this.batchDeleteExecution(selection)
+        },
         /* 打开弹窗 */
         openPopup() {
             this.table && this.table.openPopup()
@@ -18,8 +41,13 @@ export default {
         },
         /* 设置弹窗表单数据 */
         setPopupFormData(data) {
-            this.popup && this.popup.setFormData(data)
+            const copy = Object.assign({}, data)
+            if (this.modifyPopupFormData && typeof this.modifyPopupFormData === 'function') {
+                this.modifyPopupFormData(copy)
+            }
+            this.popup && this.popup.setFormData(copy)
         },
+        /* 提交弹窗表单数据 */
         submitPopupForm(callback) {
             this.popup &&
                 this.popup.submitForm(data => {
