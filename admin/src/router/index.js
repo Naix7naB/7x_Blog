@@ -120,7 +120,7 @@ const routes = [
         redirect: '/site/wegConfig',
         meta: {
             category: 'site',
-            icon: 'link',
+            icon: 'gear',
             title: '网站管理'
         },
         children: [
@@ -156,7 +156,7 @@ const router = new VueRouter({ routes })
 router.beforeEach((to, from, next) => {
     const token = store.getters['user/getToken']
     if (!token) {
-        next({ name: 'Login ' })
+        to.name === 'Login' ? next() : next('/login')
     } else {
         to.name === 'Login' ? next('/') : next()
     }

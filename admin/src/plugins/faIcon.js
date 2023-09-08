@@ -14,12 +14,12 @@ import {
     faLock,
     faPoo,
     faEnvelope,
-    faLink,
     faFilePen,
     faPenToSquare,
     faBell,
     faArrowRightFromBracket,
-    faPlus
+    faPlus,
+    faGear
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add([
@@ -32,12 +32,12 @@ library.add([
     faLock,
     faPoo,
     faEnvelope,
-    faLink,
     faFilePen,
     faPenToSquare,
     faBell,
     faArrowRightFromBracket,
-    faPlus
+    faPlus,
+    faGear
 ])
 
 Vue.component('fa-icon', FontAwesomeIcon)
