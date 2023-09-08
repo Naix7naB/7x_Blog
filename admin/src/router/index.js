@@ -154,10 +154,12 @@ const router = new VueRouter({ routes })
 
 /* 全局路由守卫 */
 router.beforeEach((to, from, next) => {
-    if (to.name === 'Login') return next()
     const token = store.getters['user/getToken']
-    if (!token) return next({ name: 'Login' })
-    next()
+    if (!token) {
+        next({ name: 'Login ' })
+    } else {
+        to.name === 'Login' ? next('/') : next()
+    }
 })
 
 export default router

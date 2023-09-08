@@ -10,7 +10,6 @@ export default {
         userInfo: null
     },
     getters: {
-        isLogin: state => (state.token && true) || false,
         getKey: state => {
             if (!state.key) {
                 state.key = Storage.get('_uak_', null)
