@@ -74,10 +74,6 @@ export default {
                 this.$message.error(err.errMsg || err)
             })
         },
-        /* 添加文件 */
-        addFile(file) {
-            this.fileList.push(file)
-        },
         /* 提交表单 */
         submitForm(callback) {
             this.$refs.elForm.validate(v => {
@@ -133,7 +129,12 @@ export default {
                 </template>
                 <!-- 日期范围 -->
                 <template v-if="item.type === 'date'">
-                    <el-date-picker v-bind="others" v-model="showData[item.prop]" clearable />
+                    <el-date-picker
+                        v-bind="others"
+                        v-model="showData[item.prop]"
+                        value-format="timestamp"
+                        clearable
+                    />
                 </template>
                 <!-- 下拉框 -->
                 <template v-if="item.type === 'select'">
