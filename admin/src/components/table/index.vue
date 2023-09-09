@@ -267,7 +267,7 @@ export default {
     text-align: center !important;
 }
 
-:deep(.el-image) {
+:deep(.el-table .el-image) {
     display: block;
     height: 50px;
     border-radius: 4px;

@@ -173,7 +173,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-:deep(.el-image__inner) {
+:deep(.el-table .el-image__inner) {
     aspect-ratio: 16 / 9;
 }
 
