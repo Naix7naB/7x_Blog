@@ -64,9 +64,9 @@ function encrypt(plain, key) {
  */
 function parseUrl(url) {
     const { host, hostname, href, origin, pathname, port, protocol } = new URL(url)
-    const [classify, filename] = pathname.match(/^\/(.+)/)[1].split('/')
+    const [category, filename] = pathname.match(/^\/(.+)/)[1].split('/')
     return {
-        classify,
+        category,
         filename,
         host,
         hostname,

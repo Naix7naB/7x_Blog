@@ -92,11 +92,11 @@ const popupForm = {
     data: {
         title: '',
         description: '',
-        classify: '',
+        category: '',
         tags: [],
-        cover_img: null,
+        cover_img: '',
         content: '',
-        state: ''
+        published: false
     },
     items: [
         {
@@ -115,7 +115,7 @@ const popupForm = {
         },
         {
             type: 'select',
-            prop: 'classify',
+            prop: 'category',
             label: '文章分类',
             placeholder: '请选择文章分类',
             rules: [{ required: true, message: '文章分类必填', trigger: 'change' }],
@@ -143,9 +143,8 @@ const popupForm = {
             prop: 'cover_img',
             label: '选择封面',
             others: {
-                uploadType: 0,
-                listType: 'picture-card',
-                limit: 1
+                name: 'cover_img',
+                multiple: false
             }
         },
         {
@@ -153,6 +152,11 @@ const popupForm = {
             slotName: 'editor',
             prop: 'content',
             label: '文章内容'
+        },
+        {
+            type: 'switch',
+            prop: 'published',
+            label: '是否发布'
         }
     ]
 }

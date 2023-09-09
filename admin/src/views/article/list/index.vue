@@ -41,11 +41,11 @@ export default {
         /* 加载表单选项数据 */
         async loadOptions() {
             try {
-                const { data: { list: classifyList } } = await getCategoryList()
+                const { data: { list: categoryList } } = await getCategoryList()
                 const { data: { list: tagList } } = await getTagList({ select: '-articles name' })
-                const classify = this.popupProps.items.find(item => item.prop === 'classify')
+                const category = this.popupProps.items.find(item => item.prop === 'category')
                 const tags = this.popupProps.items.find(item => item.prop === 'tags')
-                classify.options = classifyList.map(item => ({ label: item.name, value: item.id }))
+                category.options = categoryList.map(item => ({ label: item.name, value: item.id }))
                 tags.options = tagList.map(tag => ({ label: tag.name, value: tag.id }))
             } catch (err) {
                 this.$message.error(err.errMsg || err)
@@ -56,7 +56,7 @@ export default {
             data = Object.fromEntries(
                 Object.entries(this.popupProps.data).map(([key, val]) => {
                     let value = data[key]
-                    if (key === 'classify') {
+                    if (key === 'category') {
                         value = value?.id
                     }
                     if (key === 'tags') {
@@ -101,7 +101,7 @@ export default {
         },
         /* 添加图片到文章内容 */
         addImgOfContent(pos, file) {
-            uploadFile({ classify: 'article', filename: pos, file }).then(({ data }) => {
+            uploadFile({ category: 'article', filename: pos, file }).then(({ data }) => {
                 this.$refs.editor.$img2Url(pos, data.fileUrls[0].url)
             }).catch(err => {
                 this.$message.error(err.errMsg || err)
@@ -109,8 +109,8 @@ export default {
         },
         /* 将文章内容中已添加的图片删除 */
         delImgOfContent([url, file]) {
-            const { classify, filename } = parseUrl(url)
-            deleteFile({ classify, filename }).then(res => {
+            const { category, filename } = parseUrl(url)
+            deleteFile({ category, filename }).then(res => {
                 this.$message.success(res.errMsg)
             }).catch(err => {
                 this.$message.error(err.errMsg || err)
