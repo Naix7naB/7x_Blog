@@ -47,10 +47,6 @@ export default {
         modifyExecution(id) {
             console.log(id)
         },
-        /* 查找用户 */
-        queryExecution(selection) {
-            console.log(selection)
-        },
         /* 删除用户 */
         deleteExecution(data) {
             console.log(data)
@@ -67,7 +63,6 @@ export default {
                 props={{ ...this.tableProps }}
                 onOptAdd={ this.optAdd }
                 onOptEdit={ this.optEdit }
-                onOptQuery={ this.optQuery }
                 onOptDelete={ this.optDelete }
                 onOptBatchDelete={ this.optBatchDelete }
                 onBeforePopupCancel={ this.onBeforePopupCancel }

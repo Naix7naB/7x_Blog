@@ -22,10 +22,6 @@ export default {
         }
     },
     methods: {
-        /* 查询评论 */
-        queryExecution(selection) {
-            console.log(selection)
-        },
         /* 删除评论 */
         deleteExecution(data) {
             deleteCommentById(data.id).then(res => {
@@ -45,7 +41,6 @@ export default {
             <BaseTable
                 ref='table'
                 props={{ ...this.tableProps }}
-                onOptQuery={ this.optQuery }
                 onOptDelete={ this.optDelete }
                 onOptBatchDelete={ this.optBatchDelete }
             />

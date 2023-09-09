@@ -58,10 +58,6 @@ export default {
                 })
             })
         },
-        /* 查询文章分类 */
-        queryExecution(selection) {
-            console.log(selection)
-        },
         /* 删除文章分类 */
         deleteExecution(data) {
             deleteCategoryById(data.id).then(res => {
@@ -84,7 +80,6 @@ export default {
                 props={{ ...this.tableProps }}
                 onOptAdd={ this.optAdd }
                 onOptEdit={ this.optEdit }
-                onOptQuery={ this.optQuery }
                 onOptDelete={ this.optDelete }
                 onBeforePopupCancel={ this.onBeforePopupCancel }
                 onBeforePopupConfirm={ this.onBeforePopupConfirm }
