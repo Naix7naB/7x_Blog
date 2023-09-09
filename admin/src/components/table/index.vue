@@ -3,6 +3,8 @@ import BaseForm from '@/components/form'
 import Popup from '@/components/popup'
 import Operator from '@/components/operator'
 
+import { cloneDeep, isEqual } from 'lodash-es'
+
 const OPT_EVENT_MAP = {
     add: 'optAdd',
     edit: 'optEdit',
@@ -54,6 +56,8 @@ export default {
     data() {
         return {
             datasource: [],
+            condition: {},
+            query: {},
             selection: [],
             currentPage: 1,
             pageSize: 10,
@@ -61,6 +65,7 @@ export default {
         }
     },
     methods: {
+        cloneDeep,
         /* 判断数据是否为空 */
         isEmptyVal(val) {
             return (typeof val === 'object' && val === null) || typeof val === 'undefined'
@@ -81,7 +86,9 @@ export default {
             this.$store.dispatch('setLoadingState', true)
             this.requestApi({
                 page: this.currentPage,
-                size: this.pageSize
+                size: this.pageSize,
+                condition: this.condition,
+                query: this.query
             }).then(res => {
                 const { list, total } = res.data
                 this.datasource = list
@@ -99,12 +106,33 @@ export default {
         /* 查找表格匹配项 */
         queryTable() {
             this.$refs.query.submitForm(data => {
-                this.$emit('optQuery', data)
+                const rowData = this.queryForm.data
+                Object.entries(rowData).forEach(([key, val]) => {
+                    if (!isEqual(data[key], val)) {
+                        if (key === 'dateRange') {
+                            this.condition['created_at'] = {
+                                $gte: data[key][0],
+                                $lte: data[key][1]
+                            }
+                        } else {
+                            this.query[key] = data[key]
+                        }
+                    }
+                })
+                this.refreshData()
+                this.resetQuery()
             })
         },
         /* 重置查询条件 */
         resetQuery() {
+            this.condition = {}
+            this.query = {}
+        },
+        /* 重置查询表单的数据 */
+        resetQueryForm() {
             this.$refs.query.resetFormData()
+            this.resetQuery()
+            this.refreshData()
         },
         /* 操作选项按钮的执行函数 */
         optHandler(type, data) {
@@ -133,10 +161,10 @@ export default {
     <div class="table-wrapper">
         <div v-if="showTabs">tabs</div>
         <div v-if="queryForm" class="table-query">
-            <BaseForm ref="query" v-bind="queryForm" size="small" inline />
+            <BaseForm ref="query" v-bind="cloneDeep(queryForm)" size="small" inline />
             <div class="table-query--opts">
                 <Operator type="query" size="small" showIcon @click="queryTable" />
-                <Operator type="reset" size="small" showIcon @click="resetQuery" />
+                <Operator type="reset" size="small" showIcon @click="resetQueryForm" />
             </div>
         </div>
         <div class="table-operate">

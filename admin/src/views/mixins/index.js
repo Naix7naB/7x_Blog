@@ -21,10 +21,6 @@ export default {
             this.execution = () => this.modifyExecution(data.id)
             this.$nextTick(() => this.setPopupFormData(data))
         },
-        /* 触发查询操作按钮 */
-        optQuery(query) {
-            this.queryExecution(query)
-        },
         /* 触发删除操作按钮 */
         optDelete(data) {
             this.deleteExecution(data)
