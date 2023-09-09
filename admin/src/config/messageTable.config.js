@@ -47,23 +47,10 @@ const columns = [
 /* 留言管理页查询表单配置内容 */
 const queryForm = {
     data: {
-        nickname: '',
-        content: '',
-        dateRange: []
+        dateRange: null,
+        nickname: ''
     },
     items: [
-        {
-            type: 'input',
-            prop: 'nickname',
-            label: '评论用户',
-            placeholder: '输入评论用户'
-        },
-        {
-            type: 'input',
-            prop: 'content',
-            label: '评论内容',
-            placeholder: '输入评论内容'
-        },
         {
             type: 'date',
             prop: 'dateRange',
@@ -74,6 +61,12 @@ const queryForm = {
                 endPlaceholder: '结束日期',
                 rangeSeparator: '至'
             }
+        },
+        {
+            type: 'input',
+            prop: 'nickname',
+            label: '评论用户',
+            placeholder: '输入评论用户'
         }
     ]
 }

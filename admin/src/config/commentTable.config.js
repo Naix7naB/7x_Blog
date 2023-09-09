@@ -52,30 +52,11 @@ const columns = [
 /* 评论管理页查询表单配置内容 */
 const queryForm = {
     data: {
-        topic_title: '',
+        dateRange: null,
         nickname: '',
-        content: '',
-        dateRange: []
+        topic_title: ''
     },
     items: [
-        {
-            type: 'input',
-            prop: 'topic_title',
-            label: '文章标题',
-            placeholder: '输入文章标题'
-        },
-        {
-            type: 'input',
-            prop: 'nickname',
-            label: '评论用户',
-            placeholder: '输入评论用户'
-        },
-        {
-            type: 'input',
-            prop: 'content',
-            label: '评论内容',
-            placeholder: '输入评论内容'
-        },
         {
             type: 'date',
             prop: 'dateRange',
@@ -86,6 +67,18 @@ const queryForm = {
                 endPlaceholder: '结束日期',
                 rangeSeparator: '至'
             }
+        },
+        {
+            type: 'input',
+            prop: 'nickname',
+            label: '评论用户',
+            placeholder: '输入评论用户'
+        },
+        {
+            type: 'input',
+            prop: 'topic_title',
+            label: '文章标题',
+            placeholder: '输入文章标题'
         }
     ]
 }

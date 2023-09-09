@@ -63,7 +63,7 @@ const columns = [
 /* 文章列表页查询表单配置内容 */
 const queryForm = {
     data: {
-        dateRange: [],
+        dateRange: null,
         title: ''
     },
     items: [

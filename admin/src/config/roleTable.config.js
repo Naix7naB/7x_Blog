@@ -41,7 +41,7 @@ const columns = [
 /* 用户角色页查询表单配置内容 */
 const queryForm = {
     data: {
-        dateRange: []
+        dateRange: null
     },
     items: [
         {
