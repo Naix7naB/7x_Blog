@@ -59,9 +59,9 @@ const schema = new mongoose.Schema(
             type: Number,
             default: 0
         },
-        state: {
-            type: String,
-            required: [true, '文章状态异常!']
+        published: {
+            type: Boolean,
+            default: false
         },
         created_at: Number,
         updated_at: Number
