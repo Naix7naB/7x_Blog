@@ -24,10 +24,6 @@ export default {
             type: Array,
             required: true
         },
-        showTabs: {
-            type: Boolean,
-            default: false
-        },
         showSelection: {
             type: Boolean,
             default: false
@@ -159,7 +155,6 @@ export default {
 
 <template>
     <div class="table-wrapper">
-        <div v-if="showTabs">tabs</div>
         <div v-if="queryForm" class="table-query">
             <BaseForm ref="query" v-bind="cloneDeep(queryForm)" size="small" inline />
             <div class="table-query--opts">
