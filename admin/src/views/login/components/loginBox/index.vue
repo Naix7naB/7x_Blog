@@ -68,7 +68,7 @@ export default {
     <div class="login-box">
         <transition :name="transitionName">
             <div v-if="isShow" class="form-container login-form" key="login">
-                <BaseForm ref="login" v-bind="loginForm" hideRequiredAsterisk>
+                <BaseForm ref="login" v-bind="loginForm">
                     <span slot="title" class="form-title">{{ getFormTitle }}</span>
                     <el-button slot="opt" type="primary" round @click="handleRequest">
                         {{ getFormTitle }}
@@ -76,7 +76,7 @@ export default {
                 </BaseForm>
             </div>
             <div v-else class="form-container registry-form" key="registry">
-                <BaseForm ref="registry" v-bind="registerForm" hideRequiredAsterisk>
+                <BaseForm ref="registry" v-bind="registerForm">
                     <span slot="title" class="form-title">{{ getFormTitle }}</span>
                     <el-button slot="opt" type="primary" round @click="handleRequest">
                         {{ getFormTitle }}

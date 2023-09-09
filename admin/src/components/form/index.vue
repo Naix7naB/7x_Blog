@@ -24,10 +24,6 @@ export default {
             type: String,
             default: 'left'
         },
-        hideRequiredAsterisk: {
-            type: Boolean,
-            default: false
-        },
         data: {
             type: Object,
             required: true
@@ -113,8 +109,8 @@ export default {
         :inline="inline"
         :label-width="showLabel ? labelWidth : 'auto'"
         :label-position="labelPosition"
-        :hide-required-asterisk="hideRequiredAsterisk"
         :model="showData"
+        hide-required-asterisk
     >
         <template v-for="{ icon, others, options, ...item } in items">
             <el-form-item v-bind="item" :style="{ textAlign: item.position }" :key="item.prop">

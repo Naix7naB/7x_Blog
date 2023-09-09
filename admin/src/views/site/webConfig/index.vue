@@ -46,22 +46,10 @@ export default {
     <div class="site-page">
         <el-tabs v-model="activeTab">
             <el-tab-pane label="网站信息" name="web">
-                <BaseForm
-                    ref="webForm"
-                    showLabel
-                    hideRequiredAsterisk
-                    :data="webFormData"
-                    :items="webFormItems"
-                />
+                <BaseForm ref="webForm" showLabel :data="webFormData" :items="webFormItems" />
             </el-tab-pane>
             <el-tab-pane label="站长信息" name="host">
-                <BaseForm
-                    ref="hostForm"
-                    showLabel
-                    hideRequiredAsterisk
-                    :data="hostFormData"
-                    :items="hostFormItems"
-                >
+                <BaseForm ref="hostForm" showLabel :data="hostFormData" :items="hostFormItems">
                     <template #editor="{ data }">
                         <!-- @imgAdd="addImgOfContent" @imgDel="delImgOfContent" -->
                         <mavon-editor ref="editor" style="height: 700px;" v-model="data.about_me" />
