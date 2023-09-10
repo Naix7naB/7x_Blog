@@ -118,24 +118,6 @@ export default {
         }
     },
     render(h, ctx) {
-        const tableScopedSlots = {
-            tag: props => {
-                if (props.val.length === 0) {
-                    return <span style="color: #bbb;">暂无标签</span>
-                } else {
-                    return props.val.map(tag => {
-                        return (
-                            <el-tag
-                                effect="dark"
-                                size="mini"
-                                key={ tag.id }
-                                style={{ backgroundColor: tag.color, borderColor: tag.color }}
-                            >{ tag.name }</el-tag>
-                        )
-                    })
-                }
-            }
-        }
         const popupScopedSlots = {
             editor: props => {
                 return (
@@ -158,8 +140,7 @@ export default {
                 onOptDelete={ this.optDelete }
                 onOptBatchDelete={ this.optBatchDelete }
                 onBeforePopupCancel={ this.onBeforePopupCancel }
-                onBeforePopupConfirm={ this.onBeforePopupConfirm }
-                { ...{ scopedSlots: tableScopedSlots } }>
+                onBeforePopupConfirm={ this.onBeforePopupConfirm }>
                 <template slot="popup">
                     <BaseForm ref="popup" props={{ ...this.popupProps }} { ...{ scopedSlots: popupScopedSlots } } />
                 </template>

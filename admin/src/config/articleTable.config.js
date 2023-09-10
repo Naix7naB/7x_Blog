@@ -34,15 +34,40 @@ const columns = [
         minWidth: 80
     },
     {
+        type: 'tag',
         prop: 'category.name',
         label: '所属分类',
-        minWidth: 100
+        minWidth: 100,
+        handler(val) {
+            return {
+                type: 'warning',
+                value: val
+            }
+        }
     },
     {
-        type: 'slot',
-        slotName: 'tag',
+        type: 'tag',
         prop: 'tags',
-        label: '文章标签'
+        label: '文章标签',
+        minWidth: 100,
+        handler(val) {
+            return {
+                key: val.id,
+                value: val.name
+            }
+        }
+    },
+    {
+        type: 'tag',
+        prop: 'published',
+        label: '文章状态',
+        minWidth: 100,
+        handler(val) {
+            return {
+                type: val ? 'success' : 'warning',
+                value: val ? '已发布' : '未发布'
+            }
+        }
     },
     {
         prop: 'created_at',
