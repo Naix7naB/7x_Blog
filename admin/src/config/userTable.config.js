@@ -19,9 +19,17 @@ const columns = [
         minWidth: 100
     },
     {
+        type: 'tag',
         prop: 'role.label',
         label: '用户角色',
-        minWidth: 100
+        minWidth: 100,
+        handler(val) {
+            return {
+                type: val === '超级管理员' ? 'danger' : 'primary',
+                effect: 'dark',
+                value: val
+            }
+        }
     },
     {
         prop: 'created_at',
@@ -42,21 +50,26 @@ const columns = [
 /* 用户列表页查询表单配置内容 */
 const queryForm = {
     data: {
-        nickname: '',
-        role: ''
+        dateRange: null,
+        nickname: ''
     },
     items: [
+        {
+            type: 'date',
+            prop: 'dateRange',
+            label: '创建时间',
+            others: {
+                type: 'daterange',
+                startPlaceholder: '开始日期',
+                endPlaceholder: '结束日期',
+                rangeSeparator: '至'
+            }
+        },
         {
             type: 'input',
             prop: 'nickname',
             label: '用户昵称',
             placeholder: '输入用户昵称'
-        },
-        {
-            type: 'input',
-            prop: 'role',
-            label: '用户角色',
-            placeholder: '输入用户角色'
         }
     ]
 }

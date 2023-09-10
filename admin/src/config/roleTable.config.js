@@ -3,13 +3,21 @@ import { formatDate } from '@/utils'
 /* 用户角色页表格数据项配置内容 */
 const columns = [
     {
-        prop: 'name',
-        label: '标识',
-        minWidth: 120
-    },
-    {
+        type: 'tag',
         prop: 'label',
         label: '名称',
+        minWidth: 120,
+        handler(val) {
+            return {
+                type: val === '超级管理员' ? 'danger' : 'primary',
+                effect: 'dark',
+                value: val
+            }
+        }
+    },
+    {
+        prop: 'name',
+        label: '标识',
         minWidth: 120
     },
     {
