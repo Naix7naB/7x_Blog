@@ -53,7 +53,7 @@ export default {
         },
         /* 修改弹窗表单的数据 */
         modifyPopupFormData(data) {
-            data = Object.fromEntries(
+            return Object.fromEntries(
                 Object.entries(this.popupProps.data).map(([key, val]) => {
                     let value = data[key]
                     if (key === 'category') {

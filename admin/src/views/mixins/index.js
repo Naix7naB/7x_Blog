@@ -40,18 +40,14 @@ export default {
         },
         /* 设置弹窗表单数据 */
         setPopupFormData(data) {
-            const copy = Object.assign({}, data)
             if (this.modifyPopupFormData && typeof this.modifyPopupFormData === 'function') {
-                this.modifyPopupFormData(copy)
+                data = this.modifyPopupFormData(data)
             }
-            this.popup && this.popup.setFormData(copy)
+            this.popup && this.popup.setFormData(data)
         },
         /* 提交弹窗表单数据 */
         submitPopupForm(callback) {
-            this.popup &&
-                this.popup.submitForm(data => {
-                    callback(data)
-                })
+            this.popup && this.popup.submitForm(data => callback(data))
         },
         /* 重置弹窗的表单数据 */
         resetPopupFormData() {

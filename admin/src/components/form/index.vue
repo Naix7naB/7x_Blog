@@ -1,4 +1,5 @@
 <script>
+import { assignIn } from 'lodash-es'
 import { uploadFile, deleteFile } from '@/apis/upload'
 import { parseUrl } from '@/utils'
 
@@ -22,7 +23,7 @@ export default {
         },
         labelPosition: {
             type: String,
-            default: 'left'
+            default: 'right'
         },
         data: {
             type: Object,
@@ -35,7 +36,7 @@ export default {
     },
     data() {
         return {
-            showData: this.data
+            showing: assignIn({}, this.data)
         }
     },
     computed: {
@@ -60,7 +61,7 @@ export default {
                 file: params.file
             }).then(({ data }) => {
                 const file = data.fileUrls[0]
-                this.showData[file.fieldname] = file.url
+                this.showing[file.fieldname] = file.url
             }).catch(err => {
                 this.$message.error(err.errMsg || err)
             })
@@ -69,7 +70,7 @@ export default {
         onFileRemove(field, url) {
             const { filename } = parseUrl(url)
             deleteFile({ category: this.currentCategory, filename: filename }).then(res => {
-                this.showData[field] = ''
+                this.showing[field] = ''
             }).catch(err => {
                 this.$message.error(err.errMsg || err)
             })
@@ -82,12 +83,12 @@ export default {
                         message: '表单校验失败'
                     })
                 }
-                callback(this.showData)
+                callback(this.showing)
             })
         },
         /* 设置表单数据 */
         setFormData(data) {
-            Object.assign(this.showData, data)
+            assignIn(this.showing, data)
         },
         /* 重置表单信息 */
         resetFormData() {
@@ -105,14 +106,14 @@ export default {
         :inline="inline"
         :label-width="showLabel ? labelWidth : 'auto'"
         :label-position="labelPosition"
-        :model="showData"
+        :model="showing"
         hide-required-asterisk
     >
         <template v-for="{ icon, others, options, ...item } in items">
             <el-form-item v-bind="item" :style="{ textAlign: item.position }" :key="item.prop">
                 <!-- 输入框 -->
                 <template v-if="item.type === 'input'">
-                    <el-input v-bind="item" v-model="showData[item.prop]">
+                    <el-input v-bind="item" v-model="showing[item.prop]">
                         <fa-icon v-if="icon" slot="prefix" :icon="['fas', icon]" />
                     </el-input>
                 </template>
@@ -122,7 +123,7 @@ export default {
                         type="password"
                         show-password
                         v-bind="item"
-                        v-model="showData[item.prop]"
+                        v-model="showing[item.prop]"
                     >
                         <fa-icon v-if="icon" slot="prefix" :icon="['fas', icon]" />
                     </el-input>
@@ -131,7 +132,7 @@ export default {
                 <template v-if="item.type === 'date'">
                     <el-date-picker
                         v-bind="others"
-                        v-model="showData[item.prop]"
+                        v-model="showing[item.prop]"
                         value-format="timestamp"
                         clearable
                     />
@@ -141,7 +142,7 @@ export default {
                     <el-select
                         clearable
                         v-bind="others"
-                        v-model="showData[item.prop]"
+                        v-model="showing[item.prop]"
                         :placeholder="item.placeholder"
                     >
                         <el-option
@@ -154,16 +155,16 @@ export default {
                 </template>
                 <!-- 切换 -->
                 <template v-if="item.type === 'switch'">
-                    <el-switch v-model="showData[item.prop]" />
+                    <el-switch v-model="showing[item.prop]" />
                 </template>
                 <!-- 文件上传 -->
                 <template v-if="item.type === 'upload'">
-                    <div v-if="showData[item.prop]" class="upload-image--wrapper">
-                        <el-image :src="showData[item.prop]" />
+                    <div v-if="showing[item.prop]" class="upload-image--wrapper">
+                        <el-image :src="showing[item.prop]" />
                         <span v-if="!item.disabled" class="upload-actions">
                             <i
                                 class="el-icon-delete"
-                                @click.stop="onFileRemove(item.prop, showData[item.prop])"
+                                @click.stop="onFileRemove(item.prop, showing[item.prop])"
                             />
                         </span>
                     </div>
@@ -186,7 +187,7 @@ export default {
                 </template>
                 <!-- 自定义组件插槽 -->
                 <template v-if="item.type === 'slot'">
-                    <slot :name="item.slotName" :data="showData" :item="item" />
+                    <slot :name="item.slotName" :data="showing" :item="item" />
                 </template>
             </el-form-item>
         </template>
