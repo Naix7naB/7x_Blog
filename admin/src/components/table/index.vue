@@ -3,7 +3,7 @@ import BaseForm from '@/components/form'
 import Popup from '@/components/popup'
 import Operator from '@/components/operator'
 
-import { cloneDeep, isEqual } from 'lodash-es'
+import { cloneDeep, isArray, isEmpty, isEqual } from 'lodash-es'
 
 const OPT_EVENT_MAP = {
     add: 'optAdd',
@@ -64,7 +64,8 @@ export default {
         cloneDeep,
         /* 判断数据是否为空 */
         isEmptyVal(val) {
-            return (typeof val === 'object' && val === null) || typeof val === 'undefined'
+            if (typeof val === 'number' || typeof val === 'boolean') return false
+            return isEmpty(val)
         },
         /* 处理数据 */
         handleValue(row, item) {
@@ -94,6 +95,19 @@ export default {
             }).finally(() => {
                 this.$store.dispatch('setLoadingState', false)
             })
+        },
+        /* 获取el-tag组件vnode */
+        tagVnode(handler, item) {
+            const { value, ...props } = handler(item)
+            return <el-tag size="medium" props={{ ...props }}>{ value }</el-tag>
+        },
+        /* 渲染el-tag组件 */
+        renderTag(handler, cellVal) {
+            if (isArray(cellVal)) {
+                return cellVal.map(item => this.tagVnode(handler, item))
+            } else {
+                return this.tagVnode(handler, cellVal)
+            }
         },
         /* 修改复选框状态时 */
         onSelectionChange(selection) {
@@ -182,7 +196,7 @@ export default {
         <el-table
             v-loading="$store.state.loading"
             :data="datasource"
-            border
+            :border="true"
             @selection-change="onSelectionChange"
         >
             <!-- 选择列 -->
@@ -197,6 +211,12 @@ export default {
                         <slot :name="item.slotName" :val="handleValue(row, item)" />
                     </template>
                 </el-table-column>
+                <el-table-column
+                    v-else-if="item.type === 'tag'"
+                    v-bind="item"
+                    :key="item.label"
+                    :formatter="(row, column, cellVal, idx) => renderTag(item.handler, cellVal)"
+                />
                 <!-- 图片 -->
                 <el-table-column v-else-if="item.type === 'image'" v-bind="item" :key="item.label">
                     <template slot-scope="{ row }">
