@@ -6,6 +6,13 @@ module.exports = class ResourceBody {
         }
     }
 
+    static Role(uid, data) {
+        return {
+            creator: uid,
+            ...data
+        }
+    }
+
     static Article(uid, data) {
         return {
             author: uid,
