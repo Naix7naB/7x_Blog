@@ -9,6 +9,7 @@ const FollowAction = require('../plugins/followAction')
 const permitConf = require('../config/permit.config')
 const permit = require('../utils/permit')
 const dataDiff = require('../utils/dataDiff')
+const { isEmptyObj } = require('../utils/helpers')
 
 const Router = express.Router()
 
@@ -119,6 +120,7 @@ Router.put('/:id', async (req, res, next) => {
         }
         const diff = dataDiff(revisableData, req.body)
         const updates = Object.fromEntries(Object.entries(diff).map(([key, val]) => [key, val.current]))
+        assert(!isEmptyObj(updates), 422, '资源未变动')
         // 更新数据
         const result = await Model.findByIdAndUpdate(resource.id, updates)
         // 后续操作
