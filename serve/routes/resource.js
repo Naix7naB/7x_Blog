@@ -70,7 +70,7 @@ Router.post('/', postBodyMiddleware(), async (req, res, next) => {
         const modelName = Model.modelName
         // 验证权限
         const { permission } = permitConf[method][modelName]
-        const isPermit = await permit({
+        const isPermit = permit({
             opt: method,
             permission: permission,
             rid: auth.rid
@@ -103,7 +103,7 @@ Router.put('/:id', async (req, res, next) => {
         assert(resource, 404)
         // 验证权限
         const { authField, revisableFields } = permitConf[method][modelName]
-        const isPermit = await permit({
+        const isPermit = permit({
             opt: method,
             rid: auth.rid,
             uid: auth.uid,
@@ -136,6 +136,45 @@ Router.put('/:id', async (req, res, next) => {
     }
 })
 
+// 批量删除资源
+Router.delete('/', async (req, res, next) => {
+    try {
+        const { method, body, auth, Model } = req
+        // 查询资源
+        const modelName = Model.modelName
+        const condition = { _id: { $in: body } }
+        const resources = await Model.find(condition)
+        assert.equal(resources.length, body.length, 422, '批量删除失败')
+        // 验证权限
+        const { authField } = permitConf[method][modelName]
+        resources.forEach(resource => {
+            const isPermit = permit({
+                opt: method,
+                rid: auth.rid,
+                uid: auth.uid,
+                authId: resource[authField]
+            })
+            assert(isPermit, 403)
+        })
+        // 删除资源
+        await Model.deleteMany(condition)
+        // 后续操作
+        const followAct = FollowAction.getAction(method, Model.modelName)
+        if (followAct) {
+            resources.forEach(deleted => {
+                followAct.forEach(async item => {
+                    const { _model_, action, condition, opt } = item
+                    await _model_[action](condition(deleted), opt(deleted.id))
+                })
+            })
+        }
+        // 返回响应
+        Response.send(res, { message: '资源已删除' })
+    } catch (err) {
+        next(err)
+    }
+})
+
 // 删除资源
 Router.delete('/:id', async (req, res, next) => {
     try {
@@ -146,7 +185,7 @@ Router.delete('/:id', async (req, res, next) => {
         assert(resource, 404)
         // 验证权限
         const { authField } = permitConf[method][modelName]
-        const isPermit = await permit({
+        const isPermit = permit({
             opt: method,
             rid: auth.rid,
             uid: auth.uid,
