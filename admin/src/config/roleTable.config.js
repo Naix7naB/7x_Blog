@@ -69,20 +69,20 @@ const queryForm = {
 /* 用户角色页弹窗表单配置内容 */
 const popupForm = {
     data: {
-        name: '',
-        label: ''
+        label: '',
+        name: ''
     },
     items: [
         {
             type: 'input',
-            prop: 'name',
+            prop: 'label',
             label: '角色名称',
             placeholder: '输入角色名称',
             rules: [{ required: true, message: '角色名称不能为空', trigger: 'blur' }]
         },
         {
             type: 'input',
-            prop: 'label',
+            prop: 'name',
             label: '角色别称',
             placeholder: '输入角色别称',
             rules: [{ required: true, message: '角色别称不能为空', trigger: 'blur' }]

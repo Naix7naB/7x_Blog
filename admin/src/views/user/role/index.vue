@@ -4,7 +4,7 @@ import BaseForm from '@/components/form'
 
 import mixin from '@/views/mixins'
 import { columns, queryForm, popupForm } from '@/config/roleTable.config'
-import { getRoleList } from '@/apis/user'
+import { getRoleList, createRole, modifyRoleById, deleteRoleById } from '@/apis/user'
 
 export default {
     name: 'RoleList',
@@ -36,15 +36,36 @@ export default {
     methods: {
         /* 新增角色 */
         addExecution() {
-            console.log('add role')
+            this.submitPopupForm(data => {
+                createRole(data).then(res => {
+                    this.refreshTableData()
+                    this.resetPopupFormData()
+                    this.$message.success(res.errMsg)
+                }).catch(err => {
+                    this.$message.error(err.errMsg || err)
+                })
+            })
         },
         /* 修改角色信息 */
         modifyExecution(id) {
-            console.log(id)
+            this.submitPopupForm(data => {
+                modifyRoleById(id, data).then(res => {
+                    this.refreshTableData()
+                    this.resetPopupFormData()
+                    this.$message.success(res.errMsg)
+                }).catch(err => {
+                    this.$message.error(err.errMsg || err)
+                })
+            })
         },
         /* 删除角色 */
         deleteExecution(data) {
-            console.log(data)
+            deleteRoleById(data.id).then(res => {
+                this.refreshTableData()
+                this.$message.success(res.errMsg)
+            }).catch(err => {
+                this.$message.error(err.errMsg || err)
+            })
         },
         /* 批量删除 */
         batchDeleteExecution(selection) {
