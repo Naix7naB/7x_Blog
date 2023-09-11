@@ -71,7 +71,6 @@ export default {
             this.submitPopupForm(data => {
                 createArticle(data).then(res => {
                     this.refreshTableData()
-                    this.resetPopupFormData()
                     this.$message.success(res.errMsg)
                 }).catch(err => {
                     this.$message.error(err.errMsg || err)
@@ -80,10 +79,10 @@ export default {
         },
         /* 编辑文章 */
         modifyExecution(id) {
-            this.submitPopupForm(data => {
+            this.submitPopupForm((data, hasModify) => {
+                if (hasModify === false) return false
                 modifyArticleById(id, data).then(res => {
                     this.refreshTableData()
-                    this.resetPopupFormData()
                     this.$message.success(res.errMsg)
                 }).catch(err => {
                     this.$message.error(err.errMsg || err)

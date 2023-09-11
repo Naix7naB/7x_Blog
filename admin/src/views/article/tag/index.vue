@@ -40,7 +40,6 @@ export default {
             this.submitPopupForm(data => {
                 createTag(data).then(res => {
                     this.refreshTableData()
-                    this.resetPopupFormData()
                     this.$message.success(res.errMsg)
                 }).catch(err => {
                     this.$message.error(err.errMsg || err)
@@ -49,10 +48,10 @@ export default {
         },
         /* 修改文章标签 */
         modifyExecution(id) {
-            this.submitPopupForm(data => {
+            this.submitPopupForm((data, hasModify) => {
+                if (hasModify === false) return false
                 modifyTagById(id, data).then(res => {
                     this.refreshTableData()
-                    this.resetPopupFormData()
                     this.$message.success(res.errMsg)
                 }).catch(err => {
                     this.$message.error(err.errMsg || err)
@@ -90,8 +89,7 @@ export default {
                 onOptBulkDelete={ this.optBulkDelete }
                 onBeforePopupCancel={ this.onBeforePopupCancel }
                 onBeforePopupConfirm={ this.onBeforePopupConfirm }
-                { ...{ scopedSlots: tableScopedSlots } }
-            >
+                { ...{ scopedSlots: tableScopedSlots } }>
                 <template slot="popup">
                     <BaseForm ref='popup' props={{ ...this.popupProps }} { ...{ scopedSlots: popupScopedSlots } } />
                 </template>
