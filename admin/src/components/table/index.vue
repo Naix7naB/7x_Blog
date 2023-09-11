@@ -9,7 +9,7 @@ const OPT_EVENT_MAP = {
     add: 'optAdd',
     edit: 'optEdit',
     delete: 'optDelete',
-    batchDelete: 'optBatchDelete'
+    bulkDelete: 'optBulkDelete'
 }
 
 export default {
@@ -201,11 +201,11 @@ export default {
             />
             <Operator
                 v-if="showSelection"
-                type="batchDelete"
+                type="bulkDelete"
                 size="small"
                 showIcon
                 :disabled="selection.length === 0"
-                @click="optHandler('batchDelete', selection)"
+                @click="optHandler('bulkDelete', selection)"
             />
         </div>
         <el-table
@@ -226,13 +226,14 @@ export default {
                         <slot :name="item.slotName" :val="handleValue(row, item)" />
                     </template>
                 </el-table-column>
+                <!-- 标签列 -->
                 <el-table-column
                     v-else-if="item.type === 'tag'"
                     v-bind="item"
                     :key="item.label"
                     :formatter="(row, column, cellVal, idx) => renderTag(item.handler, cellVal)"
                 />
-                <!-- 图片 -->
+                <!-- 图片列 -->
                 <el-table-column v-else-if="item.type === 'image'" v-bind="item" :key="item.label">
                     <template slot-scope="{ row }">
                         <el-image

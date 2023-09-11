@@ -52,7 +52,7 @@ export default {
             console.log(data)
         },
         /* 批量删除 */
-        batchDeleteExecution(selection) {
+        bulkDeleteExecution(selection) {
             console.log(selection)
         }
     },
@@ -64,7 +64,7 @@ export default {
                 onOptAdd={ this.optAdd }
                 onOptEdit={ this.optEdit }
                 onOptDelete={ this.optDelete }
-                onOptBatchDelete={ this.optBatchDelete }
+                onOptBulkDelete={ this.optBulkDelete }
                 onBeforePopupCancel={ this.onBeforePopupCancel }
                 onBeforePopupConfirm={ this.onBeforePopupConfirm }
             >

@@ -87,7 +87,7 @@ export default {
                 onOptAdd={ this.optAdd }
                 onOptEdit={ this.optEdit }
                 onOptDelete={ this.optDelete }
-                onOptBatchDelete={ this.optBatchDelete }
+                onOptBulkDelete={ this.optBulkDelete }
                 onBeforePopupCancel={ this.onBeforePopupCancel }
                 onBeforePopupConfirm={ this.onBeforePopupConfirm }
                 { ...{ scopedSlots: tableScopedSlots } }

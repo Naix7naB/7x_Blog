@@ -26,8 +26,8 @@ export default {
             this.deleteExecution(data)
         },
         /* 触发批量删除操作按钮 */
-        optBatchDelete(selection) {
-            this.batchDeleteExecution(selection)
+        optBulkDelete(selection) {
+            this.bulkDeleteExecution(selection)
         },
         /* 打开弹窗 */
         openPopup() {

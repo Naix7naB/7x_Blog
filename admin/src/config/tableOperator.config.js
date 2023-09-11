@@ -14,7 +14,7 @@ const operatorType = {
         text: '删除',
         icon: 'el-icon-delete'
     },
-    batchDelete: {
+    bulkDelete: {
         type: 'danger',
         text: '批量删除',
         icon: 'el-icon-delete'

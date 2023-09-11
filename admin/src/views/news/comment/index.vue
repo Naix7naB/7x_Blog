@@ -32,7 +32,7 @@ export default {
             })
         },
         /* 批量删除 */
-        batchDeleteExecution(selection) {
+        bulkDeleteExecution(selection) {
             console.log(selection)
         }
     },
@@ -42,7 +42,7 @@ export default {
                 ref='table'
                 props={{ ...this.tableProps }}
                 onOptDelete={ this.optDelete }
-                onOptBatchDelete={ this.optBatchDelete }
+                onOptBulkDelete={ this.optBulkDelete }
             />
         )
     }
