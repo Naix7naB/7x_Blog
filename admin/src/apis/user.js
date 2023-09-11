@@ -44,4 +44,13 @@ function deleteRoleById(id) {
     })
 }
 
-export { getUserList, getRoleList, createRole, modifyRoleById, deleteRoleById }
+/* 批量删除用户角色 */
+function deleteRolesInBulk(data) {
+    return Request.requestJson({
+        methodType: Request.DELETE,
+        url: '/api/role',
+        data
+    })
+}
+
+export { getUserList, getRoleList, createRole, modifyRoleById, deleteRoleById, deleteRolesInBulk }

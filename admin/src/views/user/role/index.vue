@@ -4,7 +4,7 @@ import BaseForm from '@/components/form'
 
 import mixin from '@/views/mixins'
 import { columns, queryForm, popupForm } from '@/config/roleTable.config'
-import { getRoleList, createRole, modifyRoleById, deleteRoleById } from '@/apis/user'
+import { getRoleList, createRole, modifyRoleById, deleteRoleById, deleteRolesInBulk } from '@/apis/user'
 
 export default {
     name: 'RoleList',
@@ -39,7 +39,6 @@ export default {
             this.submitPopupForm(data => {
                 createRole(data).then(res => {
                     this.refreshTableData()
-                    this.resetPopupFormData()
                     this.$message.success(res.errMsg)
                 }).catch(err => {
                     this.$message.error(err.errMsg || err)
@@ -48,10 +47,10 @@ export default {
         },
         /* 修改角色信息 */
         modifyExecution(id) {
-            this.submitPopupForm(data => {
+            this.submitPopupForm((data, hasModify) => {
+                if (hasModify === false) return false
                 modifyRoleById(id, data).then(res => {
                     this.refreshTableData()
-                    this.resetPopupFormData()
                     this.$message.success(res.errMsg)
                 }).catch(err => {
                     this.$message.error(err.errMsg || err)
@@ -69,7 +68,13 @@ export default {
         },
         /* 批量删除 */
         bulkDeleteExecution(selection) {
-            console.log(selection)
+            const selectedIds = selection.map(item => item.id)
+            deleteRolesInBulk(selectedIds).then(res => {
+                this.refreshTableData()
+                this.$message.success(res.errMsg)
+            }).catch(err => {
+                this.$message.error(err.errMsg || err)
+            })
         }
     },
     render(h, ctx) {
@@ -82,8 +87,7 @@ export default {
                 onOptDelete={ this.optDelete }
                 onOptBulkDelete={ this.optBulkDelete }
                 onBeforePopupCancel={ this.onBeforePopupCancel }
-                onBeforePopupConfirm={ this.onBeforePopupConfirm }
-            >
+                onBeforePopupConfirm={ this.onBeforePopupConfirm }>
                 <template slot="popup">
                     <BaseForm ref='popup' props={{ ...this.popupProps }} />
                 </template>
