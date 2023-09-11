@@ -146,7 +146,22 @@ export default {
         },
         /* 操作选项按钮的执行函数 */
         optHandler(type, data) {
-            this.$emit(OPT_EVENT_MAP[type], data)
+            const regex = new RegExp('delete', 'gi')
+            const eventType = OPT_EVENT_MAP[type]
+            if (regex.test(eventType)) {
+                this.$confirm('此操作无法撤销, 是否继续？', '提示', {
+                    type: 'warning',
+                    callback: action => {
+                        if (action === 'confirm') {
+                            this.$emit(eventType, data)
+                        } else {
+                            this.$message.info('取消删除')
+                        }
+                    }
+                })
+            } else {
+                this.$emit(eventType, data)
+            }
         },
         /* 更改页码时 */
         changePage(page) {
