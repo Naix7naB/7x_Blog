@@ -47,7 +47,7 @@ export default {
         },
         /* 提交弹窗表单数据 */
         submitPopupForm(callback) {
-            this.popup && this.popup.submitForm(data => callback(data))
+            this.popup && this.popup.submitForm((data, hasModify) => callback(data, hasModify))
         },
         /* 重置弹窗的表单数据 */
         resetPopupFormData() {
@@ -65,6 +65,7 @@ export default {
         /* 触发弹窗确认按钮 */
         onBeforePopupConfirm(done) {
             this.execution()
+            this.resetPopupFormData()
             done()
         }
     },

@@ -1,5 +1,5 @@
 <script>
-import { assignIn } from 'lodash-es'
+import { assignIn, isEqual } from 'lodash-es'
 import { uploadFile, deleteFile } from '@/apis/upload'
 import { parseUrl } from '@/utils'
 
@@ -36,6 +36,7 @@ export default {
     },
     data() {
         return {
+            rowData: assignIn({}, this.data),
             showing: assignIn({}, this.data)
         }
     },
@@ -83,11 +84,12 @@ export default {
                         message: '表单校验失败'
                     })
                 }
-                callback(this.showing)
+                callback(this.showing, !isEqual(this.rowData, this.showing))
             })
         },
         /* 设置表单数据 */
         setFormData(data) {
+            assignIn(this.rowData, data)
             assignIn(this.showing, data)
         },
         /* 重置表单信息 */
