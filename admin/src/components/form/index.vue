@@ -1,5 +1,5 @@
 <script>
-import { assignIn, isEqual } from 'lodash-es'
+import { assignIn, isEqual, keys, pick } from 'lodash-es'
 import { uploadFile, deleteFile } from '@/apis/upload'
 import { parseUrl } from '@/utils'
 
@@ -89,8 +89,9 @@ export default {
         },
         /* 设置表单数据 */
         setFormData(data) {
-            assignIn(this.rowData, data)
-            assignIn(this.showing, data)
+            const pickData = pick(data, keys(this.showing).concat('id'))
+            assignIn(this.rowData, pickData)
+            assignIn(this.showing, pickData)
         },
         /* 重置表单信息 */
         resetFormData() {

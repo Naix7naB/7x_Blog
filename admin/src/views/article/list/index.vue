@@ -9,6 +9,7 @@ import { getCategoryList } from '@/apis/category'
 import { getTagList } from '@/apis/tag'
 import { uploadFile, deleteFile } from '@/apis/upload'
 import { parseUrl } from '@/utils'
+import { mapValues } from 'lodash-es'
 
 export default {
     name: 'ArticleList',
@@ -53,18 +54,11 @@ export default {
         },
         /* 修改弹窗表单的数据 */
         modifyPopupFormData(data) {
-            return Object.fromEntries(
-                Object.entries(this.popupProps.data).map(([key, val]) => {
-                    let value = data[key]
-                    if (key === 'category') {
-                        value = value?.id
-                    }
-                    if (key === 'tags') {
-                        value = value.map(t => t.id)
-                    }
-                    return [key, value]
-                })
-            )
+            return mapValues(data, (val, key) => {
+                if (key === 'category') return val.id
+                if (key === 'tags') return val.map(t => t.id)
+                return val
+            })
         },
         /* 添加文章 */
         addExecution() {
