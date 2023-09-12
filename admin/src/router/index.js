@@ -158,6 +158,16 @@ router.beforeEach((to, from, next) => {
     if (!token) {
         to.name === 'Login' ? next() : next('/login')
     } else {
+        const pubKey = store.getters['user/getKey']
+        const roleList = store.getters['user/getRoleList']
+        const categoryList = store.getters['article/getCategoryList']
+        const tagList = store.getters['article/getTagList']
+        if (!pubKey || !roleList) {
+            store.dispatch('user/initUserStore')
+        }
+        if (!tagList || !categoryList) {
+            store.dispatch('article/initArticleStore')
+        }
         to.name === 'Login' ? next('/') : next()
     }
 })
