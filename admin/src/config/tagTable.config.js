@@ -94,8 +94,7 @@ const popupForm = {
             placeholder: '输入标签描述'
         },
         {
-            type: 'slot',
-            slotName: 'colorPicker',
+            type: 'color',
             prop: 'color',
             label: '标签颜色'
         }

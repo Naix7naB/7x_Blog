@@ -155,9 +155,18 @@ export default {
                         />
                     </el-select>
                 </template>
-                <!-- 切换 -->
+                <!-- 切换开关 -->
                 <template v-if="item.type === 'switch'">
                     <el-switch v-model="showing[item.prop]" />
+                </template>
+                <!-- 颜色选择器 -->
+                <template v-if="item.type === 'color'">
+                    <el-color-picker
+                        v-bind="item"
+                        v-model="showing[item.prop]"
+                        color-format="rgb"
+                        show-alpha
+                    />
                 </template>
                 <!-- 文件上传 -->
                 <template v-if="item.type === 'upload'">

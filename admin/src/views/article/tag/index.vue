@@ -69,14 +69,9 @@ export default {
         }
     },
     render(h, ctx) {
-        const tableScopedSlots = {
+        const scopedSlots = {
             tagColor: props => {
                 return <ColorBlock color={ props.val } style="margin: auto;" />
-            }
-        }
-        const popupScopedSlots = {
-            colorPicker: props => {
-                return <el-color-picker v-model={ props.data.color } color-formate="rgb" show-alpha />
             }
         }
         return (
@@ -89,9 +84,9 @@ export default {
                 onOptBulkDelete={ this.optBulkDelete }
                 onBeforePopupCancel={ this.onBeforePopupCancel }
                 onBeforePopupConfirm={ this.onBeforePopupConfirm }
-                { ...{ scopedSlots: tableScopedSlots } }>
+                { ...{ scopedSlots } }>
                 <template slot="popup">
-                    <BaseForm ref='popup' props={{ ...this.popupProps }} { ...{ scopedSlots: popupScopedSlots } } />
+                    <BaseForm ref='popup' props={{ ...this.popupProps }} />
                 </template>
             </BaseTable>
         )
