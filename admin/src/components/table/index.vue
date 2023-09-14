@@ -293,10 +293,11 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-:deep(.cell) {
-    display: flex !important;
-    justify-content: center !important;
-    text-align: center !important;
+:deep(.el-table .cell) {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
 }
 
 :deep(.el-table .el-image) {
@@ -305,8 +306,8 @@ export default {
     border-radius: 4px;
 }
 
-:deep(.table-query--opts > .el-button) {
-    margin: 0 10px 18px 0;
+:deep(.el-table .el-tag:not(:last-of-type)) {
+    margin: 0 6px 6px 0;
 }
 
 .table-wrapper {
@@ -323,6 +324,10 @@ export default {
 
 .table-query--opts {
     flex-shrink: 0;
+}
+
+.table-query--opts > :deep(.el-button) {
+    margin: 0 10px 18px 0;
 }
 
 .table-operate {

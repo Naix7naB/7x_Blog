@@ -5,8 +5,6 @@ import BaseForm from '@/components/form'
 import mixin from '@/views/mixins'
 import { columns, queryForm, popupForm } from '@/config/articleTable.config'
 import { getArticleList, createArticle, modifyArticleById, deleteArticleById } from '@/apis/article'
-import { getCategoryList } from '@/apis/category'
-import { getTagList } from '@/apis/tag'
 import { uploadFile, deleteFile } from '@/apis/upload'
 import { parseUrl } from '@/utils'
 import { mapValues } from 'lodash-es'
@@ -39,19 +37,6 @@ export default {
         }
     },
     methods: {
-        /* 加载表单选项数据 */
-        async loadOptions() {
-            try {
-                const { data: { list: categoryList } } = await getCategoryList()
-                const { data: { list: tagList } } = await getTagList({ select: '-articles name' })
-                const category = this.popupProps.items.find(item => item.prop === 'category')
-                const tags = this.popupProps.items.find(item => item.prop === 'tags')
-                category.options = categoryList.map(item => ({ label: item.name, value: item.id }))
-                tags.options = tagList.map(tag => ({ label: tag.name, value: tag.id }))
-            } catch (err) {
-                this.$message.error(err.errMsg || err)
-            }
-        },
         /* 修改弹窗表单的数据 */
         modifyPopupFormData(data) {
             return mapValues(data, (val, key) => {
@@ -139,9 +124,6 @@ export default {
                 </template>
             </BaseTable>
         )
-    },
-    created() {
-        this.loadOptions()
     }
 }
 </script>
@@ -149,10 +131,6 @@ export default {
 <style lang="scss" scoped>
 :deep(.el-table .el-image__inner) {
     aspect-ratio: 16 / 9;
-}
-
-:deep(.el-tag + .el-tag) {
-    margin-left: 6px;
 }
 
 :deep(.el-input) {
