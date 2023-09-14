@@ -33,7 +33,7 @@ export default {
         },
         /* 表格数据刷新时 */
         onTableRefresh(datasource) {
-            if (isEmpty(this.handleRefresh) && !isFunction(this.handleRefresh)) return false
+            if (!isFunction(this.handleRefresh)) return false
             this.handleRefresh(datasource)
         },
         /* 打开弹窗 */
@@ -47,7 +47,7 @@ export default {
         },
         /* 设置弹窗表单数据 */
         setPopupFormData(data) {
-            if (!isEmpty(this.modifyPopupFormData) && isFunction(this.modifyPopupFormData)) {
+            if (isFunction(this.modifyPopupFormData)) {
                 data = this.modifyPopupFormData(data)
             }
             this.popup && this.popup.setFormData(data)
