@@ -1,4 +1,15 @@
+import store from '@/store'
 import { formatDate } from '@/utils'
+
+function handleFormItemOptions(name) {
+    const list = store.getters[`article/get${name}List`]
+    return list.map(item => {
+        return {
+            label: item.name,
+            value: item.id
+        }
+    })
+}
 
 /* 文章列表页表格数据项配置内容 */
 const columns = [
@@ -88,26 +99,38 @@ const columns = [
 /* 文章列表页查询表单配置内容 */
 const queryForm = {
     data: {
-        dateRange: null,
-        title: ''
+        title: '',
+        category: '',
+        tags: ''
     },
     items: [
-        {
-            type: 'date',
-            prop: 'dateRange',
-            label: '创建时间',
-            others: {
-                type: 'daterange',
-                startPlaceholder: '开始日期',
-                endPlaceholder: '结束日期',
-                rangeSeparator: '至'
-            }
-        },
         {
             type: 'input',
             prop: 'title',
             label: '文章标题',
             placeholder: '输入文章标题'
+        },
+        {
+            type: 'select',
+            prop: 'category',
+            label: '文章分类',
+            placeholder: '选择文章分类',
+            others: {
+                filterable: true,
+                multiple: false
+            },
+            options: handleFormItemOptions('Category')
+        },
+        {
+            type: 'select',
+            prop: 'tags',
+            label: '文章标签',
+            placeholder: '选择文章标签',
+            others: {
+                filterable: true,
+                multiple: false
+            },
+            options: handleFormItemOptions('Tag')
         }
     ]
 }
@@ -148,7 +171,7 @@ const popupForm = {
                 filterable: true,
                 multiple: false
             },
-            options: []
+            options: handleFormItemOptions('Category')
         },
         {
             type: 'select',
@@ -161,7 +184,7 @@ const popupForm = {
                 multiple: true,
                 multipleLimit: 5
             },
-            options: []
+            options: handleFormItemOptions('Tag')
         },
         {
             type: 'upload',
