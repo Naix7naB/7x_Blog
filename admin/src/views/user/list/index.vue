@@ -4,7 +4,8 @@ import BaseForm from '@/components/form'
 
 import mixin from '@/views/mixins'
 import { columns, queryForm, popupForm } from '@/config/userTable.config'
-import { getUserList, getRoleList } from '@/apis/user'
+import { getUserList, modifyUserById, deleteUserById, deleteUsersInBulk } from '@/apis/user'
+import { mapValues } from 'lodash-es'
 
 export default {
     name: 'UserList',
@@ -28,32 +29,53 @@ export default {
         /* 弹窗组件参数 */
         popupProps() {
             return {
-                data: popupForm.data,
-                items: popupForm.items
+                data: popupForm[this.action].data,
+                items: popupForm[this.action].items
             }
         }
     },
     methods: {
-        async loadOptions() {
-            const { data } = await getRoleList()
-            const role = this.popupProps.items.find(item => item.prop === 'role')
-            role.options = data.list.map(item => ({ label: item.label, value: item.id }))
-        },
-        /* 新增用户 */
+        /* TODO 新增用户 */
         addExecution() {
             console.log('add user')
         },
+        /* 修改弹窗表单的数据 */
+        modifyPopupFormData(data) {
+            return mapValues(data, (val, key) => {
+                if (key === 'role') return val.id
+                return val
+            })
+        },
         /* 修改用户信息 */
         modifyExecution(id) {
-            console.log(id)
+            this.submitPopupForm((data, hasModify) => {
+                if (hasModify === false) return false
+                modifyUserById(id, data).then(res => {
+                    this.refreshTableData()
+                    this.$message.success(res.errMsg)
+                }).catch(err => {
+                    this.$message.error(err.errMsg || err)
+                })
+            })
         },
         /* 删除用户 */
         deleteExecution(data) {
-            console.log(data)
+            deleteUserById(data.id).then(res => {
+                this.refreshTableData()
+                this.$message.success(res.errMsg)
+            }).catch(err => {
+                this.$message.error(err.errMsg || err)
+            })
         },
         /* 批量删除 */
         bulkDeleteExecution(selection) {
-            console.log(selection)
+            const selectedIds = selection.map(item => item.id)
+            deleteUsersInBulk(selectedIds).then(res => {
+                this.refreshTableData()
+                this.$message.success(res.errMsg)
+            }).catch(err => {
+                this.$message.error(err.errMsg || err)
+            })
         }
     },
     render(h, ctx) {
@@ -66,16 +88,12 @@ export default {
                 onOptDelete={ this.optDelete }
                 onOptBulkDelete={ this.optBulkDelete }
                 onBeforePopupCancel={ this.onBeforePopupCancel }
-                onBeforePopupConfirm={ this.onBeforePopupConfirm }
-            >
+                onBeforePopupConfirm={ this.onBeforePopupConfirm }>
                 <template slot="popup">
                     <BaseForm ref='popup' props={{ ...this.popupProps }} />
                 </template>
             </BaseTable>
         )
-    },
-    created() {
-        this.loadOptions()
     }
 }
 </script>
