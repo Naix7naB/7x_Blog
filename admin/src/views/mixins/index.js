@@ -1,7 +1,9 @@
+import { isEmpty, isFunction } from 'lodash-es'
+
 export default {
     data() {
         return {
-            action: '',
+            action: 'add',
             table: null,
             popup: null,
             execution: null
@@ -29,10 +31,15 @@ export default {
         optBulkDelete(selection) {
             this.bulkDeleteExecution(selection)
         },
+        /* 表格数据刷新时 */
+        onTableRefresh(datasource) {
+            if (isEmpty(this.handleRefresh) && !isFunction(this.handleRefresh)) return false
+            this.handleRefresh(datasource)
+        },
         /* 打开弹窗 */
         openPopup() {
             this.table && this.table.openPopup()
-            if (!this.popup) {
+            if (isEmpty(this.popup)) {
                 this.$nextTick(() => {
                     this.popup = this.$refs.popup
                 })
@@ -40,7 +47,7 @@ export default {
         },
         /* 设置弹窗表单数据 */
         setPopupFormData(data) {
-            if (this.modifyPopupFormData && typeof this.modifyPopupFormData === 'function') {
+            if (!isEmpty(this.modifyPopupFormData) && isFunction(this.modifyPopupFormData)) {
                 data = this.modifyPopupFormData(data)
             }
             this.popup && this.popup.setFormData(data)
@@ -48,14 +55,6 @@ export default {
         /* 提交弹窗表单数据 */
         submitPopupForm(callback) {
             this.popup && this.popup.submitForm((data, hasModify) => callback(data, hasModify))
-        },
-        /* 重置弹窗的表单数据 */
-        resetPopupFormData() {
-            this.popup && this.popup.resetFormData()
-        },
-        /* 刷新表格数据 */
-        refreshTableData() {
-            this.table && this.table.refreshData()
         },
         /* 触发弹窗取消按钮 */
         onBeforePopupCancel(done) {
@@ -67,6 +66,14 @@ export default {
             this.execution()
             this.resetPopupFormData()
             done()
+        },
+        /* 重置弹窗的表单数据 */
+        resetPopupFormData() {
+            this.popup && this.popup.resetFormData()
+        },
+        /* 刷新表格数据 */
+        refreshTableData() {
+            this.table && this.table.refreshData()
         }
     },
     mounted() {

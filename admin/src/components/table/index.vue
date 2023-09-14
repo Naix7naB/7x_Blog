@@ -90,8 +90,9 @@ export default {
                 const { list, total } = res.data
                 this.datasource = list
                 this.total = total
+                this.$emit('refresh', list)
             }).catch(err => {
-                this.message.error(err.errMsg)
+                this.message.error(err.errMsg || err)
             }).finally(() => {
                 this.$store.dispatch('setLoadingState', false)
             })
@@ -133,17 +134,6 @@ export default {
                 this.resetQuery()
             })
         },
-        /* 重置查询条件 */
-        resetQuery() {
-            this.condition = {}
-            this.query = {}
-        },
-        /* 重置查询表单的数据 */
-        resetQueryForm() {
-            this.$refs.query.resetFormData()
-            this.resetQuery()
-            this.refreshData()
-        },
         /* 操作选项按钮的执行函数 */
         optHandler(type, data) {
             const regex = new RegExp('delete', 'gi')
@@ -170,6 +160,17 @@ export default {
         /* 打开弹窗 */
         openPopup() {
             this.$refs.popup.open()
+        },
+        /* 重置查询条件 */
+        resetQuery() {
+            this.condition = {}
+            this.query = {}
+        },
+        /* 重置查询表单的数据 */
+        resetQueryForm() {
+            this.$refs.query.resetFormData()
+            this.resetQuery()
+            this.refreshData()
         },
         /* 刷新数据 */
         refreshData() {
