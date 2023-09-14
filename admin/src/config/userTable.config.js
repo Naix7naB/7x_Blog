@@ -1,4 +1,13 @@
+import store from '@/store'
 import { formatDate } from '@/utils'
+
+const roleList = store.getters['user/getRoleList']
+const options = roleList.map(item => {
+    return {
+        label: item.label,
+        value: item.id
+    }
+})
 
 /* 用户列表页表格数据项配置内容 */
 const columns = [
@@ -6,11 +15,6 @@ const columns = [
         type: 'image',
         prop: 'avatar',
         label: '头像',
-        minWidth: 100
-    },
-    {
-        prop: 'username',
-        label: '账号',
         minWidth: 100
     },
     {
@@ -76,56 +80,111 @@ const queryForm = {
 
 /* 用户列表页弹窗表单配置内容 */
 const popupForm = {
-    data: {
-        username: '',
-        nickname: '',
-        avatar: '',
-        email: '',
-        role: ''
-    },
-    items: [
-        {
-            type: 'input',
-            prop: 'username',
-            label: '账号',
-            placeholder: '输入账号',
-            rules: [{ required: true, message: '账号不能为空', trigger: 'blur' }]
+    add: {
+        data: {
+            avatar: '',
+            username: '',
+            nickname: '',
+            password: '',
+            email: '',
+            role: ''
         },
-        {
-            type: 'input',
-            prop: 'nickname',
-            label: '昵称',
-            placeholder: '输入昵称',
-            rules: [{ required: true, message: '昵称不能为空', trigger: 'blur' }]
-        },
-        {
-            type: 'upload',
-            prop: 'avatar',
-            label: '头像',
-            others: {
-                name: 'avatar',
-                multiple: false
-            }
-        },
-        {
-            type: 'input',
-            prop: 'email',
-            label: '邮箱',
-            placeholder: '输入邮箱'
-        },
-        {
-            type: 'select',
-            prop: 'role',
-            label: '用户角色',
-            placeholder: '选择角色名称',
-            rules: [{ required: true, message: '用户角色不能为空', trigger: 'change' }],
-            others: {
-                filterable: true,
-                multiple: false
+        items: [
+            {
+                type: 'upload',
+                prop: 'avatar',
+                label: '头像',
+                others: {
+                    name: 'avatar',
+                    multiple: false
+                }
             },
-            options: []
-        }
-    ]
+            {
+                type: 'input',
+                prop: 'username',
+                label: '账号',
+                placeholder: '输入账号',
+                rules: [{ required: true, message: '账号不能为空', trigger: 'blur' }]
+            },
+            {
+                type: 'input',
+                prop: 'nickname',
+                label: '昵称',
+                placeholder: '输入昵称',
+                rules: [{ required: true, message: '昵称不能为空', trigger: 'blur' }]
+            },
+            {
+                type: 'password',
+                prop: 'password',
+                label: '密码',
+                placeholder: '输入密码',
+                rules: [{ required: true, message: '密码不能为空', trigger: 'blur' }]
+            },
+            {
+                type: 'input',
+                prop: 'email',
+                label: '邮箱',
+                placeholder: '输入邮箱'
+            },
+            {
+                type: 'select',
+                prop: 'role',
+                label: '用户角色',
+                placeholder: '选择角色名称',
+                rules: [{ required: true, message: '用户角色不能为空', trigger: 'change' }],
+                others: {
+                    filterable: true,
+                    multiple: false
+                },
+                options: options
+            }
+        ]
+    },
+    edit: {
+        data: {
+            avatar: '',
+            username: '',
+            nickname: '',
+            role: ''
+        },
+        items: [
+            {
+                type: 'upload',
+                prop: 'avatar',
+                label: '头像',
+                others: {
+                    name: 'avatar',
+                    multiple: false
+                }
+            },
+            {
+                type: 'input',
+                prop: 'username',
+                label: '账号',
+                placeholder: '输入账号',
+                rules: [{ required: true, message: '账号不能为空', trigger: 'blur' }]
+            },
+            {
+                type: 'input',
+                prop: 'nickname',
+                label: '昵称',
+                placeholder: '输入昵称',
+                rules: [{ required: true, message: '昵称不能为空', trigger: 'blur' }]
+            },
+            {
+                type: 'select',
+                prop: 'role',
+                label: '用户角色',
+                placeholder: '选择角色名称',
+                rules: [{ required: true, message: '用户角色不能为空', trigger: 'change' }],
+                others: {
+                    filterable: true,
+                    multiple: false
+                },
+                options: options
+            }
+        ]
+    }
 }
 
 export { columns, queryForm, popupForm }

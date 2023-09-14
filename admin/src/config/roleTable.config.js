@@ -16,11 +16,6 @@ const columns = [
         }
     },
     {
-        prop: 'name',
-        label: '标识',
-        minWidth: 120
-    },
-    {
         prop: 'includes.length',
         label: '用户数量',
         minWidth: 120
