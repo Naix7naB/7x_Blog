@@ -6,6 +6,7 @@ import ColorBlock from '@/components/colorBlock'
 import mixin from '@/views/mixins'
 import { columns, queryForm, popupForm } from '@/config/tagTable.config'
 import { getTagList, createTag, modifyTagById, deleteTagById } from '@/apis/tag'
+import { mapActions } from 'vuex'
 
 export default {
     name: 'ArticleTag',
@@ -35,6 +36,7 @@ export default {
         }
     },
     methods: {
+        ...mapActions('article', ['setTagList']),
         /* 添加文章标签 */
         addExecution() {
             this.submitPopupForm(data => {
@@ -66,6 +68,10 @@ export default {
             }).catch(err => {
                 this.$message.error(err.errMsg || err)
             })
+        },
+        /* 表格数据更新时同步更新store的数据 */
+        handleRefresh(datasource) {
+            this.setTagList(datasource)
         }
     },
     render(h, ctx) {
@@ -82,6 +88,7 @@ export default {
                 onOptEdit={ this.optEdit }
                 onOptDelete={ this.optDelete }
                 onOptBulkDelete={ this.optBulkDelete }
+                onRefresh={ this.onTableRefresh }
                 onBeforePopupCancel={ this.onBeforePopupCancel }
                 onBeforePopupConfirm={ this.onBeforePopupConfirm }
                 { ...{ scopedSlots } }>

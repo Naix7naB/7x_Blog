@@ -5,6 +5,7 @@ import BaseForm from '@/components/form'
 import mixin from '@/views/mixins'
 import { columns, queryForm, popupForm } from '@/config/categoryTable.config'
 import { getCategoryList, createCategory, modifyCategoryById, deleteCategoryById } from '@/apis/category'
+import { mapActions } from 'vuex'
 
 export default {
     name: 'ArticleCategory',
@@ -34,6 +35,7 @@ export default {
         }
     },
     methods: {
+        ...mapActions('article', ['setCategoryList']),
         /* 添加文章分类 */
         addExecution() {
             this.submitPopupForm(data => {
@@ -65,10 +67,14 @@ export default {
             }).catch(err => {
                 this.$message.error(err.errMsg || err)
             })
+        },
+        /* 表格数据更新时同步更新store的数据 */
+        handleRefresh(datasource) {
+            this.setCategoryList(datasource)
         }
     },
     render(h, ctx) {
-        const tableScopedSlots = {
+        const scopedSlots = {
             tagColor: props => {
                 return <ColorBlock color={ props.val } style="margin: auto;" />
             }
@@ -80,9 +86,10 @@ export default {
                 onOptAdd={ this.optAdd }
                 onOptEdit={ this.optEdit }
                 onOptDelete={ this.optDelete }
+                onRefresh={ this.onTableRefresh }
                 onBeforePopupCancel={ this.onBeforePopupCancel }
                 onBeforePopupConfirm={ this.onBeforePopupConfirm }
-                { ...{ scopedSlots: tableScopedSlots } }>
+                { ...{ scopedSlots } }>
                 <template slot="popup">
                     <BaseForm ref='popup' props={{ ...this.popupProps }} />
                 </template>
