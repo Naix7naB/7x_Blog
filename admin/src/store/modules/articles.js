@@ -1,5 +1,6 @@
 import Storage from '@/utils/storage'
 
+import { pick } from 'lodash-es'
 import { getCategoryList } from '@/apis/category'
 import { getTagList } from '@/apis/tag'
 
@@ -40,27 +41,23 @@ export default {
         },
         async loadCategoryList({ getters, dispatch }) {
             if (!getters.getCategoryList) {
-                const { data } = await getCategoryList({
-                    populate: '',
-                    select: 'name'
-                })
+                const { data } = await getCategoryList()
                 dispatch('setCategoryList', data.list)
             }
         },
         async loadTagList({ getters, dispatch }) {
             if (!getters.getTagList) {
-                const { data } = await getTagList({
-                    populate: '',
-                    select: 'name'
-                })
+                const { data } = await getTagList()
                 dispatch('setTagList', data.list)
             }
         },
         setCategoryList({ commit }, list) {
-            commit('_set_category_list_', list)
+            const picked = list.map(item => pick(item, ['id', 'name']))
+            commit('_set_category_list_', picked)
         },
         setTagList({ commit }, list) {
-            commit('_set_tag_list_', list)
+            const picked = list.map(item => pick(item, ['id', 'name']))
+            commit('_set_tag_list_', picked)
         }
     }
 }
