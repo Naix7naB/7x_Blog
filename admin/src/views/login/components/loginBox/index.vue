@@ -1,6 +1,6 @@
 <script>
 import BaseForm from '@/components/form'
-import { login, registry } from '@/apis/login'
+import { login, register } from '@/apis/login'
 import { encrypt } from '@/utils'
 import { login as loginForm, register as registerForm } from '@/config/loginForm.config'
 import { mapActions, mapGetters } from 'vuex'
@@ -29,10 +29,10 @@ export default {
             return this.isShow ? '登录' : '注册'
         },
         currentForm() {
-            return this.isShow ? this.$refs.login : this.$refs.registry
+            return this.isShow ? this.$refs.login : this.$refs.register
         },
         currentRequest() {
-            return this.isShow ? login : registry
+            return this.isShow ? login : register
         }
     },
     methods: {
@@ -75,8 +75,8 @@ export default {
                     </el-button>
                 </BaseForm>
             </div>
-            <div v-else class="form-container registry-form" key="registry">
-                <BaseForm ref="registry" v-bind="registerForm">
+            <div v-else class="form-container register-form" key="register">
+                <BaseForm ref="register" v-bind="registerForm">
                     <span slot="title" class="form-title">{{ getFormTitle }}</span>
                     <el-button slot="opt" type="primary" round @click="handleRequest">
                         {{ getFormTitle }}
@@ -141,7 +141,7 @@ export default {
     left: 0;
 }
 
-.registry-form {
+.register-form {
     right: 0;
 }
 

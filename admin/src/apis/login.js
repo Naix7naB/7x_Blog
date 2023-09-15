@@ -18,12 +18,12 @@ function login(data) {
 }
 
 /* 注册 */
-function registry(data) {
+function register(data) {
     return Request.requestForm({
         methodType: Request.POST,
-        url: '/admin/registry',
+        url: '/admin/register',
         data
     })
 }
 
-export { getKey, login, registry }
+export { getKey, login, register }
