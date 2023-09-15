@@ -1,3 +1,8 @@
+import store from '@/store'
+
+const roleList = store.getters['user/getRoleList']
+const role = roleList.find(role => role.name === 'admin')
+
 const login = {
     data: {
         username: '',
@@ -37,7 +42,7 @@ const register = {
         nickname: '',
         password: '',
         email: '',
-        role: 'user'
+        role: role.id
     },
     items: [
         {
