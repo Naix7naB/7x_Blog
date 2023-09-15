@@ -1,7 +1,7 @@
 /**
  * 封装 http 请求
  */
-import http from '@/apis/http'
+import http from '@/plugins/http'
 
 export default class Request {
     static GET() {
