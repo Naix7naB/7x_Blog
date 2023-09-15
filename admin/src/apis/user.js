@@ -9,6 +9,32 @@ function getUserList(data) {
     })
 }
 
+/* 根据用户ID修改用户信息 */
+function modifyUserById(id, data) {
+    return Request.requestForm({
+        methodType: Request.PUT,
+        url: `/api/user/${id}`,
+        data
+    })
+}
+
+/* 根据用户ID删除用户 */
+function deleteUserById(id) {
+    return Request.requestForm({
+        methodType: Request.DELETE,
+        url: `/api/user/${id}`
+    })
+}
+
+/* 批量删除用户 */
+function deleteUsersInBulk(data) {
+    return Request.requestJson({
+        methodType: Request.DELETE,
+        url: '/api/user',
+        data
+    })
+}
+
 /* 获取角色列表 */
 function getRoleList(data) {
     return Request.requestForm({
@@ -53,4 +79,14 @@ function deleteRolesInBulk(data) {
     })
 }
 
-export { getUserList, getRoleList, createRole, modifyRoleById, deleteRoleById, deleteRolesInBulk }
+export {
+    getUserList,
+    modifyUserById,
+    deleteUserById,
+    deleteUsersInBulk,
+    getRoleList,
+    createRole,
+    modifyRoleById,
+    deleteRoleById,
+    deleteRolesInBulk
+}

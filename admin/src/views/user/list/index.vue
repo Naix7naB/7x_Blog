@@ -5,13 +5,17 @@ import BaseForm from '@/components/form'
 import mixin from '@/views/mixins'
 import { columns, queryForm, popupForm } from '@/config/userTable.config'
 import { getUserList, modifyUserById, deleteUserById, deleteUsersInBulk } from '@/apis/user'
+import { register } from '@/apis/login'
+import { encrypt } from '@/utils'
 import { mapValues } from 'lodash-es'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
     name: 'UserList',
     components: { BaseTable, BaseForm },
     mixins: [mixin],
     computed: {
+        ...mapGetters('user', { encryptKey: 'getKey' }),
         /* 表格组件参数 */
         tableProps() {
             return {
@@ -35,15 +39,29 @@ export default {
         }
     },
     methods: {
-        /* TODO 新增用户 */
-        addExecution() {
-            console.log('add user')
-        },
+        ...mapActions('user', ['loadKey']),
         /* 修改弹窗表单的数据 */
         modifyPopupFormData(data) {
             return mapValues(data, (val, key) => {
                 if (key === 'role') return val.id
                 return val
+            })
+        },
+        /* 新增用户 */
+        addExecution() {
+            this.submitPopupForm(async data => {
+                /* 获取加密密钥 处理表单数据 */
+                if (!this.encryptKey) {
+                    await this.loadKey()
+                }
+                /* 对密码进行加密处理 */
+                data.password = encrypt(data.password, this.encryptKey)
+                register(data).then(res => {
+                    this.refreshTableData()
+                    this.$message.success('添加成功')
+                }).catch(err => {
+                    this.$message.error(err.errMsg || err)
+                })
             })
         },
         /* 修改用户信息 */
