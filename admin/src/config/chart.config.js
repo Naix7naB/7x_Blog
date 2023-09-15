@@ -1,38 +1,52 @@
-const date = new Date()
-const year = date.getFullYear()
+import { formatDate } from '@/utils'
+
+function getCalendarRange() {
+    const date = new Date()
+    const year = date.getFullYear()
+    const end = formatDate(date, 'YYYY-MM-DD')
+    const start = formatDate(date.setFullYear(year - 1), 'YYYY-MM-DD')
+    return [start, end]
+}
 
 const heatMap = {
     title: {
         top: 30,
         left: 'center',
-        text: '文章贡献度'
+        text: '文章贡献度',
+        subtext: '近一年内博客贡献度'
     },
-    tooltip: {},
+    tooltip: {
+        position: 'top',
+        formatter: params => {
+            return `<div style="display: flex; flex-direction: column;"><span>${params.value[0]}</span><span>文章数: ${params.value[1]}</span></div>`
+        }
+    },
     visualMap: {
         type: 'piecewise',
         orient: 'horizontal',
-        right: 60,
-        top: 320,
-        inverse: true,
+        right: 30,
+        bottom: 30,
+        calculable: true,
         selectedMode: false,
-        text: ['少', '多'],
+        text: ['多', '少'],
         itemGap: 2,
         inRange: {
-            color: ['#39d353', '#0e4429']
+            color: ['#e1ece0', '#c6e48b', '#7bc96f', '#239a3b', '#196127']
         }
     },
     calendar: {
-        top: 150,
+        top: 120,
         left: 50,
         right: 30,
-        cellSize: [24, 24],
-        range: year,
+        cellSize: 24,
+        range: getCalendarRange(),
         splitLine: {
             show: false
         },
         itemStyle: {
-            color: '#2d333b',
-            borderWidth: 0.5
+            color: '#f1f1f1',
+            borderColor: '#fff',
+            borderWidth: 3
         },
         yearLabel: {
             show: false
@@ -40,11 +54,15 @@ const heatMap = {
         monthLabel: {
             show: true,
             nameMap: 'ZH'
-        }
+        },
+        silent: true
     },
     series: {
         type: 'heatmap',
         coordinateSystem: 'calendar',
+        emphasis: {
+            disabled: true
+        },
         data: []
     }
 }
