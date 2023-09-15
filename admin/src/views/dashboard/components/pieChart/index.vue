@@ -1,38 +1,34 @@
 <script>
-import resize from '../mixins/resize'
-import useChart from './chart'
-import { option } from '@/config/chart.config'
+import mixin from '../mixins'
+import { pieChart } from '@/config/chart.config'
 
 export default {
-    mixins: [resize],
+    mixins: [mixin],
     props: {
-        width: {
-            type: String,
-            default: '100%'
-        },
         height: {
             type: String,
-            default: '300px'
+            default: '400px'
         }
     },
-    data() {
-        return {
-            chart: null
+    computed: {
+        chartOpt() {
+            return pieChart
+        },
+        chartStyle() {
+            return {
+                widht: '100%',
+                height: '100%'
+            }
         }
     },
     mounted() {
-        this.$nextTick(() => {
-            this.chart = useChart(this.$refs.pieChart, option)
-        })
-    },
-    beforeDestroy() {
-        if (!this.chart) return false
-        this.chart.dispose()
-        this.chart = null
+        this.$_setChartOption(this.chartOpt)
     }
 }
 </script>
 
 <template>
-    <div ref="pieChart" :style="{ width: width, height: height }"></div>
+    <div class="chart-pie dashboard-card" :style="{ height }">
+        <div ref="chart" :style="chartStyle"></div>
+    </div>
 </template>
