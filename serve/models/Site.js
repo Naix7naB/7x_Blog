@@ -40,6 +40,10 @@ const schema = new mongoose.Schema(
             type: String,
             default: '关于我'
         },
+        user_count: {
+            type: Number,
+            default: 0
+        },
         article_count: {
             type: Number,
             default: 0
@@ -49,6 +53,10 @@ const schema = new mongoose.Schema(
             default: 0
         },
         tag_count: {
+            type: Number,
+            default: 0
+        },
+        message_count: {
             type: Number,
             default: 0
         },

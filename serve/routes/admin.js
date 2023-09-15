@@ -3,6 +3,7 @@ const assert = require('http-assert')
 
 const User = require('../models/User')
 const Role = require('../models/Role')
+const Site = require('../models/Site')
 const Response = require('../core/response')
 const { getPubKey } = require('../core/rsa')
 const { encrypt, decrypt } = require('../utils/rsa')
@@ -26,17 +27,16 @@ Router.get('/key', async (req, res, next) => {
 // 注册
 Router.post('/register', async (req, res, next) => {
     try {
-        const { role = 'user', ...userInfo } = req.body
-        const userRole = await Role.findOne({ name: role })
+        const userInfo = req.body
         const random = Math.floor(Date.now() / 1000)
         userInfo.password = encrypt(userInfo.password)
         userInfo.email = userInfo.email || `user${random}@email.com`
-        const user = await User.create({
-            ...userInfo,
-            role: userRole.id
-        })
-        await Role.findByIdAndUpdate(userRole.id, {
+        const user = await User.create(userInfo)
+        await Role.findByIdAndUpdate(userInfo.role, {
             $push: { includes: user.id }
+        })
+        await Site.findOneAndUpdate(null, {
+            $inc: { user_count: 1 }
         })
         Response.sendToken(res, {
             payload: user,
