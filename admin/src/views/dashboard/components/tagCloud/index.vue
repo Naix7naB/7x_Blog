@@ -3,13 +3,9 @@ import TagCloud from 'TagCloud'
 
 export default {
     props: {
-        width: {
-            type: String,
-            default: '100%'
-        },
         height: {
             type: String,
-            default: '300px'
+            default: '400px'
         }
     },
     data() {
@@ -23,6 +19,14 @@ export default {
                 containerClass: 'tag-cloud',
                 itemClass: 'tag-cloud--item',
                 useContainerInlineStyles: false
+            }
+        }
+    },
+    computed: {
+        tagCloudStyle() {
+            return {
+                width: '100%',
+                height: '100%'
             }
         }
     },
@@ -40,7 +44,9 @@ export default {
 </script>
 
 <template>
-    <div ref="tagCloud" :style="{ width: width, height: height }"></div>
+    <div class="dashboard-card" :style="{ height }">
+        <div ref="tagCloud" :style="tagCloudStyle"></div>
+    </div>
 </template>
 
 <style lang="scss" scoped>

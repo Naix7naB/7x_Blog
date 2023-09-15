@@ -10,9 +10,9 @@ export default {
 </script>
 
 <template>
-    <el-row :gutter="40" class="panel-group">
-        <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-            <div class="card-panel">
+    <el-row :gutter="40">
+        <el-col :xs="12" :sm="12" :lg="6">
+            <div class="card-panel dashboard-card">
                 <div class="card-panel-icon icon-article">
                     <fa-icon :icon="['fas', 'austral-sign']" size="4x" />
                 </div>
@@ -27,8 +27,8 @@ export default {
                 </div>
             </div>
         </el-col>
-        <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-            <div class="card-panel">
+        <el-col :xs="12" :sm="12" :lg="6">
+            <div class="card-panel dashboard-card">
                 <div class="card-panel-icon icon-view">
                     <fa-icon :icon="['fas', 'chart-line']" size="4x" />
                 </div>
@@ -43,8 +43,8 @@ export default {
                 </div>
             </div>
         </el-col>
-        <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-            <div class="card-panel">
+        <el-col :xs="12" :sm="12" :lg="6">
+            <div class="card-panel dashboard-card">
                 <div class="card-panel-icon icon-user">
                     <fa-icon :icon="['fas', 'user-group']" size="4x" />
                 </div>
@@ -59,8 +59,8 @@ export default {
                 </div>
             </div>
         </el-col>
-        <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-            <div class="card-panel">
+        <el-col :xs="12" :sm="12" :lg="6">
+            <div class="card-panel dashboard-card">
                 <div class="card-panel-icon icon-comment">
                     <fa-icon :icon="['fas', 'comment-dots']" size="4x" />
                 </div>
@@ -80,24 +80,11 @@ export default {
 
 <style lang="scss" scoped>
 .card-panel {
-    margin-top: 18px;
-}
-
-.card-panel-col {
-    margin-bottom: 32px;
-}
-
-.card-panel {
     cursor: pointer;
-    overflow: hidden;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
     font-size: 12px;
-    border-color: rgba(0, 0, 0, .05);
-    background: #ffffff;
-    box-shadow: 4px 4px 40px rgba(0, 0, 0, .05);
 
     &:hover {
         .card-panel-icon {
