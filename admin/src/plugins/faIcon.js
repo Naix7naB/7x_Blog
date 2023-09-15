@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -40,4 +38,4 @@ library.add([
     faGear
 ])
 
-Vue.component('fa-icon', FontAwesomeIcon)
+export default FontAwesomeIcon
