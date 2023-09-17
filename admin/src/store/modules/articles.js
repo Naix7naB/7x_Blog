@@ -65,6 +65,7 @@ export default {
                 return {
                     id: item.id,
                     name: item.name,
+                    color: item.color,
                     article_count: item.articles.length
                 }
             })
