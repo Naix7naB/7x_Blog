@@ -1,6 +1,5 @@
 import Storage from '@/utils/storage'
 
-import { pick } from 'lodash-es'
 import { getCategoryList } from '@/apis/category'
 import { getTagList } from '@/apis/tag'
 
@@ -52,11 +51,23 @@ export default {
             }
         },
         setCategoryList({ commit }, list) {
-            const picked = list.map(item => pick(item, ['id', 'name']))
+            const picked = list.map(item => {
+                return {
+                    id: item.id,
+                    name: item.name,
+                    article_count: item.articles.length
+                }
+            })
             commit('_set_category_list_', picked)
         },
         setTagList({ commit }, list) {
-            const picked = list.map(item => pick(item, ['id', 'name']))
+            const picked = list.map(item => {
+                return {
+                    id: item.id,
+                    name: item.name,
+                    article_count: item.articles.length
+                }
+            })
             commit('_set_tag_list_', picked)
         }
     }
