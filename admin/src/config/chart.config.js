@@ -17,7 +17,7 @@ const heatMap = {
     },
     tooltip: {
         position: 'top',
-        formatter: params => {
+        formatter(params) {
             return `<div style="display: flex; flex-direction: column;"><span>${params.value[0]}</span><span>文章数: ${params.value[1]}</span></div>`
         }
     },
@@ -70,40 +70,42 @@ const heatMap = {
 const pieChart = {
     tooltip: {
         trigger: 'item',
-        position: 'inside'
+        position(pos, params, dom, rect, size) {
+            // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。
+            const horizontal = pos[0] < size.viewSize[0] / 2 ? 'left' : 'right'
+            return {
+                top: 60,
+                [horizontal]: 5
+            }
+        }
     },
     legend: {
         orient: 'vertical',
         top: '5%',
         left: 'auto'
     },
-    series: [
-        {
-            name: '文章标签统计',
-            type: 'pie',
-            radius: ['0', '75%'],
-            avoidLabelOverlap: true,
-            label: {
-                show: false,
-                position: 'outside'
-            },
-            labelLine: {
-                show: false
-            },
-            emphasis: {
-                label: {
-                    show: true,
-                    fontSize: 22
-                }
-            },
-            data: [
-                { value: 139, name: 'Vue' },
-                { value: 78, name: 'Nodejs' },
-                { value: 12, name: 'JavaScript' },
-                { value: 7, name: 'CSS' }
-            ]
-        }
-    ]
+    series: {
+        name: '文章标签统计',
+        type: 'pie',
+        radius: ['0', '75%'],
+        roseType: 'radius',
+        avoidLabelOverlap: true,
+        label: {
+            show: true,
+            position: 'outside',
+            formatter: '{b0} ({d0}%)',
+            fontFamily: 'monospace',
+            fontSize: 16
+        },
+        labelLine: {
+            show: true
+        },
+        emphasis: {
+            scale: false,
+            focus: 'self'
+        },
+        data: []
+    }
 }
 
 export { heatMap, pieChart }

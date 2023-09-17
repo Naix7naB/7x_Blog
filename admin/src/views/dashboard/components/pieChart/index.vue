@@ -1,6 +1,7 @@
 <script>
 import mixin from '../mixins'
 import { pieChart } from '@/config/chart.config'
+import { mapGetters } from 'vuex'
 
 export default {
     mixins: [mixin],
@@ -11,9 +12,7 @@ export default {
         }
     },
     computed: {
-        chartOpt() {
-            return pieChart
-        },
+        ...mapGetters('article', ['getCategoryList']),
         chartStyle() {
             return {
                 width: '100%',
@@ -22,7 +21,14 @@ export default {
         }
     },
     mounted() {
-        this.$_setChartOption(this.chartOpt)
+        const chartOpt = pieChart
+        chartOpt.series.data = this.getCategoryList.map(category => {
+            return {
+                name: category.name,
+                value: category.article_count
+            }
+        })
+        this.$_setChartOption(chartOpt)
     }
 }
 </script>
