@@ -1,6 +1,8 @@
 <script>
 import TagCloud from 'TagCloud'
 
+import { mapGetters } from 'vuex'
+
 export default {
     props: {
         height: {
@@ -10,19 +12,11 @@ export default {
     },
     data() {
         return {
-            tagcloud: null,
-            texts: ['Vue', 'Nodejs', 'JavaScript', 'CSS'],
-            options: {
-                keep: false,
-                initSpeed: 'fast',
-                maxSpeed: 'fast',
-                containerClass: 'tag-cloud',
-                itemClass: 'tag-cloud--item',
-                useContainerInlineStyles: false
-            }
+            tagcloud: null
         }
     },
     computed: {
+        ...mapGetters('article', ['getTagList']),
         tagCloudStyle() {
             return {
                 width: '100%',
@@ -31,8 +25,27 @@ export default {
         }
     },
     mounted() {
-        this.$nextTick(() => {
-            this.tagcloud = TagCloud(this.$refs.tagCloud, this.texts, this.options)
+        this.tagcloud = TagCloud(
+            this.$refs.tagCloud,
+            this.getTagList.map(tag => tag.name),
+            {
+                radius: 120,
+                direction: 45,
+                keep: false,
+                initSpeed: 'normal',
+                maxSpeed: 'normal',
+                containerClass: 'tag-cloud',
+                itemClass: 'tag-cloud--item',
+                useContainerInlineStyles: false
+            }
+        )
+        document.querySelectorAll('.tag-cloud--item').forEach(tag => {
+            this.getTagList.forEach(item => {
+                const text = tag.textContent ?? tag.innerText
+                if (item.name === text) {
+                    tag.style.color = item.color
+                }
+            })
         })
     },
     beforeDestroy() {
