@@ -1,9 +1,10 @@
 <script>
 export default {
+    name: 'ChartGroup',
     props: {
-        height: {
+        gutter: {
             type: Number,
-            default: 400
+            default: 0
         }
     },
     computed: {
@@ -31,17 +32,11 @@ export default {
 </script>
 
 <template>
-    <el-row :gutter="40">
+    <el-row :gutter="gutter">
         <el-col v-for="chart in chartList" :key="chart.name" :xs="24" :sm="24" :md="8">
-            <el-card :header="chart.title" :body-style="{ height: height + 'px' }">
+            <el-card :header="chart.title" :body-style="{ height: '400px' }">
                 <component :is="chart.cmp" />
             </el-card>
         </el-col>
     </el-row>
 </template>
-
-<style lang="scss" scoped>
-:deep(.el-card) {
-    margin-top: 20px;
-}
-</style>

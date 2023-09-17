@@ -5,26 +5,14 @@ import { getArticleList } from '@/apis/article'
 import { formatDate } from '@/utils'
 
 export default {
+    name: 'HeatMap',
     props: {
-        height: {
-            type: String,
-            default: '400px'
+        gutter: {
+            type: Number,
+            default: 0
         }
     },
     mixins: [mixin],
-    computed: {
-        cardStyle() {
-            return {
-                height: this.height
-            }
-        },
-        chartStyle() {
-            return {
-                width: '100%',
-                height: '100%'
-            }
-        }
-    },
     mounted() {
         getArticleList().then(({ data }) => {
             const chartOpt = heatMap
@@ -48,10 +36,10 @@ export default {
 </script>
 
 <template>
-    <el-row :gutter="40">
+    <el-row :gutter="gutter">
         <el-col :span="24">
-            <el-card :body-style="cardStyle">
-                <div ref="chart" :style="chartStyle"></div>
+            <el-card :body-style="{ height: '400px' }">
+                <div ref="chart" :style="$_chartStyle"></div>
             </el-card>
         </el-col>
     </el-row>
@@ -59,6 +47,6 @@ export default {
 
 <style lang="scss" scoped>
 :deep(.el-card) {
-    margin: 32px 0;
+    margin: 40px 0 20px;
 }
 </style>

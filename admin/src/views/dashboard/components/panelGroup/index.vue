@@ -4,7 +4,14 @@ import CountTo from 'vue-count-to'
 import { getSiteInfo } from '@/apis/site'
 
 export default {
+    name: 'PanelGroup',
     components: { CountTo },
+    props: {
+        gutter: {
+            type: Number,
+            default: 0
+        }
+    },
     data() {
         return {
             panels: [
@@ -54,7 +61,7 @@ export default {
 </script>
 
 <template>
-    <el-row :gutter="40">
+    <el-row :gutter="gutter">
         <el-col v-for="panel in panels" :key="panel.name" :xs="24" :sm="12" :lg="6">
             <el-card>
                 <div :class="['panel-icon', panel.name]">
@@ -75,10 +82,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-:deep(.el-card) {
-    margin-top: 20px;
-}
-
 :deep(.el-card__body) {
     display: flex;
     justify-content: space-between;

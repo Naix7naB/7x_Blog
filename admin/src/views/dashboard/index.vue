@@ -7,21 +7,23 @@ export default {
     name: 'Dashboard',
     components: { HeatMap, PanelGroup, ChartGroup },
     data() {
-        return {}
+        return {
+            gutter: 40
+        }
     }
 }
 </script>
 
 <template>
-    <div class="dashboard">
-        <PanelGroup />
-        <HeatMap />
-        <ChartGroup />
+    <div>
+        <PanelGroup :gutter="gutter" />
+        <HeatMap :gutter="gutter" />
+        <ChartGroup :gutter="gutter" />
     </div>
 </template>
 
 <style lang="scss">
-.dashboard {
-    padding: 24px 0;
+.el-card {
+    margin-top: 20px;
 }
 </style>
