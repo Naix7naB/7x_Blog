@@ -1,12 +1,11 @@
 <script>
 import HeatMap from './components/heatMap'
 import PanelGroup from './components/panelGroup'
-import PieChart from './components/pieChart'
-import TagCloud from './components/tagCloud'
+import ChartGroup from './components/chartGroup'
 
 export default {
     name: 'Dashboard',
-    components: { HeatMap, PanelGroup, PieChart, TagCloud },
+    components: { HeatMap, PanelGroup, ChartGroup },
     data() {
         return {}
     }
@@ -17,14 +16,7 @@ export default {
     <div class="dashboard">
         <PanelGroup />
         <HeatMap />
-        <el-row :gutter="40">
-            <el-col :xs="24" :sm="24" :md="12">
-                <PieChart />
-            </el-col>
-            <el-col :xs="24" :sm="24" :md="12">
-                <TagCloud />
-            </el-col>
-        </el-row>
+        <ChartGroup />
     </div>
 </template>
 

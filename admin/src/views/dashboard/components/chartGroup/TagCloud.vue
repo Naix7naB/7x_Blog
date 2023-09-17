@@ -4,12 +4,7 @@ import TagCloud from 'TagCloud'
 import { mapGetters } from 'vuex'
 
 export default {
-    props: {
-        height: {
-            type: String,
-            default: '400px'
-        }
-    },
+    name: 'TagCloud',
     data() {
         return {
             tagcloud: null
@@ -17,11 +12,6 @@ export default {
     },
     computed: {
         ...mapGetters('article', ['getTagList']),
-        cardStyle() {
-            return {
-                height: this.height
-            }
-        },
         tagCloudStyle() {
             return {
                 width: '100%',
@@ -62,9 +52,7 @@ export default {
 </script>
 
 <template>
-    <el-card :body-style="cardStyle">
-        <div ref="tagCloud" :style="tagCloudStyle"></div>
-    </el-card>
+    <div ref="tagCloud" :style="tagCloudStyle"></div>
 </template>
 
 <style lang="scss" scoped>

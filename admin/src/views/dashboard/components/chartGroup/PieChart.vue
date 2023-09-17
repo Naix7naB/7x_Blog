@@ -4,26 +4,10 @@ import { pieChart } from '@/config/chart.config'
 import { mapGetters } from 'vuex'
 
 export default {
+    name: 'PieChart',
     mixins: [mixin],
-    props: {
-        height: {
-            type: String,
-            default: '400px'
-        }
-    },
     computed: {
-        ...mapGetters('article', ['getCategoryList']),
-        cardStyle() {
-            return {
-                height: this.height
-            }
-        },
-        chartStyle() {
-            return {
-                width: '100%',
-                height: '100%'
-            }
-        }
+        ...mapGetters('article', ['getCategoryList'])
     },
     mounted() {
         const chartOpt = pieChart
@@ -39,7 +23,5 @@ export default {
 </script>
 
 <template>
-    <el-card :body-style="cardStyle">
-        <div ref="chart" :style="chartStyle"></div>
-    </el-card>
+    <div ref="chart" :style="$_chartStyle"></div>
 </template>

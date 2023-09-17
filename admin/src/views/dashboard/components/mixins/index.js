@@ -10,6 +10,14 @@ export default {
             $_resizeHandler: null
         }
     },
+    computed: {
+        $_chartStyle() {
+            return {
+                width: '100%',
+                height: '100%'
+            }
+        }
+    },
     methods: {
         $_initChart() {
             this.$_chart = echarts.init(this.$refs.chart)
@@ -43,9 +51,8 @@ export default {
         }
     },
     mounted() {
-        this.$_resizeHandler = debounce(e => {
+        this.$_resizeHandler = debounce(() => {
             if (this.$_chart) {
-                if (e.target.innerWidth <= 992) return false
                 this.$_chart.resize()
             }
         }, 50)
