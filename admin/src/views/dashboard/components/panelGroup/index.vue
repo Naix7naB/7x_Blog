@@ -1,76 +1,79 @@
 <script>
 import CountTo from 'vue-count-to'
 
+import { getSiteInfo } from '@/apis/site'
+
 export default {
     components: { CountTo },
     data() {
-        return {}
+        return {
+            panels: [
+                {
+                    name: 'article',
+                    prop: 'article_count',
+                    text: '文章数',
+                    icon: 'austral-sign',
+                    value: 0
+                },
+                {
+                    name: 'view',
+                    prop: 'view_count',
+                    text: '总访问量',
+                    icon: 'chart-line',
+                    value: 0
+                },
+                {
+                    name: 'user',
+                    prop: 'user_count',
+                    text: '用户量',
+                    icon: 'user-group',
+                    value: 0
+                },
+                {
+                    name: 'message',
+                    prop: 'message_count',
+                    text: '留言数',
+                    icon: 'comment-dots',
+                    value: 0
+                }
+            ]
+        }
+    },
+    created() {
+        getSiteInfo().then(({ data }) => {
+            const pickFields = ['user_count', 'article_count', 'message_count']
+            pickFields.forEach(field => {
+                const panel = this.panels.find(item => item.prop === field)
+                panel.value = data[field]
+            })
+        }).catch(err => {
+            this.$message.error(err.errMsg || err)
+        })
     }
 }
 </script>
 
 <template>
     <el-row :gutter="40">
-        <el-col :xs="12" :sm="12" :lg="6">
+        <el-col
+            class="panel-item"
+            v-for="panel in panels"
+            :key="panel.name"
+            :xs="24"
+            :sm="12"
+            :lg="6"
+        >
             <div class="card-panel dashboard-card">
-                <div class="card-panel-icon icon-article">
-                    <fa-icon :icon="['fas', 'austral-sign']" size="4x" />
+                <div :class="['card-panel-icon', `icon-${panel.name}`]">
+                    <fa-icon :icon="['fas', panel.icon]" size="4x" />
                 </div>
                 <div class="card-panel-description">
-                    <div class="card-panel-text">文章数</div>
+                    <div class="card-panel-text">{{ panel.text }}</div>
                     <count-to
                         class="card-panel-num"
                         :start-val="0"
-                        :end-val="102400"
+                        :end-val="panel.value"
                         :duration="2600"
-                    />
-                </div>
-            </div>
-        </el-col>
-        <el-col :xs="12" :sm="12" :lg="6">
-            <div class="card-panel dashboard-card">
-                <div class="card-panel-icon icon-view">
-                    <fa-icon :icon="['fas', 'chart-line']" size="4x" />
-                </div>
-                <div class="card-panel-description">
-                    <div class="card-panel-text">总访问量</div>
-                    <count-to
-                        class="card-panel-num"
-                        :start-val="0"
-                        :end-val="81212"
-                        :duration="3000"
-                    />
-                </div>
-            </div>
-        </el-col>
-        <el-col :xs="12" :sm="12" :lg="6">
-            <div class="card-panel dashboard-card">
-                <div class="card-panel-icon icon-user">
-                    <fa-icon :icon="['fas', 'user-group']" size="4x" />
-                </div>
-                <div class="card-panel-description">
-                    <div class="card-panel-text">用户量</div>
-                    <count-to
-                        class="card-panel-num"
-                        :start-val="0"
-                        :end-val="9280"
-                        :duration="3200"
-                    />
-                </div>
-            </div>
-        </el-col>
-        <el-col :xs="12" :sm="12" :lg="6">
-            <div class="card-panel dashboard-card">
-                <div class="card-panel-icon icon-comment">
-                    <fa-icon :icon="['fas', 'comment-dots']" size="4x" />
-                </div>
-                <div class="card-panel-description">
-                    <div class="card-panel-text">留言数</div>
-                    <count-to
-                        class="card-panel-num"
-                        :start-val="0"
-                        :end-val="13600"
-                        :duration="3600"
                     />
                 </div>
             </div>
@@ -79,6 +82,10 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.panel-item {
+    margin-top: 20px;
+}
+
 .card-panel {
     cursor: pointer;
     display: flex;
@@ -99,7 +106,7 @@ export default {
         .icon-user {
             background-color: #40c9c6;
         }
-        .icon-comment {
+        .icon-message {
             background-color: #36a3f7;
         }
     }
@@ -123,7 +130,7 @@ export default {
     color: #40c9c6;
 }
 
-.icon-comment {
+.icon-message {
     color: #36a3f7;
 }
 
