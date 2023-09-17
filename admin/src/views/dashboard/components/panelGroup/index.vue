@@ -55,116 +55,102 @@ export default {
 
 <template>
     <el-row :gutter="40">
-        <el-col
-            class="panel-item"
-            v-for="panel in panels"
-            :key="panel.name"
-            :xs="24"
-            :sm="12"
-            :lg="6"
-        >
-            <div class="card-panel dashboard-card">
-                <div :class="['card-panel-icon', `icon-${panel.name}`]">
+        <el-col v-for="panel in panels" :key="panel.name" :xs="24" :sm="12" :lg="6">
+            <el-card>
+                <div :class="['panel-icon', panel.name]">
                     <fa-icon :icon="['fas', panel.icon]" size="4x" />
                 </div>
-                <div class="card-panel-description">
-                    <div class="card-panel-text">{{ panel.text }}</div>
+                <div class="panel-description">
+                    <div class="panel-description--text">{{ panel.text }}</div>
                     <count-to
-                        class="card-panel-num"
+                        class="panel-description--num"
                         :start-val="0"
                         :end-val="panel.value"
                         :duration="2600"
                     />
                 </div>
-            </div>
+            </el-card>
         </el-col>
     </el-row>
 </template>
 
 <style lang="scss" scoped>
-.panel-item {
+:deep(.el-card) {
     margin-top: 20px;
 }
 
-.card-panel {
-    cursor: pointer;
+:deep(.el-card__body) {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 12px;
+    cursor: pointer;
+}
 
-    &:hover {
-        .card-panel-icon {
-            color: #ffffff;
-        }
-        .icon-article {
-            background-color: #f4516c;
-        }
-        .icon-view {
-            background-color: #34bfa3
-        }
-        .icon-user {
-            background-color: #40c9c6;
-        }
-        .icon-message {
-            background-color: #36a3f7;
-        }
+:deep(.el-card__body:hover) {
+    .panel-icon {
+        color: #ffffff;
+    }
+    .panel-icon.article {
+        background-color: #f4516c;
+    }
+    .panel-icon.view {
+        background-color: #34bfa3
+    }
+    .panel-icon.user {
+        background-color: #40c9c6;
+    }
+    .panel-icon.message {
+        background-color: #36a3f7;
     }
 }
 
-.card-panel-icon {
+.panel-icon {
     padding: 16px;
     border-radius: 6px;
     transition: all 0.38s ease-out;
 }
 
-.icon-article {
+.panel-icon.article {
     color: #f4516c;
 }
 
-.icon-view {
+.panel-icon.view {
     color: #34bfa3;
 }
 
-.icon-user {
+.panel-icon.user {
     color: #40c9c6;
 }
 
-.icon-message {
+.panel-icon.message {
     color: #36a3f7;
 }
 
-.card-panel-description {
+.panel-description {
     font-weight: bold;
     color: #666666;
 }
 
-.card-panel-text {
+.panel-description--text {
     line-height: 18px;
     margin-bottom: 12px;
     font-size: 16px;
     color: rgba(0, 0, 0, 0.45);
 }
 
-.card-panel-num {
+.panel-description--num {
     font-size: 20px;
 }
 
 @media (max-width:550px) {
-    .card-panel-description {
-        display: none;
-    }
-
-    .card-panel-icon {
+    .panel-icon {
         width: 100%;
         height: 100%;
-        margin: 0 !important;
     }
 
-    .svg-icon {
-        display: block;
-        margin: 14px auto !important;
-        float: none !important;
+    .panel-description {
+        display: none;
     }
 }
 </style>

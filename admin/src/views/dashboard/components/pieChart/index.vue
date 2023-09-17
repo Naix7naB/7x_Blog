@@ -13,6 +13,11 @@ export default {
     },
     computed: {
         ...mapGetters('article', ['getCategoryList']),
+        cardStyle() {
+            return {
+                height: this.height
+            }
+        },
         chartStyle() {
             return {
                 width: '100%',
@@ -34,7 +39,7 @@ export default {
 </script>
 
 <template>
-    <div class="chart-pie dashboard-card" :style="{ height }">
+    <el-card :body-style="cardStyle">
         <div ref="chart" :style="chartStyle"></div>
-    </div>
+    </el-card>
 </template>

@@ -13,6 +13,11 @@ export default {
     },
     mixins: [mixin],
     computed: {
+        cardStyle() {
+            return {
+                height: this.height
+            }
+        },
         chartStyle() {
             return {
                 width: '100%',
@@ -43,7 +48,17 @@ export default {
 </script>
 
 <template>
-    <div class="dashboard-card" :style="{ height }">
-        <div ref="chart" :style="chartStyle"></div>
-    </div>
+    <el-row :gutter="40">
+        <el-col :span="24">
+            <el-card :body-style="cardStyle">
+                <div ref="chart" :style="chartStyle"></div>
+            </el-card>
+        </el-col>
+    </el-row>
 </template>
+
+<style lang="scss" scoped>
+:deep(.el-card) {
+    margin: 32px 0;
+}
+</style>

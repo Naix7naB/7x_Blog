@@ -17,6 +17,11 @@ export default {
     },
     computed: {
         ...mapGetters('article', ['getTagList']),
+        cardStyle() {
+            return {
+                height: this.height
+            }
+        },
         tagCloudStyle() {
             return {
                 width: '100%',
@@ -57,9 +62,9 @@ export default {
 </script>
 
 <template>
-    <div class="dashboard-card" :style="{ height }">
+    <el-card :body-style="cardStyle">
         <div ref="tagCloud" :style="tagCloudStyle"></div>
-    </div>
+    </el-card>
 </template>
 
 <style lang="scss" scoped>
