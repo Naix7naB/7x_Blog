@@ -1,14 +1,11 @@
 import Request from '@/utils/request'
 
 /* 获取文章标签列表 */
-function getTagList({ page, size } = {}) {
+function getTagList(data) {
     return Request.requestForm({
         methodType: Request.GET,
         url: '/api/tag',
-        data: {
-            page,
-            size
-        }
+        data
     })
 }
 
@@ -21,7 +18,7 @@ function createTag(data) {
     })
 }
 
-/* 修改文章标签 */
+/* 根据文章标签ID修改文章标签 */
 function modifyTagById(id, data) {
     return Request.requestForm({
         methodType: Request.PUT,
@@ -30,7 +27,7 @@ function modifyTagById(id, data) {
     })
 }
 
-/* 删除文章标签 */
+/* 根据文章标签ID删除文章标签 */
 function deleteTagById(id) {
     return Request.request({
         methodType: Request.DELETE,

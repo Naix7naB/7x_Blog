@@ -1,14 +1,11 @@
 import Request from '@/utils/request'
 
 /* 获取文章分类列表 */
-function getCategoryList({ page, size } = {}) {
+function getCategoryList(data) {
     return Request.requestForm({
         methodType: Request.GET,
         url: '/api/category',
-        data: {
-            page,
-            size
-        }
+        data
     })
 }
 
@@ -21,7 +18,7 @@ function createCategory(data) {
     })
 }
 
-/* 修改文章分类 */
+/* 根据文章分类ID修改文章分类 */
 function modifyCategoryById(id, data) {
     return Request.requestForm({
         methodType: Request.PUT,
@@ -30,7 +27,7 @@ function modifyCategoryById(id, data) {
     })
 }
 
-/* 删除文章分类 */
+/* 根据文章分类ID删除文章分类 */
 function deleteCategoryById(id) {
     return Request.request({
         methodType: Request.DELETE,
