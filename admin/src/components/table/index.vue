@@ -24,7 +24,23 @@ export default {
             type: Array,
             required: true
         },
+        containerStyle: {
+            type: Object,
+            default: () => {}
+        },
+        tableAlign: {
+            type: String,
+            default: 'center'
+        },
         showTableBorder: {
+            type: Boolean,
+            default: true
+        },
+        showQuery: {
+            type: Boolean,
+            default: true
+        },
+        showOperator: {
             type: Boolean,
             default: true
         },
@@ -38,7 +54,7 @@ export default {
         },
         showPagination: {
             type: Boolean,
-            default: false
+            default: true
         },
         pagerPos: {
             type: String,
@@ -62,6 +78,13 @@ export default {
             currentPage: 1,
             pageSize: 10,
             total: 0
+        }
+    },
+    computed: {
+        tableCellStyle() {
+            return {
+                textAlign: this.tableAlign
+            }
         }
     },
     methods: {
@@ -188,15 +211,15 @@ export default {
 </script>
 
 <template>
-    <div class="table-wrapper">
-        <div v-if="queryForm" class="table-query">
+    <div :style="containerStyle">
+        <div v-if="showQuery" class="table-query">
             <BaseForm ref="query" v-bind="cloneDeep(queryForm)" size="small" inline />
             <div class="table-query--opts">
                 <Operator type="query" size="small" showIcon @click="queryTable" />
                 <Operator type="reset" size="small" showIcon @click="resetQueryForm" />
             </div>
         </div>
-        <div v-if="$slots.popup || showSelection" class="table-operate">
+        <div v-if="showOperator" class="table-operate">
             <Operator
                 v-if="$slots.popup"
                 type="add"
@@ -217,6 +240,8 @@ export default {
             v-loading="$store.state.loading"
             :data="datasource"
             :border="showTableBorder"
+            :cell-style="tableCellStyle"
+            :header-cell-style="tableCellStyle"
             @selection-change="onSelectionChange"
         >
             <!-- 选择列 -->
@@ -297,13 +322,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-:deep(.el-table .cell) {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    flex-wrap: wrap;
-}
-
 :deep(.el-table .el-image) {
     display: block;
     height: 50px;
@@ -312,13 +330,6 @@ export default {
 
 :deep(.el-table .el-tag:not(:last-of-type)) {
     margin: 0 6px 6px 0;
-}
-
-.table-wrapper {
-    overflow: hidden;
-    padding: 30px 40px;
-    border-radius: 6px;
-    background-color: #fff;
 }
 
 .table-query {

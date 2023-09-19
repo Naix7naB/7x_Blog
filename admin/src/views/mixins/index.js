@@ -9,6 +9,15 @@ export default {
             execution: null
         }
     },
+    computed: {
+        tableStyle() {
+            return {
+                padding: '30px 40px',
+                borderRadius: '6px',
+                backgroundColor: '#fff'
+            }
+        }
+    },
     methods: {
         /* 触发添加操作按钮 */
         optAdd() {

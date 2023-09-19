@@ -16,8 +16,8 @@ export default {
         tableProps() {
             return {
                 requestApi: getCategoryList,
+                containerStyle: this.tableStyle,
                 showSelection: true,
-                showPagination: true,
                 columns,
                 queryForm,
                 popupConfig: {

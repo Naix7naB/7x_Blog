@@ -15,8 +15,8 @@ export default {
         tableProps() {
             return {
                 requestApi: getRoleList,
+                containerStyle: this.tableStyle,
                 showSelection: true,
-                showPagination: true,
                 columns,
                 queryForm,
                 popupConfig: {

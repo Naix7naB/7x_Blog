@@ -14,8 +14,8 @@ export default {
         tableProps() {
             return {
                 requestApi: getArticleComments,
+                containerStyle: this.tableStyle,
                 showSelection: true,
-                showPagination: true,
                 columns,
                 queryForm
             }

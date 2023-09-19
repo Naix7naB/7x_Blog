@@ -18,8 +18,8 @@ export default {
         tableProps() {
             return {
                 requestApi: getArticleList,
+                containerStyle: this.tableStyle,
                 showSelection: true,
-                showPagination: true,
                 columns,
                 queryForm,
                 popupConfig: {
