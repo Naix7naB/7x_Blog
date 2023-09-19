@@ -17,16 +17,15 @@ export default {
         getArticleList().then(({ data }) => {
             const chartOpt = heatMap
             const series = data.list.reduce((pre, cur) => {
-                if (!pre[cur.created_at]) {
-                    pre[cur.created_at] = 1
+                const key = formatDate(cur.created_at, 'YYYY-MM-DD')
+                if (!pre[key]) {
+                    pre[key] = 1
                 } else {
-                    pre[cur.created_at] += 1
+                    pre[key] += 1
                 }
                 return pre
             }, {})
-            chartOpt.series.data = Object.entries(series).map(([key, val]) => {
-                return [formatDate(+key, 'YYYY-MM-DD'), val]
-            })
+            chartOpt.series.data = Object.entries(series)
             this.$_setChartOption(chartOpt)
         }).catch(err => {
             this.$message.error(err.errMsg || err)

@@ -80,25 +80,28 @@ const pieChart = {
         }
     },
     legend: {
-        orient: 'vertical',
-        top: '5%',
-        left: 'auto'
+        bottom: '10',
+        left: 'center'
     },
     series: {
-        name: '文章标签统计',
+        name: '文章分类统计',
         type: 'pie',
-        radius: ['0', '75%'],
+        center: ['50%', '45%'],
         roseType: 'radius',
         avoidLabelOverlap: true,
+        stillShowZeroSum: false,
+        showEmptyCircle: false,
+        percentPrecision: 1,
         label: {
             show: true,
-            position: 'outside',
+            position: 'inside',
             formatter: '{b0} ({d0}%)',
-            fontFamily: 'monospace',
-            fontSize: 16
+            fontFamily: 'monospace'
         },
         labelLine: {
-            show: true
+            show: true,
+            length: 10,
+            length2: 0
         },
         emphasis: {
             scale: false,
