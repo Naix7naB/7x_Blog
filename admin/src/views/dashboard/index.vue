@@ -34,6 +34,5 @@ export default {
 
 .el-card__body {
     height: 400px;
-    padding: 0 20px;
 }
 </style>

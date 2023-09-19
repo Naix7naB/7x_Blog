@@ -9,6 +9,23 @@ function getArticleList(data) {
     })
 }
 
+/* 获取推荐文章列表 */
+function getRecommendArticles() {
+    return Request.requestForm({
+        methodType: Request.GET,
+        url: '/api/article',
+        data: {
+            page: 1,
+            size: 7,
+            sort: {
+                view_count: -1
+            },
+            populate: '',
+            select: 'title view_count'
+        }
+    })
+}
+
 /* 创建文章 */
 function createArticle(data) {
     return Request.requestForm({
@@ -35,4 +52,4 @@ function deleteArticleById(id) {
     })
 }
 
-export { getArticleList, createArticle, modifyArticleById, deleteArticleById }
+export { getArticleList, getRecommendArticles, createArticle, modifyArticleById, deleteArticleById }
