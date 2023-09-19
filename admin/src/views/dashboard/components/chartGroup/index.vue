@@ -34,7 +34,7 @@ export default {
 <template>
     <el-row :gutter="gutter">
         <el-col v-for="chart in chartList" :key="chart.name" :xs="24" :sm="24" :md="8">
-            <el-card :header="chart.title" :body-style="{ height: '400px' }">
+            <el-card :header="chart.title">
                 <component :is="chart.cmp" />
             </el-card>
         </el-col>

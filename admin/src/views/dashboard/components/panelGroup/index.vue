@@ -86,6 +86,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: initial;
     font-size: 12px;
     cursor: pointer;
 }

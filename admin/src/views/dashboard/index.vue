@@ -26,4 +26,14 @@ export default {
 .el-card {
     margin-top: 20px;
 }
+
+.el-card__header {
+    padding: 12px 14px;
+    border: 0;
+}
+
+.el-card__body {
+    height: 400px;
+    padding: 0 20px;
+}
 </style>

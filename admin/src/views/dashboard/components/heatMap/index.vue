@@ -38,7 +38,7 @@ export default {
 <template>
     <el-row :gutter="gutter">
         <el-col :span="24">
-            <el-card :body-style="{ height: '400px' }">
+            <el-card>
                 <div ref="chart" :style="$_chartStyle"></div>
             </el-card>
         </el-col>
