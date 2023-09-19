@@ -24,6 +24,10 @@ export default {
             type: Array,
             required: true
         },
+        showTableBorder: {
+            type: Boolean,
+            default: true
+        },
         showSelection: {
             type: Boolean,
             default: false
@@ -192,7 +196,7 @@ export default {
                 <Operator type="reset" size="small" showIcon @click="resetQueryForm" />
             </div>
         </div>
-        <div class="table-operate">
+        <div v-if="$slots.popup || showSelection" class="table-operate">
             <Operator
                 v-if="$slots.popup"
                 type="add"
@@ -212,7 +216,7 @@ export default {
         <el-table
             v-loading="$store.state.loading"
             :data="datasource"
-            :border="true"
+            :border="showTableBorder"
             @selection-change="onSelectionChange"
         >
             <!-- 选择列 -->
@@ -276,8 +280,8 @@ export default {
             :current-page="currentPage"
             :page-size="pageSize"
             :total="total"
-            :style="{ marginTop: '24px', textAlign: pagerPos }"
             :background="true"
+            :style="{ marginTop: '24px', textAlign: pagerPos }"
             @current-change="changePage"
         />
         <Popup
