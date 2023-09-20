@@ -1,7 +1,7 @@
 <script>
 import TagCloud from 'TagCloud'
 
-import { mapGetters } from 'vuex'
+import { getTagList } from '@/apis/tag'
 
 export default {
     name: 'TagCloud',
@@ -11,36 +11,48 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('article', ['getTagList']),
-        tagCloudStyle() {
+        tagcloudOpt() {
+            return {
+                radius: 120,
+                direction: 45,
+                keep: false,
+                initSpeed: 'fast',
+                maxSpeed: 'fast',
+                containerClass: 'tag-cloud',
+                itemClass: 'tag-cloud--item',
+                useContainerInlineStyles: false
+            }
+        },
+        tagcloudStyle() {
             return {
                 width: '100%',
                 height: '100%'
             }
         }
     },
-    mounted() {
-        this.tagcloud = TagCloud(
-            this.$refs.tagCloud,
-            this.getTagList.map(tag => tag.name),
-            {
-                radius: 120,
-                direction: 45,
-                keep: false,
-                initSpeed: 'normal',
-                maxSpeed: 'normal',
-                containerClass: 'tag-cloud',
-                itemClass: 'tag-cloud--item',
-                useContainerInlineStyles: false
-            }
-        )
-        document.querySelectorAll('.tag-cloud--item').forEach(tag => {
-            this.getTagList.forEach(item => {
+    methods: {
+        initTagcloud(list) {
+            const texts = list.map(item => item.name)
+            this.tagcloud = TagCloud(this.$refs.tagCloud, texts, this.tagcloudOpt)
+        },
+        drawTagcloudColor(list) {
+            document.querySelectorAll('.tag-cloud--item').forEach(tag => {
                 const text = tag.textContent ?? tag.innerText
-                if (item.name === text) {
-                    tag.style.color = item.color
-                }
+                const idx = list.findIndex(item => item.name === text)
+                if (idx === -1) return false
+                tag.style.color = list[idx]['color']
             })
+        }
+    },
+    mounted() {
+        getTagList({
+            populate: '',
+            select: 'name color'
+        }).then(({ data }) => {
+            this.initTagcloud(data.list)
+            this.drawTagcloudColor(data.list)
+        }).catch(err => {
+            this.$message.error(err.errMsg || err)
         })
     },
     beforeDestroy() {
@@ -52,7 +64,7 @@ export default {
 </script>
 
 <template>
-    <div ref="tagCloud" :style="tagCloudStyle"></div>
+    <div ref="tagCloud" :style="tagcloudStyle"></div>
 </template>
 
 <style lang="scss" scoped>

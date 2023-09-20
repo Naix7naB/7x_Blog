@@ -86,7 +86,7 @@ const pieChart = {
     series: {
         name: '文章分类统计',
         type: 'pie',
-        center: ['50%', '45%'],
+        center: ['50%', '40%'],
         roseType: 'radius',
         avoidLabelOverlap: true,
         stillShowZeroSum: false,
@@ -99,9 +99,7 @@ const pieChart = {
             fontFamily: 'monospace'
         },
         labelLine: {
-            show: true,
-            length: 10,
-            length2: 0
+            show: false
         },
         emphasis: {
             scale: false,
