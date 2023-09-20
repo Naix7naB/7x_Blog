@@ -16,7 +16,7 @@ function getRecommendArticles() {
         url: '/api/article',
         data: {
             page: 1,
-            size: 7,
+            size: 6,
             sort: {
                 view_count: -1
             },

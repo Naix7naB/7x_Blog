@@ -1,4 +1,6 @@
 <script>
+import { assign } from 'lodash-es'
+
 export default {
     name: 'ColorBlock',
     functional: true,
@@ -19,7 +21,7 @@ export default {
             height: size,
             backgroundColor: color
         }
-        return <i class="color-block" style={ Object.assign(colorBlockStyle, ctx.data.style) } />
+        return <i class="color-block" style={ assign(colorBlockStyle, ctx.data.style) } />
     }
 }
 </script>
@@ -27,5 +29,6 @@ export default {
 <style lang="scss" scoped>
 .color-block {
     display: block;
+    margin: auto;
 }
 </style>

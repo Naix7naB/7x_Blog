@@ -2,6 +2,7 @@ import Storage from '@/utils/storage'
 
 import { getCategoryList } from '@/apis/category'
 import { getTagList } from '@/apis/tag'
+import { pick } from 'lodash-es'
 
 export default {
     namespaced: true,
@@ -12,13 +13,13 @@ export default {
     getters: {
         getCategoryList: state => {
             if (!state.categoryList) {
-                state.categoryList = Storage.get('_article_categories_', null)
+                state.categoryList = Storage.get('_categories_', null)
             }
             return state.categoryList
         },
         getTagList: state => {
             if (!state.tagList) {
-                state.tagList = Storage.get('_article_tags_', null)
+                state.tagList = Storage.get('_tags_', null)
             }
             return state.tagList
         }
@@ -26,11 +27,11 @@ export default {
     mutations: {
         _set_category_list_(state, list) {
             state.categoryList = list
-            Storage.set('_article_categories_', list)
+            Storage.set('_categories_', list)
         },
         _set_tag_list_(state, list) {
             state.tagList = list
-            Storage.set('_article_tags_', list)
+            Storage.set('_tags_', list)
         }
     },
     actions: {
@@ -38,37 +39,30 @@ export default {
             dispatch('loadCategoryList')
             dispatch('loadTagList')
         },
-        async loadCategoryList({ getters, dispatch }) {
+        async loadCategoryList({ getters, commit }) {
             if (!getters.getCategoryList) {
-                const { data } = await getCategoryList()
-                dispatch('setCategoryList', data.list)
+                const { data } = await getCategoryList({
+                    populate: '',
+                    select: 'name'
+                })
+                commit('_set_category_list_', data.list)
             }
         },
-        async loadTagList({ getters, dispatch }) {
+        async loadTagList({ getters, commit }) {
             if (!getters.getTagList) {
-                const { data } = await getTagList()
-                dispatch('setTagList', data.list)
+                const { data } = await getTagList({
+                    populate: '',
+                    select: 'name'
+                })
+                commit('_set_tag_list_', data.list)
             }
         },
         setCategoryList({ commit }, list) {
-            const picked = list.map(item => {
-                return {
-                    id: item.id,
-                    name: item.name,
-                    article_count: item.articles.length
-                }
-            })
+            const picked = list.map(item => pick(item, ['id', 'name']))
             commit('_set_category_list_', picked)
         },
         setTagList({ commit }, list) {
-            const picked = list.map(item => {
-                return {
-                    id: item.id,
-                    name: item.name,
-                    color: item.color,
-                    article_count: item.articles.length
-                }
-            })
+            const picked = list.map(item => pick(item, ['id', 'name']))
             commit('_set_tag_list_', picked)
         }
     }

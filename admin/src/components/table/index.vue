@@ -325,6 +325,11 @@ export default {
 :deep(.el-table .el-image) {
     display: block;
     height: 50px;
+}
+
+:deep(.el-table .el-image__inner) {
+    width: auto;
+    margin: auto;
     border-radius: 4px;
 }
 
