@@ -9,7 +9,7 @@ export default {
         key: Storage.get('_uak_'),
         token: Storage.get('_uat_'),
         userInfo: Storage.get('_user_info_'),
-        roles: Storage.get('_user_roles_')
+        roles: Storage.get('_roles_')
     },
     mutations: {
         _set_key_(state, key) {
@@ -26,10 +26,14 @@ export default {
         },
         _set_role_list_(state, list) {
             state.roles = list
-            Storage.set('_user_roles_', list)
+            Storage.set('_roles_', list)
         },
-        _clear_user_info_() {
+        _clear_user_info_(state) {
+            state.token = null
+            state.roles = null
+            state.userInfo = null
             Storage.remove('_uat_')
+            Storage.remove('_roles_')
             Storage.remove('_user_info_')
         }
     },
@@ -38,14 +42,14 @@ export default {
             dispatch('loadKey')
             dispatch('loadRoleList')
         },
-        async loadKey({ getters, commit }) {
-            if (!getters.getKey) {
+        async loadKey({ state, commit }) {
+            if (!state.key) {
                 const { data } = await getKey()
                 commit('_set_key_', data.pubKey)
             }
         },
-        async loadRoleList({ getters, commit }) {
-            if (!getters.getRoleList) {
+        async loadRoleList({ state, commit }) {
+            if (!state.roles) {
                 const { data } = await getRoleList({
                     populate: '',
                     select: 'label name'

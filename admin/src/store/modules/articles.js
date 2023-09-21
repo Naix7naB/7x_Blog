@@ -18,6 +18,12 @@ export default {
         _set_tag_list_(state, list) {
             state.tags = list
             Storage.set('_tags_', list)
+        },
+        _clear_article_info_(state) {
+            state.categories = null
+            state.tags = null
+            Storage.remove('_categories_')
+            Storage.remove('_tags_')
         }
     },
     actions: {
@@ -25,8 +31,8 @@ export default {
             dispatch('loadCategoryList')
             dispatch('loadTagList')
         },
-        async loadCategoryList({ getters, commit }) {
-            if (!getters.getCategoryList) {
+        async loadCategoryList({ state, commit }) {
+            if (!state.categories) {
                 const { data } = await getCategoryList({
                     populate: '',
                     select: 'name'
@@ -34,8 +40,8 @@ export default {
                 commit('_set_category_list_', data.list)
             }
         },
-        async loadTagList({ getters, commit }) {
-            if (!getters.getTagList) {
+        async loadTagList({ state, commit }) {
+            if (!state.tags) {
                 const { data } = await getTagList({
                     populate: '',
                     select: 'name'
@@ -50,6 +56,9 @@ export default {
         setTagList({ commit }, list) {
             const picked = list.map(item => pick(item, ['id', 'name']))
             commit('_set_tag_list_', picked)
+        },
+        clearArticleInfo({ commit }) {
+            commit('_clear_article_info_')
         }
     }
 }

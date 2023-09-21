@@ -33,7 +33,7 @@ export default class Storage {
      * @param {String} key 键名
      */
     static remove(key) {
-        useLocalStorage(key, null, { serializer }).value = null
+        useLocalStorage(key, null, { serializer }).value = undefined
     }
 
     /**

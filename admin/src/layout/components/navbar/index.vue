@@ -149,7 +149,9 @@ export default {
             this.openPopup('修改密码', modifyPassword)
         },
         logout() {
-            console.log('logout')
+            this.$store.dispatch('user/clearUserInfo')
+            this.$store.dispatch('article/clearArticleInfo')
+            this.$router.push('/login')
         },
         setFormData(data) {
             this.$nextTick(() => this.$refs.form.setFormData(data))
@@ -183,7 +185,9 @@ export default {
             </el-badge>
         </div>
         <el-dropdown class="navbar-dropdown">
-            <el-avatar :src="userInfo.avatar" />
+            <el-avatar :src="userInfo?.avatar">
+                <fa-icon icon="fas fa-user" />
+            </el-avatar>
             <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
                     v-for="dropdown in dropdownList"

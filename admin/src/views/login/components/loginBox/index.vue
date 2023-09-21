@@ -3,7 +3,7 @@ import BaseForm from '@/components/form'
 import { login, register } from '@/apis/login'
 import { encrypt } from '@/utils'
 import { login as loginForm, register as registerForm } from '@/config/loginForm.config'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
     name: 'LoginBox',
@@ -15,7 +15,6 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('user', { encryptKey: 'getKey' }),
         loginForm() {
             return loginForm
         },
@@ -40,11 +39,12 @@ export default {
         handleRequest() {
             this.currentForm.submitForm(async data => {
                 /* 获取加密密钥 处理表单数据 */
-                if (!this.encryptKey) {
+                const encryptKey = this.$store.getters.key
+                if (!encryptKey) {
                     await this.loadKey()
                 }
                 /* 对密码进行加密处理 */
-                data.password = encrypt(data.password, this.encryptKey)
+                data.password = encrypt(data.password, encryptKey)
                 this.currentRequest(data).then(res => {
                     const { token, ...userInfo } = res.data
                     this.setToken(token)

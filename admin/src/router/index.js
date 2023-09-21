@@ -155,19 +155,11 @@ const router = new VueRouter({ routes })
 /* 全局路由守卫 */
 router.beforeEach((to, from, next) => {
     const token = store.getters.token
+    store.dispatch('user/initUserStore')
     if (!token) {
         to.name === 'Login' ? next() : next('/login')
     } else {
-        const pubKey = store.getters.key
-        const roles = store.getters.roles
-        const categories = store.getters.categories
-        const tags = store.getters.tags
-        if (!pubKey || !roles) {
-            store.dispatch('user/initUserStore')
-        }
-        if (!categories || !tags) {
-            store.dispatch('article/initArticleStore')
-        }
+        store.dispatch('article/initArticleStore')
         to.name === 'Login' ? next('/') : next()
     }
 })
