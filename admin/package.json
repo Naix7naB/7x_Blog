@@ -11,6 +11,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/vue-fontawesome": "^2.0.9",
+    "@vueuse/core": "5.x.x",
     "TagCloud": "^2.3.2",
     "axios": "^1.2.0",
     "core-js": "^3.8.3",

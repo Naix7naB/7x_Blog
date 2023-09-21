@@ -1,6 +1,13 @@
 /**
  * 封装 localStorage
  */
+import { useLocalStorage } from '@vueuse/core'
+
+const serializer = {
+    read: v => (v ? JSON.parse(v) : null),
+    write: v => JSON.stringify(v)
+}
+
 export default class Storage {
     /**
      * @description: 获取 key 对应本地存储的值
@@ -8,16 +15,8 @@ export default class Storage {
      * @param {any|null} type 没有该键名时, 返回的数据类型, 默认为 null
      * @return {any} 返回对应键名的值
      */
-    static get(key, type = null) {
-        let result = type
-        const len = window.localStorage.length
-        for (let i = 0; i < len; i++) {
-            const storageKey = window.localStorage.key(i)
-            if (key === storageKey) {
-                result = JSON.parse(window.localStorage.getItem(key))
-            }
-        }
-        return result
+    static get(key) {
+        return useLocalStorage(key, null, { serializer }).value
     }
 
     /**
@@ -26,7 +25,7 @@ export default class Storage {
      * @param {any} val 键值
      */
     static set(key, val) {
-        window.localStorage.setItem(key, JSON.stringify(val))
+        useLocalStorage(key, null, { serializer }).value = val
     }
 
     /**
@@ -34,8 +33,7 @@ export default class Storage {
      * @param {String} key 键名
      */
     static remove(key) {
-        if (!Storage.GET(key)) return false
-        window.localStorage.removeItem(key)
+        useLocalStorage(key, null, { serializer }).value = null
     }
 
     /**
