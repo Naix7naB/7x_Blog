@@ -1,5 +1,5 @@
 <script>
-import { assignIn, isEqual, keys, pick } from 'lodash-es'
+import { assignIn, isEmpty, isEqual, keys, pick } from 'lodash-es'
 import { uploadFile, deleteFile } from '@/apis/upload'
 import { parseUrl } from '@/utils'
 
@@ -36,7 +36,7 @@ export default {
     },
     data() {
         return {
-            rowData: assignIn({}, this.data),
+            raw: assignIn({}, this.data),
             showing: assignIn({}, this.data)
         }
     },
@@ -84,19 +84,20 @@ export default {
                         message: '表单校验失败'
                     })
                 }
-                callback(this.showing, !isEqual(this.rowData, this.showing))
+                callback(assignIn({}, this.showing), !isEqual(this.raw, this.showing))
             })
         },
         /* 设置表单数据 */
         setFormData(data) {
             const pickData = pick(data, keys(this.showing).concat('id'))
-            assignIn(this.rowData, pickData)
+            assignIn(this.raw, pickData)
             assignIn(this.showing, pickData)
         },
         /* 重置表单信息 */
         resetFormData() {
             this.$refs.elForm.resetFields()
-            this.$refs.elUpload && this.$refs.elUpload[0].clearFiles()
+            this.$refs.elForm.clearValidate()
+            !isEmpty(this.$refs.elUpload) && this.$refs.elUpload[0].clearFiles()
         }
     }
 }

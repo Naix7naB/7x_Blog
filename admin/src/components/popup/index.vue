@@ -17,6 +17,14 @@ export default {
         fullscreen: {
             type: Boolean,
             default: false
+        },
+        cancelText: {
+            type: String,
+            default: '取消'
+        },
+        confirmText: {
+            type: String,
+            default: '确认'
         }
     },
     data() {
@@ -56,8 +64,8 @@ export default {
             <slot></slot>
         </template>
         <template slot="footer">
-            <el-button plain size="small" @click="cancel">取消</el-button>
-            <el-button type="primary" size="small" @click="confirm">确认</el-button>
+            <el-button plain size="small" @click="cancel">{{ cancelText }}</el-button>
+            <el-button type="primary" size="small" @click="confirm">{{ confirmText }}</el-button>
         </template>
     </el-dialog>
 </template>
