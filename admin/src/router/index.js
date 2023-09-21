@@ -154,18 +154,18 @@ const router = new VueRouter({ routes })
 
 /* 全局路由守卫 */
 router.beforeEach((to, from, next) => {
-    const token = store.getters['user/getToken']
+    const token = store.getters.token
     if (!token) {
         to.name === 'Login' ? next() : next('/login')
     } else {
-        const pubKey = store.getters['user/getKey']
-        const roleList = store.getters['user/getRoleList']
-        const categoryList = store.getters['article/getCategoryList']
-        const tagList = store.getters['article/getTagList']
-        if (!pubKey || !roleList) {
+        const pubKey = store.getters.key
+        const roles = store.getters.roles
+        const categories = store.getters.categories
+        const tags = store.getters.tags
+        if (!pubKey || !roles) {
             store.dispatch('user/initUserStore')
         }
-        if (!tagList || !categoryList) {
+        if (!categories || !tags) {
             store.dispatch('article/initArticleStore')
         }
         to.name === 'Login' ? next('/') : next()

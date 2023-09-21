@@ -1,8 +1,8 @@
 import store from '@/store'
 import { formatDate } from '@/utils'
 
-const roleList = store.getters['user/getRoleList']
-const options = roleList.map(item => {
+const roles = store.getters.roles
+const options = roles.map(item => {
     return {
         label: item.label,
         value: item.id

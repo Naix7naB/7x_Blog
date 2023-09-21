@@ -2,7 +2,7 @@ import store from '@/store'
 import { formatDate } from '@/utils'
 
 function handleFormItemOptions(name) {
-    const list = store.getters[`article/get${name}List`]
+    const list = store.getters[name]
     return list.map(item => {
         return {
             label: item.name,
@@ -119,7 +119,7 @@ const queryForm = {
                 filterable: true,
                 multiple: false
             },
-            options: handleFormItemOptions('Category')
+            options: handleFormItemOptions('categories')
         },
         {
             type: 'select',
@@ -130,7 +130,7 @@ const queryForm = {
                 filterable: true,
                 multiple: false
             },
-            options: handleFormItemOptions('Tag')
+            options: handleFormItemOptions('tags')
         }
     ]
 }
@@ -171,7 +171,7 @@ const popupForm = {
                 filterable: true,
                 multiple: false
             },
-            options: handleFormItemOptions('Category')
+            options: handleFormItemOptions('categories')
         },
         {
             type: 'select',
@@ -184,7 +184,7 @@ const popupForm = {
                 multiple: true,
                 multipleLimit: 5
             },
-            options: handleFormItemOptions('Tag')
+            options: handleFormItemOptions('tags')
         },
         {
             type: 'upload',

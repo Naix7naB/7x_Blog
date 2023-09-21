@@ -7,30 +7,16 @@ import { pick } from 'lodash-es'
 export default {
     namespaced: true,
     state: {
-        categoryList: null,
-        tagList: null
-    },
-    getters: {
-        getCategoryList: state => {
-            if (!state.categoryList) {
-                state.categoryList = Storage.get('_categories_', null)
-            }
-            return state.categoryList
-        },
-        getTagList: state => {
-            if (!state.tagList) {
-                state.tagList = Storage.get('_tags_', null)
-            }
-            return state.tagList
-        }
+        categories: Storage.get('_categories_'),
+        tags: Storage.get('_tags_')
     },
     mutations: {
         _set_category_list_(state, list) {
-            state.categoryList = list
+            state.categories = list
             Storage.set('_categories_', list)
         },
         _set_tag_list_(state, list) {
-            state.tagList = list
+            state.tags = list
             Storage.set('_tags_', list)
         }
     },

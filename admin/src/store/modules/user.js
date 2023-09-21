@@ -6,36 +6,10 @@ import { getRoleList } from '@/apis/user'
 export default {
     namespaced: true,
     state: {
-        key: null,
-        token: null,
-        userInfo: null,
-        roleList: null
-    },
-    getters: {
-        getKey: state => {
-            if (!state.key) {
-                state.key = Storage.get('_uak_', null)
-            }
-            return state.key
-        },
-        getToken: state => {
-            if (!state.token) {
-                state.token = Storage.get('_uat_', null)
-            }
-            return state.token
-        },
-        getUserInfo: state => {
-            if (!state.userInfo) {
-                state.userInfo = Storage.get('_user_info_', null)
-            }
-            return state.userInfo
-        },
-        getRoleList: state => {
-            if (!state.roleList) {
-                state.roleList = Storage.get('_user_roles_', null)
-            }
-            return state.roleList
-        }
+        key: Storage.get('_uak_'),
+        token: Storage.get('_uat_'),
+        userInfo: Storage.get('_user_info_'),
+        roles: Storage.get('_user_roles_')
     },
     mutations: {
         _set_key_(state, key) {
@@ -51,12 +25,10 @@ export default {
             Storage.set('_user_info_', info)
         },
         _set_role_list_(state, list) {
-            state.roleList = list
+            state.roles = list
             Storage.set('_user_roles_', list)
         },
-        _clear_user_info_(state) {
-            state.token = null
-            state.userInfo = null
+        _clear_user_info_() {
             Storage.remove('_uat_')
             Storage.remove('_user_info_')
         }
@@ -66,19 +38,19 @@ export default {
             dispatch('loadKey')
             dispatch('loadRoleList')
         },
-        async loadKey({ getters, dispatch }) {
+        async loadKey({ getters, commit }) {
             if (!getters.getKey) {
                 const { data } = await getKey()
-                dispatch('setKey', data.pubKey)
+                commit('_set_key_', data.pubKey)
             }
         },
-        async loadRoleList({ getters, dispatch }) {
+        async loadRoleList({ getters, commit }) {
             if (!getters.getRoleList) {
                 const { data } = await getRoleList({
                     populate: '',
                     select: 'label name'
                 })
-                dispatch('setRoleList', data.list)
+                commit('_set_role_list_', data.list)
             }
         },
         setKey({ commit }, key) {

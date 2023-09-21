@@ -1,7 +1,7 @@
 import store from '@/store'
 
-const roleList = store.getters['user/getRoleList']
-const role = roleList.find(role => role.name === 'admin')
+const roles = store.getters.roles
+const role = roles.find(role => role.name === 'admin')
 
 const login = {
     data: {
