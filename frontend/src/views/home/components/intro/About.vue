@@ -1,16 +1,17 @@
 <script>
-import Typical from './Typical'
 import wechatPic from '@/assets/images/wechat.png'
 import qqPic from '@/assets/images/qq.png'
 import ncmPic from '@/assets/images/ncm.png'
 import mailPic from '@/assets/images/mail.png'
+
+import { getRandomWords } from '@/apis/other'
 import { mapGetters } from 'vuex'
 
 export default {
     name: 'About',
-    components: { Typical },
     data() {
         return {
+            sentence: '',
             socialList: [
                 {
                     title: 'Wechat',
@@ -33,18 +34,25 @@ export default {
     },
     computed: {
         ...mapGetters('site', ['getSiteInfo'])
+    },
+    created() {
+        getRandomWords().then(({ data }) => {
+            this.sentence = data.vhan
+        }).catch(err => {
+            this.$message.error(err.errMsg || err)
+        })
     }
 }
 </script>
 
 <template>
-    <div class="about">
+    <div ref="about" class="about">
         <el-image class="about-avatar" alt="avatar" fit="cover" :src="getSiteInfo?.host.avatar" />
         <div class="about-info">
             <span class="about-info--name">{{ getSiteInfo?.name }}</span>
             <p class="about-info--slogan">
                 <fa-icon style="padding-right: 6px;" icon="fas fa-quote-left" size="lg" />
-                <Typical :text="[getSiteInfo.slogan]" />
+                <span v-typed="[sentence]" style="font-weight: 700;"></span>
                 <fa-icon style="padding-left: 6px;" icon="fas fa-quote-right" size="lg" />
             </p>
         </div>
