@@ -24,11 +24,11 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('website', ['getWebsiteInfo']),
+        ...mapGetters('site', ['getSiteInfo']),
         ...mapGetters('comment', ['currentReplyId']),
         isHost() {
             return uid => {
-                return uid === this.getWebsiteInfo.host.id
+                return uid === this.getSiteInfo.host.id
             }
         }
     },

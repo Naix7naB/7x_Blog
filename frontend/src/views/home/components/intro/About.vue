@@ -32,24 +32,19 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('website', ['getWebsiteInfo'])
+        ...mapGetters('site', ['getSiteInfo'])
     }
 }
 </script>
 
 <template>
     <div class="about">
-        <el-image
-            class="about-avatar"
-            alt="avatar"
-            fit="cover"
-            :src="getWebsiteInfo?.host.avatar"
-        />
+        <el-image class="about-avatar" alt="avatar" fit="cover" :src="getSiteInfo?.host.avatar" />
         <div class="about-info">
-            <span class="about-info--name">{{ getWebsiteInfo?.name }}</span>
+            <span class="about-info--name">{{ getSiteInfo?.name }}</span>
             <p class="about-info--slogan">
                 <fa-icon style="padding-right: 6px;" icon="fas fa-quote-left" size="lg" />
-                <Typical :text="[getWebsiteInfo.slogan]" />
+                <Typical :text="[getSiteInfo.slogan]" />
                 <fa-icon style="padding-left: 6px;" icon="fas fa-quote-right" size="lg" />
             </p>
         </div>

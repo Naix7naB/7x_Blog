@@ -4,7 +4,7 @@ import { mapGetters } from 'vuex'
 export default {
     name: 'Logo',
     computed: {
-        ...mapGetters('website', ['getWebsiteInfo'])
+        ...mapGetters('site', ['getSiteInfo'])
     }
 }
 </script>
@@ -12,7 +12,7 @@ export default {
 <template>
     <h1 class="navbar-logo">
         <span class="navbar-logo--wrapper">
-            <fa-icon icon="fas fa-blog" /> {{ getWebsiteInfo?.name }}
+            <fa-icon icon="fas fa-blog" /> {{ getSiteInfo?.name }}
         </span>
     </h1>
 </template>

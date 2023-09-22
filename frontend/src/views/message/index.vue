@@ -19,19 +19,19 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('website', ['getWebsiteInfo']),
+        ...mapGetters('site', ['getSiteInfo']),
         topic() {
             return {
                 type: 'message_comment',
-                title: this.getWebsiteInfo.name,
-                id: this.getWebsiteInfo.id
+                title: this.getSiteInfo.name,
+                id: this.getSiteInfo.id
             }
         }
     },
     methods: {
         async getComments() {
             try {
-                const { data } = await getMessageComments({ mid: this.getWebsiteInfo.id })
+                const { data } = await getMessageComments({ mid: this.getSiteInfo.id })
                 this.comments = data.list
             } catch (err) {
                 this.$message.error(err || err.errMsg)

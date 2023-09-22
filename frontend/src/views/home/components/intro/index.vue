@@ -6,10 +6,10 @@ export default {
     name: 'Intro',
     components: { About },
     computed: {
-        ...mapGetters('website', ['getWebsiteInfo']),
+        ...mapGetters('site', ['getSiteInfo']),
         introStyle() {
             return {
-                background: `url(${this.getWebsiteInfo.background})`
+                background: `url(${this.getSiteInfo.background})`
             }
         }
     },

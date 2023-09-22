@@ -2,50 +2,50 @@
 import { mapGetters } from 'vuex'
 
 export default {
-    name: 'WebsiteInfo',
+    name: 'SiteInfo',
     computed: {
-        ...mapGetters('website', ['getWebsiteInfo'])
+        ...mapGetters('site', ['getSiteInfo'])
     }
 }
 </script>
 
 <template>
-    <div class="website-info">
-        <el-avatar :size="120" :src="getWebsiteInfo?.host.avatar" />
-        <span class="website-info--name">{{ getWebsiteInfo?.host.nickname }}</span>
-        <div class="website-info--meta">
+    <div class="site-info">
+        <el-avatar :size="120" :src="getSiteInfo?.host.avatar" />
+        <span class="site-info--name">{{ getSiteInfo?.host.nickname }}</span>
+        <div class="site-info--meta">
             <div class="info-meta--item">
                 <span>文章</span>
-                <span class="info-meta--num">{{ getWebsiteInfo.article_count }}</span>
+                <span class="info-meta--num">{{ getSiteInfo.article_count }}</span>
             </div>
             <div class="info-meta--item">
                 <span>分类</span>
-                <span class="info-meta--num">{{ getWebsiteInfo.classify_count }}</span>
+                <span class="info-meta--num">{{ getSiteInfo.classify_count }}</span>
             </div>
             <div class="info-meta--item">
                 <span>标签</span>
-                <span class="info-meta--num">{{ getWebsiteInfo.tag_count }}</span>
+                <span class="info-meta--num">{{ getSiteInfo.tag_count }}</span>
             </div>
         </div>
-        <span class="website-info--button"><fa-icon icon="far fa-star" /> 朋友圈</span>
+        <span class="site-info--button"><fa-icon icon="far fa-star" /> 朋友圈</span>
     </div>
 </template>
 
 <style lang="scss" scoped>
 /* 网站信息卡片样式 */
-.website-info{
+.site-info{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.website-info--name {
+.site-info--name {
     font-size: 30px;
     font-weight: 700;
     padding: 20px 0;
 }
 
-.website-info--meta {
+.site-info--meta {
     display: flex;
     justify-content: space-around;
     width: 80%;
@@ -61,7 +61,7 @@ export default {
     margin-top: 12px;
 }
 
-.website-info--button {
+.site-info--button {
     overflow: hidden;
     position: relative;
     z-index: 1;

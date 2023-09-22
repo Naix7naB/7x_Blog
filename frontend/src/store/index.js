@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import website from './modules/website'
+import site from './modules/site'
 import user from './modules/user'
 import article from './modules/article'
 import comment from './modules/comment'
@@ -34,7 +34,7 @@ export default new Vuex.Store({
         }
     },
     modules: {
-        website,
+        site,
         user,
         article,
         comment
