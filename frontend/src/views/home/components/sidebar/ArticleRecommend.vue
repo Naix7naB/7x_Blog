@@ -39,7 +39,7 @@ export default {
             class="recommend-item"
             v-for="article in recommendList"
             :key="article.id"
-            @click="() => toArticleDetail(article.id)"
+            @click="toArticleDetail(article.id)"
         >
             <el-image class="recommend-inset" fit="cover" :src="article.cover_img" />
             <div class="recommend-info">

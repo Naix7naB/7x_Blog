@@ -36,7 +36,7 @@ export default {
             class="classify-item"
             v-for="classify in classifyList"
             :key="classify.id"
-            @click="() => select(classify)"
+            @click="select(classify)"
         >
             <span class="classify-item--name">
                 <fa-icon icon="fas fa-angle-right" />&nbsp;<span>{{ classify.name }}</span>

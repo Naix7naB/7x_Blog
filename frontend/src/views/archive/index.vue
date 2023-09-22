@@ -74,7 +74,7 @@ export default {
                     class="archive-article"
                     v-for="article in archive.articles"
                     :key="article.id"
-                    @click="() => toArticleDetail(article.id)"
+                    @click="toArticleDetail(article.id)"
                 >
                     <div class="archive-article--label">
                         <fa-icon icon="fas fa-calendar-days" />

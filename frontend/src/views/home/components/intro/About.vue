@@ -46,7 +46,7 @@ export default {
 </script>
 
 <template>
-    <div ref="about" class="about">
+    <div class="about">
         <el-image class="about-avatar" alt="avatar" fit="cover" :src="getSiteInfo?.host.avatar" />
         <div class="about-info">
             <span class="about-info--name">{{ getSiteInfo?.name }}</span>

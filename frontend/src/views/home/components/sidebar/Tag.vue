@@ -35,7 +35,7 @@ export default {
 
 <template>
     <ul class="tags">
-        <li class="tag-item" v-for="tag in tags" :key="tag.id" @click="() => select(tag)">
+        <li class="tag-item" v-for="tag in tags" :key="tag.id" @click="select(tag)">
             <span
                 v-text="tag.name"
                 class="tag-name"
