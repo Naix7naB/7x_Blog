@@ -1,5 +1,7 @@
 <script>
 import About from './About'
+
+import { getWaveHtml } from '@/apis/other'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -15,15 +17,31 @@ export default {
     },
     methods: {
         jumpEnter() {
-            const offset = this.$refs.introRef.clientHeight
+            const offset = this.$refs.intro.clientHeight
             this.$bus.$emit('scrollTo', { offset })
+        },
+        insertWaveHtml() {
+            const wave = document.querySelector('.hans-container')
+            if (wave) return false
+            getWaveHtml().then(res => {
+                new Function(res.data)()
+                const wave = document.querySelector('.hans-container')
+                wave.style.position = 'absolute'
+                wave.style.opacity = 0.8
+                this.$refs.intro.appendChild(wave.parentElement)
+            }).catch(err => {
+                this.$message.error(err.errMsg || err)
+            })
         }
+    },
+    mounted() {
+        this.insertWaveHtml()
     }
 }
 </script>
 
 <template>
-    <section ref="introRef" class="intro" :style="introStyle">
+    <section ref="intro" class="intro" :style="introStyle">
         <About />
         <span class="intro-enter" @click="jumpEnter">
             <fa-icon
@@ -48,8 +66,9 @@ export default {
 }
 
 .intro-enter {
+    z-index: 100;
     position: absolute;
-    bottom: 2px;
+    bottom: 10px;
     left: 50%;
     padding: 10px;
     color: $cl-theme;
