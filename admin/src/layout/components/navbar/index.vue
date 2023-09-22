@@ -3,7 +3,7 @@ import Popup from '@/components/popup'
 import BaseForm from '@/components/form'
 
 import { changePassword, modifyUserById } from '@/apis/user'
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 import { encrypt } from '@/utils'
 import { isEqual } from 'lodash-es'
 
@@ -17,7 +17,6 @@ export default {
         }
     },
     computed: {
-        ...mapState('user', ['userInfo']),
         dropdownList() {
             return [
                 {
@@ -152,7 +151,7 @@ export default {
                 })
             }
             this.openPopup('个人资料', modifyInfo)
-            this.setFormData(this.userInfo)
+            this.setFormData(this.$store.getters.userInfo)
         },
         /* 修改用户密码 */
         modifyPassword() {
@@ -168,7 +167,14 @@ export default {
                     )
                     /* 修改密码 */
                     changePassword(encryptData).then(res => {
-                        this.$message.success(res.errMsg)
+                        this.$msgbox({
+                            title: res.errMsg,
+                            message: '密码已修改, 请重新登陆账号',
+                            type: 'warning',
+                            callback: () => {
+                                this.logout()
+                            }
+                        })
                     }).catch(err => {
                         this.$message.error(err.errMsg || err)
                     })
@@ -219,7 +225,7 @@ export default {
             </el-badge>
         </div>
         <el-dropdown class="navbar-dropdown">
-            <el-avatar :src="userInfo?.avatar">
+            <el-avatar :src="$store.getters.userInfo?.avatar">
                 <fa-icon icon="fas fa-user" />
             </el-avatar>
             <el-dropdown-menu slot="dropdown">

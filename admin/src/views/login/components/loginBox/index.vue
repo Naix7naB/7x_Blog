@@ -39,10 +39,8 @@ export default {
         handleRequest() {
             this.currentForm.submitForm(async data => {
                 /* 获取加密密钥 处理表单数据 */
+                await this.loadKey()
                 const encryptKey = this.$store.getters.key
-                if (!encryptKey) {
-                    await this.loadKey()
-                }
                 /* 对密码进行加密处理 */
                 data.password = encrypt(data.password, encryptKey)
                 this.currentRequest(data).then(res => {
