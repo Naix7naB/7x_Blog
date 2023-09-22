@@ -25,12 +25,12 @@ const routes = [
         ]
     },
     {
-        path: '/classify',
-        redirect: '/classify',
+        path: '/category',
+        redirect: '/category',
         component: Layout,
         children: [
             {
-                path: '/classify',
+                path: '/category',
                 meta: {
                     icon: 'folder-open',
                     title: '分类'
@@ -39,19 +39,19 @@ const routes = [
                 children: [
                     {
                         path: '',
-                        name: 'ClassifyList',
+                        name: 'CategoryList',
                         meta: {
                             secondTitle: '分类'
                         },
-                        component: () => import('@/views/classify/ClassifyList')
+                        component: () => import('@/views/category/CategoryList')
                     },
                     {
                         path: ':cid',
-                        name: 'ClassifyArticle',
+                        name: 'CategoryArticle',
                         meta: {
                             secondTitle: '分类'
                         },
-                        component: () => import('@/views/classify/ClassifyArticle')
+                        component: () => import('@/views/category/CategoryArticle')
                     }
                 ]
             }

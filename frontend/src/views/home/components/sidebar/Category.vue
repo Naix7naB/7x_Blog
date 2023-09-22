@@ -1,18 +1,18 @@
 <script>
-import { getClassifyList } from '@/apis/classify'
+import { getCategoryList } from '@/apis/category'
 import { goToPath } from '@/utils/util'
 
 export default {
-    name: 'Classify',
+    name: 'Category',
     data() {
         return {
-            classifyList: []
+            categoryList: []
         }
     },
     methods: {
         select({ id, name }) {
             goToPath({
-                target: 'ClassifyArticle',
+                target: 'CategoryArticle',
                 params: {
                     cid: id,
                     name: name
@@ -21,8 +21,8 @@ export default {
         }
     },
     created() {
-        getClassifyList().then(({ data }) => {
-            this.classifyList = data.list
+        getCategoryList().then(({ data }) => {
+            this.categoryList = data.list
         }).catch(err => {
             this.$message.error(err.errMsg || err)
         })
@@ -33,22 +33,22 @@ export default {
 <template>
     <ul>
         <li
-            class="classify-item"
-            v-for="classify in classifyList"
-            :key="classify.id"
-            @click="select(classify)"
+            class="category-item"
+            v-for="category in categoryList"
+            :key="category.id"
+            @click="select(category)"
         >
-            <span class="classify-item--name">
-                <fa-icon icon="fas fa-angle-right" />&nbsp;<span>{{ classify.name }}</span>
+            <span class="category-item--name">
+                <fa-icon icon="fas fa-angle-right" />&nbsp;<span>{{ category.name }}</span>
             </span>
-            <span class="classify-item--count">{{ classify.articles.length }}</span>
+            <span class="category-item--count">{{ category.articles.length }}</span>
         </li>
     </ul>
 </template>
 
 <style lang="scss" scoped>
 /* 分类卡片样式 */
-.classify-item {
+.category-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -65,18 +65,18 @@ export default {
         background-color: rgb(173, 121, 24);
     }
 
-    &:hover .classify-item--name {
+    &:hover .category-item--name {
         transform: translate3d(10px, 0, 0);
     }
 
-    &:hover .classify-item--count {
+    &:hover .category-item--count {
         transform: translate3d(-10px, 0, 0);
     }
 }
 
-.classify-item,
-.classify-item--name,
-.classify-item--count {
+.category-item,
+.category-item--name,
+.category-item--count {
     transition: all .3s ease;
 }
 </style>

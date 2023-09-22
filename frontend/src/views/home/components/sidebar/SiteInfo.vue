@@ -20,7 +20,7 @@ export default {
             </div>
             <div class="info-meta--item">
                 <span>分类</span>
-                <span class="info-meta--num">{{ getSiteInfo.classify_count }}</span>
+                <span class="info-meta--num">{{ getSiteInfo.category_count }}</span>
             </div>
             <div class="info-meta--item">
                 <span>标签</span>

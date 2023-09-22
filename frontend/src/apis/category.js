@@ -1,10 +1,10 @@
 import Request from '@/utils/request'
 
 /* 获取所有分类 */
-function getClassifyList() {
+function getCategoryList() {
     return Request.requestForm({
         methodType: Request.GET,
-        url: '/api/classify',
+        url: '/api/category',
         data: {
             page: 1,
             size: 10,
@@ -13,4 +13,4 @@ function getClassifyList() {
     })
 }
 
-export { getClassifyList }
+export { getCategoryList }

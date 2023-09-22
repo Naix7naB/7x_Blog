@@ -8,10 +8,10 @@ export default {
         return {
             componentList: [
                 {
-                    name: 'WebsiteInfo',
+                    name: 'SiteInfo',
                     icon: null,
                     label: null,
-                    cmp: () => import('./WebsiteInfo')
+                    cmp: () => import('./SiteInfo')
                 },
                 {
                     name: 'SearchBar',
@@ -32,13 +32,13 @@ export default {
                     cmp: () => import('./ArticleRecommend')
                 },
                 {
-                    name: 'Classify',
+                    name: 'Category',
                     icon: {
                         type: 'regular',
                         name: 'folder-open'
                     },
                     label: '分类',
-                    cmp: () => import('./Classify')
+                    cmp: () => import('./Category')
                 },
                 {
                     name: 'Tag',

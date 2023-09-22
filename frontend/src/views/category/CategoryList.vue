@@ -1,11 +1,11 @@
 <script>
 import Hashtag from '@/components/hashtag'
 
-import { getClassifyList } from '@/apis/classify'
+import { getCategoryList } from '@/apis/category'
 import { goToPath } from '@/utils/util'
 
 export default {
-    name: 'ClassifyList',
+    name: 'CategoryList',
     components: { Hashtag },
     data() {
         return {
@@ -15,7 +15,7 @@ export default {
     methods: {
         choose({ tagId, tagName }) {
             goToPath({
-                target: 'ClassifyArticle',
+                target: 'CategoryArticle',
                 params: {
                     cid: tagId,
                     name: tagName
@@ -24,7 +24,7 @@ export default {
         }
     },
     created() {
-        getClassifyList().then(({ data }) => {
+        getCategoryList().then(({ data }) => {
             this.tags = data.list
         }).catch(err => {
             this.$message.error(err.errMsg || err)
@@ -34,7 +34,7 @@ export default {
 </script>
 
 <template>
-    <div class="classify-list">
+    <div class="category-list">
         <Hashtag
             v-for="tag in tags"
             :key="tag.id"
@@ -49,7 +49,7 @@ export default {
 
 <style lang="scss" scoped>
 /* 分类列表样式 */
-.classify-list {
+.category-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

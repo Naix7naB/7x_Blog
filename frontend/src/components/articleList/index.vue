@@ -71,7 +71,7 @@ export default {
                 </div>
                 <p class="article-info--desc">{{ article.description }}</p>
                 <div class="article-info--marked">
-                    <MarkButton type="classify" :item="article.classify" />
+                    <MarkButton type="category" :item="article.category" />
                     <MarkButton type="tag" v-for="tag in article.tags" :key="tag.id" :item="tag" />
                 </div>
             </div>

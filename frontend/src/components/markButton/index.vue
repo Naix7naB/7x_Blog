@@ -91,7 +91,7 @@ export default {
     margin-right: 4px;
 }
 
-.mark-button--icon.classify {
+.mark-button--icon.category {
     color: #ffd977;
 }
 

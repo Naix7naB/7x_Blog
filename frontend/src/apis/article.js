@@ -10,7 +10,7 @@ function getArticleList({ page = 1, size = 10 } = {}) {
             size,
             populate: [
                 {
-                    path: 'classify',
+                    path: 'category',
                     select: 'name'
                 },
                 {
@@ -36,7 +36,7 @@ function searchArticleList({ page = 1, size = 10, q }) {
             },
             populate: [
                 {
-                    path: 'classify',
+                    path: 'category',
                     select: 'name'
                 },
                 {
@@ -67,7 +67,7 @@ function getRecommendArticles() {
 }
 
 /* 获取所属分类文章列表 */
-function getClassifyArticles({ page = 1, size = 10, classify_id } = {}) {
+function getCategoryArticles({ page = 1, size = 10, category_id } = {}) {
     return Request.requestForm({
         methodType: Request.GET,
         url: '/api/article',
@@ -75,11 +75,11 @@ function getClassifyArticles({ page = 1, size = 10, classify_id } = {}) {
             page,
             size,
             condition: {
-                classify: classify_id
+                category: category_id
             },
             populate: [
                 {
-                    path: 'classify',
+                    path: 'category',
                     select: 'name'
                 },
                 {
@@ -107,7 +107,7 @@ function getTagArticles({ page = 1, size = 10, tag_id } = {}) {
             },
             populate: [
                 {
-                    path: 'classify',
+                    path: 'category',
                     select: 'name'
                 },
                 {
@@ -131,7 +131,7 @@ function getArticlesAndSortedByDate(condition) {
             sort: {
                 created_at: -1
             },
-            select: '-author -content -classify -tags -comments -state'
+            select: '-author -content -category -tags -comments -state'
         }
     })
 }
@@ -148,7 +148,7 @@ export {
     getArticleList,
     searchArticleList,
     getRecommendArticles,
-    getClassifyArticles,
+    getCategoryArticles,
     getTagArticles,
     getArticlesAndSortedByDate,
     getArticleInfoById

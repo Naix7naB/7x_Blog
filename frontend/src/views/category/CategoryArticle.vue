@@ -1,11 +1,11 @@
 <script>
 import ArticleList from '@/components/articleList'
 
-import { getClassifyArticles } from '@/apis/article'
+import { getCategoryArticles } from '@/apis/article'
 
 export default {
-    name: 'ClassifyPage',
-    components: {  ArticleList },
+    name: 'CategoryPage',
+    components: { ArticleList },
     data() {
         return {
             articles: []
@@ -13,7 +13,7 @@ export default {
     },
     created() {
         const { cid, name } = this.$route.params
-        getClassifyArticles({ classify_id: cid }).then(({ data }) => {
+        getCategoryArticles({ category_id: cid }).then(({ data }) => {
             this.articles = data.list
             this.$bus.$emit('setLabel', name)
         }).catch(err => {
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <template>
-    <div class="classify-article">
+    <div class="category-article">
         <ArticleList :list="articles" />
     </div>
 </template>
