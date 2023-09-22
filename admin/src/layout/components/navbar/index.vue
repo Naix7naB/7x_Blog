@@ -2,8 +2,9 @@
 import Popup from '@/components/popup'
 import BaseForm from '@/components/form'
 
-import { modifyUserById } from '@/apis/user'
+import { changePassword, modifyUserById } from '@/apis/user'
 import { mapActions, mapState } from 'vuex'
+import { encrypt } from '@/utils'
 import { isEqual } from 'lodash-es'
 
 export default {
@@ -101,29 +102,43 @@ export default {
                         prop: 'newPassword',
                         label: '新密码',
                         placeholder: '请输入新密码',
-                        rules: [{ required: true, message: '密码不能为空', trigger: 'blur' }]
+                        rules: [{ required: true, trigger: 'blur', validator: this.notEqualToPwd }]
                     },
                     {
                         type: 'password',
                         prop: 'confirmPassword',
                         label: '确认密码',
                         placeholder: '请确认密码',
-                        rules: [{ required: true, validator: this.equalToPassword, trigger: 'blur' }]
+                        rules: [{ required: true, trigger: 'blur', validator: this.confirmPwd }]
                     }
                 ]
             }
         }
     },
     methods: {
-        ...mapActions('user', ['setUserInfo']),
-        equalToPassword(rule, value, callback) {
+        ...mapActions('user', ['loadKey', 'setUserInfo']),
+        /* 表单验证规则 */
+        notEqualToPwd(rule, value, callback) {
             const formData = this.$refs.form.showing
-            if (formData.newPassword && formData.confirmPassword && isEqual(formData.newPassword, value)) {
+            if (value.trim() && !isEqual(formData.oldPassword, value)) {
                 callback()
+            } else if (!value.trim()) {
+                callback(new Error('新密码不能为空'))
+            } else {
+                callback(new Error('新密码不能与原密码一致'))
+            }
+        },
+        confirmPwd(rule, value, callback) {
+            const formData = this.$refs.form.showing
+            if (value.trim() && isEqual(formData.newPassword, value)) {
+                callback()
+            } else if (!value.trim()) {
+                callback(new Error('确认密码不能为空'))
             } else {
                 callback(new Error('两次输入的密码不一致'))
             }
         },
+        /* 查看用户个人资料 */
         checkPersonalInfo() {
             const modifyInfo = () => {
                 this.$refs.form.submitForm((data, hasModify) => {
@@ -139,35 +154,54 @@ export default {
             this.openPopup('个人资料', modifyInfo)
             this.setFormData(this.userInfo)
         },
+        /* 修改用户密码 */
         modifyPassword() {
             const modifyPassword = () => {
-                this.$refs.form.submitForm(data => {
-                    /* TODO 修改密码接口 */
-                    console.log(data)
+                this.$refs.form.submitForm(async data => {
+                    /* 获取加密密钥 处理表单数据 */
+                    await this.loadKey()
+                    const encryptKey = this.$store.getters.key
+                    const encryptData = Object.fromEntries(
+                        Object.entries(data).map(([key, val]) => {
+                            return [key, encrypt(val, encryptKey)]
+                        })
+                    )
+                    /* 修改密码 */
+                    changePassword(encryptData).then(res => {
+                        this.$message.success(res.errMsg)
+                    }).catch(err => {
+                        this.$message.error(err.errMsg || err)
+                    })
                 })
             }
             this.openPopup('修改密码', modifyPassword)
         },
+        /* 用户退出登陆 */
         logout() {
             this.$store.dispatch('user/clearUserInfo')
             this.$store.dispatch('article/clearArticleInfo')
             this.$router.push('/login')
         },
+        /* 设置表单数据 */
         setFormData(data) {
             this.$nextTick(() => this.$refs.form.setFormData(data))
         },
+        /* 重置表单数据 */
         resetFormData() {
             this.$refs.form.resetFormData()
         },
+        /* 打开弹窗 */
         openPopup(text, fn) {
             this.popupTitle = text
             this.execution = fn
             this.$refs.popup.open()
         },
+        /* 弹窗点击取消按钮 */
         onBeforePopupCancel(done) {
             this.resetFormData()
             done()
         },
+        /* 弹窗点击确认按钮 */
         onBeforePopupConfirm(done) {
             this.execution()
             this.resetFormData()

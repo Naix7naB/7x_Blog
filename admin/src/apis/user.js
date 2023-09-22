@@ -9,6 +9,15 @@ function getUserList(data) {
     })
 }
 
+/* 修改用户密码 */
+function changePassword(data) {
+    return Request.requestForm({
+        methodType: Request.PUT,
+        url: '/user/changePwd',
+        data
+    })
+}
+
 /* 根据用户ID修改用户信息 */
 function modifyUserById(id, data) {
     return Request.requestForm({
@@ -81,6 +90,7 @@ function deleteRolesInBulk(data) {
 
 export {
     getUserList,
+    changePassword,
     modifyUserById,
     deleteUserById,
     deleteUsersInBulk,

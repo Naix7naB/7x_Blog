@@ -51,7 +51,7 @@ service.statusCode = {
 // 请求拦截器
 service.interceptors.request.use(
     config => {
-        const token = store.getters['user/getToken']
+        const token = store.getters.token
         if (token) {
             config.headers['Authorization'] = 'Bearer ' + token
         }
