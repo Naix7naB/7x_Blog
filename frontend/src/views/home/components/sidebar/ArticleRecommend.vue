@@ -45,7 +45,11 @@ export default {
             <div class="recommend-info">
                 <p class="recommend-info--title">{{ article.description }}</p>
                 <p class="recommend-info--date">
-                    <fa-icon icon="fas fa-clock" /> {{ formatDate(article.created_at) }}
+                    <fa-icon icon="fas fa-clock" />
+                    <span
+                        style="margin-left: 6px;"
+                        v-text="formatDate(article.created_at, 'YYYY-MM-DD')"
+                    ></span>
                 </p>
             </div>
         </li>

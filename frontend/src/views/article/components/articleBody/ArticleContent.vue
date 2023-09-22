@@ -10,9 +10,19 @@ export default {
     data() {
         return {
             viewerOption: {
-                button: false,
-                mavable: false,
-                navbar: false
+                fullscreen: false,
+                navbar: false,
+                title: false,
+                tooltip: false,
+                toolbar: {
+                    prev: true,
+                    zoomIn: true,
+                    zoomOut: true,
+                    reset: true,
+                    rotateLeft: true,
+                    rotateRight: true,
+                    next: true
+                }
             }
         }
     },
@@ -29,7 +39,7 @@ export default {
     <article class="article-content">
         <div class="markdown-body" v-highlight="info.content" v-viewer="viewerOption"></div>
         <p class="article-content--updated">
-            <span style="margin-right: 8px;">文章最后更新于</span>
+            <span class="article-updated--text">文章最后更新于</span>
             <span>{{ formatDate(info.updated_at) }}</span>
         </p>
         <div class="article-content--mark">
@@ -53,8 +63,13 @@ export default {
 
 .article-content--updated {
     user-select: none;
+    text-align: right;
     font-size: $fz-small-s;
-    line-height: $lh-small-s;
+}
+
+.article-updated--text {
+    border-left: 2px solid #2e8458;
+    padding: 0 8px;
 }
 
 .article-content--mark {

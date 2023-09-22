@@ -40,7 +40,6 @@ export default {
             this.clearUserInfo()
             this.clearArticleInfo()
             goToPath({ target: 'Home' })
-            this.$forceUpdate()
             this.$notify.success('退出登陆')
         }
     }
@@ -57,13 +56,7 @@ export default {
                 </router-link>
             </li>
         </ul>
-        <el-dropdown
-            class="navbar-menu--avatar"
-            placement="bottom"
-            trigger="click"
-            size="small"
-            @command="handleCommand"
-        >
+        <el-dropdown class="navbar-menu--avatar" size="medium" @command="handleCommand">
             <el-avatar size="small" :src="getUserInfo?.avatar">
                 <fa-icon icon="fas fa-user" />
             </el-avatar>

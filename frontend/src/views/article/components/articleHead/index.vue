@@ -93,6 +93,6 @@ export default {
 }
 
 .article-meta--num {
-    margin-left: 4px;
+    margin-left: 6px;
 }
 </style>

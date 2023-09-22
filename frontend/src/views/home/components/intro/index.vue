@@ -68,7 +68,7 @@ export default {
 .intro-enter {
     z-index: 100;
     position: absolute;
-    bottom: 10px;
+    bottom: 40px;
     left: 50%;
     padding: 10px;
     color: $cl-theme;

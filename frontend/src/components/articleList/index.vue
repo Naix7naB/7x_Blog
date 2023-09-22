@@ -36,7 +36,7 @@ export default {
             class="article-item shadow-box"
             v-for="(article, idx) in list"
             :key="article.id"
-            @click="() => toArticleDetail(article.id)"
+            @click="toArticleDetail(article.id)"
         >
             <div
                 class="article-item--wrapper article-image"

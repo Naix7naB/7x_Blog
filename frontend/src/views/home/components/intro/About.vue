@@ -47,13 +47,12 @@ export default {
 
 <template>
     <div class="about">
-        <el-image class="about-avatar" alt="avatar" fit="cover" :src="getSiteInfo?.host.avatar" />
-        <div class="about-info">
-            <span class="about-info--name">{{ getSiteInfo?.name }}</span>
-            <p class="about-info--slogan">
-                <fa-icon style="padding-right: 6px;" icon="fas fa-quote-left" size="lg" />
-                <span v-typed="[sentence]" style="font-weight: 700;"></span>
-                <fa-icon style="padding-left: 6px;" icon="fas fa-quote-right" size="lg" />
+        <h2 class="about-title">{{ getSiteInfo?.name }}</h2>
+        <div class="about-words">
+            <p class="about-words--text">
+                <fa-icon style="padding-right: 6px;" icon="fas fa-quote-left" />
+                <span v-typed="[sentence]"></span>
+                <fa-icon style="padding-left: 6px;" icon="fas fa-quote-right" />
             </p>
         </div>
         <ul class="about-social">
@@ -73,6 +72,7 @@ export default {
 <style lang="scss" scoped>
 /* 网站相关信息样式 */
 .about {
+    user-select: none;
     position: relative;
     top: 50%;
     max-width: 800px;
@@ -80,29 +80,30 @@ export default {
     transform: translateY(-50%);
 }
 
-.about-avatar {
-    width: 130px;
-    height: 130px;
-    margin: auto;
-    border: 6px solid $bg-gray-ll;
-    border-radius: 50%;
-    box-shadow: 0 0 20px $bg-theme;
-    transition: transform .8s ease;
-    cursor: pointer;
-
-    &:hover {
-        transform: rotate(360deg);
-    }
+.about-title {
+    font-size: 40px;
+    text-align: center;
 }
 
-.about-info {
-    width: 63%;
+.about-words {
+    max-width: 63%;
     margin: 32px auto 40px;
-    padding: 28px 20px;
     text-align: center;
+    font-size: $fz-medium-x;
+    font-weight: 700;
+}
+
+.about-words--text {
+    display: inline-block;
+    line-height: 1.5;
+    padding: 16px 20px;
     border-radius: 12px;
-    backdrop-filter: blur(10px);
-    background-color: $bg-theme-ll;
+    background-color: rgba($color: $bg-theme, $alpha: .7);
+}
+
+.about-words--text > span {
+    padding: 0 2px;
+    font-size: $fz-large;
 }
 
 .about-info--name {

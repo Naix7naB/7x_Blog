@@ -20,7 +20,7 @@ const config = {
         },
         rail: {
             keepShow: false,
-            opacity: 0.4,
+            opacity: 0,
             background: '#255f86'
         },
         bar: {

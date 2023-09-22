@@ -32,6 +32,14 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+:deep(.el-avatar) {
+    transition: transform .8s ease;
+
+    &:hover {
+        transform: rotate(360deg);
+    }
+}
+
 /* 网站信息卡片样式 */
 .site-info{
     display: flex;
@@ -65,7 +73,7 @@ export default {
     overflow: hidden;
     position: relative;
     z-index: 1;
-    width: 64%;
+    width: 90%;
     height: 36px;
     line-height: 36px;
     margin-top: 32px;
