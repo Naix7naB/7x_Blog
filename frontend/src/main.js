@@ -8,10 +8,10 @@ import App from './App.vue'
 import directive from './directive'
 import plugins from './plugins'
 
-Vue.config.productionTip = false
-
 Vue.use(directive)
 Vue.use(plugins)
+
+Vue.config.productionTip = false
 
 new Vue({
     router,
