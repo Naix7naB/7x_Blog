@@ -31,8 +31,10 @@ function searchArticleList({ page = 1, size = 10, q }) {
         data: {
             page,
             size,
-            condition: {
-                q
+            query: {
+                title: q,
+                description: q,
+                content: q
             },
             populate: [
                 {
