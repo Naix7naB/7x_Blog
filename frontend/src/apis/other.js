@@ -16,12 +16,4 @@ function getRandomImage() {
     })
 }
 
-/* 获取波浪HTML */
-function getWaveHtml() {
-    return Request.request({
-        methodType: Request.GET,
-        url: '/other/wave'
-    })
-}
-
-export { getRandomWords, getRandomImage, getWaveHtml }
+export { getRandomWords, getRandomImage }

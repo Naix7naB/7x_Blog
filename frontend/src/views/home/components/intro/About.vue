@@ -37,7 +37,7 @@ export default {
     },
     created() {
         getRandomWords().then(({ data }) => {
-            this.sentence = data.vhan
+            this.sentence = data.hitokoto
         }).catch(err => {
             this.$message.error(err.errMsg || err)
         })
