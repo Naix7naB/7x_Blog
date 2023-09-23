@@ -35,4 +35,7 @@ const config = {
     }
 }
 
-export { vuescroll, config }
+export default {
+    instance: vuescroll,
+    options: config
+}
