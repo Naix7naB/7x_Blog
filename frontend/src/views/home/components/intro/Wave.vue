@@ -32,8 +32,8 @@
 
     @for $n from 0 through 2 {
         &:nth-of-type(#{$n + 1}) {
-            animation-delay: #{-2 - $n}s;
-            animation-duration: #{12 - 4 * $n}s;
+            animation-delay: #{-2 - 2 * $n}s;
+            animation-duration: #{(12 - $n) - 4 * $n}s;
         }
     }
 }

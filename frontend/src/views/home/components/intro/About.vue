@@ -35,12 +35,17 @@ export default {
     computed: {
         ...mapGetters('site', ['getSiteInfo'])
     },
+    methods: {
+        randomWords() {
+            getRandomWords().then(({ data }) => {
+                this.sentence = data.hitokoto
+            }).catch(err => {
+                this.$message.error(err.errMsg || err)
+            })
+        }
+    },
     created() {
-        getRandomWords().then(({ data }) => {
-            this.sentence = data.hitokoto
-        }).catch(err => {
-            this.$message.error(err.errMsg || err)
-        })
+        this.randomWords()
     }
 }
 </script>
@@ -49,7 +54,7 @@ export default {
     <div class="about">
         <h2 class="about-title">{{ getSiteInfo?.name }}</h2>
         <div class="about-words">
-            <p class="about-words--text">
+            <p class="about-words--text" @click="randomWords">
                 <fa-icon style="padding-right: 6px;" icon="fas fa-quote-left" />
                 <span v-typed="[sentence]"></span>
                 <fa-icon style="padding-left: 6px;" icon="fas fa-quote-right" />
@@ -99,6 +104,7 @@ export default {
     padding: 16px 20px;
     border-radius: 12px;
     background-color: rgba($color: $bg-theme, $alpha: .7);
+    cursor: pointer;
 }
 
 .about-words--text > span {
