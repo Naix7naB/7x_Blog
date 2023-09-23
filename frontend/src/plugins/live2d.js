@@ -1,6 +1,9 @@
+// 引入自定义live2d样式
+import '@/assets/scss/live2d.scss'
+
 // live2d_path 参数建议使用绝对路径
+// const live2d_path = "/live2d-widget/";
 const live2d_path = 'https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/'
-//const live2d_path = "/live2d-widget/";
 
 // 封装异步加载资源的方法
 const loadExternalResource = (url, type) => {
@@ -27,7 +30,7 @@ const widgetConfig = {
     waifuPath: live2d_path + 'waifu-tips.json',
     //apiPath: "https://live2d.fghrsh.net/api/",
     cdnPath: 'https://fastly.jsdelivr.net/gh/fghrsh/live2d_api/',
-    tools: ['hitokoto', 'asteroids', 'switch-model', 'switch-texture', 'photo', 'info', 'quit']
+    tools: ['hitokoto', 'asteroids', 'switch-model', 'switch-texture', 'quit']
 }
 
 // 加载 waifu.css live2d.min.js waifu-tips.js
