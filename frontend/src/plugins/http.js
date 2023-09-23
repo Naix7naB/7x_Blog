@@ -50,9 +50,11 @@ service.statusCode = {
 // 请求拦截器
 service.interceptors.request.use(
     config => {
-        const token = store.getters['user/getToken']
-        if (token) {
-            config.headers['Authorization'] = 'Bearer ' + token
+        if (config.baseURL === process.env.VUE_APP_BASE_URL) {
+            const token = store.getters['user/getToken']
+            if (token) {
+                config.headers['Authorization'] = 'Bearer ' + token
+            }
         }
         if (config.upType === service.upType.json) {
             config.headers['Content-Type'] = 'application/json;charset=UTF-8'
