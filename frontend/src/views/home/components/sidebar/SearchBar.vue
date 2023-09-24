@@ -30,11 +30,17 @@ export default {
 </script>
 
 <template>
-    <div class="search-bar">
-        <input type="text" placeholder="搜索文章" v-model="value" @keyup.enter="search" />
-        <span v-if="clearable" class="search-bar--clear" @click="clear">
-            <fa-icon icon="fas fa-xmark" />
-        </span>
+    <div class="sidebar-card">
+        <div class="sidebar-card--label">
+            <fa-icon icon="fas fa-magnifying-glass" />
+            <span>搜索文章</span>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="搜索文章" v-model="value" @keyup.enter="search" />
+            <span v-if="clearable" class="search-bar--clear" @click="clear">
+                <fa-icon icon="fas fa-xmark" />
+            </span>
+        </div>
     </div>
 </template>
 

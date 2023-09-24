@@ -10,7 +10,7 @@ export default {
 </script>
 
 <template>
-    <div class="site-info">
+    <div class="sidebar-card site-info">
         <el-avatar :size="120" :src="getSiteInfo?.host.avatar" />
         <span class="site-info--name">{{ getSiteInfo?.host.nickname }}</span>
         <div class="site-info--meta">

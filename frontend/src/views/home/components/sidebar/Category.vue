@@ -31,19 +31,25 @@ export default {
 </script>
 
 <template>
-    <ul>
-        <li
-            class="category-item"
-            v-for="category in categoryList"
-            :key="category.id"
-            @click="select(category)"
-        >
-            <span class="category-item--name">
-                <fa-icon icon="fas fa-angle-right" />&nbsp;<span>{{ category.name }}</span>
-            </span>
-            <span class="category-item--count">{{ category.articles.length }}</span>
-        </li>
-    </ul>
+    <div class="sidebar-card">
+        <div class="sidebar-card--label">
+            <fa-icon icon="far fa-folder-open" />
+            <span>分类</span>
+        </div>
+        <ul>
+            <li
+                class="category-item"
+                v-for="category in categoryList"
+                :key="category.id"
+                @click="select(category)"
+            >
+                <span class="category-item--name">
+                    <fa-icon icon="fas fa-angle-right" />&nbsp;<span>{{ category.name }}</span>
+                </span>
+                <span class="category-item--count">{{ category.articles.length }}</span>
+            </li>
+        </ul>
+    </div>
 </template>
 
 <style lang="scss" scoped>

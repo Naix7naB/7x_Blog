@@ -34,16 +34,22 @@ export default {
 </script>
 
 <template>
-    <ul class="tags">
-        <li class="tag-item" v-for="tag in tags" :key="tag.id" @click="select(tag)">
-            <span
-                v-text="tag.name"
-                class="tag-name"
-                :data-count="tag.articles.length"
-                :style="{ color: tag.color }"
-            />
-        </li>
-    </ul>
+    <div class="sidebar-card">
+        <div class="sidebar-card--label">
+            <fa-icon icon="fas fa-bookmark" />
+            <span>标签</span>
+        </div>
+        <ul class="tags">
+            <li class="tag-item" v-for="tag in tags" :key="tag.id" @click="select(tag)">
+                <span
+                    v-text="tag.name"
+                    class="tag-name"
+                    :data-count="tag.articles.length"
+                    :style="{ color: tag.color }"
+                />
+            </li>
+        </ul>
+    </div>
 </template>
 
 <style lang="scss" scoped>
