@@ -68,6 +68,7 @@ export default {
                     :alt="item.title"
                     :title="item.title"
                     :src="item.imageUrl"
+                    :lazy="true"
                 />
             </li>
         </ul>

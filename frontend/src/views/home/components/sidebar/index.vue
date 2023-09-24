@@ -62,15 +62,4 @@ export default {
         margin-left: 6px;
     }
 }
-
-.show-up-enter-active,
-.show-up-leave-active {
-    transition: all .3s;
-}
-
-.show-up-enter,
-.show-up-leave-to {
-    opacity: 0;
-    transform: translateY(30px);
-}
 </style>

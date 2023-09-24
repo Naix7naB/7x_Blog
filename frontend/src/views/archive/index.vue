@@ -83,7 +83,7 @@ export default {
                         </span>
                     </div>
                     <div class="archive-article--content">
-                        <el-image fit="cover" :src="article.cover_img" />
+                        <el-image fit="cover" :src="article.cover_img" lazy />
                         <div class="archive-article--info">
                             <p>{{ article.title }}</p>
                             <p>{{ article.description }}</p>

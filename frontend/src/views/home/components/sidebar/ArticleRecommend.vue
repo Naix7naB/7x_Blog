@@ -46,7 +46,7 @@ export default {
                 :key="article.id"
                 @click="toArticleDetail(article.id)"
             >
-                <el-image class="recommend-inset" fit="cover" :src="article.cover_img" />
+                <el-image class="recommend-inset" fit="cover" :src="article.cover_img" lazy />
                 <div class="recommend-info">
                     <p class="recommend-info--title">{{ article.description }}</p>
                     <p class="recommend-info--date">

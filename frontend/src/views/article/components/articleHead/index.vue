@@ -15,7 +15,7 @@ export default {
 
 <template>
     <div class="article-head">
-        <el-image class="background" fit="cover" :src="info.cover_img" />
+        <el-image class="background" fit="cover" :src="info.cover_img" lazy />
         <div class="article-head--meta">
             <h3 class="article-meta--title">{{ info.title }}</h3>
             <div class="article-meta--content">

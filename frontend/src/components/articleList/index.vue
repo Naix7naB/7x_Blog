@@ -43,7 +43,7 @@ export default {
                 :on-left="idx % 2 === 0"
                 :on-right="idx % 2 === 1"
             >
-                <el-image :src="article.cover_img" fit="cover" />
+                <el-image :src="article.cover_img" fit="cover" lazy />
             </div>
             <div
                 class="article-item--wrapper article-info"
