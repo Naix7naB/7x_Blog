@@ -40,13 +40,14 @@ export default {
             <span>标签</span>
         </div>
         <ul class="tags">
-            <li class="tag-item" v-for="tag in tags" :key="tag.id" @click="select(tag)">
-                <span
-                    v-text="tag.name"
-                    class="tag-name"
-                    :data-count="tag.articles.length"
-                    :style="{ color: tag.color }"
-                />
+            <li
+                class="tag-item"
+                v-for="tag in tags"
+                :key="tag.id"
+                :style="{ backgroundColor: tag.color }"
+                @click="select(tag)"
+            >
+                <fa-icon class="tag-icon" icon="fas fa-tag" />{{ tag.name }}
             </li>
         </ul>
     </div>
@@ -61,25 +62,18 @@ export default {
 
 .tag-item {
     margin: 8px 4px;
+    padding: 4px 10px;
+    border-radius: 2px;
     transition: transform .3s;
+    cursor: pointer;
 
     &:hover {
-        transform: scale(1.15);
+        transform: translate3d(0, -4px, 1px);
     }
 }
 
-.tag-name {
-    position: relative;
-    padding: 2px 10px;
-    font-size: $fz-large;
-    cursor: pointer;
-
-    &::after {
-        content: attr(data-count);
-        position: absolute;
-        top: 0;
-        right: 0;
-        font-size: $fz-small;
-    }
+.tag-icon {
+    margin-right: 6px;
+    vertical-align: -4px;
 }
 </style>
