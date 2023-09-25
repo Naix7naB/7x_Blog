@@ -36,7 +36,7 @@ export default {
 
         const getCurrentEvent = type => {
             return () => {
-                const targetRouteName = type === 'tag' ? 'TagArticle' : 'ClassifyArticle'
+                const targetRouteName = type === 'tag' ? 'TagArticle' : 'CategoryArticle'
                 const targetRouteParams = type === 'tag' ?
                     { tid: item.id, name: item.name } :
                     { cid: item.id, name: item.name }
@@ -47,6 +47,8 @@ export default {
             }
         }
 
+        const clickEvent = getCurrentEvent(type)
+
         return h(
             'span',
             {
@@ -54,7 +56,6 @@ export default {
                 on: {
                     click(e) {
                         e.stopPropagation()
-                        const clickEvent = getCurrentEvent(type)
                         clickEvent()
                     }
                 }
