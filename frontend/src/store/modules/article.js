@@ -3,15 +3,7 @@ import Storage from '@/utils/storage'
 export default {
     namespaced: true,
     state: {
-        articleInfo: null
-    },
-    getters: {
-        getArticleInfo: state => {
-            if (!state.articleInfo) {
-                state.articleInfo = Storage.get('_article_info_', null)
-            }
-            return state.articleInfo
-        }
+        articleInfo: Storage.get('_article_info_')
     },
     mutations: {
         _set_article_info_(state, info) {

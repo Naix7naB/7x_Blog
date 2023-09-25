@@ -5,15 +5,7 @@ import { getSiteInfo } from '@/apis/site'
 export default {
     namespaced: true,
     state: {
-        siteInfo: null
-    },
-    getters: {
-        getSiteInfo: state => {
-            if (!state.siteInfo) {
-                state.siteInfo = Storage.get('_site_info_', null)
-            }
-            return state.siteInfo
-        }
+        siteInfo: Storage.get('_site_info_')
     },
     mutations: {
         _set_site_info_(state, info) {
