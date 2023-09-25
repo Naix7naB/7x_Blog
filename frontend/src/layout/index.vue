@@ -1,16 +1,18 @@
 <script>
 import Navbar from './components/navbar'
 import AppMain from './components/appMain'
+import Toolbar from './components/toolbar'
 
 export default {
     name: 'PageLayout',
-    components: { Navbar, AppMain }
+    components: { Navbar, AppMain, Toolbar }
 }
 </script>
 
 <template>
     <div class="page-layout">
         <Navbar />
+        <Toolbar />
         <AppMain />
     </div>
 </template>
@@ -27,7 +29,7 @@ export default {
 }
 
 .el-image.background {
-    @include layer-mask();
+    @include image-mask();
 }
 
 .el-image__inner {
@@ -41,7 +43,8 @@ export default {
 
 /* 页面排版样式 */
 .page-layout {
-    @include full-fixed();
+    @include fullscreen();
+    // @include background-color($bg-theme);
     background-color: #24272d;
 }
 </style>

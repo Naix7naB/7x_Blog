@@ -1,6 +1,7 @@
 import { isEmpty } from 'lodash-es'
 
 export default {
+    theme: state => state.setting.theme,
     scrollTop: state => state.scroll.y,
     scrollRatio: state => Math.min((state.scroll.y / state.scroll.maxTransY) * 100, 100) / 100,
     navbarVisibility: state => state.scroll.y > state.scroll.maxTransY && state.scroll.delta > 0,

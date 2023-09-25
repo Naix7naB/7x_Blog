@@ -175,6 +175,7 @@ const routes = [
 const router = new VueRouter({ routes })
 
 router.beforeEach((to, from, next) => {
+    store.dispatch('setting/initTheme')
     store.dispatch('site/loadSiteInfo')
     next()
 })

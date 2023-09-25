@@ -33,7 +33,10 @@ import {
     faRotateRight as fasRotateRight,
     faSpinner as fasSpinner,
     faArrowLeft as fasArrowLeft,
-    faRightFromBracket as fasRightFromBracket
+    faArrowUp as fasArrowUp,
+    faRightFromBracket as fasRightFromBracket,
+    faSun as fasSun,
+    faMoon as fasMoon
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -76,7 +79,10 @@ library.add([
     fasRotateRight,
     fasSpinner,
     fasArrowLeft,
+    fasArrowUp,
     fasRightFromBracket,
+    fasSun,
+    fasMoon,
     farStar,
     farFolderOpen,
     farFaceLaugh,
