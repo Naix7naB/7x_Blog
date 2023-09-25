@@ -51,14 +51,14 @@ export default {
 </script>
 
 <template>
-    <div class="about">
+    <div>
         <h2 class="about-title">{{ getSiteInfo?.name }}</h2>
         <div class="about-words">
-            <p class="about-words--text" @click="randomWords">
+            <span class="about-words--text" @click="randomWords">
                 <fa-icon style="padding-right: 6px;" icon="fas fa-quote-left" />
                 <span v-typed="[sentence]"></span>
                 <fa-icon style="padding-left: 6px;" icon="fas fa-quote-right" />
-            </p>
+            </span>
         </div>
         <ul class="about-social">
             <li class="about-social--item" v-for="item in socialList" :key="item.title">
@@ -77,22 +77,12 @@ export default {
 
 <style lang="scss" scoped>
 /* 网站相关信息样式 */
-.about {
-    user-select: none;
-    position: relative;
-    top: 50%;
-    max-width: 800px;
-    margin: auto;
-    transform: translateY(-50%);
-}
-
 .about-title {
-    font-size: 40px;
+    font-size: 44px;
     text-align: center;
 }
 
 .about-words {
-    max-width: 63%;
     margin: 32px auto 40px;
     text-align: center;
     font-size: $fz-medium-x;
@@ -102,8 +92,8 @@ export default {
 .about-words--text {
     display: inline-block;
     line-height: 1.5;
-    padding: 16px 20px;
-    border-radius: 12px;
+    padding: 12px 20px;
+    border-radius: 10px;
     background-color: rgba($color: $bg-theme, $alpha: .7);
     cursor: pointer;
 }
@@ -139,6 +129,6 @@ export default {
     height: 50px;
     padding: 10px;
     border-radius: 15px;
-    background-color: $bg-reverse-l;
+    background-color: rgba($color: $bg-theme-reverse, $alpha: .5);
 }
 </style>

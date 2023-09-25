@@ -1,5 +1,5 @@
 <script>
-import Intro from './components/intro'
+import Banner from './components/banner'
 import Sidebar from './components/sidebar'
 import ArticleList from '@/components/articleList'
 
@@ -7,7 +7,7 @@ import { getArticleList } from '@/apis/article'
 
 export default {
     name: 'HomePage',
-    components: { Intro, Sidebar, ArticleList },
+    components: { Banner, Sidebar, ArticleList },
     data() {
         return {
             articleList: []
@@ -35,9 +35,7 @@ export default {
 
 <template>
     <div>
-        <div class="home-intro">
-            <Intro />
-        </div>
+        <Banner />
         <div class="home-main">
             <div class="home-sidebar">
                 <Sidebar />
@@ -51,10 +49,6 @@ export default {
 
 <style lang="scss" scoped>
 /* 主页样式 */
-.home-intro {
-    height: 100vh;
-}
-
 .home-main {
     display: flex;
     justify-content: center;
@@ -68,7 +62,6 @@ export default {
     max-width: 320px;
     margin-right: 40px;
 }
-
 
 .home-content {
     width: 70%;
