@@ -2,7 +2,6 @@
 import MarkButton from '@/components/markButton'
 
 import { formatDate } from '@/utils/util'
-import { mapGetters } from 'vuex'
 
 export default {
     name: 'ArticleContent',
@@ -27,7 +26,9 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('article', { info: 'getArticleInfo' })
+        articleInfo() {
+            return this.$store.getters.articleInfo
+        }
     },
     methods: {
         formatDate
@@ -37,17 +38,17 @@ export default {
 
 <template>
     <article class="article-content">
-        <div class="markdown-body" v-highlight="info.content" v-viewer="viewerOption"></div>
+        <div class="markdown-body" v-highlight="articleInfo?.content" v-viewer="viewerOption"></div>
         <p class="article-content--updated">
             <span>文章最后更新于</span>
-            <span>{{ formatDate(info.updated_at) }}</span>
+            <span>{{ formatDate(articleInfo?.updated_at) }}</span>
         </p>
         <div class="article-content--mark">
-            <MarkButton type="category" :item="info.category" />
-            <MarkButton type="tag" v-for="tag in info.tags" :key="tag.id" :item="tag" />
+            <MarkButton type="category" :item="articleInfo.category" />
+            <MarkButton type="tag" v-for="tag in articleInfo?.tags" :key="tag.id" :item="tag" />
         </div>
         <div class="article-content--copyright">
-            <p>作者：{{ info.author.nickname }}</p>
+            <p>作者：{{ articleInfo?.author.nickname }}</p>
             <p>版权声明：转载请注明文章出处</p>
         </div>
         <div class="article-content--like">

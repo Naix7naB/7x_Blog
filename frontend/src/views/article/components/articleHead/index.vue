@@ -1,11 +1,12 @@
 <script>
 import { formatDate } from '@/utils/util'
-import { mapGetters } from 'vuex'
 
 export default {
     name: 'ArticleHead',
     computed: {
-        ...mapGetters('article', { info: 'getArticleInfo' })
+        articleInfo() {
+            return this.$store.getters.articleInfo
+        }
     },
     methods: {
         formatDate
@@ -15,29 +16,29 @@ export default {
 
 <template>
     <div class="article-head">
-        <el-image class="background" fit="cover" :src="info.cover_img" lazy />
+        <el-image class="background" fit="cover" :src="articleInfo?.cover_img" lazy />
         <div class="article-head--meta">
-            <h3 class="article-meta--title">{{ info.title }}</h3>
+            <h3 class="article-meta--title">{{ articleInfo?.title }}</h3>
             <div class="article-meta--content">
                 <div class="article-meta--item">
                     <fa-icon icon="fas fa-user" />
-                    <span class="article-meta--num">{{ info.author.nickname }}</span>
+                    <span class="article-meta--num">{{ articleInfo?.author.nickname }}</span>
                 </div>
                 <div class="article-meta--item">
                     <fa-icon icon="fas fa-calendar-days" />
-                    <span class="article-meta--num">{{ formatDate(info.created_at) }}</span>
+                    <span class="article-meta--num">{{ formatDate(articleInfo?.created_at) }}</span>
                 </div>
                 <div class="article-meta--item">
                     <fa-icon icon="fas fa-fire" />
-                    <span class="article-meta--num">{{ info.view_count }}</span>
+                    <span class="article-meta--num">{{ articleInfo?.view_count }}</span>
                 </div>
                 <div class="article-meta--item">
                     <fa-icon icon="fas fa-comment" />
-                    <span class="article-meta--num">{{ info.comment_count }}</span>
+                    <span class="article-meta--num">{{ articleInfo?.comment_count }}</span>
                 </div>
                 <div class="article-meta--item">
                     <fa-icon icon="fas fa-heart" />
-                    <span class="article-meta--num">{{ info.like_count }}</span>
+                    <span class="article-meta--num">{{ articleInfo?.like_count }}</span>
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 import { goToPath } from '@/utils/util'
 
 export default {
@@ -14,9 +14,14 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('user', ['isLogin', 'getUserInfo']),
+        isLogin() {
+            return this.$store.getters.isLogin
+        },
+        userInfo() {
+            return this.$store.getters.userInfo
+        },
         dropdownCommand() {
-            return this.isLogin ? 'logout' : 'login'
+            return this.$store.getters.isLogin ? 'logout' : 'login'
         },
         showing() {
             return this.$router.options.routes.filter(route => !route.hide)
@@ -57,7 +62,7 @@ export default {
             </li>
         </ul>
         <el-dropdown class="navbar-menu--avatar" size="medium" @command="handleCommand">
-            <el-avatar size="small" :src="getUserInfo?.avatar">
+            <el-avatar size="small" :src="userInfo?.avatar">
                 <fa-icon icon="fas fa-user" />
             </el-avatar>
             <el-dropdown-menu slot="dropdown">

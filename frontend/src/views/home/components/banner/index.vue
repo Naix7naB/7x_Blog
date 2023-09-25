@@ -71,7 +71,7 @@ export default {
     height: 100vh;
 
     &:deep(.el-image) {
-        @include layer-mask();
+        @include image-mask();
     }
 }
 

@@ -1,30 +1,30 @@
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
     name: 'SiteInfo',
     computed: {
-        ...mapGetters('site', ['getSiteInfo'])
+        siteInfo() {
+            return this.$store.getters.siteInfo
+        }
     }
 }
 </script>
 
 <template>
     <div class="sidebar-card site-info">
-        <el-avatar :size="120" :src="getSiteInfo?.host.avatar" />
-        <span class="site-info--name">{{ getSiteInfo?.host.nickname }}</span>
+        <el-avatar :size="120" :src="siteInfo?.host.avatar" />
+        <span class="site-info--name">{{ siteInfo?.host.nickname }}</span>
         <div class="site-info--meta">
             <div class="info-meta--item">
                 <span>文章</span>
-                <span class="info-meta--num">{{ getSiteInfo.article_count }}</span>
+                <span class="info-meta--num">{{ siteInfo?.article_count }}</span>
             </div>
             <div class="info-meta--item">
                 <span>分类</span>
-                <span class="info-meta--num">{{ getSiteInfo.category_count }}</span>
+                <span class="info-meta--num">{{ siteInfo?.category_count }}</span>
             </div>
             <div class="info-meta--item">
                 <span>标签</span>
-                <span class="info-meta--num">{{ getSiteInfo.tag_count }}</span>
+                <span class="info-meta--num">{{ siteInfo?.tag_count }}</span>
             </div>
         </div>
         <span class="site-info--button"><fa-icon icon="far fa-star" /> 朋友圈</span>

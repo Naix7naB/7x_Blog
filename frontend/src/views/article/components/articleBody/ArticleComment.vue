@@ -3,7 +3,6 @@ import CommentEditor from '@/components/commentEditor'
 import CommentList from '@/components/commentList'
 
 import { getArticleComments, leaveComment } from '@/apis/comment'
-import { mapGetters } from 'vuex'
 
 export default {
     name: 'ArticleComment',
@@ -19,19 +18,21 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('article', ['getArticleInfo']),
+        articleInfo() {
+            return this.$store.getters.articleInfo
+        },
         topic() {
             return {
                 type: 'article_comment',
-                title: this.getArticleInfo.title,
-                id: this.getArticleInfo.id
+                title: this.articleInfo.title,
+                id: this.articleInfo.id
             }
         }
     },
     methods: {
         async getComments() {
             try {
-                const { data } = await getArticleComments({ aid: this.getArticleInfo.id })
+                const { data } = await getArticleComments({ aid: this.articleInfo.id })
                 this.comments = data.list
             } catch (err) {
                 this.$message.error(err.errMsg || err)

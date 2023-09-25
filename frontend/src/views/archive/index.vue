@@ -1,6 +1,7 @@
 <script>
 import { getArticlesAndSortedByDate, getArticleInfoById } from '@/apis/article'
 import { formatDate, goToPath } from '@/utils/util'
+import { isEmpty } from 'lodash-es'
 import { mapActions } from 'vuex'
 
 export default {
@@ -13,8 +14,7 @@ export default {
     },
     computed: {
         condition() {
-            const query = JSON.stringify(this.$route.query)
-            return query === '{}' ? null : {
+            return isEmpty(this.$route.query) ? null : {
                 created_at: {
                     $gte: this.$route.query.start,
                     $lt: this.$route.query.end

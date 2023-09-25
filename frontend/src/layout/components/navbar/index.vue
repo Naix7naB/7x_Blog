@@ -2,21 +2,21 @@
 import Logo from './Logo'
 import Menu from './Menu'
 
-import { mapGetters } from 'vuex'
-
 export default {
     name: 'Navbar',
     components: { Logo, Menu },
     computed: {
-        ...mapGetters(['getScrollY', 'getScrollRatio', 'getNavbarShowState']),
         navbarStyle() {
+            const scrollTop = this.$store.getters.scrollTop
+            const scrollRatio = this.$store.getters.scrollRatio
+            const navbarVisibility = this.$store.getters.navbarVisibility
             let blurCount = 0, bgColor = 'transparent', shadow = 'none', transform = 'none'
-            if (this.getScrollY > 0) {
-                blurCount = Math.min(this.getScrollY / 50, 20)
-                bgColor = `rgba(55, 56, 58, ${Math.min(this.getScrollRatio, .9)})`
-                shadow = `0 2px 30px 0 rgba(85, 86, 88, ${Math.min(this.getScrollRatio, .8)})`
+            if (scrollTop > 0) {
+                blurCount = Math.min(scrollTop / 50, 20)
+                bgColor = `rgba(55, 56, 58, ${Math.min(scrollRatio, .9)})`
+                shadow = `0 2px 30px 0 rgba(85, 86, 88, ${Math.min(scrollRatio, .8)})`
             }
-            if (this.getNavbarShowState) {
+            if (navbarVisibility) {
                 transform = 'translate3d(0, -80px, 1px)'
             }
             return {

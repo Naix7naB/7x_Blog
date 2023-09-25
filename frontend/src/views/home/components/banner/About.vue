@@ -5,7 +5,6 @@ import ncmPic from '@/assets/images/ncm.png'
 import mailPic from '@/assets/images/mail.png'
 
 import { getRandomWords } from '@/apis/other'
-import { mapGetters } from 'vuex'
 
 export default {
     name: 'About',
@@ -33,7 +32,9 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('site', ['getSiteInfo'])
+        siteInfo() {
+            return this.$store.getters.siteInfo
+        }
     },
     methods: {
         randomWords() {
@@ -52,7 +53,7 @@ export default {
 
 <template>
     <div>
-        <h2 class="about-title">{{ getSiteInfo?.name }}</h2>
+        <h2 class="about-title">{{ siteInfo?.name }}</h2>
         <div class="about-words">
             <span class="about-words--text" @click="randomWords">
                 <fa-icon style="padding-right: 6px;" icon="fas fa-quote-left" />

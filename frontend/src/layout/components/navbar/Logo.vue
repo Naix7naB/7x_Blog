@@ -1,19 +1,17 @@
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
     name: 'Logo',
     computed: {
-        ...mapGetters('site', ['getSiteInfo'])
+        siteName() {
+            return this.$store.getters.siteInfo?.name
+        }
     }
 }
 </script>
 
 <template>
     <h1 class="navbar-logo">
-        <span class="navbar-logo--wrapper">
-            <fa-icon icon="fas fa-blog" /> {{ getSiteInfo?.name }}
-        </span>
+        <span class="navbar-logo--wrapper"><fa-icon icon="fas fa-blog" /> {{ siteName }}</span>
     </h1>
 </template>
 

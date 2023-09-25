@@ -3,7 +3,6 @@ import CommentEditor from '@/components/commentEditor'
 import CommentList from '@/components/commentList'
 
 import { getMessageComments, leaveComment } from '@/apis/comment'
-import { mapGetters } from 'vuex'
 
 export default {
     name: 'MessagePage',
@@ -19,19 +18,21 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('site', ['getSiteInfo']),
+        siteInfo() {
+            return this.$store.getters.siteInfo
+        },
         topic() {
             return {
                 type: 'message_comment',
-                title: this.getSiteInfo.name,
-                id: this.getSiteInfo.id
+                title: this.siteInfo.name,
+                id: this.siteInfo.id
             }
         }
     },
     methods: {
         async getComments() {
             try {
-                const { data } = await getMessageComments({ mid: this.getSiteInfo.id })
+                const { data } = await getMessageComments({ mid: this.siteInfo.id })
                 this.comments = data.list
             } catch (err) {
                 this.$message.error(err || err.errMsg)

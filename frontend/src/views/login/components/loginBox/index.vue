@@ -1,6 +1,6 @@
 <script>
 import LoginForm from './LoginForm'
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 import { login, registry } from '@/apis/login'
 import { encrypt, goToPath } from '@/utils/util'
 import { loginData, loginItems } from '@/config/login.config'
@@ -16,7 +16,6 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('user', { encryptKey: 'getKey' }),
         /* 过渡名称 */
         transitionName() {
             return this.isShow ? 'out-up' : 'pull-out'
@@ -54,11 +53,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions('user', [
-            { loadEncryptKey: 'loadKey' },
-            'setToken',
-            'setUserInfo'
-        ]),
+        ...mapActions('user', ['loadKey', 'setToken', 'setUserInfo']),
         async handleRequest(data) {
             /* 验证表单 */
             if (!this.currentFormRef.isValidate()) {
@@ -66,15 +61,15 @@ export default {
                 return false
             }
             /* 获取加密密钥 处理表单数据 */
-            if (!this.encryptKey) {
-                await this.loadEncryptKey()
-            }
-            data.password = encrypt(data.password, this.encryptKey)
+            await this.loadKey()
+            const encryptKey = this.$store.getters.key
+            data.password = encrypt(data.password, encryptKey)
             /* 发送请求 */
             this.currentRequest(data).then(res => {
                 const { token, ...userInfo } = res.data
                 this.setToken(token)
                 this.setUserInfo(userInfo)
+                this.reset()
                 goToPath({ target: 'Home' })
                 this.$notify.success(res.errMsg)
             }).catch(err => {

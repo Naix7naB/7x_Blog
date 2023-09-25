@@ -1,13 +1,13 @@
-import { getKey } from '@/apis/login'
-
 import Storage from '@/utils/storage'
+
+import { getKey } from '@/apis/login'
 
 export default {
     namespaced: true,
     state: {
-        key: null,
-        token: null,
-        userInfo: null
+        key: Storage.get('_uak_'),
+        token: Storage.get('_uat_'),
+        userInfo: Storage.get('_user_info_')
     },
     mutations: {
         _set_key_(state, key) {
@@ -30,9 +30,11 @@ export default {
         }
     },
     actions: {
-        async loadKey({ dispatch }) {
-            const { data } = await getKey()
-            dispatch('setKey', data.pubKey)
+        async loadKey({ state, commit }) {
+            if (!state.key) {
+                const { data } = await getKey()
+                commit('_set_key_', data.pubKey)
+            }
         },
         setKey({ commit }, key) {
             commit('_set_key_', key)

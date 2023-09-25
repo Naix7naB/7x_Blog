@@ -15,7 +15,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['setScrollY']),
+        ...mapActions('scroll', ['setScrollY']),
         onScroll(position) {
             this.setScrollY(position.scrollTop)
         },

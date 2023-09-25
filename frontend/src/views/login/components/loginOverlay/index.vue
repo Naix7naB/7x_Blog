@@ -55,7 +55,7 @@ export default {
 }
 
 .overlay {
-    @include layer-mask($color: #414141, $alpha: .1);
+    @include image-mask($color: #414141, $alpha: .1);
     position: relative;
     left: -100%;
     height: 100%;

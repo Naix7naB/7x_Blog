@@ -24,11 +24,10 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('site', ['getSiteInfo']),
         ...mapGetters('comment', ['currentReplyId']),
         isHost() {
             return uid => {
-                return uid === this.getSiteInfo.host.id
+                return uid === this.$store.getters.siteInfo?.host?.id
             }
         }
     },
