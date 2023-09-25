@@ -88,13 +88,13 @@ export default {
     position: absolute;
     bottom: -1px;
     width: 100%;
-    height: 14%;
+    height: 10%;
 }
 
 .banner-button {
     z-index: 10;
     position: absolute;
-    bottom: 8%;
+    bottom: 6%;
     left: 50%;
     background-color: transparent;
     transform: translateX(-50%);

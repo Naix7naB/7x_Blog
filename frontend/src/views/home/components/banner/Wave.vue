@@ -15,8 +15,7 @@
         <g class="parallax">
             <use xlink:href="#wave" x="50" y="0"></use>
             <use xlink:href="#wave" x="50" y="3"></use>
-            <use xlink:href="#wave" x="50" y="6"></use>
-            <use xlink:href="#wave" x="50" y="9"></use>
+            <use xlink:href="#wave" x="50" y="5"></use>
         </g>
     </svg>
 </template>
@@ -28,18 +27,15 @@
 }
 
 .parallax > use {
-    animation: wave cubic-bezier(.55,.5,.45,.5) infinite;
+    animation: wave cubic-bezier(.55, .5, .45, .5) infinite;
 
-    @for $n from 0 through 3 {
+    @for $n from 0 through 2 {
         $color: $bg-theme;
-        $alpha: ($n + 1) / ($n + 2);
+        $alpha: (60 + 5 * $n) / 100;
         &:nth-of-type(#{$n + 1}) {
-            @if $n == 3 {
-                $alpha: 1
-            }
             fill: rgba($color: $color, $alpha: $alpha);
             animation-delay: #{-2 - $n}s;
-            animation-duration: #{6 * $n + $n + 3}s;
+            animation-duration: #{5 * $n + $n + 3}s;
         }
     }
 }

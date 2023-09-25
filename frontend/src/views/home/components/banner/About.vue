@@ -94,7 +94,7 @@ export default {
     line-height: 1.5;
     padding: 12px 20px;
     border-radius: 10px;
-    background-color: rgba($color: $bg-theme, $alpha: .7);
+    background-color: rgba($color: $bg-theme, $alpha: .5);
     cursor: pointer;
 }
 
