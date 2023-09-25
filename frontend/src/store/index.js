@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import setting from './modules/setting'
 import scroll from './modules/scroll'
 import site from './modules/site'
 import user from './modules/user'
@@ -14,6 +15,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     getters,
     modules: {
+        setting,
         scroll,
         site,
         user,
