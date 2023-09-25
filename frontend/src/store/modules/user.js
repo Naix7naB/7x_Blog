@@ -42,8 +42,7 @@ export default {
         setToken({ commit }, token) {
             commit('_set_token_', token)
         },
-        setUserInfo({ dispatch, commit }, info) {
-            dispatch('setUserRole', info.rid)
+        setUserInfo({ commit }, info) {
             commit('_set_user_info_', info)
         },
         clearUserInfo({ commit }) {

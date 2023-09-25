@@ -14,8 +14,8 @@ export default {
         }
     },
     actions: {
-        async loadSiteInfo({ getters, commit }) {
-            if (!getters.getSiteInfo) {
+        async loadSiteInfo({ state, commit }) {
+            if (!state.siteInfo) {
                 const res = await getSiteInfo()
                 commit('_set_site_info_', res.data)
             }

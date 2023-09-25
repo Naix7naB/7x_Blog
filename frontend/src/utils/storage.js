@@ -3,20 +3,22 @@
  */
 import { useLocalStorage } from '@vueuse/core'
 
-const serializer = {
-    read: v => (v ? JSON.parse(v) : null),
-    write: v => JSON.stringify(v)
-}
-
 export default class Storage {
+    static get serializer() {
+        return {
+            read: v => (v ? JSON.parse(v) : null),
+            write: v => JSON.stringify(v)
+        }
+    }
+
     /**
      * @description: 获取 key 对应本地存储的值
      * @param {String} key 键名
-     * @param {any|null} type 没有该键名时, 返回的数据类型, 默认为 null
-     * @return {any} 返回对应键名的值
+     * @param {any|null} defaultValue 存储中没有此键名的数据时的默认数据
+     * @return {any} 返回对应键值
      */
-    static get(key) {
-        return useLocalStorage(key, null, { serializer }).value
+    static get(key, defaultValue = null) {
+        return useLocalStorage(key, defaultValue, { serializer: Storage.serializer }).value
     }
 
     /**
@@ -25,7 +27,7 @@ export default class Storage {
      * @param {any} val 键值
      */
     static set(key, val) {
-        useLocalStorage(key, null, { serializer }).value = val
+        useLocalStorage(key, null, { serializer: Storage.serializer }).value = val
     }
 
     /**
@@ -33,7 +35,7 @@ export default class Storage {
      * @param {String} key 键名
      */
     static remove(key) {
-        useLocalStorage(key, null, { serializer }).value = null
+        useLocalStorage(key, null, { serializer: Storage.serializer }).value = null
     }
 
     /**
