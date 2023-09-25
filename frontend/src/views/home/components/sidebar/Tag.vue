@@ -62,7 +62,7 @@ export default {
 
 .tag-item {
     margin: 8px 4px;
-    padding: 4px 10px;
+    padding: 2px 10px;
     border-radius: 2px;
     transition: transform .3s;
     cursor: pointer;

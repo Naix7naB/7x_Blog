@@ -39,7 +39,7 @@ export default {
     <article class="article-content">
         <div class="markdown-body" v-highlight="info.content" v-viewer="viewerOption"></div>
         <p class="article-content--updated">
-            <span class="article-updated--text">文章最后更新于</span>
+            <span>文章最后更新于</span>
             <span>{{ formatDate(info.updated_at) }}</span>
         </p>
         <div class="article-content--mark">
@@ -63,13 +63,12 @@ export default {
 
 .article-content--updated {
     user-select: none;
-    text-align: right;
     font-size: $fz-small-s;
+    border-left: 2px solid #2e8458;
 }
 
-.article-updated--text {
-    border-left: 2px solid #2e8458;
-    padding: 0 8px;
+.article-content--updated > span {
+    padding-left: 8px;
 }
 
 .article-content--mark {
