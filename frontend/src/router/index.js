@@ -12,14 +12,14 @@ const routes = [
         path: '/home',
         redirect: '/home',
         component: Layout,
+        meta: {
+            icon: 'home',
+            title: '主页'
+        },
         children: [
             {
                 path: '/',
                 name: 'Home',
-                meta: {
-                    icon: 'home',
-                    title: '主页'
-                },
                 component: () => import('@/views/home')
             }
         ]
@@ -28,13 +28,13 @@ const routes = [
         path: '/category',
         redirect: '/category',
         component: Layout,
+        meta: {
+            icon: 'folder-open',
+            title: '分类'
+        },
         children: [
             {
                 path: '/category',
-                meta: {
-                    icon: 'folder-open',
-                    title: '分类'
-                },
                 component: SecondaryLayout,
                 children: [
                     {
@@ -60,14 +60,14 @@ const routes = [
     {
         path: '/tag',
         redirect: '/tag',
+        meta: {
+            icon: 'bookmark',
+            title: '标签'
+        },
         component: Layout,
         children: [
             {
                 path: '/tag',
-                meta: {
-                    icon: 'bookmark',
-                    title: '标签'
-                },
                 component: SecondaryLayout,
                 children: [
                     {
@@ -93,14 +93,14 @@ const routes = [
     {
         path: '/archive',
         redirect: '/archive',
+        meta: {
+            icon: 'box-archive',
+            title: '归档'
+        },
         component: Layout,
         children: [
             {
                 path: '/archive',
-                meta: {
-                    icon: 'box-archive',
-                    title: '归档'
-                },
                 component: SecondaryLayout,
                 children: [
                     {
@@ -118,14 +118,14 @@ const routes = [
     {
         path: '/message',
         redirect: '/message',
+        meta: {
+            icon: 'message',
+            title: '留言'
+        },
         component: Layout,
         children: [
             {
                 path: '/message',
-                meta: {
-                    icon: 'message',
-                    title: '留言'
-                },
                 component: SecondaryLayout,
                 children: [
                     {

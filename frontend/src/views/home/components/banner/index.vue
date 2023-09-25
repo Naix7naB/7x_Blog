@@ -7,7 +7,8 @@ export default {
     components: { About, Wave },
     data() {
         return {
-            banner: null
+            banner: null,
+            background: 'https://t.mwm.moe/ai/'
         }
     },
     methods: {
@@ -20,7 +21,7 @@ export default {
         refreshImageInterval(delay = 600 * 1000) {
             return setInterval(() => {
                 const timestamp = Date.now()
-                this.banner.style.backgroundImage = `url(https://t.mwm.moe/ai/?timestamp=${timestamp})`
+                this.background = `https://t.mwm.moe/ai/?timestamp=${timestamp}`
             }, delay)
         }
     },
@@ -40,7 +41,7 @@ export default {
 <template>
     <section ref="banner" class="banner">
         <div class="banner-background">
-            <el-image src="https://t.mwm.moe/ai" fit="cover" />
+            <el-image fit="cover" :src="background" />
         </div>
         <div class="banner-about">
             <About />
@@ -49,14 +50,12 @@ export default {
             <Wave />
         </div>
         <div class="banner-button" @click="jumpEnter">
-            <span>
-                <fa-icon
-                    bounce
-                    size="3x"
-                    icon="fa-solid fa-caret-down"
-                    style="--fa-animation-duration: 2s"
-                />
-            </span>
+            <fa-icon
+                bounce
+                size="3x"
+                icon="fa-solid fa-caret-down"
+                style="--fa-animation-duration: 2s"
+            />
         </div>
     </section>
 </template>
@@ -89,13 +88,13 @@ export default {
     position: absolute;
     bottom: -1px;
     width: 100%;
-    height: 10%;
+    height: 14%;
 }
 
 .banner-button {
     z-index: 10;
     position: absolute;
-    bottom: 10%;
+    bottom: 8%;
     left: 50%;
     background-color: transparent;
     transform: translateX(-50%);

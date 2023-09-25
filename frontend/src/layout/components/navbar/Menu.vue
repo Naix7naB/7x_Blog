@@ -51,8 +51,8 @@ export default {
         <ul class="navbar-menu--list">
             <li class="navbar-menu--item" v-for="item in showing" :key="item.path">
                 <router-link :to="item.redirect">
-                    <fa-icon :icon="['fas', item.children[0].meta.icon]" />
-                    <span class="menu-item--title">{{ item.children[0].meta.title }}</span>
+                    <fa-icon :icon="['fas', item.meta.icon]" />
+                    <span class="menu-item--title">{{ item.meta.title }}</span>
                 </router-link>
             </li>
         </ul>
@@ -85,18 +85,32 @@ export default {
 
 /* 菜单列表样式 */
 .navbar-menu--list {
-    @include clearfix();
+    display: flex;
+    align-items: center;
 }
 
 .navbar-menu--item {
-    float: left;
-    margin: 0 4px;
-    padding: 6px 8px;
-    border-radius: 6px;
-    transition: background-color .3s ease-in;
+    padding: 0 8px;
+}
 
-    &:hover {
-        background-color: $bg-theme-ll;
+.navbar-menu--item a {
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 50%;
+        width: 0;
+        height: 3px;
+        border-radius: 4px;
+        background-color: $bg-theme-reverse;
+        transform: translateX(-50%);
+        transition: width .3s ease-in-out;
+    }
+
+    &:hover::before {
+        width: 100%;
     }
 }
 
