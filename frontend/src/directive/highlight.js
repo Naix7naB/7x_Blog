@@ -1,7 +1,6 @@
 import showdown from 'showdown'
 import hljs from 'highlight.js'
 
-import 'github-markdown-css/github-markdown-dark.css'
 import 'highlight.js/styles/atom-one-dark.css'
 import '@/assets/scss/highlight.scss'
 

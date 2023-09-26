@@ -4,20 +4,34 @@ import { useToggle } from '@vueuse/core'
 import { isEqual } from 'lodash-es'
 
 function setColorScheme(theme) {
-    const document = window.document.body || window.document.documentElement
-    document.setAttribute('color-scheme', theme)
+    const links = document.querySelectorAll('link')
+    links.forEach(link => {
+        const regex = new RegExp(/.+github-markdown-css.+/, 'gi')
+        if (regex.test(link.href)) {
+            link.disabled = !link.disabled
+        }
+    })
+    import(`github-markdown-css/github-markdown-${theme}.css`)
+        .then(() => {
+            const body = document.body || document.documentElement
+            body.setAttribute('color-scheme', theme)
+            body.style.colorScheme = theme
+        })
+        .catch(err => {
+            console.error(new Error(err))
+        })
 }
 
 export default {
     namespaced: true,
     state: {
-        inited: false,
+        isInit: false,
         theme: Storage.get('_theme_', 'light')
     },
     mutations: {
         _init_theme_(state) {
-            if (!state.inited) {
-                state.inited = true
+            if (!state.isInit) {
+                state.isInit = true
                 setColorScheme(state.theme)
             }
         },
