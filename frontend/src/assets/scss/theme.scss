@@ -1,0 +1,28 @@
+@import 'variable.scss';
+
+$themes: (
+    light: (
+        text-primary: $cl-dark-3,
+        text-secondary: $cl-dark-1,
+        text-accent: $cl-dark-1,
+        text-highlight: $cl-light-1,
+        text-muted: $cl-gray-5,
+        bg-theme: $cl-light-1,
+        bg-sub-theme: $cl-light-3,
+        bg-theme-reverse: $cl-dark-3,
+        bg-sub-theme-reverse: $cl-dark-1,
+        // $shadow-theme:
+    ),
+    dark: (
+        text-primary: $cl-light-1,
+        text-secondary: $cl-light-5,
+        text-accent: $cl-dark-1,
+        text-highlight: $cl-light-1,
+        text-muted: $cl-gray-5,
+        bg-theme: $cl-dark-3,
+        bg-sub-theme: $cl-dark-1,
+        bg-theme-reverse: $cl-light-1,
+        bg-sub-theme-reverse: $cl-light-3,
+        // $shadow-theme:
+    )
+);

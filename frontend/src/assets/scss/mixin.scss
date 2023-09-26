@@ -1,24 +1,22 @@
-@mixin full-fixed() {
+@import 'theme.scss';
+
+/* 元素占满全屏 */
+@mixin fullscreen() {
     position: fixed;
-    left: 0;
-    right: 0;
     top: 0;
     bottom: 0;
+    left: 0;
+    right: 0;
 }
 
-@mixin bg-image($url, $repeat: no-repeat, $position: center, $size: cover) {
-    background-repeat: $repeat;
-    background-image: url($url);
-    background-position: $position;
-    background-size: $size;
-}
-
+/* 单行省略 */
 @mixin nowrap() {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
+/* 多行省略 */
 @mixin nowrap-multiple($line) {
     overflow: hidden;
     display: -webkit-box;
@@ -27,6 +25,7 @@
     -webkit-line-clamp: $line;
 }
 
+/* 清除浮动 */
 @mixin clearfix() {
     &::before,
     &::after {
@@ -36,16 +35,68 @@
     }
 }
 
-@mixin layer-mask($pos: relative, $color: #000, $alpha: 0.3) {
+/* 图片遮罩层 */
+@mixin image-mask($pos: relative) {
     position: $pos;
 
     &::before {
+        @include bg-color(bg-theme, .3);
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba($color: $color, $alpha: $alpha);
+    }
+}
+
+/* 根据key来获取主题颜色 */
+@function themed($key) {
+    @return map-get($theme-map, $key);
+}
+
+/* 遍历主题 */
+@mixin theme-map {
+    @each $theme-name, $theme-map in $themes {
+        /* 提升变量, 使themed函数能够访问到数据 */
+        $theme-map: $theme-map !global;
+        [color-scheme='#{$theme-name}'] & {
+            @content;
+        }
+    }
+}
+
+/* 获取背景主题色 */
+@mixin bg-color($color, $alpha: 1) {
+    @include theme-map {
+        background-color: rgba($color: themed($color), $alpha: $alpha);
+    }
+}
+
+/* 获取字体主题颜色 */
+@mixin text-color($color, $alpha: 1) {
+    @include theme-map {
+        color: rgba($color: themed($color), $alpha: $alpha);
+    }
+}
+
+/* 获取边框主题颜色 */
+@mixin border-color($color, $alpha: 1) {
+    @include theme-map {
+        border-color: rgba($color: themed($color), $alpha: $alpha);
+    }
+}
+
+/* 获取填充主题颜色 */
+@mixin fill-color($color, $alpha: 1) {
+    @include theme-map {
+        fill: rgba($color: themed($color), $alpha: $alpha);
+    }
+}
+
+/* 获取填充主题颜色 */
+@mixin box-shadow-color($color, $alpha: 1) {
+    @include theme-map {
+        box-shadow: rgba($color: themed($color), $alpha: $alpha);
     }
 }
