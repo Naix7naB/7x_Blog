@@ -40,13 +40,13 @@
     position: $pos;
 
     &::before {
-        @include bg-color(bg-theme, .3);
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
+        background-color: rgba($color: $cl-dark-3, $alpha: 0.3);
     }
 }
 
