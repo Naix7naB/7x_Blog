@@ -34,32 +34,26 @@ export default {
 </script>
 
 <template>
-    <div class="sidebar-card">
-        <div class="sidebar-card--label">
-            <fa-icon icon="fas fa-book-open" />
-            <span>推荐文章</span>
-        </div>
-        <ul>
-            <li
-                class="recommend-item"
-                v-for="article in recommendList"
-                :key="article.id"
-                @click="toArticleDetail(article.id)"
-            >
-                <el-image class="recommend-inset" fit="cover" :src="article.cover_img" lazy />
-                <div class="recommend-info">
-                    <p class="recommend-info--title">{{ article.description }}</p>
-                    <p class="recommend-info--date">
-                        <fa-icon icon="fas fa-clock" />
-                        <span
-                            style="margin-left: 6px;"
-                            v-text="formatDate(article.created_at, 'YYYY-MM-DD')"
-                        ></span>
-                    </p>
-                </div>
-            </li>
-        </ul>
-    </div>
+    <ul>
+        <li
+            class="recommend-item"
+            v-for="article in recommendList"
+            :key="article.id"
+            @click="toArticleDetail(article.id)"
+        >
+            <el-image class="recommend-inset" fit="cover" :src="article.cover_img" lazy />
+            <div class="recommend-info">
+                <p class="recommend-info--title">{{ article.description }}</p>
+                <p class="recommend-info--date">
+                    <fa-icon icon="fas fa-clock" />
+                    <span
+                        style="margin-left: 6px;"
+                        v-text="formatDate(article.created_at, 'YYYY-MM-DD')"
+                    ></span>
+                </p>
+            </div>
+        </li>
+    </ul>
 </template>
 
 <style lang="scss" scoped>

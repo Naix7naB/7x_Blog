@@ -34,23 +34,17 @@ export default {
 </script>
 
 <template>
-    <div class="sidebar-card">
-        <div class="sidebar-card--label">
-            <fa-icon icon="fas fa-bookmark" />
-            <span>标签</span>
-        </div>
-        <ul class="tags">
-            <li
-                class="tag-item"
-                v-for="tag in tags"
-                :key="tag.id"
-                :style="{ backgroundColor: tag.color }"
-                @click="select(tag)"
-            >
-                <fa-icon class="tag-icon" icon="fas fa-tag" />{{ tag.name }}
-            </li>
-        </ul>
-    </div>
+    <ul class="tags">
+        <li
+            class="tag-item"
+            v-for="tag in tags"
+            :key="tag.id"
+            :style="{ backgroundColor: tag.color }"
+            @click="select(tag)"
+        >
+            <fa-icon class="tag-icon" icon="fas fa-tag" />{{ tag.name }}
+        </li>
+    </ul>
 </template>
 
 <style lang="scss" scoped>
