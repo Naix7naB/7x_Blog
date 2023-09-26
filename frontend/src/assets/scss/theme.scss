@@ -11,7 +11,8 @@ $themes: (
         bg-sub-theme: $cl-light-3,
         bg-theme-reverse: $cl-dark-3,
         bg-sub-theme-reverse: $cl-dark-1,
-        // $shadow-theme:
+        shadow: $cl-gray-1,
+        shadow-hover: $cl-gray-7
     ),
     dark: (
         text-primary: $cl-light-1,
@@ -23,6 +24,7 @@ $themes: (
         bg-sub-theme: $cl-dark-1,
         bg-theme-reverse: $cl-light-1,
         bg-sub-theme-reverse: $cl-light-3,
-        // $shadow-theme:
+        shadow: $cl-dark-1,
+        shadow-hover: $cl-dark-7
     )
 );
