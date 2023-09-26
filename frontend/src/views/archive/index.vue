@@ -161,7 +161,7 @@ export default {
 }
 
 .archive-article--label {
-    user-select: none;
+
     display: flex;
     align-items: center;
     padding-bottom: 12px;

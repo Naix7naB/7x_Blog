@@ -117,7 +117,6 @@ export default {
 
 /* 评论输入框样式 */
 .comment-editor--title {
-    user-select: none;
     margin-bottom: 20px;
     font-size: $fz-large;
     font-weight: 700;

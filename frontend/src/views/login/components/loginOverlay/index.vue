@@ -62,7 +62,6 @@ export default {
 }
 
 .overlay-panel {
-    user-select: none;
     position: absolute;
     display: flex;
     flex-direction: column;

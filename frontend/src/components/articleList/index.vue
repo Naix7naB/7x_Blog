@@ -31,7 +31,7 @@ export default {
 <template>
     <ul class="article-list" v-loading="!list.length">
         <li
-            class="article-item shadow-box"
+            class="article-item"
             v-for="(article, idx) in list"
             :key="article.id"
             @click="toArticleDetail(article.id)"
@@ -90,14 +90,16 @@ export default {
 }
 
 .article-item {
+    @include bg-color(bg-theme);
+    @include shadow-color(shadow, .8, shadow-hover, .5);
     overflow: hidden;
     position: relative;
     display: flex;
     height: 300px;
     border-radius: 10px;
     font-size: $fz-small;
-    background-color: #24272d;
     cursor: pointer;
+    transition: background-color .5s ease-in-out, box-shadow .3s ease;
 
     &:not(:first-of-type) {
         margin-top: 40px;

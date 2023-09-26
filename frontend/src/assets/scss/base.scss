@@ -4,6 +4,8 @@ html {
     line-height: 1;
     font-family: 'NBEHDT', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
     -webkit-tap-highlight-color: transparent;
+    color: $cl-light-1;
+    background-color: $cl-dark-1;
 }
 
 * {
@@ -12,19 +14,4 @@ html {
 
 input::placeholder {
     color: $cl-gray-7;
-}
-
-/* 全局类名 */
-.g-relative {
-    position: relative;
-}
-
-.shadow-box {
-    user-select: none;
-    box-shadow: 0 2px 30px -4px rgba($color: #4f4f4f, $alpha: 0.8);
-    transition: box-shadow 0.3s ease;
-
-    &:hover {
-        box-shadow: 0 5px 10px 5px rgba($color: #000000, $alpha: 0.5);
-    }
 }

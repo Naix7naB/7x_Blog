@@ -47,7 +47,6 @@ export default {
 <style lang="scss" scoped>
 /* 标签样式 */
 .hashtag {
-    user-select: none;
     display: flex;
     align-items: center;
     margin: 10px;

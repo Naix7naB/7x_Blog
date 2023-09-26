@@ -46,7 +46,6 @@ export default {
     margin-bottom: 20px;
     line-height: $lh-medium;
     font-size: $fz-medium-x;
-    font-weight: 700;
 
     & > span {
         margin-left: 6px;

@@ -66,7 +66,6 @@ export default {
 
 <style lang="scss" scoped>
 .comment-stats {
-    user-select: none;
     margin-bottom: 30px;
     line-height: $lh-medium-x;
     font-size: $fz-medium-x;

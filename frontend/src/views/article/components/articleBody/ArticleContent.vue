@@ -63,7 +63,6 @@ export default {
 }
 
 .article-content--updated {
-    user-select: none;
     font-size: $fz-small-s;
     border-left: 2px solid #2e8458;
 }
@@ -77,7 +76,6 @@ export default {
 }
 
 .article-content--copyright {
-    user-select: none;
     margin-bottom: 54px;
     padding: 10px 20px;
     line-height: 2;

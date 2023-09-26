@@ -3,6 +3,10 @@
     transition: background-color 0.5s ease-in-out;
 }
 
+.markdown-body * {
+    user-select: text;
+}
+
 .markdown-body ul,
 .markdown-body ol,
 .markdown-body dl,

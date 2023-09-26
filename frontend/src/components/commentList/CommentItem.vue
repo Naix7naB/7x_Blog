@@ -69,8 +69,8 @@ export default {
         <div ref="commentRef" class="comment-info">
             <div class="comment-info--head">
                 <span
-                    v-text="comment.reviewer.nickname"
                     class="comment-info--name"
+                    v-text="comment.reviewer.nickname"
                     :data-host="isHost(comment.reviewer.id)"
                     :data-uid="comment.reviewer.id"
                 />
@@ -79,8 +79,8 @@ export default {
             </div>
             <div class="comment-info--body">
                 <span
-                    v-if="comment.mention && comment.reply_id !== topId"
                     class="comment-info--metion"
+                    v-if="comment.mention && comment.reply_id !== topId"
                     :data-mention="comment.mention.nickname"
                 />
                 <span class="comment-info--content">{{ comment.content }}</span>
@@ -122,7 +122,6 @@ export default {
 }
 
 .comment-info--head {
-    user-select: none;
     line-height: $lh-small-s;
 }
 
@@ -166,6 +165,7 @@ export default {
 }
 
 .comment-info--body {
+    user-select: text;
     position: relative;
     margin: 16px 0 20px;
     padding: 20px;

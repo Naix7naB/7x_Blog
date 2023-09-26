@@ -46,5 +46,7 @@ export default {
     @include fullscreen();
     @include text-color(text-primary);
     @include bg-color(bg-theme);
+    user-select: none;
+    transition: color .5s ease-in-out, background-color .5s ease-in-out;
 }
 </style>

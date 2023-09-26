@@ -16,9 +16,11 @@ export default {
 
 <style lang="scss" scoped>
 .info-card {
-    @include bg-color(bg-sub-theme);
+    @include bg-color(bg-theme);
+    @include shadow-color(shadow, .8, shadow-hover, .5);
     margin-bottom: 40px;
     padding: 24px;
     border-radius: 10px;
+    transition: background-color .5s ease-in-out, box-shadow .3s ease;
 }
 </style>

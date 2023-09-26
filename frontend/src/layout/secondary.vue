@@ -41,7 +41,6 @@ export default {
 <style lang="scss" scoped>
 /* 次级页面排版样式 */
 .secondary-cover {
-    user-select: none;
     position: relative;
     height: 30vh;
 }

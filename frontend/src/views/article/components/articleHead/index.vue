@@ -53,7 +53,6 @@ export default {
 }
 
 .article-head--meta {
-    user-select: none;
     position: absolute;
     left: 20%;
     bottom: 20px;

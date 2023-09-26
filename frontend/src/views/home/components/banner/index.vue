@@ -63,7 +63,6 @@ export default {
 <style lang="scss" scoped>
 /* 网站介绍页面样式 */
 .banner {
-    user-select: none;
     position: relative;
     color: $cl-light-1;
     background-color: transparent;
