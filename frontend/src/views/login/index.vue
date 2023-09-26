@@ -13,7 +13,7 @@ export default {
     methods: {
         showLogin(flag) {
             this.isShow = flag
-            this.$refs.loginBox.reset()
+            this.$refs.loginBox.resetFormData()
         }
     }
 }
@@ -21,22 +21,27 @@ export default {
 
 <template>
     <div class="login-page">
-        <div class="login-page--container">
+        <el-image src="https://t.mwm.moe/fj" fit="cover" />
+        <div class="login-container">
             <LoginBox ref="loginBox" :isShow="isShow" />
             <LoginOverlay :isShow="isShow" @showLogin="showLogin" />
         </div>
     </div>
 </template>
 
-<style lang="scss" scoped>
-/* 登录/注册页面样式 */
-.login-page {
-    @include image-mask($color: #414141, $alpha: .2);
-    @include fullscreen();
-    background-image: linear-gradient(to left top, #8841d6, #8245d6, #7c49d6, #774cd6, #714fd5, #6758d9, #5e60db, #5568dd, #4876e0, #4182e1, #428ee0, #4b98de);
+<style lang="scss">
+/* 样式穿透 hook ElementUI 样式 */
+.el-image {
+    @include image-mask();
 }
 
-.login-page--container {
+/* 登录/注册页面样式 */
+.login-page {
+    @include fullscreen();
+}
+
+.login-container {
+    opacity: .93;
     overflow: hidden;
     position: absolute;
     top: 50%;
@@ -46,5 +51,15 @@ export default {
     border-radius: 10px;
     transform: translate(-50%, -50%);
     box-shadow: 0 14px 28px rgba(0, 0, 0, .2), 0 10px 10px rgba(0, 0, 0, .2);
+}
+
+.form-button {
+    padding: 12px 48px;
+    font-size: $fz-medium;
+    color: $cl-light-1;
+    border: 1px solid $cl-light-1;
+    border-radius: 2em;
+    background-color: transparent;
+    cursor: pointer;
 }
 </style>

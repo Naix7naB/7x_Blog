@@ -11,23 +11,28 @@ export default {
         transitionName() {
             return this.isShow ? 'slide-up' : 'slide-down'
         }
+    },
+    methods: {
+        showLogin(flag) {
+            this.$emit('showLogin', flag)
+        }
     }
 }
 </script>
 
 <template>
-    <div :class="['overlay-container', 'has-transition', { 'on-right': !isShow } ]">
-        <div :class="['overlay', 'has-transition', { 'on-right': !isShow } ]">
+    <div :class="['overlay-container', { 'on-right': !isShow } ]">
+        <div :class="['overlay', { 'on-right': !isShow } ]">
             <transition :name="transitionName">
                 <div v-if="!isShow" class="overlay-panel left" key="panel-left">
                     <p class="overlay-panel--title">已有账号？</p>
-                    <p class="overlay-panel--desc">请使用您的账号进行登录</p>
-                    <el-button round @click="$emit('showLogin', true)">登录</el-button>
+                    <p class="overlay-panel--desc">使用您的账号进行登录🚀</p>
+                    <button class="form-button" @click="showLogin(true)">登录</button>
                 </div>
                 <div v-else class="overlay-panel right" key="panel-right">
                     <p class="overlay-panel--title">没有账号？</p>
-                    <p class="overlay-panel--desc">立即注册加入我们，和我们一起开始旅程吧</p>
-                    <el-button round @click="$emit('showLogin', false)">注册</el-button>
+                    <p class="overlay-panel--desc">立即注册吧😃</p>
+                    <button class="form-button" @click="showLogin(false)">注册</button>
                 </div>
             </transition>
         </div>
@@ -35,14 +40,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-/* 样式穿透 hook ElementUI 样式 */
-:deep(.el-button) {
-    padding: 12px 48px;
-    color: #ffffff;
-    border-color: rgba($color: #ffffff, $alpha: 1);
-    background-color: transparent;
-}
-
 /* 覆盖层样式 */
 .overlay-container {
     z-index: 100;
@@ -52,18 +49,20 @@ export default {
     left: 50%;
     width: 50%;
     height: 100%;
+    transition: transform .6s ease-in-out;
 }
 
 .overlay {
-    @include image-mask($color: #414141, $alpha: .1);
     position: relative;
     left: -100%;
     height: 100%;
     width: 200%;
-    background-image: linear-gradient(to left top, #8841d6, #8245d6, #7c49d6, #774cd6, #714fd5, #6758d9, #5e60db, #5568dd, #4876e0, #4182e1, #428ee0, #4b98de);
+    background-image: linear-gradient(90deg,#ff4b2b,#ff416c);
+    transition: transform .6s ease-in-out;
 }
 
 .overlay-panel {
+    user-select: none;
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -72,7 +71,7 @@ export default {
     width: 50%;
     height: 100%;
     padding: 0 40px;
-    color: #fff;
+    color: $cl-light-1;
 
     &.left {
         left: 0;
@@ -89,12 +88,8 @@ export default {
 }
 
 .overlay-panel--desc {
-    font-size: $fz-medium;
-    padding: 30px 0 40px;
-}
-
-.has-transition {
-    transition: transform .6s ease-in-out;
+    font-size: $fz-small;
+    padding: 50px 0 30px;
 }
 
 .on-right {

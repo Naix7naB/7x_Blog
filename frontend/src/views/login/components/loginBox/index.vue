@@ -20,10 +20,6 @@ export default {
         transitionName() {
             return this.isShow ? 'out-up' : 'pull-out'
         },
-        /* 当前表单标题 */
-        currentFormTitle() {
-            return this.isShow ? '登录' : '注册'
-        },
         /* 当前表单数据 */
         currentFormData() {
             return this.isShow ? loginData : registerData
@@ -39,45 +35,31 @@ export default {
         /* 当前表单提交的请求方法 */
         currentRequest() {
             return this.isShow ? login : registry
-        },
-        /* 当前表单操作按钮配置 */
-        currentFormOpt() {
-            return {
-                action: this.handleRequest,
-                config: {
-                    type: 'primary',
-                    round: true,
-                    text: this.currentFormTitle
-                }
-            }
         }
     },
     methods: {
         ...mapActions('user', ['loadKey', 'setToken', 'setUserInfo']),
-        async handleRequest(data) {
-            /* 验证表单 */
-            if (!this.currentFormRef.isValidate()) {
-                this.$message.warning('表单验证失败')
-                return false
-            }
-            /* 获取加密密钥 处理表单数据 */
-            await this.loadKey()
-            const encryptKey = this.$store.getters.key
-            data.password = encrypt(data.password, encryptKey)
-            /* 发送请求 */
-            this.currentRequest(data).then(res => {
-                const { token, ...userInfo } = res.data
-                this.setToken(token)
-                this.setUserInfo(userInfo)
-                this.reset()
-                goToPath({ target: 'Home' })
-                this.$notify.success(res.errMsg)
-            }).catch(err => {
-                this.$message.error(err.errMsg || err)
+        async handleRequest() {
+            this.currentFormRef.submit(async data => {
+                /* 获取加密密钥 处理表单数据 */
+                await this.loadKey()
+                const encryptKey = this.$store.getters.key
+                data.password = encrypt(data.password, encryptKey)
+                /* 发送请求 */
+                this.currentRequest(data).then(res => {
+                    const { token, ...userInfo } = res.data
+                    this.setToken(token)
+                    this.setUserInfo(userInfo)
+                    this.resetFormData()
+                    goToPath({ target: 'Home' })
+                    this.$notify.success(res.errMsg)
+                }).catch(err => {
+                    this.$message.error(err.errMsg || err)
+                })
             })
         },
-        reset() {
-            this.currentFormRef.resetForm()
+        resetFormData() {
+            this.currentFormRef.reset()
         }
     }
 }
@@ -87,22 +69,12 @@ export default {
     <div class="login-box">
         <transition :name="transitionName">
             <div v-if="isShow" key="login" class="form-container login-form">
-                <LoginForm
-                    ref="loginForm"
-                    :title="currentFormTitle"
-                    :raw="currentFormData"
-                    :items="currentFormItems"
-                    :optItem="currentFormOpt"
-                />
+                <LoginForm ref="loginForm" :data="currentFormData" :items="currentFormItems" />
+                <button class="form-button" @click="handleRequest">登陆</button>
             </div>
             <div v-else key="register" class="form-container register-form">
-                <LoginForm
-                    ref="registerForm"
-                    :title="currentFormTitle"
-                    :raw="currentFormData"
-                    :items="currentFormItems"
-                    :optItem="currentFormOpt"
-                />
+                <LoginForm ref="registerForm" :data="currentFormData" :items="currentFormItems" />
+                <button class="form-button" @click="handleRequest">注册</button>
             </div>
         </transition>
         <div class="form-mask"></div>
@@ -117,17 +89,19 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #ffffff;
+    background-color: $cl-light-1;
 }
 
 .form-container {
     z-index: 15;
     position: absolute;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
     top: 0;
     width: 50%;
     height: 100%;
+    padding: 32px;
 
     &.login-form {
         left: 0;
@@ -138,6 +112,13 @@ export default {
     }
 }
 
+.form-button {
+    width: 70%;
+    margin: 16px auto 0;
+    border: 0;
+    background-color: #ff6254;
+}
+
 .form-mask {
     z-index: 10;
     position: absolute;
@@ -145,7 +126,7 @@ export default {
     left: 0;
     width: 50%;
     height: 100%;
-    background-color: #ffffff;
+    background-color: $cl-light-1;
 }
 
 /* 过渡效果 */
