@@ -27,13 +27,12 @@
 }
 
 .parallax > use {
+    transition: fill .3s ease-in-out;
     animation: wave cubic-bezier(.55, .5, .45, .5) infinite;
 
     @for $n from 0 through 2 {
-        $color: $bg-theme;
-        $alpha: (60 + 5 * $n) / 100;
         &:nth-of-type(#{$n + 1}) {
-            fill: rgba($color: $color, $alpha: $alpha);
+            @include fill-color(bg-theme, calc((60 + 5 * $n) / 100));
             animation-delay: #{-2 - $n}s;
             animation-duration: #{5 * $n + $n + 3}s;
         }

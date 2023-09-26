@@ -8,7 +8,7 @@ export default {
             return this.$store.getters.theme
         },
         isShowBack2Top() {
-            const scrollTop = this.$store.getters.getScrollY
+            const scrollTop = this.$store.getters.scrollTop
             const screenHeight = window.screen.height
             return Math.ceil(scrollTop) >= Math.ceil(screenHeight / 2)
         }
@@ -57,13 +57,17 @@ export default {
     align-items: center;
     width: 36px;
     height: 36px;
-    color: $bg-theme-reverse;
     cursor: pointer;
+}
+
+.toolbar-item svg{
+    @include text-color(text-secondary);
+    transition: color .5s ease-in-out;
 }
 
 .rotate-enter-active,
 .rotate-leave-active {
-    transition: all .3s;
+    transition: transform .3s ease-in-out;
 }
 
 .rotate-enter,

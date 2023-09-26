@@ -65,6 +65,8 @@ export default {
 .banner {
     user-select: none;
     position: relative;
+    color: $cl-light-1;
+    background-color: transparent;
 }
 
 .banner-background {
@@ -96,7 +98,7 @@ export default {
     position: absolute;
     bottom: 6%;
     left: 50%;
-    background-color: transparent;
+    color: $cl-light-5;
     transform: translateX(-50%);
     cursor: pointer;
 }

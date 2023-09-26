@@ -44,7 +44,7 @@ export default {
 /* 页面排版样式 */
 .page-layout {
     @include fullscreen();
-    // @include background-color($bg-theme);
-    background-color: #24272d;
+    @include text-color(text-primary);
+    @include bg-color(bg-theme);
 }
 </style>

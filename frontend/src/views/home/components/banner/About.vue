@@ -95,7 +95,7 @@ export default {
     line-height: 1.5;
     padding: 12px 20px;
     border-radius: 10px;
-    background-color: rgba($color: $bg-theme, $alpha: .5);
+    background-color: rgba($color: $cl-dark-3, $alpha: .5);
     cursor: pointer;
 }
 
@@ -130,6 +130,6 @@ export default {
     height: 50px;
     padding: 10px;
     border-radius: 15px;
-    background-color: rgba($color: $bg-theme-reverse, $alpha: .5);
+    background-color: rgba($color: $cl-light-1, $alpha: .5);
 }
 </style>

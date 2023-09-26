@@ -109,7 +109,7 @@ export default {
         width: 0;
         height: 3px;
         border-radius: 4px;
-        background-color: $bg-theme-reverse;
+        background-color: $cl-light-1;
         transform: translateX(-50%);
         transition: width .3s ease-in-out;
     }
