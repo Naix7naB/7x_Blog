@@ -4,16 +4,14 @@ html {
     line-height: 1;
     font-family: 'NBEHDT', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
     -webkit-tap-highlight-color: transparent;
-    color: $cl-theme;
-    background: $bg-theme;
 }
 
 * {
     box-sizing: border-box;
 }
 
-::placeholder {
-    color: #777;
+input::placeholder {
+    color: $cl-gray-7;
 }
 
 /* 全局类名 */
@@ -29,25 +27,4 @@ html {
     &:hover {
         box-shadow: 0 5px 10px 5px rgba($color: #000000, $alpha: 0.5);
     }
-}
-
-/* 过渡效果 */
-.slide-down-enter-active,
-.slide-down-leave-active,
-.slide-up-enter-active,
-.slide-up-leave-active {
-    position: absolute;
-    transition: all 0.7s;
-}
-
-.slide-down-enter,
-.slide-up-leave-to {
-    opacity: 0;
-    transform: translate3d(0, 100%, 0);
-}
-
-.slide-up-enter,
-.slide-down-leave-to {
-    opacity: 0;
-    transform: translate3d(0, -100%, 0);
 }

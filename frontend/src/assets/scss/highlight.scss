@@ -1,14 +1,15 @@
 .markdown-body {
-    background-color: #24272d;
+    @include bg-color(bg-theme);
+    transition: background-color 0.5s ease-in-out;
+}
 
-    & ul,
-    ol,
-    dl,
-    dt,
-    li {
-        list-style: initial;
-        list-style-type: initial;
-    }
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body dt,
+.markdown-body li {
+    list-style: initial;
+    list-style-type: initial;
 }
 
 .markdown-body img {

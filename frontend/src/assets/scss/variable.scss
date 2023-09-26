@@ -1,25 +1,29 @@
-$bg-theme: rgb(40, 43, 50);
-$bg-theme-d: rgba(40, 43, 50, 0.2);
-$bg-theme-l: rgba(40, 43, 50, 0.5);
-$bg-theme-ll: rgba(40, 43, 50, 0.8);
-$bg-sub-theme: rgb(51, 51, 51);
-$bg-gray: rgb(102, 102, 102);
-$bg-gray-d: rgba(102, 102, 102, 0.2);
-$bg-gray-l: rgba(102, 102, 102, 0.5);
-$bg-gray-ll: rgba(102, 102, 102, 0.8);
-$bg-reverse: rgb(220, 221, 225);
-$bg-reverse-d: rgba(220, 221, 225, 0.2);
-$bg-reverse-l: rgba(220, 221, 225, 0.5);
-$bg-reverse-ll: rgba(220, 221, 225, 0.8);
+/* 颜色变量 */
+$cl-light-1: rgb(241, 241, 241);
+$cl-light-2: rgb(236, 236, 236);
+$cl-light-3: rgb(231, 231, 231);
+$cl-light-4: rgb(226, 226, 226);
+$cl-light-5: rgb(221, 221, 221);
+$cl-light-6: rgb(216, 216, 216);
+$cl-light-7: rgb(211, 211, 211);
 
-$cl-theme: rgb(220, 221, 225);
-$cl-theme-d: rgb(220, 221, 225, 0.4);
+$cl-gray-1: rgb(193, 193, 193);
+$cl-gray-2: rgb(188, 188, 188);
+$cl-gray-3: rgb(183, 183, 183);
+$cl-gray-4: rgb(178, 178, 178);
+$cl-gray-5: rgb(173, 173, 173);
+$cl-gray-6: rgb(168, 168, 168);
+$cl-gray-7: rgb(163, 163, 163);
 
-$cl-text: rgb(255, 255, 255);
-$cl-text-d: rgba(255, 255, 255, 0.2);
-$cl-text-l: rgba(255, 255, 255, 0.5);
-$cl-text-ll: rgba(255, 255, 255, 0.8);
+$cl-dark-1: rgb(51, 54, 57);
+$cl-dark-2: rgb(46, 49, 52);
+$cl-dark-3: rgb(41, 44, 47);
+$cl-dark-4: rgb(36, 39, 42);
+$cl-dark-5: rgb(31, 34, 37);
+$cl-dark-6: rgb(26, 29, 32);
+$cl-dark-7: rgb(21, 24, 27);
 
+/* 字体大小 */
 $fz-small-s: 12px;
 $fz-small: 14px;
 $fz-medium: 16px;
@@ -27,6 +31,7 @@ $fz-medium-x: 18px;
 $fz-large: 22px;
 $fz-large-x: 24px;
 
+/* 行高 */
 $lh-small-s: 20px;
 $lh-small: 22px;
 $lh-medium: 24px;
