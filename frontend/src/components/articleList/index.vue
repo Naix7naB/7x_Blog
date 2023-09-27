@@ -90,7 +90,7 @@ export default {
 }
 
 .article-item {
-    @include bg-color(bg-theme);
+    @include bg-color(bg-highlight);
     @include shadow-color(shadow, .8, shadow-hover, .5);
     overflow: hidden;
     position: relative;

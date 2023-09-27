@@ -32,7 +32,7 @@
 
     @for $n from 0 through 2 {
         &:nth-of-type(#{$n + 1}) {
-            @include fill-color(bg-theme, calc((60 + 5 * $n) / 100));
+            @include fill-color(bg-primary, calc((60 + 5 * $n) / 100));
             animation-delay: #{-2 - $n}s;
             animation-duration: #{5 * $n + $n + 3}s;
         }

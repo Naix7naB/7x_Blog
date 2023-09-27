@@ -55,6 +55,7 @@ export default {
     padding: 0 20px;
     line-height: $lh-large-x;
     border-radius: 2em;
+    transition: background-color .3s ease;
     cursor: pointer;
 
     &:not(:first-of-type) {
@@ -66,17 +67,16 @@ export default {
     }
 
     &:hover .category-item--name {
-        transform: translate3d(10px, 0, 0);
+        transform: translate(10px, 0);
     }
 
     &:hover .category-item--count {
-        transform: translate3d(-10px, 0, 0);
+        transform: translate(-10px, 0);
     }
 }
 
-.category-item,
 .category-item--name,
 .category-item--count {
-    transition: all .3s ease;
+    transition: transform .3s ease;
 }
 </style>

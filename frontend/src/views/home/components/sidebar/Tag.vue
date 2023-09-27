@@ -58,7 +58,8 @@ export default {
     margin: 8px 4px;
     padding: 2px 10px;
     border-radius: 2px;
-    transition: transform .3s;
+    color: $cl-light-3;
+    transition: transform .3s ease-in-out;
     cursor: pointer;
 
     &:hover {
