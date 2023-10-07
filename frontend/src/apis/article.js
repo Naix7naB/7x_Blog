@@ -1,41 +1,15 @@
 import Request from '@/utils/request'
 
 /* 获取文章列表 */
-function getArticleList({ page = 1, size = 10 } = {}) {
+function getArticleList({ page = 1, size = 10, condition, query }) {
     return Request.requestForm({
         methodType: Request.GET,
         url: '/api/article',
         data: {
             page,
             size,
-            populate: [
-                {
-                    path: 'category',
-                    select: 'name'
-                },
-                {
-                    path: 'tags',
-                    select: 'name'
-                }
-            ],
-            select: '-author -content -comments -state'
-        }
-    })
-}
-
-/* 搜索文章列表 */
-function searchArticleList({ page = 1, size = 10, q }) {
-    return Request.requestForm({
-        methodType: Request.GET,
-        url: '/api/article',
-        data: {
-            page,
-            size,
-            query: {
-                title: q,
-                description: q,
-                content: q
-            },
+            condition,
+            query,
             populate: [
                 {
                     path: 'category',
@@ -68,60 +42,6 @@ function getRecommendArticles() {
     })
 }
 
-/* 获取所属分类文章列表 */
-function getCategoryArticles({ page = 1, size = 10, category_id } = {}) {
-    return Request.requestForm({
-        methodType: Request.GET,
-        url: '/api/article',
-        data: {
-            page,
-            size,
-            condition: {
-                category: category_id
-            },
-            populate: [
-                {
-                    path: 'category',
-                    select: 'name'
-                },
-                {
-                    path: 'tags',
-                    select: 'name'
-                }
-            ],
-            select: '-author -content -comments -state'
-        }
-    })
-}
-
-/* 获取所属标签文章列表 */
-function getTagArticles({ page = 1, size = 10, tag_id } = {}) {
-    return Request.requestForm({
-        methodType: Request.GET,
-        url: '/api/article',
-        data: {
-            page,
-            size,
-            condition: {
-                tags: {
-                    $in: [tag_id]
-                }
-            },
-            populate: [
-                {
-                    path: 'category',
-                    select: 'name'
-                },
-                {
-                    path: 'tags',
-                    select: 'name'
-                }
-            ],
-            select: '-author -content -comments -state'
-        }
-    })
-}
-
 /* 获取按照日期排序(降序)的文章列表 */
 function getArticlesAndSortedByDate(condition) {
     return Request.requestForm({
@@ -146,12 +66,4 @@ function getArticleInfoById(aid) {
     })
 }
 
-export {
-    getArticleList,
-    searchArticleList,
-    getRecommendArticles,
-    getCategoryArticles,
-    getTagArticles,
-    getArticlesAndSortedByDate,
-    getArticleInfoById
-}
+export { getArticleList, getRecommendArticles, getArticlesAndSortedByDate, getArticleInfoById }

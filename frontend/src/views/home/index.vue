@@ -8,29 +8,8 @@ import { getArticleList } from '@/apis/article'
 export default {
     name: 'HomePage',
     components: { Banner, Sidebar, ArticleList },
-    data() {
-        return {
-            articleList: []
-        }
-    },
     methods: {
-        loadArticleList(data) {
-            this.articleList = data.list
-        },
-        getList() {
-            this.$store.dispatch('setting/setLoadingState', true)
-            getArticleList().then(({ data }) => {
-                this.loadArticleList(data)
-                this.$store.dispatch('setting/setLoadingState', false)
-            }).catch(err => {
-                this.$message.error(err.errMsg || err)
-            })
-        }
-    },
-    created() {
-        this.$bus.$on('refreshList', this.getList)
-        this.$bus.$on('changeList', this.loadArticleList)
-        this.getList()
+        getArticleList
     }
 }
 </script>
@@ -43,7 +22,7 @@ export default {
                 <Sidebar />
             </div>
             <div class="home-content">
-                <ArticleList :list="articleList" />
+                <ArticleList :requestApi="getArticleList" />
             </div>
         </div>
     </div>

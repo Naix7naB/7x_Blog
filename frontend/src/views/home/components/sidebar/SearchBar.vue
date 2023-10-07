@@ -1,6 +1,4 @@
 <script>
-import { searchArticleList } from '@/apis/article'
-
 export default {
     name: 'SearchBar',
     data() {
@@ -10,19 +8,19 @@ export default {
     },
     computed: {
         clearable() {
-            return this.value
+            return !!this.value
         }
     },
     methods: {
         clear() {
             this.value = ''
-            this.$bus.$emit('refreshList')
+            this.$bus.$emit('queryArticleList', null)
         },
         search() {
-            searchArticleList({ q: this.value }).then(({ data }) => {
-                this.$bus.$emit('changeList', data)
-            }).catch(err => {
-                this.$message.error(err.errMsg || err)
+            this.$bus.$emit('queryArticleList', {
+                title: this.value,
+                description: this.value,
+                content: this.value
             })
         }
     }

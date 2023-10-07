@@ -1,32 +1,32 @@
 <script>
 import ArticleList from '@/components/articleList'
 
-import { getCategoryArticles } from '@/apis/article'
+import { getArticleList } from '@/apis/article'
 
 export default {
     name: 'CategoryPage',
     components: { ArticleList },
-    data() {
-        return {
-            articles: []
+    computed: {
+        filter() {
+            return {
+                category: this.$route.params.cid
+            }
+        },
+        categoryLabel() {
+            return this.$route.params.name
         }
     },
-    created() {
-        const { cid, name } = this.$route.params
-        this.$store.dispatch('setting/setLoadingState', true)
-        getCategoryArticles({ category_id: cid }).then(({ data }) => {
-            this.articles = data.list
-            this.$bus.$emit('setLabel', name)
-            this.$store.dispatch('setting/setLoadingState', false)
-        }).catch(err => {
-            this.$message.error(err.errMsg || err)
-        })
+    methods: {
+        getArticleList,
+        beforeLoad() {
+            this.$bus.$emit('setLabel', this.categoryLabel)
+        }
     }
 }
 </script>
 
 <template>
     <div class="category-article">
-        <ArticleList :list="articles" />
+        <ArticleList :requestApi="getArticleList" :filter="filter" @beforeLoad="beforeLoad" />
     </div>
 </template>

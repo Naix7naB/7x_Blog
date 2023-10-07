@@ -3,18 +3,68 @@ import MarkButton from '../markButton'
 
 import { getArticleInfoById } from '@/apis/article'
 import { formatDate, goToPath } from '@/utils/util'
+import { concat } from 'lodash-es'
 
 export default {
     name: 'ArticleList',
     components: { MarkButton },
     props: {
-        list: {
-            type: Array,
+        requestApi: {
+            type: Function,
             required: true
+        },
+        filter: {
+            type: Object,
+            default: () => {}
+        }
+    },
+    data() {
+        return {
+            page: 1,
+            pages: 1,
+            size: 10,
+            total: 0,
+            query: {},
+            list: []
+        }
+    },
+    computed: {
+        isUpdate() {
+            return this.page <= this.pages
         }
     },
     methods: {
         formatDate,
+        /* 加载文章列表 */
+        loadArticleList() {
+            if (!this.isUpdate) return false
+            this.$store.dispatch('setting/setLoadingState', true)
+            this.$emit('beforeLoad')
+            this.requestApi({
+                page: this.page,
+                size: this.size,
+                condition: this.filter,
+                query: this.query
+            }).then(({ data }) => {
+                this.pages = data.pages
+                this.total = data.total
+                this.list = concat(this.list, data.list)
+                this.$emit('loaded', this.list)
+            }).catch(err => {
+                this.$message.error(err.errMsg || err)
+            }).finally(() => {
+                this.firstTime = false
+                this.$store.dispatch('setting/setLoadingState', false)
+            })
+        },
+        /* 根据query查询文章列表 */
+        queryArticleList(query) {
+            this.page = 1
+            this.list = []
+            this.query = query
+            this.loadArticleList()
+        },
+        /* 跳转文章详细页 */
         async toArticleDetail(aid) {
             try {
                 const { data } = await getArticleInfoById(aid)
@@ -23,63 +73,85 @@ export default {
             } catch (err) {
                 this.$message.error(err.errMsg || err)
             }
+        },
+        /* 加载更多文章 */
+        loadMore() {
+            this.page++
+            this.loadArticleList()
         }
+    },
+    created() {
+        this.$bus.$on('queryArticleList', this.queryArticleList)
+        this.loadArticleList()
     }
 }
 </script>
 
 <template>
-    <ul
-        class="article-list"
-        v-loading.fullscreen.lock="$store.getters.isLoading"
-        element-loading-text="拼命加载中"
-        element-loading-background="rgba(0, 0, 0, 0.3)"
-    >
-        <li
-            class="article-item"
-            v-for="(article, idx) in list"
-            :key="article.id"
-            @click="toArticleDetail(article.id)"
+    <div>
+        <ul
+            class="article-list"
+            v-loading.lock="$store.getters.isLoading"
+            element-loading-text="拼命加载中"
+            element-loading-background="transparent"
         >
-            <div
-                class="article-item--wrapper article-image"
-                :on-left="idx % 2 === 0"
-                :on-right="idx % 2 === 1"
+            <li
+                class="article-item"
+                v-for="(article, idx) in list"
+                :key="article.id"
+                @click="toArticleDetail(article.id)"
             >
-                <el-image :src="article.cover_img" fit="cover" lazy />
-            </div>
-            <div
-                class="article-item--wrapper article-info"
-                :on-left="idx % 2 === 1"
-                :on-right="idx % 2 === 0"
-            >
-                <p class="article-info--meta">
-                    <fa-icon icon="fas fa-calendar-days" />
-                    <span>发布于 {{ formatDate(article.created_at) }}</span>
-                </p>
-                <h4 class="article-info--title">{{ article.title }}</h4>
-                <div class="article-info--meta">
-                    <span class="article-meta--item">
-                        <fa-icon icon="fas fa-fire" />
-                        <span>热度 {{ article.view_count }}</span>
-                    </span>
-                    <span class="article-meta--item">
-                        <fa-icon icon="fas fa-comment" />
-                        <span>评论 {{ article.comment_count }}</span>
-                    </span>
-                    <span class="article-meta--item">
-                        <fa-icon icon="fas fa-heart" />
-                        <span>喜欢 {{ article.like_count }}</span>
-                    </span>
+                <div
+                    class="article-item--wrapper article-image"
+                    :on-left="idx % 2 === 0"
+                    :on-right="idx % 2 === 1"
+                >
+                    <el-image :src="article.cover_img" fit="cover" lazy />
                 </div>
-                <p class="article-info--desc">{{ article.description }}</p>
-                <div class="article-info--marked">
-                    <MarkButton type="category" :item="article.category" />
-                    <MarkButton type="tag" v-for="tag in article.tags" :key="tag.id" :item="tag" />
+                <div
+                    class="article-item--wrapper article-info"
+                    :on-left="idx % 2 === 1"
+                    :on-right="idx % 2 === 0"
+                >
+                    <p class="article-info--meta">
+                        <fa-icon icon="fas fa-calendar-days" />
+                        <span>发布于 {{ formatDate(article.created_at) }}</span>
+                    </p>
+                    <h4 class="article-info--title">{{ article.title }}</h4>
+                    <div class="article-info--meta">
+                        <span class="article-meta--item">
+                            <fa-icon icon="fas fa-fire" />
+                            <span>热度 {{ article.view_count }}</span>
+                        </span>
+                        <span class="article-meta--item">
+                            <fa-icon icon="fas fa-comment" />
+                            <span>评论 {{ article.comment_count }}</span>
+                        </span>
+                        <span class="article-meta--item">
+                            <fa-icon icon="fas fa-heart" />
+                            <span>喜欢 {{ article.like_count }}</span>
+                        </span>
+                    </div>
+                    <p class="article-info--desc">{{ article.description }}</p>
+                    <div class="article-info--marked">
+                        <MarkButton type="category" :item="article.category" />
+                        <MarkButton
+                            type="tag"
+                            v-for="tag in article.tags"
+                            :key="tag.id"
+                            :item="tag"
+                        />
+                    </div>
                 </div>
-            </div>
-        </li>
-    </ul>
+            </li>
+        </ul>
+        <div class="article-pagination">
+            <span v-if="isUpdate" class="article-pagination--loadmore" @click="loadMore">
+                加载更多
+            </span>
+            <span v-else>~~到底啦~~</span>
+        </div>
+    </div>
 </template>
 
 <style lang="scss" scoped>
@@ -101,10 +173,10 @@ export default {
     position: relative;
     display: flex;
     height: 300px;
-    border-radius: 10px;
     font-size: $fz-sm;
-    cursor: pointer;
+    border-radius: 10px;
     transition: background-color .3s ease-in-out, box-shadow .3s ease;
+    cursor: pointer;
 
     &:not(:first-of-type) {
         margin-top: 40px;
@@ -188,6 +260,23 @@ export default {
 
 .article-item--wrapper[on-right] .article-info--marked {
     right: 36px;
+}
+
+.article-pagination {
+    @include text-color(text-primary, .8);
+    margin-top: 50px;
+    text-align: center;
+    line-height: $lh-xm;
+    font-size: $fz-xm;
+    transition: color .3s ease-in-out;
+}
+
+.article-pagination--loadmore {
+    @include border-color(text-primary, .8);
+    padding: 4px 20px;
+    border: 1px solid;
+    border-radius: 2rem;
+    cursor: pointer;
 }
 
 /* 媒体查询样式 */
