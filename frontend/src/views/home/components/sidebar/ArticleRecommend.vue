@@ -81,7 +81,7 @@ export default {
 
 .recommend-info {
     width: 60%;
-    font-size: $fz-medium;
+    font-size: $fz-md;
 }
 
 .recommend-info--title,
@@ -91,6 +91,6 @@ export default {
 
 .recommend-info--date {
     margin-top: 12px;
-    font-size: $fz-small-s;
+    font-size: $fz-xs;
 }
 </style>

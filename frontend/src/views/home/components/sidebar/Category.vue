@@ -53,7 +53,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
-    line-height: $lh-large-x;
+    line-height: $lh-xl;
     border-radius: 2em;
     transition: background-color .3s ease-out;
     cursor: pointer;

@@ -70,9 +70,9 @@ export default {
 /* 标记按钮样式 */
 .mark-button {
     padding: 2px 12px;
-    line-height: 20px;
+    line-height: $lh-xs;
+    font-size: $fz-sm;
     border-radius: 2px;
-    font-size: $fz-small;
     color: $cl-gray-7;
     background-color: $cl-light-5;
     transition: color .3s ease, background-color .3s ease;

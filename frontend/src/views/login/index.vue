@@ -55,7 +55,7 @@ export default {
 
 .form-button {
     padding: 12px 48px;
-    font-size: $fz-medium;
+    font-size: $fz-md;
     color: $cl-light-1;
     border: 1px solid $cl-light-1;
     border-radius: 2em;

@@ -39,17 +39,29 @@ $cl-host: rgb(103, 194, 58);
 $cl-gradual-red: linear-gradient(90deg, #ff4b2b, #ff416c);
 
 /* 字体大小 */
-$fz-small-s: 12px;
-$fz-small: 14px;
-$fz-medium: 16px;
-$fz-medium-x: 18px;
-$fz-large: 22px;
-$fz-large-x: 24px;
+$fz-xs: 12px;
+$fz-sm: 14px;
+$fz-md: 16px;
+$fz-xm: 18px;
+$fz-lg: 22px;
+$fz-xl: 24px;
+$fz-1x: 1rem;
+$fz-2x: 2rem;
+$fz-3x: 3rem;
+$fz-4x: 4rem;
+$fz-5x: 5rem;
+$fz-6x: 6rem;
 
 /* 行高 */
-$lh-small-s: 20px;
-$lh-small: 22px;
-$lh-medium: 24px;
-$lh-medium-x: 26px;
-$lh-large: 30px;
-$lh-large-x: 32px;
+$lh-xs: 20px;
+$lh-sm: 22px;
+$lh-md: 24px;
+$lh-xm: 26px;
+$lh-lg: 30px;
+$lh-xl: 32px;
+$lh-1x: 1rem;
+$lh-2x: 2rem;
+$lh-3x: 3rem;
+$lh-4x: 4rem;
+$lh-5x: 5rem;
+$lh-6x: 6rem;

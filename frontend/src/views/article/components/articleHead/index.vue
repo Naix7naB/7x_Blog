@@ -66,14 +66,14 @@ export default {
 
 .article-meta--title {
     margin-bottom: 16px;
-    font-size: 32px;
+    font-size: $fz-2x;
     font-weight: 700;
 }
 
 .article-meta--content {
     display: flex;
-    line-height: $lh-small-s;
-    font-size: $fz-small;
+    line-height: $lh-xs;
+    font-size: $fz-sm;
 }
 
 .article-meta--item {

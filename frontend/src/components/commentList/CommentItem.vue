@@ -122,19 +122,19 @@ export default {
 }
 
 .comment-info--head {
-    line-height: $lh-small-s;
+    line-height: $lh-xs;
 }
 
 .comment-info--name {
     color: $cl-name;
-    font-size: $fz-medium;
+    font-size: $fz-md;
     font-weight: 700;
 
     &[data-host=true]::after {
         content: '博主';
         margin-left: 6px;
         padding: 0 4px;
-        font-size: $fz-small-s;
+        font-size: $fz-xs;
         font-weight: 400;
         color: $cl-host;
         border: 1px solid $cl-host;
@@ -147,7 +147,7 @@ export default {
     float: right;
     padding: 0 6px;
     border-radius: 3px;
-    font-size: $fz-small;
+    font-size: $fz-sm;
     color: $cl-light-3;
     background-color: $cl-name;
     cursor: pointer;
@@ -156,7 +156,7 @@ export default {
 .comment-info--date {
     @include text-color(text-muted);
     margin-left: 12px;
-    font-size: $fz-small-s;
+    font-size: $fz-xs;
     transition: color .3s ease-in-out;
 }
 
@@ -165,7 +165,7 @@ export default {
     position: relative;
     margin: 16px 0 20px;
     padding: 20px;
-    line-height: $lh-small-s;
+    line-height: $lh-xs;
     border-radius: 8px;
     word-break: break-word;
     color: $cl-dark-5;

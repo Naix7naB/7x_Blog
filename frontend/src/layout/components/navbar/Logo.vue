@@ -19,7 +19,7 @@ export default {
 /* 导航栏logo样式 */
 .navbar-logo--wrapper {
     color: inherit;
-    font-size: 36px;
+    font-size: $fz-2x;
     font-weight: 700;
     transition: color .3s ease-in-out;
     cursor: pointer;

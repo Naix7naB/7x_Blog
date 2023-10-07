@@ -48,9 +48,9 @@ export default {
 }
 
 .site-info--name {
-    font-size: 30px;
-    font-weight: 700;
     padding: 20px 0;
+    font-size: $fz-2x;
+    font-weight: 700;
 }
 
 .site-info--meta {

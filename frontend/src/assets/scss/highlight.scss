@@ -54,8 +54,8 @@
 .markdown-body pre.code-wrapper code {
     display: block;
     padding: 16px 24px;
-    line-height: $lh-medium;
-    font-size: $fz-medium;
+    line-height: $lh-md;
+    font-size: $fz-md;
 
     &::before {
         content: attr(data-language);
@@ -64,10 +64,10 @@
         left: 0;
         width: 100%;
         height: 32px;
-        line-height: 28px;
         margin-top: -48px;
+        line-height: 28px;
         text-align: center;
-        font-size: $fz-medium-x;
+        font-size: $fz-xm;
         font-weight: 700;
         color: $cl-light-1;
         background-color: rgb(41, 45, 51);

@@ -64,7 +64,7 @@ export default {
 
 .article-content--updated {
     @include text-color(text-muted);
-    font-size: $fz-small-s;
+    font-size: $fz-xs;
     border-left: 2px solid $cl-lightgreen;
     transition: color .3s ease-in-out;
 }
@@ -80,7 +80,7 @@ export default {
 .article-content--copyright {
     margin-bottom: 54px;
     padding: 10px 20px;
-    line-height: 2;
+    line-height: $lh-2x;
     border-radius: 4px;
     border-left: 3px solid $cl-lightblue;
     color: $cl-dark-7;

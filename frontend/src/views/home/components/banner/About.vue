@@ -79,21 +79,21 @@ export default {
 <style lang="scss" scoped>
 /* 网站相关信息样式 */
 .about-title {
-    font-size: 44px;
     text-align: center;
+    font-size: $fz-3x;
 }
 
 .about-words {
     margin: 32px auto 40px;
     text-align: center;
-    font-size: $fz-medium-x;
-    font-weight: 700;
 }
 
 .about-words--text {
     display: inline-block;
-    line-height: 1.5;
     padding: 12px 20px;
+    line-height: $lh-xm;
+    font-size: $fz-xm;
+    font-weight: 700;
     border-radius: 10px;
     background-color: rgba($color: $cl-dark-3, $alpha: .5);
     cursor: pointer;
@@ -101,17 +101,7 @@ export default {
 
 .about-words--text > span {
     padding: 0 2px;
-    font-size: $fz-large;
-}
-
-.about-info--name {
-    font-size: 30px;
-    font-weight: 700;
-}
-
-.about-info--slogan {
-    padding-top: 20px;
-    font-size: $fz-medium;
+    font-size: $fz-lg;
 }
 
 .about-social {

@@ -44,8 +44,8 @@ export default {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
-    line-height: $lh-medium;
-    font-size: $fz-medium-x;
+    line-height: $lh-md;
+    font-size: $fz-xm;
 
     & > svg {
         color: inherit;

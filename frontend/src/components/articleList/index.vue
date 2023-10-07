@@ -97,7 +97,7 @@ export default {
     display: flex;
     height: 300px;
     border-radius: 10px;
-    font-size: $fz-small;
+    font-size: $fz-sm;
     cursor: pointer;
     transition: background-color .3s ease-in-out, box-shadow .3s ease;
 
@@ -141,7 +141,7 @@ export default {
 .article-info--meta {
     @include nowrap();
     @include text-color(text-muted);
-    line-height: $lh-small;
+    line-height: $lh-sm;
     font-weight: 200;
     transition: color .3s ease-in-out;
 
@@ -154,7 +154,7 @@ export default {
     @include nowrap();
     @include text-color(text-primary, .8);
     padding: 22px 0;
-    font-size: $fz-large;
+    font-size: $fz-lg;
     transition: color .3s ease-in-out;
 }
 
@@ -170,9 +170,9 @@ export default {
 .article-info--desc {
     @include nowrap-multiple(4);
     @include text-color(text-secondary, .85);
-    line-height: 1.5;
     padding: 14px 0 20px 0;
-    font-size: $fz-medium;
+    line-height: $lh-md;
+    font-size: $fz-md;
     transition: color .3s ease-in-out;
 }
 

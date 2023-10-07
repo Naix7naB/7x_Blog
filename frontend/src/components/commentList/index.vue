@@ -68,8 +68,8 @@ export default {
 .comment-stats {
     @include text-color(text-muted);
     margin-bottom: 30px;
-    line-height: $lh-medium-x;
-    font-size: $fz-medium-x;
+    line-height: $lh-xm;
+    font-size: $fz-xm;
     transition: color .3s ease-in-out;
 }
 

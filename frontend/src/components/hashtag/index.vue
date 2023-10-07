@@ -66,7 +66,7 @@ export default {
 }
 
 .hashtag-icon {
-    font-size: $fz-large-x;
+    font-size: $fz-xl;
 }
 
 .hashtag-name {
@@ -77,7 +77,7 @@ export default {
 .hashtag-count {
     padding: 8px 6px;
     text-align: center;
-    font-size: $fz-medium;
+    font-size: $fz-md;
     border-radius: 4px;
     background-color: rgba($color: $cl-dark-7, $alpha: .5);
 }

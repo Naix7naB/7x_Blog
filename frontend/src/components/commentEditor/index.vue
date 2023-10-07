@@ -124,7 +124,7 @@ export default {
 .comment-editor--title {
     @include text-color(text-primary, .8);
     margin-bottom: 20px;
-    font-size: $fz-large;
+    font-size: $fz-lg;
     font-weight: 700;
     transition: color .3s ease-in-out;
 }
@@ -138,7 +138,7 @@ export default {
 .editor-action--start {
     display: flex;
     align-items: flex-start;
-    font-size: $fz-medium-x;
+    font-size: $fz-xm;
 }
 
 .action-button {

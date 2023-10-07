@@ -82,12 +82,12 @@ export default {
 }
 
 .overlay-panel--title {
-    font-size: 32px;
-    font-weight: bold;
+    font-size: $fz-2x;
+    font-weight: 700;
 }
 
 .overlay-panel--desc {
-    font-size: $fz-small;
+    font-size: $fz-sm;
     padding: 50px 0 30px;
 }
 
