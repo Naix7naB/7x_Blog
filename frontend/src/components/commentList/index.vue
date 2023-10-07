@@ -66,10 +66,11 @@ export default {
 
 <style lang="scss" scoped>
 .comment-stats {
+    @include text-color(text-muted);
     margin-bottom: 30px;
     line-height: $lh-medium-x;
     font-size: $fz-medium-x;
-    color: #999999;
+    transition: color .3s ease-in-out;
 }
 
 .comment-stats--count {
@@ -83,7 +84,7 @@ export default {
         left: -10px;
         width: 1px;
         height: 12px;
-        background-color: rgba($color: #aaa, $alpha: .5);
+        background-color: rgba($color: $cl-gray-1, $alpha: .5);
         transform: scaleX(.5);
     }
 }

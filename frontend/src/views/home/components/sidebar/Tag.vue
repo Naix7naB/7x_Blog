@@ -58,7 +58,7 @@ export default {
     margin: 8px 4px;
     padding: 2px 10px;
     border-radius: 2px;
-    color: $cl-light-3;
+    color: rgba($color: $cl-light-3, $alpha: .8);
     transition: transform .3s ease-in-out;
     cursor: pointer;
 
@@ -69,6 +69,7 @@ export default {
 
 .tag-icon {
     margin-right: 6px;
+    color: rgba($color: $cl-light-3, $alpha: .8);
     vertical-align: -4px;
 }
 </style>

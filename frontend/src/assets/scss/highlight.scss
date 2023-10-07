@@ -1,6 +1,6 @@
 .markdown-body {
-    @include bg-color(bg-primary);
-    transition: background-color 0.5s ease-in-out;
+    @include bg-color(bg-highlight);
+    transition: background-color 0.3s ease-in-out;
 }
 
 .markdown-body * {
@@ -14,7 +14,7 @@
 .markdown-body h5,
 .markdown-body h6 {
     @include border-color(border-primary);
-    transition: border-color 0.5s ease-in-out;
+    transition: border-color 0.3s ease-in-out;
 }
 
 .markdown-body ul,

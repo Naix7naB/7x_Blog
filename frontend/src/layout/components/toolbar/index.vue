@@ -61,8 +61,8 @@ export default {
 }
 
 .toolbar-item svg{
-    @include text-color(text-secondary);
-    transition: color .5s ease-in-out;
+    @include text-color(text-secondary, .9);
+    transition: color .3s ease-in-out;
 }
 
 .rotate-enter-active,

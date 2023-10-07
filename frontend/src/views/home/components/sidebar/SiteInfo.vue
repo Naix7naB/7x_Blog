@@ -79,7 +79,8 @@ export default {
     margin-top: 32px;
     text-align: center;
     border-radius: 1rem;
-    background-color: #2e9e96;
+    color: rgba($color: $cl-light-3, $alpha: .8);
+    background-color: $cl-lightgreen;
     cursor: pointer;
 
     &::before {
@@ -90,10 +91,10 @@ export default {
         bottom: 0;
         left: 0;
         right: 0;
+        background-image: $cl-gradual-red;
         transform: scaleX(0);
         transform-origin: 0;
-        transition: transform .5s cubic-bezier(.45,1.64,.47,.66);
-        background-image: linear-gradient(90deg, #b71c00, #ad0027);
+        transition: transform .5s cubic-bezier(.45, 1.64, .47, .66);
     }
 
     &:hover::before {

@@ -91,7 +91,7 @@ export default {
 
 .article-item {
     @include bg-color(bg-highlight);
-    @include shadow-color(shadow, .8, shadow-hover, .5);
+    @include shadow-color(shadow, .8);
     overflow: hidden;
     position: relative;
     display: flex;
@@ -99,14 +99,18 @@ export default {
     border-radius: 10px;
     font-size: $fz-small;
     cursor: pointer;
-    transition: background-color .5s ease-in-out, box-shadow .3s ease;
+    transition: background-color .3s ease-in-out, box-shadow .3s ease;
 
     &:not(:first-of-type) {
         margin-top: 40px;
     }
 
-    &:hover :deep(.el-image__inner) {
-        transform: scale(1.2);
+    &:hover {
+        @include shadow-color(shadow-hover, .5, 1);
+
+        & ::deep(.el-image__inner) {
+            transform: scale(1.2);
+        }
     }
 }
 
@@ -135,7 +139,11 @@ export default {
 }
 
 .article-info--meta {
+    @include nowrap();
+    @include text-color(text-muted);
     line-height: $lh-small;
+    font-weight: 200;
+    transition: color .3s ease-in-out;
 
     & span {
         margin-left: 6px;
@@ -144,8 +152,10 @@ export default {
 
 .article-info--title {
     @include nowrap();
+    @include text-color(text-primary, .8);
     padding: 22px 0;
     font-size: $fz-large;
+    transition: color .3s ease-in-out;
 }
 
 .article-meta--item {
@@ -159,9 +169,11 @@ export default {
 
 .article-info--desc {
     @include nowrap-multiple(4);
-    padding: 14px 0 20px 0;
+    @include text-color(text-secondary, .85);
     line-height: 1.5;
+    padding: 14px 0 20px 0;
     font-size: $fz-medium;
+    transition: color .3s ease-in-out;
 }
 
 .article-info--marked {

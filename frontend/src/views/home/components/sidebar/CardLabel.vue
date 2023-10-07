@@ -47,6 +47,10 @@ export default {
     line-height: $lh-medium;
     font-size: $fz-medium-x;
 
+    & > svg {
+        color: inherit;
+    }
+
     & > span {
         margin-left: 6px;
     }

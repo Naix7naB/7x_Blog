@@ -16,7 +16,7 @@ export default {
 
 <template>
     <div class="article-head">
-        <el-image class="background" fit="cover" :src="articleInfo?.cover_img" lazy />
+        <el-image fit="cover" :src="articleInfo?.cover_img" lazy />
         <div class="article-head--meta">
             <h3 class="article-meta--title">{{ articleInfo?.title }}</h3>
             <div class="article-meta--content">
@@ -46,6 +46,11 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 样式穿透 hook ElementUI 样式 */
+:deep(.el-image) {
+    @include image-mask();
+}
+
 /* 文章头部样式 */
 .article-head {
     position: relative;
@@ -56,7 +61,7 @@ export default {
     position: absolute;
     left: 20%;
     bottom: 20px;
-    color: #f1f1f1;
+    color: $cl-light-1;
 }
 
 .article-meta--title {
@@ -78,21 +83,18 @@ export default {
 }
 
 .article-meta--item + .article-meta--item {
-    margin-left: 20px;
+    margin-left: 26px;
 
     &::before {
-        content: '';
+        content: '•';
         position: absolute;
-        width: 1px;
-        height: 10px;
-        top: 5px;
-        left: -10px;
-        background-color: rgba($color: #f1f1f1, $alpha: .7);
-        transform: scaleX(.5);
+        top: 1px;
+        left: -20px;
+        color: $cl-light-1;
     }
 }
 
 .article-meta--num {
-    margin-left: 6px;
+    margin-left: 4px;
 }
 </style>

@@ -95,12 +95,12 @@
 }
 
 /* 获取填充主题颜色 */
-@mixin shadow-color($color, $alpha: 1, $hover-color, $hover-alpha: 1) {
+@mixin shadow-color($color, $alpha: 1, $type: 0) {
+    $offset: 0 2px 30px -4px;
+    @if $type == 1 {
+        $offset: 0 5px 10px 5px;
+    }
     @include theme-map {
-        box-shadow: 0 2px 30px -4px rgba($color: themed($color), $alpha: $alpha);
-
-        &:hover {
-            box-shadow: 0 5px 10px 5px rgba($color: themed($hover-color), $alpha: $hover-alpha);
-        }
+        box-shadow: $offset rgba($color: themed($color), $alpha: $alpha);
     }
 }

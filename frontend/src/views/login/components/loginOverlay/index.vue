@@ -57,7 +57,7 @@ export default {
     left: -100%;
     height: 100%;
     width: 200%;
-    background-image: linear-gradient(90deg,#ff4b2b,#ff416c);
+    background-image: $cl-gradual-red;
     transition: transform .6s ease-in-out;
 }
 

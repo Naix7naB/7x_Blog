@@ -37,8 +37,8 @@ export default {
 </script>
 
 <template>
-    <article class="article-content">
-        <div class="markdown-body" v-highlight="articleInfo?.content" v-viewer="viewerOption"></div>
+    <div class="article-content">
+        <article class="markdown-body" v-highlight="articleInfo?.content" v-viewer="viewerOption" />
         <p class="article-content--updated">
             <span>文章最后更新于</span>
             <span>{{ formatDate(articleInfo?.updated_at) }}</span>
@@ -54,7 +54,7 @@ export default {
         <div class="article-content--like">
             <fa-icon icon="far fa-heart" size="5x" />
         </div>
-    </article>
+    </div>
 </template>
 
 <style lang="scss" scoped>
@@ -63,8 +63,10 @@ export default {
 }
 
 .article-content--updated {
+    @include text-color(text-muted);
     font-size: $fz-small-s;
-    border-left: 2px solid #2e8458;
+    border-left: 2px solid $cl-lightgreen;
+    transition: color .3s ease-in-out;
 }
 
 .article-content--updated > span {
@@ -79,10 +81,10 @@ export default {
     margin-bottom: 54px;
     padding: 10px 20px;
     line-height: 2;
-    border-left: 3px solid #03a9f4;
     border-radius: 4px;
-    color: #000;
-    background-color: #dfeef8;
+    border-left: 3px solid $cl-lightblue;
+    color: $cl-dark-7;
+    background-color: rgb(223, 238, 248);
 }
 
 .article-content--like {

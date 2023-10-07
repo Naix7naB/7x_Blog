@@ -23,6 +23,21 @@ $cl-dark-5: rgb(37, 38, 39);
 $cl-dark-6: rgb(30, 31, 32);
 $cl-dark-7: rgb(23, 24, 25);
 
+$cl-red: rgb(255, 54, 51);
+$cl-orangered-l: rgb(255, 102, 46);
+$cl-orangered-d: rgb(225, 79, 26);
+$cl-yellow-l: rgb(255, 217, 119);
+$cl-yellow-d: rgb(202, 148, 48);
+$cl-purple: rgb(140, 123, 253);
+$cl-lightblue: rgb(65, 163, 255);
+$cl-skyblue: rgb(111, 184, 253);
+$cl-accent-l: rgb(243, 164, 17);
+$cl-accent-d: rgb(199, 139, 27);
+$cl-lightgreen: rgb(57, 197, 187);
+$cl-name: rgb(242, 145, 65);
+$cl-host: rgb(103, 194, 58);
+$cl-gradual-red: linear-gradient(90deg, #ff4b2b, #ff416c);
+
 /* 字体大小 */
 $fz-small-s: 12px;
 $fz-small: 14px;

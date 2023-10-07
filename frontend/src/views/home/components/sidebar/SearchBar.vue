@@ -48,9 +48,8 @@ export default {
     width: 100%;
     height: 30px;
     padding: 0 32px 0 14px;
-    border: 2px solid #39c5bb;
+    border: 2px solid $cl-lightgreen;
     border-radius: 2rem;
-    background-color: #ffffff;
 }
 
 .search-bar--clear {

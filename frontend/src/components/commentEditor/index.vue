@@ -62,6 +62,7 @@ export default {
             this.showEmoji = !this.showEmoji
         },
         toggleUploadShowing() {
+            this.$message.warning('此功能暂未开放')
             this.showUpload = !this.showUpload
         }
     }
@@ -113,13 +114,19 @@ export default {
 /* 样式穿透 hook ElementUI 样式 */
 :deep(.el-textarea__inner) {
     padding: 16px;
+
+    &:focus {
+        border-color: $cl-name;
+    }
 }
 
 /* 评论输入框样式 */
 .comment-editor--title {
+    @include text-color(text-primary, .8);
     margin-bottom: 20px;
     font-size: $fz-large;
     font-weight: 700;
+    transition: color .3s ease-in-out;
 }
 
 .comment-editor--action {
@@ -135,7 +142,8 @@ export default {
 }
 
 .action-button {
-    transition: transform .2s;
+    @include text-color(text-primary, .8);
+    transition: color .3s ease-in-out, transform .2s ease;
     cursor: pointer;
 
     &:hover {

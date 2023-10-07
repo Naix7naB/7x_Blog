@@ -25,7 +25,7 @@ export default {
         if (type) {
             const icon = type === 'tag' ? 'tag' : 'folder-open'
             children.push(
-                <fa-icon class={['mark-button--icon', type]} icon={['fas', icon]} />
+                <fa-icon icon={['fas', icon]} />
             )
         }
         if (item.name) {
@@ -73,9 +73,9 @@ export default {
     line-height: 20px;
     border-radius: 2px;
     font-size: $fz-small;
-    color: #777;
-    background-color: #ddd;
-    transition: all .2s;
+    color: $cl-gray-7;
+    background-color: $cl-light-5;
+    transition: color .3s ease, background-color .3s ease;
     cursor: pointer;
 
     &:not(:first-of-type) {
@@ -83,20 +83,12 @@ export default {
     }
 
     &:hover {
-        color: #eee;
-        background-color: orange;
+        color: $cl-light-3;
+        background-color: $cl-accent-l;
     }
 }
 
-.mark-button--icon {
-    margin-right: 4px;
-}
-
-.mark-button--icon.category {
-    color: #ffd977;
-}
-
-.mark-button--icon.tag {
-    color: #8c7bfd;
+.mark-button > span{
+    margin-left: 4px;
 }
 </style>

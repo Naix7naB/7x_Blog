@@ -92,6 +92,7 @@ export default {
 .navbar-menu--list {
     display: flex;
     align-items: center;
+    transition: color .3s ease-in-out;
 }
 
 .navbar-menu--item {
@@ -100,16 +101,21 @@ export default {
 
 .navbar-menu--item a {
     position: relative;
+    color: inherit;
+
+    & > svg {
+        color: inherit;
+    }
 
     &::before {
+        @include bg-color(text-primary, .8);
         content: '';
         position: absolute;
-        bottom: -4px;
+        bottom: -6px;
         left: 50%;
         width: 0;
         height: 3px;
         border-radius: 4px;
-        background-color: $cl-light-1;
         transform: translateX(-50%);
         transition: width .3s ease-in-out;
     }

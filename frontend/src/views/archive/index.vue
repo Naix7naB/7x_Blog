@@ -9,7 +9,7 @@ export default {
     data() {
         return {
             archives: [],
-            activeName: ''
+            activeNames: []
         }
     },
     computed: {
@@ -44,8 +44,9 @@ export default {
         getArticlesAndSortedByDate(this.condition).then(({ data }) => {
             data.list.forEach(item => {
                 const label = formatDate(item.created_at, 'YYYY年MM月')
-                const idx =  this.archives.findIndex(archive => archive.label === label)
+                const idx = this.archives.findIndex(archive => archive.label === label)
                 if (idx === -1) {
+                    this.activeNames.push(label)
                     this.archives.push({
                         label,
                         articles: [item]
@@ -63,26 +64,21 @@ export default {
 
 <template>
     <div class="archive-main">
-        <el-collapse v-model="activeName" accordion>
+        <el-collapse v-model="activeNames">
             <el-collapse-item
                 v-for="archive in archives"
                 :key="archive.label"
                 :name="archive.label"
                 :title="archiveTitle(archive)"
             >
-                <div
-                    class="archive-article"
-                    v-for="article in archive.articles"
-                    :key="article.id"
-                    @click="toArticleDetail(article.id)"
-                >
+                <div class="archive-article" v-for="article in archive.articles" :key="article.id">
                     <div class="archive-article--label">
                         <fa-icon icon="fas fa-calendar-days" />
                         <span style="margin-left: 6px;">
                             {{ formatDate(article.created_at, 'YYYY/MM/DD') }}
                         </span>
                     </div>
-                    <div class="archive-article--content">
+                    <div class="archive-article--content" @click="toArticleDetail(article.id)">
                         <el-image fit="cover" :src="article.cover_img" lazy />
                         <div class="archive-article--info">
                             <p>{{ article.title }}</p>
@@ -104,7 +100,7 @@ export default {
 :deep(.el-collapse-item) {
     overflow: hidden;
     border-radius: 4px;
-    box-shadow: 0 0 30px -16px rgba($color: #5f5f5f, $alpha: .8);
+    box-shadow: 0 0 20px rgba($color: $cl-dark-1, $alpha: .8);
 }
 
 :deep(.el-collapse-item:not(:first-of-type)) {
@@ -114,15 +110,15 @@ export default {
 :deep(.el-collapse-item__header) {
     padding: 0 20px;
     border: none;
-    color: #fff;
-    background-color: #232428;
-    transition: all .3s;
+    color: rgba($color: $cl-light-3, $alpha: .8);
+    background-color: $cl-dark-5;
+    transition: padding .3s ease, background-color .3s ease;
 }
 
 :deep(.el-collapse-item__header.is-active),
 :deep(.el-collapse-item__header:hover) {
     padding: 0 32px;
-    background-color: rgb(173, 121, 24);
+    background-color: $cl-accent-d;
 }
 
 :deep(.el-collapse-item__arrow) {
@@ -131,13 +127,13 @@ export default {
 
 :deep(.el-collapse-item__wrap) {
     border: none;
-    color: #fff;
-    background-color: #232428;
+    color: rgba($color: $cl-light-3, $alpha: .8);
+    background-color: $cl-dark-2;
 }
 
 :deep(.el-collapse-item__content) {
     padding: 20px 24px;
-    color: #fff;
+    color: rgba($color: $cl-light-3, $alpha: .8);
 }
 
 :deep(.el-image) {
@@ -160,8 +156,11 @@ export default {
     padding-top: 20px;
 }
 
-.archive-article--label {
+.archive-article:hover .archive-article--content {
+    color: $cl-lightblue;
+}
 
+.archive-article--label {
     display: flex;
     align-items: center;
     padding-bottom: 12px;
@@ -170,6 +169,7 @@ export default {
 .archive-article--content {
     display: flex;
     padding-left: 20px;
+    transition: color .3s ease;
     cursor: pointer;
 }
 

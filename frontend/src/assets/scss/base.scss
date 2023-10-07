@@ -3,9 +3,9 @@ body,
 html {
     line-height: 1;
     font-family: 'NBEHDT', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-    -webkit-tap-highlight-color: transparent;
     color: $cl-light-1;
     background-color: $cl-dark-1;
+    -webkit-tap-highlight-color: transparent;
 }
 
 * {
@@ -14,4 +14,29 @@ html {
 
 input::placeholder {
     color: $cl-gray-7;
+}
+
+/* 图标样式 */
+[data-icon='calendar-days'] {
+    color: $cl-lightblue;
+}
+
+[data-icon='fire'] {
+    color: $cl-red;
+}
+
+[data-icon='comment'] {
+    color: $cl-skyblue;
+}
+
+[data-icon='heart'] {
+    color: $cl-orangered-l;
+}
+
+[data-icon='folder-open'] {
+    color: $cl-yellow-l;
+}
+
+[data-icon='tag'] {
+    color: $cl-purple;
 }

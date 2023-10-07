@@ -29,7 +29,7 @@ export default {
 <template>
     <div>
         <div class="secondary-cover">
-            <el-image class="background" fit="cover" :src="cover" />
+            <el-image fit="cover" :src="cover" />
             <h3 class="cover-title">{{ secondTitle }}</h3>
         </div>
         <div class="secondary-content">
@@ -39,6 +39,11 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 样式穿透 hook ElementUI 样式 */
+:deep(.secondary-cover > .el-image) {
+    @include image-mask();
+}
+
 /* 次级页面排版样式 */
 .secondary-cover {
     position: relative;
@@ -54,8 +59,8 @@ export default {
 }
 
 .secondary-content {
-    max-width: 1000px;
     margin: 0 auto;
     padding: 80px 40px;
+    max-width: 1000px;
 }
 </style>

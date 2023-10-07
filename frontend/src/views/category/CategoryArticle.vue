@@ -28,7 +28,3 @@ export default {
         <ArticleList :list="articles" />
     </div>
 </template>
-
-<style lang="scss" scoped>
-/* 分类文章列表样式 */
-</style>

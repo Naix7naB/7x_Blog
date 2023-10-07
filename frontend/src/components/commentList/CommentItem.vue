@@ -126,9 +126,9 @@ export default {
 }
 
 .comment-info--name {
+    color: $cl-name;
     font-size: $fz-medium;
     font-weight: 700;
-    color: #f29141;
 
     &[data-host=true]::after {
         content: '博主';
@@ -136,8 +136,8 @@ export default {
         padding: 0 4px;
         font-size: $fz-small-s;
         font-weight: 400;
-        color: #67c23a;
-        border: 1px solid #67c23a;
+        color: $cl-host;
+        border: 1px solid $cl-host;
         border-radius: 4px;
         vertical-align: 1px;
     }
@@ -148,20 +148,16 @@ export default {
     padding: 0 6px;
     border-radius: 3px;
     font-size: $fz-small;
-    color: #e1e1e1;
-    background-color: #1363bfe6;
-    transition: background-color .2s;
+    color: $cl-light-3;
+    background-color: $cl-name;
     cursor: pointer;
-
-    &:hover {
-        background-color: #2f7ad0e6;
-    }
 }
 
 .comment-info--date {
+    @include text-color(text-muted);
     margin-left: 12px;
     font-size: $fz-small-s;
-    color: #999999;
+    transition: color .3s ease-in-out;
 }
 
 .comment-info--body {
@@ -172,18 +168,14 @@ export default {
     line-height: $lh-small-s;
     border-radius: 8px;
     word-break: break-word;
-    color: #000000;
-    background-color: #d4d4d4;
-
-    &:hover .comment-info--reply {
-        opacity: 1;
-    }
+    color: $cl-dark-5;
+    background-color: $cl-light-5;
 }
 
 .comment-info--metion {
     user-select: none;
     margin-right: 6px;
-    color: #1f7ce7eb;
+    color: $cl-lightblue;
 
     &::before {
         content: '@' attr(data-mention) ':';

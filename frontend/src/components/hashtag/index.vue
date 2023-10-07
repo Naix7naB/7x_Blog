@@ -22,7 +22,7 @@ export default {
     computed: {
         tagStyle() {
             return {
-                color: this.color
+                backgroundColor: this.color
             }
         }
     },
@@ -40,28 +40,27 @@ export default {
 <template>
     <div class="hashtag" :style="tagStyle" @click="onClick">
         <span class="hashtag-icon">#</span>
-        <span class="hashtag-name" :data-count="count">{{ tagName }}</span>
+        <span class="hashtag-name">{{ tagName }}</span>
+        <span class="hashtag-count">{{ count }}</span>
     </div>
 </template>
 
 <style lang="scss" scoped>
 /* 标签样式 */
 .hashtag {
+    @include shadow-color(shadow, .8);
     display: flex;
     align-items: center;
     margin: 10px;
     padding: 16px 20px;
-    border-radius: 8px;
-    border: 1px solid #343435;
-    background-color: #1d1e21;
-    box-shadow: 0 0 20px -10px #6c6c6b;
-    transition: all .3s;
+    border-radius: 4px;
+    background-color: $cl-dark-1;
+    transition: background-color .3s ease, box-shadow .3s ease, transform .3s ease;
     cursor: pointer;
 
     &:hover {
-        color: #c6c1b9 !important;
-        border: 1px solid #646464;
-        background-color: #2c478a;
+        @include shadow-color(shadow-hover, .5, 1);
+        background-color: rgb(44, 71, 138) !important;
         transform: scale(1.1);
     }
 }
@@ -71,22 +70,15 @@ export default {
 }
 
 .hashtag-name {
-    position: relative;
-    padding: 0 16px 0 4px;
+    padding: 0 10px 0 4px;
     font-size: 28px;
+}
 
-    &::after {
-        content: attr(data-count);
-        position: absolute;
-        top: -6px;
-        right: -10px;
-        width: 1em;
-        height: 1em;
-        padding: 2px;
-        font-size: $fz-medium;
-        text-align: center;
-        border-radius: 50%;
-        background-color: rgba($color: #2a2929, $alpha: .5);
-    }
+.hashtag-count {
+    padding: 8px 6px;
+    text-align: center;
+    font-size: $fz-medium;
+    border-radius: 4px;
+    background-color: rgba($color: $cl-dark-7, $alpha: .5);
 }
 </style>

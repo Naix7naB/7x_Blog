@@ -28,10 +28,6 @@ export default {
     height: 100% !important;
 }
 
-.el-image.background {
-    @include image-mask();
-}
-
 .el-image__inner {
     object-position: center !important;
 }
@@ -44,9 +40,5 @@ export default {
 /* 页面排版样式 */
 .page-layout {
     @include fullscreen();
-    @include text-color(text-primary);
-    @include bg-color(bg-primary);
-    user-select: none;
-    transition: color .5s ease-in-out, background-color .5s ease-in-out;
 }
 </style>

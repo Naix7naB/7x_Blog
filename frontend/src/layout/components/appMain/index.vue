@@ -45,8 +45,11 @@ export default {
 
 <style lang="scss" scoped>
 .app-main {
+    @include bg-color(bg-primary);
+    user-select: none;
     overflow: hidden;
     width: 100%;
     height: 100%;
+    transition: background-color .3s ease-in-out;
 }
 </style>

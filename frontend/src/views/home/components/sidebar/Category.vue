@@ -55,7 +55,7 @@ export default {
     padding: 0 20px;
     line-height: $lh-large-x;
     border-radius: 2em;
-    transition: background-color .3s ease;
+    transition: background-color .3s ease-out;
     cursor: pointer;
 
     &:not(:first-of-type) {
@@ -63,7 +63,8 @@ export default {
     }
 
     &:hover {
-        background-color: rgb(173, 121, 24);
+        @include bg-color(bg-accent);
+        color: rgba($color: $cl-light-3, $alpha: .8);
     }
 
     &:hover .category-item--name {
