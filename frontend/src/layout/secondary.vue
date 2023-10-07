@@ -1,11 +1,8 @@
 <script>
-import cover from '@/assets/images/bg.png'
-
 export default {
     name: 'SecondaryLayout',
     data() {
         return {
-            cover,
             label: ''
         }
     },
@@ -29,7 +26,7 @@ export default {
 <template>
     <div>
         <div class="secondary-cover">
-            <el-image fit="cover" :src="cover" />
+            <el-image src="https://t.mwm.moe/fj" fit="cover" />
             <h3 class="cover-title">{{ secondTitle }}</h3>
         </div>
         <div class="secondary-content">
