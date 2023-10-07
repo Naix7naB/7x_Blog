@@ -18,8 +18,10 @@ export default {
             this.articleList = data.list
         },
         getList() {
+            this.$store.dispatch('setting/setLoadingState', true)
             getArticleList().then(({ data }) => {
                 this.loadArticleList(data)
+                this.$store.dispatch('setting/setLoadingState', false)
             }).catch(err => {
                 this.$message.error(err.errMsg || err)
             })

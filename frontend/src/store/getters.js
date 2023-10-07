@@ -1,6 +1,7 @@
 import { isEmpty } from 'lodash-es'
 
 export default {
+    isLoading: state => state.setting.isLoading,
     theme: state => state.setting.theme,
     scrollTop: state => state.scroll.y,
     scrollRatio: state => Math.min(state.scroll.y / state.scroll.maxTransY, 1),

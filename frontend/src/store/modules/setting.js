@@ -25,10 +25,14 @@ function setColorScheme(theme) {
 export default {
     namespaced: true,
     state: {
+        isLoading: true,
         isInit: false,
         theme: Storage.get('_theme_', 'light')
     },
     mutations: {
+        _set_loading_state_(state, isLoading) {
+            state.isLoading = isLoading
+        },
         _init_theme_(state) {
             if (!state.isInit) {
                 state.isInit = true
@@ -45,6 +49,9 @@ export default {
         }
     },
     actions: {
+        setLoadingState({ commit }, isLoading) {
+            commit('_set_loading_state_', isLoading)
+        },
         initTheme({ commit }) {
             commit('_init_theme_')
         },

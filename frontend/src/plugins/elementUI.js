@@ -16,6 +16,8 @@ import {
     Dropdown,
     DropdownMenu,
     DropdownItem,
+    Empty,
+    Loading,
     Message,
     Notification
 } from 'element-ui'
@@ -34,7 +36,9 @@ export default {
         CollapseItem,
         Dropdown,
         DropdownMenu,
-        DropdownItem
+        DropdownItem,
+        Empty,
+        Loading.directive
     ],
     others: [Message, Notification]
 }

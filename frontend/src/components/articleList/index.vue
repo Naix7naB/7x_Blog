@@ -10,7 +10,7 @@ export default {
     props: {
         list: {
             type: Array,
-            default: () => []
+            required: true
         }
     },
     methods: {
@@ -29,7 +29,12 @@ export default {
 </script>
 
 <template>
-    <ul class="article-list" v-loading="!list.length">
+    <ul
+        class="article-list"
+        v-loading.fullscreen.lock="$store.getters.isLoading"
+        element-loading-text="拼命加载中"
+        element-loading-background="rgba(0, 0, 0, 0.3)"
+    >
         <li
             class="article-item"
             v-for="(article, idx) in list"

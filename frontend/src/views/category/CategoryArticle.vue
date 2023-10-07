@@ -13,9 +13,11 @@ export default {
     },
     created() {
         const { cid, name } = this.$route.params
+        this.$store.dispatch('setting/setLoadingState', true)
         getCategoryArticles({ category_id: cid }).then(({ data }) => {
             this.articles = data.list
             this.$bus.$emit('setLabel', name)
+            this.$store.dispatch('setting/setLoadingState', false)
         }).catch(err => {
             this.$message.error(err.errMsg || err)
         })
