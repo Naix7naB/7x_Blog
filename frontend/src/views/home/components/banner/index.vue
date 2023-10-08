@@ -61,6 +61,11 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 样式穿透 hook ElementUI 样式 */
+:deep(.banner-background > .el-image) {
+    @include image-mask();
+}
+
 /* 网站介绍页面样式 */
 .banner {
     position: relative;
@@ -70,10 +75,6 @@ export default {
 
 .banner-background {
     height: 100vh;
-
-    &:deep(.el-image) {
-        @include image-mask();
-    }
 }
 
 .banner-about {

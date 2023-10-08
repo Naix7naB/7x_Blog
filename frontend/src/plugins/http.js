@@ -51,7 +51,7 @@ service.statusCode = {
 service.interceptors.request.use(
     config => {
         if (config.baseURL === process.env.VUE_APP_BASE_URL) {
-            const token = store.getters['user/getToken']
+            const token = store.getters.token
             if (token) {
                 config.headers['Authorization'] = 'Bearer ' + token
             }

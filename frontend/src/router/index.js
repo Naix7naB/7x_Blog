@@ -177,12 +177,7 @@ const router = new VueRouter({ routes })
 router.beforeEach((to, from, next) => {
     store.dispatch('setting/initTheme')
     store.dispatch('site/loadSiteInfo')
-    const token = store.getters.token
-    if (!token) {
-        to.path === '/login' ? next() : next('/login')
-    } else {
-        to.path === '/login' ? next('/') : next()
-    }
+    next()
 })
 
 export default router

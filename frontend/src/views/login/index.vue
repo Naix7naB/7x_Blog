@@ -31,7 +31,7 @@ export default {
 
 <style lang="scss">
 /* 样式穿透 hook ElementUI 样式 */
-.el-image {
+.login-page > .el-image {
     @include image-mask();
 }
 
