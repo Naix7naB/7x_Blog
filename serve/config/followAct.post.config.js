@@ -1,3 +1,4 @@
+const Article = require('../models/Article')
 const Category = require('../models/Category')
 const Site = require('../models/Site')
 const Tag = require('../models/Tag')
@@ -38,7 +39,7 @@ module.exports = {
         },
         {
             _model_: Site,
-            action: 'update',
+            action: 'findOneAndUpdate',
             condition() {
                 return {}
             },
@@ -54,7 +55,7 @@ module.exports = {
     Category: [
         {
             _model_: Site,
-            action: 'update',
+            action: 'findOneAndUpdate',
             condition() {
                 return {}
             },
@@ -70,7 +71,7 @@ module.exports = {
     Tag: [
         {
             _model_: Site,
-            action: 'update',
+            action: 'findOneAndUpdate',
             condition() {
                 return {}
             },
@@ -78,6 +79,39 @@ module.exports = {
                 return {
                     $inc: {
                         tag_count: 1
+                    }
+                }
+            }
+        }
+    ],
+    Comment: [
+        {
+            _model_: Site,
+            action: 'findByIdAndUpdate',
+            condition(res) {
+                return res.topic_id
+            },
+            opt() {
+                return {
+                    $inc: {
+                        message_count: 1
+                    }
+                }
+            }
+        },
+        {
+            _model_: Article,
+            action: 'findByIdAndUpdate',
+            condition(res) {
+                return res.topic_id
+            },
+            opt(cid) {
+                return {
+                    $inc: {
+                        comment_count: 1
+                    },
+                    $push: {
+                        comments: cid
                     }
                 }
             }

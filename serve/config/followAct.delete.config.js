@@ -60,7 +60,7 @@ module.exports = {
         },
         {
             _model_: Site,
-            action: 'update',
+            action: 'findOneAndUpdate',
             condition() {
                 return {}
             },
@@ -86,7 +86,7 @@ module.exports = {
     Category: [
         {
             _model_: Site,
-            action: 'update',
+            action: 'findOneAndUpdate',
             condition() {
                 return {}
             },
@@ -121,7 +121,7 @@ module.exports = {
         },
         {
             _model_: Site,
-            action: 'update',
+            action: 'findOneAndUpdate',
             condition() {
                 return {}
             },
@@ -129,6 +129,39 @@ module.exports = {
                 return {
                     $inc: {
                         tag_count: -1
+                    }
+                }
+            }
+        }
+    ],
+    Comment: [
+        {
+            _model_: Site,
+            action: 'findByIdAndUpdate',
+            condition(res) {
+                return res.topic_id
+            },
+            opt(cid, count) {
+                return {
+                    $inc: {
+                        message_count: -count
+                    }
+                }
+            }
+        },
+        {
+            _model_: Article,
+            action: 'findByIdAndUpdate',
+            condition(res) {
+                return res.topic_id
+            },
+            opt(cid, count) {
+                return {
+                    $inc: {
+                        comment_count: -count
+                    },
+                    $pull: {
+                        comments: cid
                     }
                 }
             }
