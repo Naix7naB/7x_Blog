@@ -15,6 +15,14 @@ const schema = new mongoose.Schema(
             type: mongoose.SchemaTypes.ObjectId,
             required: [true, '评论主题ID不能为空']
         },
+        parent_id: {
+            type: mongoose.SchemaTypes.ObjectId,
+            default: null
+        },
+        reply_id: {
+            type: mongoose.SchemaTypes.ObjectId,
+            default: null
+        },
         reviewer: {
             ref: 'User',
             type: mongoose.SchemaTypes.ObjectId,
@@ -29,22 +37,10 @@ const schema = new mongoose.Schema(
             type: String,
             required: [true, '评论内容不能为空']
         },
-        comment_id: {
-            ref: 'Comment',
-            type: mongoose.SchemaTypes.ObjectId,
+        reply_content: {
+            type: String,
             default: null
         },
-        reply_id: {
-            ref: 'Comment',
-            type: mongoose.SchemaTypes.ObjectId,
-            default: null
-        },
-        replies: [
-            {
-                ref: 'Comment',
-                type: mongoose.SchemaTypes.ObjectId
-            }
-        ],
         created_at: Number,
         updated_at: Number
     },
