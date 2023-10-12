@@ -5,6 +5,10 @@ export default {
     name: 'CommentEditor',
     components: { EmojiPicker },
     props: {
+        type: {
+            type: String,
+            required: true
+        },
         title: {
             type: String,
             default: ''
@@ -41,26 +45,42 @@ export default {
                 height: '200px',
                 marginBottom: '20px'
             }
+        },
+        dispatchType() {
+            const namespaceMap = {
+                article: 'article',
+                message: 'site'
+            }
+            const namespace = namespaceMap[this.type]
+            return `${namespace}/increaseCommentCount`
         }
     },
     methods: {
+        /* 在评论输入框中插入表情 */
         insert(emoji) {
             this.comment += emoji
         },
+        /* 清除评论输入框内容 */
         clear() {
             this.comment = ''
         },
+        /* 取消评论 */
         cancel() {
             this.$emit('cancel')
             this.clear()
         },
+        /* 发表评论 */
         submit() {
             this.$emit('post', this.comment)
+            this.$store.dispatch(this.dispatchType)
+            this.showEmoji = false
             this.clear()
         },
+        /* 展示/隐藏表情 */
         toggleEmojiShowing() {
             this.showEmoji = !this.showEmoji
         },
+        /* TODO 发表图片类型评论 */
         toggleUploadShowing() {
             this.$message.warning('此功能暂未开放')
             this.showUpload = !this.showUpload

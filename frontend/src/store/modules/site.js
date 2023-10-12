@@ -22,6 +22,11 @@ export default {
         },
         setWebsiteInfo({ commit }, info) {
             commit('_set_site_info_', info)
+        },
+        increaseCommentCount({ state, commit }) {
+            const info = state.siteInfo
+            info.message_count++
+            commit('_set_site_info_', info)
         }
     }
 }

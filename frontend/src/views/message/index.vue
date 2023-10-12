@@ -2,7 +2,7 @@
 import CommentEditor from '@/components/commentEditor'
 import CommentList from '@/components/commentList'
 
-import { getMessageComments, leaveComment } from '@/apis/comment'
+import { getCommentList, leaveComment } from '@/apis/comment'
 
 export default {
     name: 'MessagePage',
@@ -21,9 +21,15 @@ export default {
         siteInfo() {
             return this.$store.getters.siteInfo
         },
+        stats() {
+            return {
+                label: 'Messages',
+                total: this.siteInfo.message_count
+            }
+        },
         topic() {
             return {
-                type: 'message_comment',
+                type: 'message',
                 title: this.siteInfo.name,
                 id: this.siteInfo.id
             }
@@ -32,7 +38,10 @@ export default {
     methods: {
         async getComments() {
             try {
-                const { data } = await getMessageComments({ mid: this.siteInfo.id })
+                const { data } = await getCommentList({
+                    topic_type: this.topic.type,
+                    topic_id: this.topic.id
+                })
                 this.comments = data.list
             } catch (err) {
                 this.$message.error(err || err.errMsg)
@@ -61,8 +70,13 @@ export default {
 
 <template>
     <div class="message-comment">
-        <CommentEditor title="留言" :autosize="{ minRows: 7, maxRows: 10 }" @post="postMessage" />
-        <CommentList statsLabel="Messages" :showStats="true" :comments="comments" />
+        <CommentEditor
+            title="留言"
+            :type="topic.type"
+            :autosize="{ minRows: 7, maxRows: 10 }"
+            @post="postMessage"
+        />
+        <CommentList :stats="stats" :comments="comments" />
     </div>
 </template>
 

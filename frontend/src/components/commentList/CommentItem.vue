@@ -3,7 +3,6 @@ import CommentEditor from '@/components/commentEditor'
 
 import { leaveComment } from '@/apis/comment'
 import { formatDate } from '@/utils/util'
-import { mapGetters } from 'vuex'
 
 export default {
     name: 'CommentItem',
@@ -24,10 +23,12 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('comment', ['currentReplyId']),
+        currentReplyId() {
+            return this.$store.getters.replyId
+        },
         isHost() {
             return uid => {
-                return uid === this.$store.getters.siteInfo?.host?.id
+                return uid === this.$store.getters.siteInfo.host?.id
             }
         }
     },
@@ -47,9 +48,10 @@ export default {
                 topic_type: this.topic.type,
                 topic_title: this.topic.title,
                 topic_id: this.topic.id,
-                mention: this.comment.reviewer.id,
-                comment_id: this.topId,
+                parent_id: this.topId,
                 reply_id: this.comment.id,
+                mention: this.comment.reviewer.id,
+                reply_content: this.comment.content,
                 content: reply
             }).then(res => {
                 this.$message.success(res.errMsg)
@@ -65,33 +67,35 @@ export default {
 
 <template>
     <div class="comment-info--wrapper">
-        <el-avatar :src="comment.reviewer.avatar" />
+        <el-avatar :src="comment.reviewer?.avatar" />
         <div ref="commentRef" class="comment-info">
             <div class="comment-info--head">
                 <span
                     class="comment-info--name"
-                    v-text="comment.reviewer.nickname"
-                    :data-host="isHost(comment.reviewer.id)"
-                    :data-uid="comment.reviewer.id"
+                    v-text="comment.reviewer?.nickname"
+                    :data-host="isHost(comment.reviewer?.id)"
+                    :data-uid="comment.reviewer?.id"
                 />
                 <span class="comment-info--date">{{ formatDate(comment.created_at) }}</span>
                 <span class="comment-action--reply" @click="onReply">回复</span>
             </div>
             <div class="comment-info--body">
+                <span class="comment-info--content">{{ comment.content }}</span>
                 <span
                     class="comment-info--metion"
                     v-if="comment.mention && comment.reply_id !== topId"
-                    :data-mention="comment.mention.nickname"
+                    v-text="comment.reply_content"
+                    :data-mention="comment.mention?.nickname"
                 />
-                <span class="comment-info--content">{{ comment.content }}</span>
             </div>
             <CommentEditor
                 v-if="replying"
+                :type="topic.type"
                 :replyId="comment.id"
                 @cancel="cancelReply"
                 @post="postReply"
             />
-            <ul v-if="comment.replies && comment.replies.length !== 0">
+            <ul v-if="!comment.parent_id && comment.replies.length !== 0">
                 <li v-for="reply in comment.replies" :key="reply.id">
                     <CommentItem
                         :topId="comment.id"
@@ -172,13 +176,22 @@ export default {
     background-color: $cl-light-5;
 }
 
+.comment-info--content,
+.comment-info--metion {
+    display: block;
+}
+
 .comment-info--metion {
     user-select: none;
-    margin-right: 6px;
-    color: $cl-lightblue;
+    margin-top: 10px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: $cl-gray-7;
+    background-color: $cl-light-7;
 
     &::before {
-        content: '@' attr(data-mention) ':';
+        content: '@' attr(data-mention) '：';
+        color: $cl-lightblue;
     }
 }
 </style>

@@ -1,19 +1,13 @@
 <script>
 import CommentItem from './CommentItem'
 
-import { mapActions, mapGetters } from 'vuex'
-
 export default {
     name: 'CommentList',
     components: { CommentItem },
     props: {
-        showStats: {
-            type: Boolean,
-            default: false
-        },
-        statsLabel: {
-            type: String,
-            default: ''
+        stats: {
+            type: Object,
+            default: () => null
         },
         comments: {
             type: Array,
@@ -21,25 +15,13 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('comment', ['currentReplyId']),
-        totalComment() {
-            return this.comments.length
-        },
-        resolvedComment() {
-            const commentList = this.comments.filter(comment => !comment.comment_id)
-            const replyList = this.comments.filter(comment => comment.comment_id)
-            return commentList.map(comment => {
-                comment.replies = comment.replies.map(reply_id => {
-                    return replyList.find(reply => reply.id === reply_id)
-                })
-                return comment
-            })
+        currentReplyId() {
+            return this.$store.getters.replyId
         }
     },
     methods: {
-        ...mapActions('comment', ['setReplyId']),
         onReply(id) {
-            this.setReplyId(id)
+            this.$store.dispatch('comment/setReplyId', id)
         }
     }
 }
@@ -47,14 +29,14 @@ export default {
 
 <template>
     <div>
-        <div v-if="showStats" class="comment-stats">
-            <span>{{ statsLabel }}</span>
-            <span class="comment-stats--count">{{ totalComment }}条评论</span>
+        <div v-if="stats" class="comment-stats">
+            <span>{{ stats.label }}</span>
+            <span class="comment-stats--count">{{ stats.total }}条评论</span>
         </div>
-        <ul v-if="resolvedComment && resolvedComment.length !== 0">
-            <li v-for="comment in resolvedComment" :key="comment.id">
+        <ul v-if="comments && comments.length !== 0">
+            <li v-for="comment in comments" :key="comment.id">
                 <CommentItem
-                    :top-id="comment.id"
+                    :topId="comment.id"
                     :comment="comment"
                     :replying="currentReplyId === comment.id"
                     @reply="onReply"

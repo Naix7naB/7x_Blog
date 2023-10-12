@@ -21,6 +21,11 @@ export default {
             if (id === info.id) return false
             commit('_set_article_info_', info)
         },
+        increaseCommentCount({ state, commit }) {
+            const info = state.articleInfo
+            info.comment_count++
+            commit('_set_article_info_', info)
+        },
         clearArticleInfo({ commit }) {
             commit('_clear_article_info_')
         }

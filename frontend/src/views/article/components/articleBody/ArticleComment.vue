@@ -2,7 +2,7 @@
 import CommentEditor from '@/components/commentEditor'
 import CommentList from '@/components/commentList'
 
-import { getArticleComments, leaveComment } from '@/apis/comment'
+import { getCommentList, leaveComment } from '@/apis/comment'
 
 export default {
     name: 'ArticleComment',
@@ -21,9 +21,15 @@ export default {
         articleInfo() {
             return this.$store.getters.articleInfo
         },
+        stats() {
+            return {
+                label: 'Comment',
+                total: this.articleInfo.comment_count
+            }
+        },
         topic() {
             return {
-                type: 'article_comment',
+                type: 'article',
                 title: this.articleInfo.title,
                 id: this.articleInfo.id
             }
@@ -32,7 +38,10 @@ export default {
     methods: {
         async getComments() {
             try {
-                const { data } = await getArticleComments({ aid: this.articleInfo.id })
+                const { data } = await getCommentList({
+                    topic_type: this.topic.type,
+                    topic_id: this.topic.id
+                })
                 this.comments = data.list
             } catch (err) {
                 this.$message.error(err.errMsg || err)
@@ -61,8 +70,13 @@ export default {
 
 <template>
     <div class="article-comment">
-        <CommentEditor title="评论" :autosize="{ minRows: 7, maxRows: 10 }" @post="postComment" />
-        <CommentList statsLabel="Comments" :showStats="true" :comments="comments" />
+        <CommentEditor
+            title="评论"
+            :type="topic.type"
+            :autosize="{ minRows: 7, maxRows: 10 }"
+            @post="postComment"
+        />
+        <CommentList :stats="stats" :comments="comments" />
     </div>
 </template>
 
