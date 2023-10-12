@@ -3,9 +3,6 @@ export default {
     state: {
         replyId: ''
     },
-    getters: {
-        currentReplyId: state => state.replyId
-    },
     mutations: {
         _set_reply_id_(state, id) {
             state.replyId = id

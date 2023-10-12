@@ -11,5 +11,6 @@ export default {
     isLogin: state => (isEmpty(state.user.token) ? false : true),
     userInfo: state => state.user.userInfo,
     siteInfo: state => state.site.siteInfo,
-    articleInfo: state => state.article.articleInfo
+    articleInfo: state => state.article.articleInfo,
+    replyId: state => state.comment.replyId
 }
