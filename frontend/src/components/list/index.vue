@@ -1,5 +1,6 @@
 <script>
 export default {
+    name: 'BaseList',
     props: {
         requestApi: {
             type: Function,
@@ -58,6 +59,10 @@ export default {
                 this.$store.dispatch('setting/setLoadingState', false)
             })
         },
+        /* 刷新数据列表 */
+        refreshData() {
+            this.getDataList()
+        },
         /* 页数修改时 */
         onPageChange(page) {
             this.page = page
@@ -93,8 +98,9 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+/* 数据列表样式 */
 .base-list {
-    min-height: 300px;
+    min-height: 240px;
 }
 
 .list-pagination {

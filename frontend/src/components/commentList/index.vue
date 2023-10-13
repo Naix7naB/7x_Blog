@@ -35,15 +35,20 @@ export default {
     },
     methods: {
         getCommentList,
+        /* 回复评论时 */
         onReply(id) {
             this.$store.dispatch('comment/setReplyId', id)
+        },
+        /* 刷新评论数据列表 */
+        refresh() {
+            this.$refs.list.refreshData()
         }
     }
 }
 </script>
 
 <template>
-    <BaseList :requestApi="getCommentList" :requestParams="requestParams">
+    <BaseList ref="list" :requestApi="getCommentList" :requestParams="requestParams">
         <template slot-scope="{ list }">
             <div v-if="stats" class="comment-stats">
                 <span>{{ stats.label }}</span>

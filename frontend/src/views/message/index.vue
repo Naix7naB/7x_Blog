@@ -34,7 +34,7 @@ export default {
                 content: message
             }).then(res => {
                 this.$message.success(res.errMsg)
-                this.getComments()
+                this.$refs.commentList.refresh()
             }).catch(err => {
                 this.$message.error(err.errMsg || err)
             })
@@ -51,7 +51,7 @@ export default {
             :autosize="{ minRows: 7, maxRows: 10 }"
             @post="postMessage"
         />
-        <CommentList :topic="topic" :stats="stats" />
+        <CommentList ref="commentList" :topic="topic" :stats="stats" />
     </div>
 </template>
 
