@@ -20,7 +20,7 @@ function getArticleList({ page = 1, size = 10, condition, query }) {
                     select: 'name'
                 }
             ],
-            select: '-author -content -comments -state'
+            select: '-author -comments'
         }
     })
 }

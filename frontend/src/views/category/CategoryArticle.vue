@@ -1,8 +1,6 @@
 <script>
 import ArticleList from '@/components/articleList'
 
-import { getArticleList } from '@/apis/article'
-
 export default {
     name: 'CategoryPage',
     components: { ArticleList },
@@ -16,17 +14,12 @@ export default {
             return this.$route.params.name
         }
     },
-    methods: {
-        getArticleList,
-        beforeLoad() {
-            this.$bus.$emit('setLabel', this.categoryLabel)
-        }
+    created() {
+        this.$bus.$emit('setLabel', this.categoryLabel)
     }
 }
 </script>
 
 <template>
-    <div class="category-article">
-        <ArticleList :requestApi="getArticleList" :filter="filter" @beforeLoad="beforeLoad" />
-    </div>
+    <ArticleList :filter="filter" />
 </template>

@@ -1,7 +1,7 @@
 import Request from '@/utils/request'
 
 /* 获取评论列表 */
-function getCommentList({ page = 1, size = 10, topic_type, topic_id } = {}) {
+function getCommentList({ page = 1, size = 10, topic_type, topic_title, topic_id } = {}) {
     return Request.requestForm({
         methodType: Request.GET,
         url: '/api/comment',
@@ -10,6 +10,7 @@ function getCommentList({ page = 1, size = 10, topic_type, topic_id } = {}) {
             size,
             condition: {
                 topic_type,
+                topic_title,
                 topic_id,
                 parent_id: {
                     $type: 'null'

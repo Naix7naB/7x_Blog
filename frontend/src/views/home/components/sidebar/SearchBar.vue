@@ -14,10 +14,10 @@ export default {
     methods: {
         clear() {
             this.value = ''
-            this.$bus.$emit('queryArticleList', null)
+            this.$bus.$emit('setQuery', null)
         },
         search() {
-            this.$bus.$emit('queryArticleList', {
+            this.$bus.$emit('setQuery', {
                 title: this.value,
                 description: this.value,
                 content: this.value

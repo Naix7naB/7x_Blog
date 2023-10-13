@@ -7,8 +7,11 @@ import { formatDate } from '@/utils/util'
 export default {
     name: 'CommentItem',
     components: { CommentEditor },
-    inject: ['topic'],
     props: {
+        topic: {
+            type: Object,
+            required: true
+        },
         topId: {
             type: String,
             required: true
@@ -98,6 +101,7 @@ export default {
             <ul v-if="!comment.parent_id && comment.replies.length !== 0">
                 <li v-for="reply in comment.replies" :key="reply.id">
                     <CommentItem
+                        :topic="topic"
                         :topId="comment.id"
                         :comment="reply"
                         :replying="currentReplyId === reply.id"

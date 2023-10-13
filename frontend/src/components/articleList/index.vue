@@ -1,157 +1,103 @@
 <script>
+import BaseList from '../list'
 import MarkButton from '../markButton'
 
-import { getArticleInfoById } from '@/apis/article'
+import { getArticleList, getArticleInfoById } from '@/apis/article'
 import { formatDate, goToPath } from '@/utils/util'
-import { concat } from 'lodash-es'
 
 export default {
     name: 'ArticleList',
-    components: { MarkButton },
+    components: { BaseList, MarkButton },
     props: {
-        requestApi: {
-            type: Function,
-            required: true
-        },
         filter: {
             type: Object,
-            default: () => {}
-        }
-    },
-    data() {
-        return {
-            page: 1,
-            pages: 1,
-            size: 10,
-            total: 0,
-            query: {},
-            list: []
+            default: () => null
+        },
+        query: {
+            type: Object,
+            default: () => null
         }
     },
     computed: {
-        isUpdate() {
-            return this.page <= this.pages
+        requestParams() {
+            return {
+                condition: this.filter,
+                query: this.query
+            }
         }
     },
     methods: {
         formatDate,
-        /* 加载文章列表 */
-        loadArticleList() {
-            if (!this.isUpdate) return false
-            this.$store.dispatch('setting/setLoadingState', true)
-            this.$emit('beforeLoad')
-            this.requestApi({
-                page: this.page,
-                size: this.size,
-                condition: this.filter,
-                query: this.query
-            }).then(({ data }) => {
-                this.pages = data.pages
-                this.total = data.total
-                this.list = concat(this.list, data.list)
-                this.$emit('loaded', this.list)
-            }).catch(err => {
-                this.$message.error(err.errMsg || err)
-            }).finally(() => {
-                this.firstTime = false
-                this.$store.dispatch('setting/setLoadingState', false)
-            })
-        },
-        /* 根据query查询文章列表 */
-        queryArticleList(query) {
-            this.page = 1
-            this.list = []
-            this.query = query
-            this.loadArticleList()
-        },
+        getArticleList,
         /* 跳转文章详细页 */
-        async toArticleDetail(aid) {
-            try {
-                const { data } = await getArticleInfoById(aid)
+        toArticleDetail(aid) {
+            getArticleInfoById(aid).then(({ data }) => {
                 this.$store.dispatch('article/setArticleInfo', data)
                 goToPath({ target: 'Article', params: { aid } })
-            } catch (err) {
+            }).catch(err => {
                 this.$message.error(err.errMsg || err)
-            }
-        },
-        /* 加载更多文章 */
-        loadMore() {
-            this.page++
-            this.loadArticleList()
+            })
         }
-    },
-    created() {
-        this.$bus.$on('queryArticleList', this.queryArticleList)
-        this.loadArticleList()
     }
 }
 </script>
 
 <template>
-    <div>
-        <ul
-            class="article-list"
-            v-loading.lock="$store.getters.isLoading"
-            element-loading-text="拼命加载中"
-            element-loading-background="transparent"
-        >
-            <li
-                class="article-item"
-                v-for="(article, idx) in list"
-                :key="article.id"
-                @click="toArticleDetail(article.id)"
-            >
-                <div
-                    class="article-item--wrapper article-image"
-                    :on-left="idx % 2 === 0"
-                    :on-right="idx % 2 === 1"
+    <BaseList :requestApi="getArticleList" :requestParams="requestParams">
+        <template slot-scope="{ list }">
+            <ul class="article-list">
+                <li
+                    class="article-item"
+                    v-for="(article, idx) in list"
+                    :key="article.id"
+                    @click="toArticleDetail(article.id)"
                 >
-                    <el-image :src="article.cover_img" fit="cover" lazy />
-                </div>
-                <div
-                    class="article-item--wrapper article-info"
-                    :on-left="idx % 2 === 1"
-                    :on-right="idx % 2 === 0"
-                >
-                    <p class="article-info--meta">
-                        <fa-icon icon="fas fa-calendar-days" />
-                        <span>发布于 {{ formatDate(article.created_at) }}</span>
-                    </p>
-                    <h4 class="article-info--title">{{ article.title }}</h4>
-                    <div class="article-info--meta">
-                        <span class="article-meta--item">
-                            <fa-icon icon="fas fa-fire" />
-                            <span>热度 {{ article.view_count }}</span>
-                        </span>
-                        <span class="article-meta--item">
-                            <fa-icon icon="fas fa-comment" />
-                            <span>评论 {{ article.comment_count }}</span>
-                        </span>
-                        <span class="article-meta--item">
-                            <fa-icon icon="fas fa-heart" />
-                            <span>喜欢 {{ article.like_count }}</span>
-                        </span>
+                    <div
+                        class="article-item--wrapper article-image"
+                        :on-left="idx % 2 === 0"
+                        :on-right="idx % 2 === 1"
+                    >
+                        <el-image :src="article.cover_img" fit="cover" lazy />
                     </div>
-                    <p class="article-info--desc">{{ article.description }}</p>
-                    <div class="article-info--marked">
-                        <MarkButton type="category" :item="article.category" />
-                        <MarkButton
-                            type="tag"
-                            v-for="tag in article.tags"
-                            :key="tag.id"
-                            :item="tag"
-                        />
+                    <div
+                        class="article-item--wrapper article-info"
+                        :on-left="idx % 2 === 1"
+                        :on-right="idx % 2 === 0"
+                    >
+                        <p class="article-info--meta">
+                            <fa-icon icon="fas fa-calendar-days" />
+                            <span>发布于 {{ formatDate(article.created_at) }}</span>
+                        </p>
+                        <h4 class="article-info--title">{{ article.title }}</h4>
+                        <div class="article-info--meta">
+                            <span class="article-meta--item">
+                                <fa-icon icon="fas fa-fire" />
+                                <span>热度 {{ article.view_count }}</span>
+                            </span>
+                            <span class="article-meta--item">
+                                <fa-icon icon="fas fa-comment" />
+                                <span>评论 {{ article.comment_count }}</span>
+                            </span>
+                            <span class="article-meta--item">
+                                <fa-icon icon="fas fa-heart" />
+                                <span>喜欢 {{ article.like_count }}</span>
+                            </span>
+                        </div>
+                        <p class="article-info--desc">{{ article.description }}</p>
+                        <div class="article-info--marked">
+                            <MarkButton type="category" :item="article.category" />
+                            <MarkButton
+                                type="tag"
+                                v-for="tag in article.tags"
+                                :key="tag.id"
+                                :item="tag"
+                            />
+                        </div>
                     </div>
-                </div>
-            </li>
-        </ul>
-        <div class="article-pagination">
-            <span v-if="isUpdate" class="article-pagination--loadmore" @click="loadMore">
-                加载更多
-            </span>
-            <span v-else>~~到底啦~~</span>
-        </div>
-    </div>
+                </li>
+            </ul>
+        </template>
+    </BaseList>
 </template>
 
 <style lang="scss" scoped>

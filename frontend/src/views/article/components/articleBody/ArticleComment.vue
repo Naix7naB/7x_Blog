@@ -2,21 +2,11 @@
 import CommentEditor from '@/components/commentEditor'
 import CommentList from '@/components/commentList'
 
-import { getCommentList, leaveComment } from '@/apis/comment'
+import { leaveComment } from '@/apis/comment'
 
 export default {
     name: 'ArticleComment',
     components: { CommentEditor, CommentList },
-    provide() {
-        return {
-            topic: this.topic
-        }
-    },
-    data() {
-        return {
-            comments: []
-        }
-    },
     computed: {
         articleInfo() {
             return this.$store.getters.articleInfo
@@ -36,17 +26,6 @@ export default {
         }
     },
     methods: {
-        async getComments() {
-            try {
-                const { data } = await getCommentList({
-                    topic_type: this.topic.type,
-                    topic_id: this.topic.id
-                })
-                this.comments = data.list
-            } catch (err) {
-                this.$message.error(err.errMsg || err)
-            }
-        },
         postComment(comment) {
             leaveComment({
                 topic_type: this.topic.type,
@@ -60,10 +39,6 @@ export default {
                 this.$message.error(err.errMsg || err)
             })
         }
-    },
-    created() {
-        this.getComments()
-        this.$bus.$on('refreshComments', this.getComments)
     }
 }
 </script>
@@ -76,7 +51,7 @@ export default {
             :autosize="{ minRows: 7, maxRows: 10 }"
             @post="postComment"
         />
-        <CommentList :stats="stats" :comments="comments" />
+        <CommentList :topic="topic" :stats="stats" />
     </div>
 </template>
 

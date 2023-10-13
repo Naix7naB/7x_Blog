@@ -3,13 +3,21 @@ import Banner from './components/banner'
 import Sidebar from './components/sidebar'
 import ArticleList from '@/components/articleList'
 
-import { getArticleList } from '@/apis/article'
-
 export default {
     name: 'HomePage',
     components: { Banner, Sidebar, ArticleList },
+    data() {
+        return {
+            query: null
+        }
+    },
     methods: {
-        getArticleList
+        setQuery(query) {
+            this.query = query
+        }
+    },
+    created() {
+        this.$bus.$on('setQuery', this.setQuery)
     }
 }
 </script>
@@ -22,7 +30,7 @@ export default {
                 <Sidebar />
             </div>
             <div class="home-content">
-                <ArticleList :requestApi="getArticleList" />
+                <ArticleList :query="query" />
             </div>
         </div>
     </div>

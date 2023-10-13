@@ -22,27 +22,34 @@ export default {
         }
     },
     watch: {
+        requestParams() {
+            this.page = 1
+            this.getDataList()
+        },
         page: {
-            handler(currPage) {
-                /* 页数修改时, 获取数据列表 */
-                this.$store.dispatch('setting/setLoadingState', true)
-                this.requestApi({
-                    page: currPage,
-                    size: this.size,
-                    ...this.requestParams
-                }).then(({ data }) => {
-                    this.pages = data.pages
-                    this.list = data.list
-                }).catch(err => {
-                    this.$message.error(err.errMsg || err)
-                }).finally(() => {
-                    this.$store.dispatch('setting/setLoadingState', false)
-                })
+            handler() {
+                this.getDataList()
             },
             immediate: true
         }
     },
     methods: {
+        /* 获取数据列表 */
+        getDataList() {
+            this.$store.dispatch('setting/setLoadingState', true)
+            this.requestApi({
+                page: this.page,
+                size: this.size,
+                ...this.requestParams
+            }).then(({ data }) => {
+                this.pages = data.pages
+                this.list = data.list
+            }).catch(err => {
+                this.$message.error(err.errMsg || err)
+            }).finally(() => {
+                this.$store.dispatch('setting/setLoadingState', false)
+            })
+        },
         /* 页数修改时 */
         onPageChange(page) {
             this.page = page
