@@ -21,6 +21,14 @@ export default {
             list: []
         }
     },
+    computed: {
+        isEmpty() {
+            return this.list.length === 0
+        },
+        isSinglePage() {
+            return this.pages === 1
+        }
+    },
     watch: {
         requestParams() {
             this.page = 1
@@ -61,14 +69,16 @@ export default {
 <template>
     <div
         class="base-list"
-        v-loading="$store.getters.isLoading"
         element-loading-text="拼命加载中"
         element-loading-background="transparent"
+        v-loading="$store.getters.isLoading"
     >
         <div class="list-content">
-            <slot :list="list" />
+            <slot v-if="!isEmpty" :list="list" />
+            <el-empty v-else description="暂无数据..." />
         </div>
-        <div class="list-pagination">
+        <div v-if="!isEmpty" class="list-pagination">
+            <div v-if="isSinglePage" class="list-pagination--end">~~到底啦~~</div>
             <el-pagination
                 layout="prev, pager, next"
                 :background="true"
@@ -89,5 +99,12 @@ export default {
 
 .list-pagination {
     margin-top: 30px;
+}
+
+.list-pagination--end {
+    @include text-color(text-primary, .8);
+    text-align: center;
+    font-size: $fz-xm;
+    transition: color .3s ease-in-out;
 }
 </style>
