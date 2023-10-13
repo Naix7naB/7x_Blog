@@ -91,6 +91,7 @@ export default {
     }
 }
 
+/* 媒体查询样式 */
 @media screen and (max-width: 1000px) {
     .message-comment {
         width: 100%;

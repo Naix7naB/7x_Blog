@@ -47,7 +47,7 @@ export default {
 
 <style lang="scss" scoped>
 /* 样式穿透 hook ElementUI 样式 */
-:deep(.el-image) {
+.article-head > :deep(.el-image) {
     @include image-mask();
 }
 

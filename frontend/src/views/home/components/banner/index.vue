@@ -62,7 +62,7 @@ export default {
 
 <style lang="scss" scoped>
 /* 样式穿透 hook ElementUI 样式 */
-:deep(.banner-background > .el-image) {
+.banner-background > :deep(.el-image) {
     @include image-mask();
 }
 

@@ -54,13 +54,13 @@ export default {
 
 <style lang="scss" scoped>
 /* 样式穿透 hook ElementUI 样式 */
-:deep(.el-input input) {
+:deep(.el-input .el-input__inner) {
     border: 0;
     color: $cl-dark-3;
     background-color: $cl-light-5;
 }
 
-:deep(.el-input input::placeholder) {
+:deep(.el-input .el-input__inner::placeholder) {
     color: $cl-gray-7;
 }
 </style>

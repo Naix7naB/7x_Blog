@@ -32,7 +32,8 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-:deep(.el-avatar) {
+/* 样式穿透 hook ElementUI 样式 */
+.site-info > :deep(.el-avatar) {
     transition: transform .8s ease;
 
     &:hover {

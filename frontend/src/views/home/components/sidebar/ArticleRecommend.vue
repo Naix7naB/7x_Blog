@@ -41,7 +41,7 @@ export default {
             :key="article.id"
             @click="toArticleDetail(article.id)"
         >
-            <el-image class="recommend-inset" fit="cover" :src="article.cover_img" lazy />
+            <el-image fit="cover" :src="article.cover_img" lazy />
             <div class="recommend-info">
                 <p class="recommend-info--title">{{ article.description }}</p>
                 <p class="recommend-info--date">
@@ -58,7 +58,14 @@ export default {
 
 <style lang="scss" scoped>
 /* 样式穿透 hook ElementUI 样式 */
-:deep(.el-image__inner) {
+.recommend-item > :deep(.el-image) {
+    flex-shrink: 0;
+    width: calc(40% - 10px);
+    margin-right: 10px;
+    border-radius: 4px;
+}
+
+.recommend-item > :deep(.el-image .el-image__inner) {
     aspect-ratio: 16 / 9;
 }
 
@@ -70,13 +77,6 @@ export default {
     &:not(:first-of-type) {
         margin-top: 20px;
     }
-}
-
-.recommend-inset {
-    flex-shrink: 0;
-    width: calc(40% - 10px);
-    margin-right: 10px;
-    border-radius: 4px;
 }
 
 .recommend-info {

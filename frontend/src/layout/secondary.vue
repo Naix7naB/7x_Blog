@@ -37,7 +37,7 @@ export default {
 
 <style lang="scss" scoped>
 /* 样式穿透 hook ElementUI 样式 */
-:deep(.secondary-cover > .el-image) {
+.secondary-cover > :deep(.el-image) {
     @include image-mask();
 }
 

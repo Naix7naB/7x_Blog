@@ -156,7 +156,7 @@ export default {
 
 <style lang="scss" scoped>
 /* 样式穿透 hook ElementUI 样式 */
-:deep(.el-image__inner) {
+.article-item--wrapper.article-image > :deep(.el-image .el-image__inner) {
     transition: transform .7s ease;
 }
 
@@ -185,7 +185,7 @@ export default {
     &:hover {
         @include shadow-color(shadow-hover, .5, 1);
 
-        & ::deep(.el-image__inner) {
+        & :deep(.el-image__inner) {
             transform: scale(1.2);
         }
     }

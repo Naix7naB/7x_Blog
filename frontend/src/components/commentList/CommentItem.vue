@@ -111,7 +111,7 @@ export default {
 
 <style lang="scss" scoped>
 /* 样式穿透 hook ElementUI 样式 */
-:deep(.el-avatar) {
+.comment-info--wrapper > :deep(.el-avatar) {
     margin-right: 12px;
 }
 

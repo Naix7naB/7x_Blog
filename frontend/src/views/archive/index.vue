@@ -93,55 +93,12 @@ export default {
 
 <style lang="scss" scoped>
 /* 样式穿透 hook ElementUI 样式 */
-:deep(.el-collapse) {
-    border: none;
-}
-
-:deep(.el-collapse-item) {
-    overflow: hidden;
-    border-radius: 4px;
-    box-shadow: 0 0 20px rgba($color: $cl-dark-1, $alpha: .8);
-}
-
-:deep(.el-collapse-item:not(:first-of-type)) {
-    margin-top: 20px;
-}
-
-:deep(.el-collapse-item__header) {
-    padding: 0 20px;
-    border: none;
-    color: rgba($color: $cl-light-3, $alpha: .8);
-    background-color: $cl-dark-5;
-    transition: padding .3s ease, background-color .3s ease;
-}
-
-:deep(.el-collapse-item__header.is-active),
-:deep(.el-collapse-item__header:hover) {
-    padding: 0 32px;
-    background-color: $cl-accent-d;
-}
-
-:deep(.el-collapse-item__arrow) {
-    margin: 0 0 0 auto;
-}
-
-:deep(.el-collapse-item__wrap) {
-    border: none;
-    color: rgba($color: $cl-light-3, $alpha: .8);
-    background-color: $cl-dark-2;
-}
-
-:deep(.el-collapse-item__content) {
-    padding: 20px 24px;
-    color: rgba($color: $cl-light-3, $alpha: .8);
-}
-
-:deep(.el-image) {
+.archive-article--content > :deep(.el-image) {
     width: 20%;
     min-width: 120px;
 }
 
-:deep(.el-image__inner) {
+.archive-article--content > :deep(.el-image .el-image__inner) {
     border-radius: 4px;
     aspect-ratio: 16 / 9;
 }
@@ -183,6 +140,7 @@ export default {
     @include nowrap();
 }
 
+/* 媒体查询样式 */
 @media screen and (max-width: 1000px) {
     .archive-main {
         width: 100%;
