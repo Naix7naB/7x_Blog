@@ -16,6 +16,7 @@ import {
     Dropdown,
     DropdownMenu,
     DropdownItem,
+    Pagination,
     Empty,
     Loading,
     Message,
@@ -37,6 +38,7 @@ export default {
         Dropdown,
         DropdownMenu,
         DropdownItem,
+        Pagination,
         Empty,
         Loading.directive
     ],
