@@ -17,6 +17,10 @@
     object-position: center !important;
 }
 
+.el-image.is-background {
+    @include image-mask();
+}
+
 .el-pagination {
     text-align: center;
 }

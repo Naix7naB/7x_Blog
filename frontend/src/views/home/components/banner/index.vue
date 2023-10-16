@@ -41,7 +41,7 @@ export default {
 <template>
     <section ref="banner" class="banner">
         <div class="banner-background">
-            <el-image fit="cover" :src="background" />
+            <el-image class="is-background" fit="cover" :src="background" />
         </div>
         <div class="banner-about">
             <About />
@@ -61,11 +61,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-/* 样式穿透 hook ElementUI 样式 */
-.banner-background > :deep(.el-image) {
-    @include image-mask();
-}
-
 /* 网站介绍页面样式 */
 .banner {
     position: relative;

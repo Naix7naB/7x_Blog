@@ -26,7 +26,7 @@ export default {
 <template>
     <div>
         <div class="secondary-cover">
-            <el-image src="https://t.mwm.moe/fj" fit="cover" />
+            <el-image class="is-background" fit="cover" src="https://t.mwm.moe/fj" />
             <h3 class="cover-title">{{ secondTitle }}</h3>
         </div>
         <div class="secondary-content">
@@ -36,11 +36,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-/* 样式穿透 hook ElementUI 样式 */
-.secondary-cover > :deep(.el-image) {
-    @include image-mask();
-}
-
 /* 次级页面排版样式 */
 .secondary-cover {
     position: relative;

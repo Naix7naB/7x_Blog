@@ -21,7 +21,7 @@ export default {
 
 <template>
     <div class="login-page">
-        <el-image src="https://t.mwm.moe/fj" fit="cover" />
+        <el-image class="is-background" fit="cover" src="https://t.mwm.moe/fj" />
         <div class="login-container">
             <LoginBox ref="loginBox" :isShow="isShow" />
             <LoginOverlay :isShow="isShow" @showLogin="showLogin" />
@@ -30,11 +30,6 @@ export default {
 </template>
 
 <style lang="scss">
-/* 样式穿透 hook ElementUI 样式 */
-.login-page > .el-image {
-    @include image-mask();
-}
-
 /* 登录/注册页面样式 */
 .login-page {
     @include fullscreen();
