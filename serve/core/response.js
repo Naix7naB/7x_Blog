@@ -34,7 +34,7 @@ module.exports = class Response {
      * @param {Object} responseBody.message 响应信息
      */
     static sendToken(res, { payload, message = '' }) {
-        const { id: uid, role: rid, username, nickname, email, avatar } = payload
+        const { id: uid, role: rid, username, nickname, email, avatar, gender, intro } = payload
         const token = generateToken({ uid, rid, username, nickname })
         Response.send(res, {
             message,
@@ -45,6 +45,8 @@ module.exports = class Response {
                 nickname,
                 email,
                 avatar,
+                gender,
+                intro,
                 token
             }
         })

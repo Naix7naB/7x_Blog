@@ -54,6 +54,14 @@ const schema = new mongoose.Schema(
                 message: '昵称2-12位(不能包含非法符号)'
             }
         },
+        gender: {
+            type: Number,
+            default: 0
+        },
+        intro: {
+            type: String,
+            default: '这个人很懒, 什么也没写~'
+        },
         role: {
             ref: 'Role',
             type: mongoose.SchemaTypes.ObjectId
