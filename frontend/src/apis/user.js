@@ -8,4 +8,13 @@ function getUserRole(rid) {
     })
 }
 
-export { getUserRole }
+/* 修改用户信息 */
+function modifyUserInfo(uid, info) {
+    return Request.requestForm({
+        methodType: Request.PUT,
+        url: `/api/user/${uid}`,
+        data: info
+    })
+}
+
+export { getUserRole, modifyUserInfo }
