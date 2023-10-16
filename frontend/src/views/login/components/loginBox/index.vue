@@ -1,6 +1,5 @@
 <script>
 import LoginForm from './LoginForm'
-import { mapActions } from 'vuex'
 import { login, registry } from '@/apis/login'
 import { encrypt, goToPath } from '@/utils/util'
 import { loginData, loginItems } from '@/config/login.config'
@@ -38,21 +37,23 @@ export default {
         }
     },
     methods: {
-        ...mapActions('user', ['loadKey', 'setToken', 'setUserInfo']),
         async handleRequest() {
             this.currentFormRef.submit(async data => {
                 /* 获取加密密钥 处理表单数据 */
-                await this.loadKey()
+                await this.$store.dispatch('user/loadKey')
                 const encryptKey = this.$store.getters.key
                 data.password = encrypt(data.password, encryptKey)
                 /* 发送请求 */
                 this.currentRequest(data).then(res => {
-                    const { token, ...userInfo } = res.data
-                    this.setToken(token)
-                    this.setUserInfo(userInfo)
+                    const { token, uid, rid, ...userInfo } = res.data
+                    console.log(rid)
+                    this.$store.dispatch('user/setToken', token)
+                    this.$store.dispatch('user/setUid', uid)
+                    this.$store.dispatch('user/setRid', rid)
+                    this.$store.dispatch('user/setUserInfo', userInfo)
+                    this.$notify.success(res.errMsg)
                     this.resetFormData()
                     goToPath({ target: 'Home' })
-                    this.$notify.success(res.errMsg)
                 }).catch(err => {
                     this.$message.error(err.errMsg || err)
                 })

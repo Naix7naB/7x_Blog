@@ -8,6 +8,8 @@ export default {
     navbarVisibility: state => state.scroll.y > state.scroll.maxTransY && state.scroll.delta > 0,
     key: state => state.user.key,
     token: state => state.user.token,
+    uid: state => state.user.uid,
+    rid: state => state.user.rid,
     isLogin: state => (isEmpty(state.user.token) ? false : true),
     userInfo: state => state.user.userInfo,
     siteInfo: state => state.site.siteInfo,
