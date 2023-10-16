@@ -154,6 +154,18 @@ const routes = [
     },
     {
         hide: true,
+        path: '/user',
+        component: Layout,
+        children: [
+            {
+                path: '/user',
+                name: 'User',
+                component: () => import('@/views/user')
+            }
+        ]
+    },
+    {
+        hide: true,
         path: '/login',
         redirect: '/login',
         component: Layout,

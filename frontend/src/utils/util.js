@@ -65,11 +65,15 @@ function encrypt(plain, key) {
 function goToPath({ target, params = {}, query = {} }) {
     const currentRouteName = router.currentRoute.name
     if (target === currentRouteName) return false
-    router.push({
-        name: target,
-        params,
-        query
-    })
+    if (target === -1) {
+        router.back()
+    } else {
+        router.push({
+            name: target,
+            params,
+            query
+        })
+    }
 }
 
 export { padLeft, formatDate, encrypt, goToPath }
