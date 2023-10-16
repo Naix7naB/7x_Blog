@@ -8,7 +8,7 @@ export default {
     data() {
         return {
             banner: null,
-            background: 'https://t.mwm.moe/ai/'
+            background: 'https://t.mwm.moe/ai'
         }
     },
     methods: {

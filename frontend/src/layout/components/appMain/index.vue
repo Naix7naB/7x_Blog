@@ -1,6 +1,4 @@
 <script>
-import { mapActions } from 'vuex'
-
 export default {
     name: 'AppMain',
     data() {
@@ -15,9 +13,8 @@ export default {
         }
     },
     methods: {
-        ...mapActions('scroll', ['setScrollY']),
         onScroll(position) {
-            this.setScrollY(position.scrollTop)
+            this.$store.dispatch('scroll/setScrollY', position.scrollTop)
         },
         scrollTo({ offset, duration = 1000 }) {
             this.scroller && this.scroller.scrollTo({ y: offset }, duration)

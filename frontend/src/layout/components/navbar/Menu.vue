@@ -1,5 +1,4 @@
 <script>
-import { mapActions } from 'vuex'
 import { goToPath } from '@/utils/util'
 
 export default {
@@ -28,23 +27,21 @@ export default {
         }
     },
     methods: {
-        ...mapActions('user', ['clearUserInfo']),
-        ...mapActions('article', ['clearArticleInfo']),
         handleCommand(command) {
             command = command.charAt(0).toUpperCase() + command.slice(1)
             const methodName = 'command' + command
             this[methodName]()
         },
         commandPersonal() {
-            console.log('personal center')
+            goToPath({ target: 'User' })
         },
         commandLogin() {
             goToPath({ target: 'Login' })
         },
         commandLogout() {
-            this.clearUserInfo()
-            this.clearArticleInfo()
             goToPath({ target: 'Home' })
+            this.$store.dispatch('user/clearUserInfo')
+            this.$store.dispatch('article/clearArticleInfo')
             this.$notify.success('退出登陆')
         }
     }
@@ -92,7 +89,6 @@ export default {
 .navbar-menu--list {
     display: flex;
     align-items: center;
-    transition: color .3s ease-in-out;
 }
 
 .navbar-menu--item {
@@ -102,26 +98,31 @@ export default {
 .navbar-menu--item a {
     position: relative;
     color: inherit;
+    transition: color .3s ease-in-out;
 
     & > svg {
         color: inherit;
     }
 
     &::before {
-        @include bg-color(text-primary, .8);
         content: '';
         position: absolute;
-        bottom: -6px;
+        bottom: -8px;
         left: 50%;
         width: 0;
         height: 3px;
         border-radius: 4px;
+        background-color: $cl-lightblue;
         transform: translateX(-50%);
         transition: width .3s ease-in-out;
     }
 
-    &:hover::before {
-        width: 100%;
+    &:hover {
+        color: $cl-lightblue;
+
+        &::before {
+            width: 100%;
+        }
     }
 }
 

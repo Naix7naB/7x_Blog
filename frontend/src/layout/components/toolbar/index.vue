@@ -1,6 +1,4 @@
 <script>
-import { mapActions } from 'vuex'
-
 export default {
     name: 'Toolbar',
     computed: {
@@ -14,7 +12,9 @@ export default {
         }
     },
     methods: {
-        ...mapActions('setting', ['toggleTheme']),
+        toggleTheme() {
+            this.$store.dispatch('setting/toggleTheme')
+        },
         back2top() {
             if (this.isShowBack2Top) {
                 this.$bus.$emit('scrollTo', { offset: 0 })

@@ -2,7 +2,6 @@
 import { getArticlesAndSortedByDate, getArticleInfoById } from '@/apis/article'
 import { formatDate, goToPath } from '@/utils/util'
 import { isEmpty } from 'lodash-es'
-import { mapActions } from 'vuex'
 
 export default {
     name: 'ArchivePage',
@@ -28,12 +27,11 @@ export default {
         }
     },
     methods: {
-        ...mapActions('article', ['setArticleInfo']),
         formatDate,
         async toArticleDetail(aid) {
             try {
                 const { data } = await getArticleInfoById(aid)
-                this.setArticleInfo(data)
+                this.$store.dispatch('article/setArticleInfo', data)
                 goToPath({ target: 'Article', params: { aid } })
             } catch (err) {
                 this.$message.error(err.errMsg || err)
