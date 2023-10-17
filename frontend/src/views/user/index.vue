@@ -64,19 +64,24 @@ export default {
         this.initUserInfo()
     },
     beforeRouteLeave(to, from , next) {
-        if (!this.isModified) return false
-        this.$msgbox.confirm('当前页面内容未保存, 是否离开？', {
-            type: 'warning',
-            title: '提示',
-            cancelButtonText: '否',
-            confirmButtonText: '是',
-            callback: action => {
-                if (action === 'confirm') {
-                    this.submit()
-                    next()
+        if (!this.isModified) {
+            next()
+        } else {
+            this.$msgbox.confirm('当前页面内容未保存, 是否离开？', {
+                type: 'warning',
+                title: '提示',
+                cancelButtonText: '否',
+                confirmButtonText: '是',
+                callback: action => {
+                    if (action === 'confirm') {
+                        this.submit()
+                        next()
+                    } else {
+                        next(false)
+                    }
                 }
-            }
-        })
+            })
+        }
     }
 }
 </script>
