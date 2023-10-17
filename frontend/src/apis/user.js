@@ -8,6 +8,16 @@ function getUserRole(rid) {
     })
 }
 
+/* 上传头像 */
+function uploadAvatar({ filename, file }) {
+    return Request.postFile({
+        url: '/upload/user',
+        data: {
+            [filename]: file
+        }
+    })
+}
+
 /* 修改用户信息 */
 function modifyUserInfo(uid, info) {
     return Request.requestForm({
@@ -17,4 +27,4 @@ function modifyUserInfo(uid, info) {
     })
 }
 
-export { getUserRole, modifyUserInfo }
+export { getUserRole, uploadAvatar, modifyUserInfo }
