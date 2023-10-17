@@ -5,6 +5,7 @@ import live2d from './live2d'
 
 const EL_PARAM_MAP = {
     Message: '$message',
+    MessageBox: '$msgbox',
     Notification: '$notify'
 }
 

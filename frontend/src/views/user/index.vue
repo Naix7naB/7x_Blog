@@ -1,5 +1,5 @@
 <script>
-import { modifyUserInfo } from '@/apis/user'
+import { uploadAvatar, modifyUserInfo } from '@/apis/user'
 import { goToPath } from '@/utils/util'
 import { cloneDeep, isEqual } from 'lodash-es'
 
@@ -21,7 +21,7 @@ export default {
         uid() {
             return this.$store.getters.uid
         },
-        isUpdated() {
+        isModified() {
             return !isEqual(this.raw, this.user)
         }
     },
@@ -32,14 +32,27 @@ export default {
             this.user = cloneDeep(info)
             this.raw = cloneDeep(info)
         },
+        /* 上传头像 */
+        upload(req) {
+            uploadAvatar({
+                filename: req.filename,
+                file: req.file
+            }).then(({ data }) => {
+                this.user.avatar = data.fileUrls[0].url
+                this.$message.success('头像上传成功!')
+            }).catch(err => {
+                this.$message.error(err.errMsg || err)
+            })
+        },
         /* 取消修改 */
         cancel() {
             goToPath({ target: -1 })
         },
         /* 提交修改 */
         submit() {
-            if (!this.isUpdated) return false
+            if (!this.isModified) return false
             modifyUserInfo(this.uid, this.user).then(() => {
+                this.raw = cloneDeep(this.user)
                 this.$store.dispatch('user/setUserInfo', this.user)
                 this.$message.success('用户信息已修改')
             }).catch(err => {
@@ -49,6 +62,21 @@ export default {
     },
     created() {
         this.initUserInfo()
+    },
+    beforeRouteLeave(to, from , next) {
+        if (!this.isModified) return false
+        this.$msgbox.confirm('当前页面内容未保存, 是否离开？', {
+            type: 'warning',
+            title: '提示',
+            cancelButtonText: '否',
+            confirmButtonText: '是',
+            callback: action => {
+                if (action === 'confirm') {
+                    this.submit()
+                    next()
+                }
+            }
+        })
     }
 }
 </script>
@@ -66,6 +94,7 @@ export default {
                     :multiple="false"
                     :limit="1"
                     :show-file-list="false"
+                    :http-request="upload"
                 >
                     <el-avatar fit="cover" shape="square" :size="148" :src="user.avatar" />
                 </el-upload>

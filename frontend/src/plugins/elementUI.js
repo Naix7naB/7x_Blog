@@ -23,6 +23,7 @@ import {
     Empty,
     Loading,
     Message,
+    MessageBox,
     Notification
 } from 'element-ui'
 
@@ -48,5 +49,5 @@ export default {
         Empty,
         Loading.directive
     ],
-    others: [Message, Notification]
+    others: [Message, Notification, MessageBox]
 }
