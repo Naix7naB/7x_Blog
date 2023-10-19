@@ -17,11 +17,12 @@ export default {
             this.$bus.$emit('setQuery', null)
         },
         search() {
-            this.$bus.$emit('setQuery', {
+            const query = this.value ? {
                 title: this.value,
                 description: this.value,
                 content: this.value
-            })
+            } : null
+            this.$bus.$emit('setQuery', query)
         }
     }
 }
