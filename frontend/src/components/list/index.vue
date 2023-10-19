@@ -1,4 +1,6 @@
 <script>
+import { isEqual } from 'lodash-es'
+
 export default {
     name: 'BaseList',
     props: {
@@ -31,7 +33,8 @@ export default {
         }
     },
     watch: {
-        requestParams() {
+        requestParams(newParams, oldParams) {
+            if (isEqual(newParams, oldParams)) return false
             this.page = 1
             this.getDataList()
         },
