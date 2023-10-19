@@ -28,8 +28,8 @@ export default {
         isEmpty() {
             return this.list.length === 0
         },
-        isSinglePage() {
-            return this.pages === 1
+        isLastPage() {
+            return this.page === this.pages
         }
     },
     watch: {
@@ -86,7 +86,7 @@ export default {
             <el-empty v-else description="暂无数据..." />
         </div>
         <div v-if="!isEmpty" class="list-pagination">
-            <div v-if="isSinglePage" class="list-pagination--end">~~到底啦~~</div>
+            <div v-if="isLastPage" class="list-pagination--end">~~到底啦~~</div>
             <el-pagination
                 layout="prev, pager, next"
                 :background="true"

@@ -208,23 +208,6 @@ export default {
     right: 36px;
 }
 
-.article-pagination {
-    @include text-color(text-primary, .8);
-    margin-top: 50px;
-    text-align: center;
-    line-height: $lh-xm;
-    font-size: $fz-xm;
-    transition: color .3s ease-in-out;
-}
-
-.article-pagination--loadmore {
-    @include border-color(text-primary, .8);
-    padding: 4px 20px;
-    border: 1px solid;
-    border-radius: 2rem;
-    cursor: pointer;
-}
-
 /* 媒体查询样式 */
 @media screen and (max-width: 700px) {
     .article-item {

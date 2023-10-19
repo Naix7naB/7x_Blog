@@ -10,6 +10,11 @@ export default {
             isShow: true
         }
     },
+    computed: {
+        background() {
+            return process.env.VUE_APP_SCENERY_IMAGE_URL
+        }
+    },
     methods: {
         showLogin(flag) {
             this.isShow = flag
@@ -21,7 +26,7 @@ export default {
 
 <template>
     <div class="login-page">
-        <el-image class="is-background" fit="cover" src="https://t.mwm.moe/fj" />
+        <el-image class="is-background" fit="cover" :src="background" />
         <div class="login-container">
             <LoginBox ref="loginBox" :isShow="isShow" />
             <LoginOverlay :isShow="isShow" @showLogin="showLogin" />

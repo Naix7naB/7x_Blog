@@ -25,8 +25,8 @@ function setColorScheme(theme) {
 export default {
     namespaced: true,
     state: {
-        isLoading: true,
         isInit: false,
+        isLoading: true,
         theme: Storage.get('_theme_', 'light')
     },
     mutations: {

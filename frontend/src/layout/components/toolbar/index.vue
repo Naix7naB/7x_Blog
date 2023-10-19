@@ -5,7 +5,7 @@ export default {
         theme() {
             return this.$store.getters.theme
         },
-        isShowBack2Top() {
+        showBack2Top() {
             const scrollTop = this.$store.getters.scrollTop
             const screenHeight = window.screen.height
             return Math.ceil(scrollTop) >= Math.ceil(screenHeight / 2)
@@ -16,7 +16,7 @@ export default {
             this.$store.dispatch('setting/toggleTheme')
         },
         back2top() {
-            if (this.isShowBack2Top) {
+            if (this.showBack2Top) {
                 this.$bus.$emit('scrollTo', { offset: 0 })
             }
         }
@@ -36,13 +36,14 @@ export default {
                 </span>
             </transition>
         </div>
-        <div v-if="isShowBack2Top" class="toolbar-item" @click="back2top">
+        <div v-if="showBack2Top" class="toolbar-item" @click="back2top">
             <span><fa-icon icon="fas fa-arrow-up" size="xl" /></span>
         </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
+/* 工具栏样式 */
 .toolbar {
     z-index: 10;
     position: fixed;

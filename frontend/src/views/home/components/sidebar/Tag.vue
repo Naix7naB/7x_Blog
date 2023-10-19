@@ -9,9 +9,6 @@ export default {
             tags: []
         }
     },
-    computed: {
-
-    },
     methods: {
         select({ id, name }) {
             goToPath({

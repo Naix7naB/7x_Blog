@@ -36,8 +36,7 @@ export default {
             return this.$store.getters.articleInfo
         },
         isLike() {
-            const likeUsers = this.articleInfo.like_users
-            return likeUsers.includes(this.uid)
+            return this.articleInfo.like_users.includes(this.uid)
         }
     },
     methods: {

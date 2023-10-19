@@ -57,6 +57,7 @@ export default {
     left: 20%;
     bottom: 20px;
     color: $cl-light-1;
+    white-space: nowrap;
 }
 
 .article-meta--title {
@@ -91,5 +92,12 @@ export default {
 
 .article-meta--num {
     margin-left: 4px;
+}
+
+@media screen and (max-width: 1000px) {
+    .article-head--meta {
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }
 </style>

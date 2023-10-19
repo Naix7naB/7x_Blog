@@ -37,6 +37,7 @@ export default {
         }
     },
     methods: {
+        /* 发送请求 */
         async handleRequest() {
             this.currentFormRef.submit(async data => {
                 /* 获取加密密钥 处理表单数据 */
@@ -59,6 +60,7 @@ export default {
                 })
             })
         },
+        /* 重置表单数据 */
         resetFormData() {
             this.currentFormRef.reset()
         }

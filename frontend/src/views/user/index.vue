@@ -23,6 +23,9 @@ export default {
         },
         isModified() {
             return !isEqual(this.raw, this.user)
+        },
+        background() {
+            return process.env.VUE_APP_SCENERY_IMAGE_URL
         }
     },
     methods: {
@@ -87,7 +90,7 @@ export default {
 
 <template>
     <div class="user-page">
-        <el-image class="is-background" fit="cover" src="https://t.mwm.moe/fj" />
+        <el-image class="is-background" fit="cover" :src="background" />
         <div class="user-info--container">
             <div class="user-info--item">
                 <span class="user-info--label">头像: </span>

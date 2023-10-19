@@ -7,6 +7,9 @@ export default {
         }
     },
     computed: {
+        background() {
+            return process.env.VUE_APP_SCENERY_IMAGE_URL
+        },
         secondTitle() {
             const base = this.$route.meta.secondTitle
             return this.label ? base + ' - ' + this.label : base
@@ -26,7 +29,7 @@ export default {
 <template>
     <div>
         <div class="secondary-cover">
-            <el-image class="is-background" fit="cover" src="https://t.mwm.moe/fj" />
+            <el-image class="is-background" fit="cover" :src="background" />
             <h3 class="cover-title">{{ secondTitle }}</h3>
         </div>
         <div class="secondary-content">

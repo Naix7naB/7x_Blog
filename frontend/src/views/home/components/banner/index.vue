@@ -2,13 +2,15 @@
 import About from './About'
 import Wave from './Wave'
 
+const BG_IMAGE = process.env.VUE_APP_AI_IMAGE_URL
+
 export default {
     name: 'Banner',
     components: { About, Wave },
     data() {
         return {
             banner: null,
-            background: 'https://t.mwm.moe/ai'
+            background: BG_IMAGE
         }
     },
     methods: {
@@ -21,7 +23,7 @@ export default {
         refreshImageInterval(delay = 600 * 1000) {
             return setInterval(() => {
                 const timestamp = Date.now()
-                this.background = `https://t.mwm.moe/ai/?timestamp=${timestamp}`
+                this.background = `${BG_IMAGE}/?timestamp=${timestamp}`
             }, delay)
         }
     },
@@ -96,5 +98,12 @@ export default {
     color: $cl-light-5;
     transform: translateX(-50%);
     cursor: pointer;
+}
+
+/* 媒体查询样式 */
+@media screen and (max-width: 1000px) {
+    .banner-about {
+        min-width: 0;
+    }
 }
 </style>
