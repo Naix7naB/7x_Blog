@@ -58,7 +58,7 @@ function getArticlesAndSortedByDate(condition) {
     })
 }
 
-/* 根据文章ID获取详细内容 */
+/* 根据文章ID修改点赞状态 */
 function getArticleInfoById(aid) {
     return Request.request({
         methodType: Request.GET,
@@ -66,4 +66,17 @@ function getArticleInfoById(aid) {
     })
 }
 
-export { getArticleList, getRecommendArticles, getArticlesAndSortedByDate, getArticleInfoById }
+function changeLikeState(aid) {
+    return Request.request({
+        methodType: Request.POST,
+        url: `/article/like/${aid}`
+    })
+}
+
+export {
+    getArticleList,
+    getRecommendArticles,
+    getArticlesAndSortedByDate,
+    getArticleInfoById,
+    changeLikeState
+}

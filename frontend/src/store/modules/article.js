@@ -16,9 +16,7 @@ export default {
         }
     },
     actions: {
-        setArticleInfo({ state, commit }, info) {
-            const id = state.articleInfo && state.articleInfo.id
-            if (id === info.id) return false
+        setArticleInfo({ commit }, info) {
             commit('_set_article_info_', info)
         },
         increaseCommentCount({ state, commit }) {
