@@ -18,7 +18,7 @@ import {
     faAngleRight as fasAngleRight,
     faCalendarDays as fasCalendarDays,
     faFire as fasFire,
-    faHeart as fasHeart,
+    faThumbsUp as fasThumbsUp,
     faComment as fasComment,
     faTag as fasTag,
     faSliders as fasSliders,
@@ -41,7 +41,7 @@ import {
     faFolderOpen as farFolderOpen,
     faFaceLaugh as farFaceLaugh,
     faImage as farImage,
-    faHeart as farHeart,
+    faThumbsUp as farThumbsUp,
     faComment as farComment
 } from '@fortawesome/free-regular-svg-icons'
 
@@ -61,7 +61,7 @@ library.add([
     fasAngleRight,
     fasCalendarDays,
     fasFire,
-    fasHeart,
+    fasThumbsUp,
     fasComment,
     fasTag,
     fasSliders,
@@ -81,7 +81,7 @@ library.add([
     farFolderOpen,
     farFaceLaugh,
     farImage,
-    farHeart,
+    farThumbsUp,
     farComment
 ])
 

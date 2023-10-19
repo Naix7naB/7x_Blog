@@ -37,7 +37,7 @@ export default {
                     <span class="article-meta--num">{{ articleInfo?.comment_count }}</span>
                 </div>
                 <div class="article-meta--item">
-                    <fa-icon icon="fas fa-heart" />
+                    <fa-icon icon="fas fa-thumbs-up" />
                     <span class="article-meta--num">{{ articleInfo?.like_count }}</span>
                 </div>
             </div>

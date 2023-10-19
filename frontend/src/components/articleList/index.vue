@@ -79,8 +79,8 @@ export default {
                                 <span>评论 {{ article.comment_count }}</span>
                             </span>
                             <span class="article-meta--item">
-                                <fa-icon icon="fas fa-heart" />
-                                <span>喜欢 {{ article.like_count }}</span>
+                                <fa-icon icon="fas fa-thumbs-up" />
+                                <span>点赞 {{ article.like_count }}</span>
                             </span>
                         </div>
                         <p class="article-info--desc">{{ article.description }}</p>
