@@ -74,7 +74,6 @@ export default {
                 confirmButtonText: '是',
                 callback: action => {
                     if (action === 'confirm') {
-                        this.submit()
                         next()
                     } else {
                         next(false)
