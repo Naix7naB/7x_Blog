@@ -20,7 +20,7 @@ const routes = [
             {
                 path: '/',
                 name: 'Home',
-                component: () => import('@/views/home')
+                component: () => import(/* webpackChunkName: "Home" */ '@/views/home')
             }
         ]
     },
@@ -43,7 +43,10 @@ const routes = [
                         meta: {
                             secondTitle: '分类'
                         },
-                        component: () => import('@/views/category/CategoryList')
+                        component: () =>
+                            import(
+                                /* webpackChunkName: "Category" */ '@/views/category/CategoryList'
+                            )
                     },
                     {
                         path: ':cid',
@@ -51,7 +54,10 @@ const routes = [
                         meta: {
                             secondTitle: '分类'
                         },
-                        component: () => import('@/views/category/CategoryArticle')
+                        component: () =>
+                            import(
+                                /* webpackChunkName: "Category" */ '@/views/category/CategoryArticle'
+                            )
                     }
                 ]
             }
@@ -76,7 +82,7 @@ const routes = [
                         meta: {
                             secondTitle: '标签'
                         },
-                        component: () => import('@/views/tag/TagList')
+                        component: () => import(/* webpackChunkName: "Tag" */ '@/views/tag/TagList')
                     },
                     {
                         path: ':tid',
@@ -84,7 +90,8 @@ const routes = [
                         meta: {
                             secondTitle: '标签'
                         },
-                        component: () => import('@/views/tag/TagArticle')
+                        component: () =>
+                            import(/* webpackChunkName: "Tag" */ '@/views/tag/TagArticle')
                     }
                 ]
             }
@@ -109,7 +116,7 @@ const routes = [
                         meta: {
                             secondTitle: '归档'
                         },
-                        component: () => import('@/views/archive')
+                        component: () => import(/* webpackChunkName: "Archive" */ '@/views/archive')
                     }
                 ]
             }
@@ -134,7 +141,7 @@ const routes = [
                         meta: {
                             secondTitle: '留言板'
                         },
-                        component: () => import('@/views/message')
+                        component: () => import(/* webpackChunkName: "Message" */ '@/views/message')
                     }
                 ]
             }
@@ -148,7 +155,7 @@ const routes = [
             {
                 path: ':aid',
                 name: 'Article',
-                component: () => import('@/views/article')
+                component: () => import(/* webpackChunkName: "Article" */ '@/views/article')
             }
         ]
     },
@@ -160,7 +167,7 @@ const routes = [
             {
                 path: '/user',
                 name: 'User',
-                component: () => import('@/views/user')
+                component: () => import(/* webpackChunkName: "User" */ '@/views/user')
             }
         ]
     },
@@ -173,7 +180,7 @@ const routes = [
             {
                 path: '/login',
                 name: 'Login',
-                component: () => import('@/views/login')
+                component: () => import(/* webpackChunkName: "Login" */ '@/views/login')
             }
         ]
     },
@@ -184,7 +191,10 @@ const routes = [
     }
 ]
 
-const router = new VueRouter({ routes, mode: 'history' })
+const router = new VueRouter({
+    mode: 'hash',
+    routes
+})
 
 router.beforeEach((to, from, next) => {
     store.dispatch('setting/initTheme')
