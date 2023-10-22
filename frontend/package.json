@@ -12,22 +12,21 @@
         "@fortawesome/free-regular-svg-icons": "^6.4.2",
         "@fortawesome/free-solid-svg-icons": "^6.4.2",
         "@fortawesome/vue-fontawesome": "^2.0.10",
-        "@vueuse/core": "5.x.x",
-        "axios": "^1.2.0",
+        "@vueuse/core": "^5.3.0",
+        "axios": "^1.5.1",
         "core-js": "^3.26.1",
         "element-ui": "^2.15.13",
         "emoji-mart-vue-fast": "^15.0.0",
         "github-markdown-css": "^5.2.0",
         "highlight.js": "^11.8.0",
-        "jsencrypt": "^3.3.1",
+        "jsencrypt": "^3.3.2",
         "lodash-es": "^4.17.21",
         "showdown": "^2.1.0",
         "typed.js": "^2.0.16",
-        "v-viewer": "^1.7.1",
-        "viewerjs": "^1.11.4",
+        "viewerjs": "^1.11.6",
         "vue": "^2.7.14",
         "vue-router": "^3.6.5",
-        "vuescroll": "^4.17.5",
+        "vuescroll": "^4.18.1",
         "vuex": "^3.6.2"
     },
     "devDependencies": {
@@ -38,6 +37,8 @@
         "@vue/cli-plugin-router": "~5.0.8",
         "@vue/cli-plugin-vuex": "~5.0.8",
         "@vue/cli-service": "~5.0.8",
+        "babel-plugin-component": "^1.1.1",
+        "compression-webpack-plugin": "^10.0.0",
         "eslint": "^7.32.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-prettier": "^4.2.1",
@@ -48,6 +49,7 @@
         "sass": "^1.56.1",
         "sass-loader": "^13.2.0",
         "vue-template-compiler": "^2.7.14",
-        "webpack": "^5.82.1"
+        "webpack": "^5.82.1",
+        "webpack-bundle-analyzer": "^4.9.1"
     }
 }
