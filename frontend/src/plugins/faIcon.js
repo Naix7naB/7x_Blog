@@ -85,4 +85,8 @@ library.add([
     farComment
 ])
 
-export default FontAwesomeIcon
+export default {
+    install(Vue) {
+        Vue.component('fa-icon', FontAwesomeIcon)
+    }
+}
