@@ -1,11 +1,13 @@
 <script>
 import { Picker as EmojiMartPicker, EmojiIndex } from 'emoji-mart-vue-fast'
-import EmojiTwitter from 'emoji-mart-vue-fast/data/twitter.json'
-import 'emoji-mart-vue-fast/css/emoji-mart.css'
+
+import { getEmojiJsonData } from '@/apis/other'
+import { emojiType, i18n } from '@/config/emoji.config'
+import { isEmpty } from 'lodash-es'
 
 export default {
-    functional: true,
     name: 'EmojiPicker',
+    components: { EmojiMartPicker },
     props: {
         showCategory: {
             type: Boolean,
@@ -25,47 +27,69 @@ export default {
             }
         }
     },
-    render(h, ctx) {
-        const { showCategory, showSearch, pickerStyle } = ctx.props
-        const i18n = {
-            search: '搜索',
-            notfound: '没有找到对应表情',
-            categories: {
-                search: '搜索结果',
-                recent: '最近使用',
-                smileys: '心情',
-                people: '人物',
-                nature: '动物与大自然',
-                foods: '食物与饮料',
-                activity: '活动',
-                places: '旅行与地点',
-                objects: '物品',
-                symbols: '符号',
-                flags: '旗',
-                custom: '自定义'
-            }
+    data() {
+        return {
+            emojiData: {},
+            emojiType: emojiType,
+            emojiI18n: i18n
         }
-
-        const emojiData = new EmojiIndex(EmojiTwitter)
-
-        return h(EmojiMartPicker, {
-            props: {
-                set: 'twitter',
-                data: emojiData,
-                emojiTooltip: true,
-                i18n: i18n,
-                pickerStyles: pickerStyle,
-                showCategories: showCategory,
-                showPreview: false,
-                showSearch: showSearch,
-                showSkinTones: false
-            },
-            on: {
-                select(emoji) {
-                    ctx.listeners.emoji(emoji.native)
+    },
+    computed: {
+        existData() {
+            return !isEmpty(this.emojiData)
+        }
+    },
+    methods: {
+        /* 加载外部的json文件 */
+        async loadExternalEmojiJson() {
+            try {
+                let emojiJson = this.$store.getters.emojiJson
+                if (!emojiJson) {
+                    const { data } = await getEmojiJsonData(this.emojiType)
+                    this.$store.dispatch('setting/setEmojiJson', data)
+                    emojiJson = data
                 }
+                this.emojiData = new EmojiIndex(emojiJson)
+            } catch (err) {
+                this.$message.error('获取表情包失败')
             }
-        })
+        },
+        /* 选中表情 */
+        onSelectEmoji(emoji) {
+            this.$emit('emoji', emoji.native)
+        }
+    },
+    created() {
+        this.loadExternalEmojiJson()
     }
 }
 </script>
+
+<template>
+    <div
+        class="emoji-picker--wrapper"
+        v-loading="$store.getters.isLoading"
+        element-loading-text="拼命加载中"
+        element-loading-background="transparent"
+    >
+        <emoji-mart-picker
+            v-if="existData"
+            :set="emojiType"
+            :data="emojiData"
+            :i18n="emojiI18n"
+            :emojiTooltip="true"
+            :pickerStyles="pickerStyle"
+            :showCategories="showCategory"
+            :showSearch="showSearch"
+            :showSkinTones="false"
+            :showPreview="false"
+            @select="onSelectEmoji"
+        />
+    </div>
+</template>
+
+<style lang="scss" scoped>
+.emoji-picker--wrapper {
+    min-height: 200px;
+}
+</style>

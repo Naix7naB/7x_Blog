@@ -27,11 +27,16 @@ export default {
     state: {
         isInit: false,
         isLoading: true,
+        emojiJson: Storage.get('_emoji_json_'),
         theme: Storage.get('_theme_', 'light')
     },
     mutations: {
         _set_loading_state_(state, isLoading) {
             state.isLoading = isLoading
+        },
+        _set_emoji_json_(state, json) {
+            state.emojiJson = json
+            Storage.set('_emoji_json_', json)
         },
         _init_theme_(state) {
             if (!state.isInit) {
@@ -51,6 +56,9 @@ export default {
     actions: {
         setLoadingState({ commit }, isLoading) {
             commit('_set_loading_state_', isLoading)
+        },
+        setEmojiJson({ commit }, json) {
+            commit('_set_emoji_json_', json)
         },
         initTheme({ commit }) {
             commit('_init_theme_')
