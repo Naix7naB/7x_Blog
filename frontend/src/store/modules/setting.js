@@ -3,23 +3,24 @@ import Storage from '@/utils/storage'
 import { useToggle } from '@vueuse/core'
 import { isEqual } from 'lodash-es'
 
+// 设置主题方案
 function setColorScheme(theme) {
-    const links = document.querySelectorAll('link')
-    links.forEach(link => {
-        const regex = new RegExp(/.+github-markdown-css.+/, 'gi')
-        if (regex.test(link.href)) {
-            link.disabled = !link.disabled
-        }
-    })
-    import(`github-markdown-css/github-markdown-${theme}.css`)
-        .then(() => {
-            const body = document.body || document.documentElement
-            body.setAttribute('color-scheme', theme)
-            body.style.colorScheme = theme
-        })
-        .catch(err => {
-            console.error(new Error(err))
-        })
+    const body = document.body || document.documentElement
+    body.setAttribute('color-scheme', theme)
+    body.style.colorScheme = theme
+}
+
+// 加载外部Markdown样式
+function loadExternalMarkdownCss(theme) {
+    const href = `${process.env.VUE_APP_CDN_PATH}/github-markdown-css@5.3.0/github-markdown-${theme}.css`
+    let link = document.querySelector('link#markdown')
+    if (!link) {
+        link = document.createElement('link')
+        link.setAttribute('id', 'markdown')
+        link.setAttribute('rel', 'stylesheet')
+        document.head.appendChild(link)
+    }
+    link.setAttribute('href', href)
 }
 
 export default {
@@ -42,6 +43,7 @@ export default {
             if (!state.isInit) {
                 state.isInit = true
                 setColorScheme(state.theme)
+                loadExternalMarkdownCss(state.theme)
             }
         },
         _toggle_theme_(state) {
@@ -50,6 +52,7 @@ export default {
             const theme = isDark.value ? 'dark' : 'light'
             state.theme = theme
             setColorScheme(theme)
+            loadExternalMarkdownCss(theme)
             Storage.set('_theme_', theme)
         }
     },
