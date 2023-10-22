@@ -3,6 +3,27 @@
     z-index: 900 !important;
 }
 
+/* Cutom TypedCursor 样式 */
+.typed-cursor{
+    opacity: 1;
+}
+
+.typed-cursor.typed-cursor--blink{
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink{
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 /* Custom ElementUI 样式 */
 .el-avatar {
     display: block !important;

@@ -1,5 +1,6 @@
-import { isEqual } from 'lodash-es'
 import Typed from 'typed.js'
+
+import { isEqual } from 'lodash-es'
 
 const createTyped = (el, texts) => {
     return new Typed(el, {
@@ -9,6 +10,7 @@ const createTyped = (el, texts) => {
         backSpeed: 60,
         backDelay: 2500,
         cursorChar: '_',
+        autoInsertCss: false,
         loop: true
     })
 }
