@@ -1,15 +1,20 @@
 <script>
+import VueScroll from 'vuescroll/dist/vuescroll-native'
+import VueScrollConfig from '@/config/vuescroll.config'
+
 export default {
     name: 'AppMain',
+    components: { VueScroll },
     data() {
         return {
-            scroller: null
+            scroller: null,
+            scrollerOps: VueScrollConfig
         }
     },
     watch: {
         $route() {
             this.refresh()
-            this.scrollTo({ offset: 0 })
+            this.scrollTo({ offset: 0, duration: 100 })
         }
     },
     methods: {
@@ -34,9 +39,9 @@ export default {
 
 <template>
     <main class="app-main">
-        <vuescroll ref="scroller" @handle-scroll="onScroll">
+        <vue-scroll ref="scroller" :ops="scrollerOps" @handle-scroll="onScroll">
             <router-view :key="this.$route.name" />
-        </vuescroll>
+        </vue-scroll>
     </main>
 </template>
 
@@ -44,7 +49,6 @@ export default {
 .app-main {
     @include bg-color(bg-primary);
     user-select: none;
-    overflow: hidden;
     width: 100%;
     height: 100%;
     transition: background-color .3s ease-in-out;

@@ -1,6 +1,5 @@
 import ElementUI from './elementUI'
 import FontAwesomeIcon from './faIcon'
-import vuescroll from './vuescroll'
 import live2d from './live2d'
 
 const EL_PARAM_MAP = {
@@ -19,7 +18,6 @@ export default {
             Vue.prototype[param] = item
         })
         Vue.component('fa-icon', FontAwesomeIcon)
-        Vue.use(vuescroll.instance, vuescroll.options)
         Vue.use(live2d)
     }
 }
