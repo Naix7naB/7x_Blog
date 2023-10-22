@@ -1,12 +1,11 @@
 import highlight from './highlight'
+import imagePreview from './imagePreview'
 import typed from './typed'
-import { directive as viewer } from 'v-viewer'
-import 'viewerjs/dist/viewer.min.css'
 
 export default {
     install(Vue) {
         Vue.directive('highlight', highlight)
+        Vue.directive('image-preview', imagePreview)
         Vue.directive('typed', typed)
-        Vue.directive('viewer', viewer())
     }
 }
