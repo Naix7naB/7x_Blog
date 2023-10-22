@@ -39,6 +39,9 @@ export default {
         }
     },
     computed: {
+        isLogin() {
+            return this.$store.getters.isLogin
+        },
         pickerStyle() {
             return {
                 width: '100%',
@@ -71,6 +74,7 @@ export default {
         },
         /* 发表评论 */
         submit() {
+            if (!this.isLogin) return this.$message.warning('请先登陆后操作')
             this.$emit('post', this.comment)
             this.$store.dispatch(this.dispatchType)
             this.showEmoji = false

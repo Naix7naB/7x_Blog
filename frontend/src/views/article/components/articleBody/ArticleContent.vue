@@ -35,6 +35,9 @@ export default {
         articleInfo() {
             return this.$store.getters.articleInfo
         },
+        isLogin() {
+            return this.$store.getters.isLogin
+        },
         isLike() {
             return this.articleInfo.like_users.includes(this.uid)
         }
@@ -43,6 +46,7 @@ export default {
         formatDate,
         /* 点击点赞图标触发事件 */
         onClick() {
+            if (!this.isLogin) return this.$message.warning('请先登陆后操作')
             const msg = this.isLike ? '取消点赞' : '点赞成功'
             const info = this.isLike ? this.unlike() : this.like()
             this.$store.dispatch('article/setArticleInfo', info)
