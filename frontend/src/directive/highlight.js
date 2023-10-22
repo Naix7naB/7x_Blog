@@ -1,7 +1,6 @@
 import showdown from 'showdown'
 import hljs from 'highlight.js'
 
-import 'highlight.js/styles/atom-one-dark.css'
 import '@/assets/scss/highlight.scss'
 
 const converter = new showdown.Converter({
