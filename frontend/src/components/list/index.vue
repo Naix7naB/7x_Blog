@@ -12,6 +12,10 @@ export default {
             type: Object,
             default: () => {}
         },
+        emptyText: {
+            type: String,
+            default: '暂无数据'
+        },
         size: {
             type: Number,
             default: 10
@@ -83,7 +87,7 @@ export default {
     >
         <div class="list-content">
             <slot v-if="!isEmpty" :list="list" />
-            <el-empty v-else description="暂无数据..." />
+            <el-empty v-else :description="emptyText" />
         </div>
         <div v-if="!isEmpty" class="list-pagination">
             <div v-if="isLastPage" class="list-pagination--end">~~到底啦~~</div>

@@ -48,25 +48,32 @@ export default {
 </script>
 
 <template>
-    <BaseList ref="list" :requestApi="getCommentList" :requestParams="requestParams">
-        <template slot-scope="{ list }">
-            <div v-if="stats" class="comment-stats">
-                <span>{{ stats.label }}</span>
-                <span class="comment-stats--count">共{{ stats.total }}条评论</span>
-            </div>
-            <ul v-if="list.length !== 0" class="comment-list">
-                <li v-for="comment in list" :key="comment.id">
-                    <CommentItem
-                        :topic="topic"
-                        :topId="comment.id"
-                        :comment="comment"
-                        :replying="currentReplyId === comment.id"
-                        @reply="onReply"
-                    />
-                </li>
-            </ul>
-        </template>
-    </BaseList>
+    <div>
+        <div v-if="stats" class="comment-stats">
+            <span>{{ stats.label }}</span>
+            <span class="comment-stats--count">共{{ stats.total }}条评论</span>
+        </div>
+        <BaseList
+            ref="list"
+            emptyText="快来发表留言吧~"
+            :requestApi="getCommentList"
+            :requestParams="requestParams"
+        >
+            <template slot-scope="{ list }">
+                <ul v-if="list.length !== 0" class="comment-list">
+                    <li v-for="comment in list" :key="comment.id">
+                        <CommentItem
+                            :topic="topic"
+                            :topId="comment.id"
+                            :comment="comment"
+                            :replying="currentReplyId === comment.id"
+                            @reply="onReply"
+                        />
+                    </li>
+                </ul>
+            </template>
+        </BaseList>
+    </div>
 </template>
 
 <style lang="scss" scoped>
@@ -93,7 +100,7 @@ export default {
         left: -10px;
         width: 1px;
         height: 12px;
-        background-color: rgba($color: $cl-gray-1, $alpha: .5);
+        background-color: $cl-gray-1;
         transform: scaleX(.5);
     }
 }

@@ -43,7 +43,7 @@ export default {
 </script>
 
 <template>
-    <BaseList :requestApi="getArticleList" :requestParams="requestParams">
+    <BaseList emptyText="暂无文章数据" :requestApi="getArticleList" :requestParams="requestParams">
         <template slot-scope="{ list }">
             <ul class="article-list">
                 <li
