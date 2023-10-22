@@ -2,7 +2,7 @@
 import About from './About'
 import Wave from './Wave'
 
-const BG_IMAGE = process.env.VUE_APP_AI_IMAGE_URL
+const BG_IMAGE = process.env.VUE_APP_AI_IMAGE_API_PATH
 
 export default {
     name: 'Banner',

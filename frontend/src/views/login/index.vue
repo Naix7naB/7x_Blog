@@ -12,7 +12,7 @@ export default {
     },
     computed: {
         background() {
-            return process.env.VUE_APP_SCENERY_IMAGE_URL
+            return process.env.VUE_APP_SCENERY_IMAGE_API_PATH
         }
     },
     methods: {

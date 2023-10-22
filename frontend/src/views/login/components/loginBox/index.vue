@@ -47,7 +47,6 @@ export default {
                 /* 发送请求 */
                 this.currentRequest(data).then(res => {
                     const { token, uid, rid, ...userInfo } = res.data
-                    console.log(rid)
                     this.$store.dispatch('user/setToken', token)
                     this.$store.dispatch('user/setUid', uid)
                     this.$store.dispatch('user/setRid', rid)

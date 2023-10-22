@@ -25,7 +25,7 @@ export default {
             return !isEqual(this.raw, this.user)
         },
         background() {
-            return process.env.VUE_APP_SCENERY_IMAGE_URL
+            return process.env.VUE_APP_SCENERY_IMAGE_API_PATH
         }
     },
     methods: {
@@ -75,6 +75,7 @@ export default {
                 title: '提示',
                 cancelButtonText: '否',
                 confirmButtonText: '是',
+                closeOnHashChange: false,
                 callback: action => {
                     if (action === 'confirm') {
                         next()

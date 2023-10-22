@@ -81,7 +81,7 @@ export default {
 
 <template>
     <div class="article-content">
-        <article class="markdown-body" v-highlight="articleInfo?.content" v-viewer="viewerOption" />
+        <article class="markdown-body" v-highlight="articleInfo?.content" v-image-preview />
         <p class="article-content--updated">
             <span>文章最后更新于</span>
             <span>{{ formatDate(articleInfo?.updated_at) }}</span>
