@@ -22,7 +22,7 @@ const columns = [
     },
     {
         prop: 'creator.nickname',
-        label: '创建用户',
+        label: '创建者',
         minWidth: 120
     },
     {

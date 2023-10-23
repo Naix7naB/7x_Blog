@@ -3,7 +3,7 @@ import BaseForm from '@/components/form'
 import Popup from '@/components/popup'
 import Operator from '@/components/operator'
 
-import { cloneDeep, isArray, isEmpty, isEqual } from 'lodash-es'
+import { cloneDeep, isArray, isEmpty, isEqual, toPairs } from 'lodash-es'
 
 const OPT_EVENT_MAP = {
     add: 'optAdd',
@@ -72,7 +72,6 @@ export default {
     data() {
         return {
             datasource: [],
-            condition: {},
             query: {},
             selection: [],
             currentPage: 1,
@@ -96,9 +95,9 @@ export default {
         },
         /* 处理数据 */
         handleValue(row, item) {
-            let value = item.prop.split('.').reduce((pre, cur) => {
-                pre = pre?.[cur]
-                return pre
+            let value = item.prop.split('.').reduce((prev, curr) => {
+                prev = prev?.[curr]
+                return prev
             }, row)
             if (item.formatter && typeof item.formatter === 'function') {
                 value = item.formatter(value)
@@ -111,7 +110,6 @@ export default {
             this.requestApi({
                 page: this.currentPage,
                 size: this.pageSize,
-                condition: this.condition,
                 query: this.query
             }).then(res => {
                 const { list, total } = res.data
@@ -144,19 +142,17 @@ export default {
         /* 查找表格匹配项 */
         queryTable() {
             this.$refs.query.submitForm(data => {
-                const rowData = this.queryForm.data
-                Object.entries(rowData).forEach(([key, val]) => {
-                    if (!isEqual(data[key], val)) {
-                        if (key === 'dateRange') {
-                            this.condition['created_at'] = {
-                                $gte: data[key][0],
-                                $lte: data[key][1]
-                            }
-                        } else {
-                            this.query[key] = data[key]
+                this.query = toPairs(data).reduce((prev, [key, val]) => {
+                    if (key === 'dateRange') {
+                        prev['created_at'] = {
+                            $gte: val[0],
+                            $lte: val[1]
                         }
+                    } else {
+                        prev[key] = val
                     }
-                })
+                    return prev
+                }, {})
                 this.refreshData()
             })
         },
@@ -190,14 +186,13 @@ export default {
         },
         /* 重置查询条件 */
         resetQuery() {
-            this.condition = {}
             this.query = {}
         },
         /* 重置查询表单的数据 */
         resetQueryForm() {
             const rawData = this.$refs.query.raw
             const queryData = this.$refs.query.showing
-            const isQueried = !isEmpty(this.condition) || !isEmpty(this.query)
+            const isQueried = !isEmpty(this.query)
             if (isEqual(queryData, rawData)) return false
             this.$refs.query.resetFormData()
             if (isQueried) {

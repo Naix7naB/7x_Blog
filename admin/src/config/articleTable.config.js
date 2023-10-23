@@ -102,7 +102,8 @@ const queryForm = {
         dateRange: null,
         title: '',
         category: '',
-        tags: ''
+        tags: '',
+        published: ''
     },
     items: [
         {
@@ -143,6 +144,26 @@ const queryForm = {
                 multiple: false
             },
             options: handleFormItemOptions('tags')
+        },
+        {
+            type: 'select',
+            prop: 'published',
+            label: '文章状态',
+            placeholder: '选择文章状态',
+            others: {
+                filterable: true,
+                multiple: false
+            },
+            options: [
+                {
+                    label: '已发布',
+                    value: true
+                },
+                {
+                    label: '未发布',
+                    value: false
+                }
+            ]
         }
     ]
 }
