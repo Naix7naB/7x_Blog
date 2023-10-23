@@ -47,6 +47,12 @@ const schema = new mongoose.Schema(
                 type: mongoose.SchemaTypes.ObjectId
             }
         ],
+        like_users: [
+            {
+                ref: 'User',
+                type: mongoose.SchemaTypes.ObjectId
+            }
+        ],
         view_count: {
             type: Number,
             default: 0
