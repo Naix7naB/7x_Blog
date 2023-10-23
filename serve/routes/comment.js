@@ -61,7 +61,6 @@ Router.delete('/:id', async (req, res, next) => {
         // 后续操作
         const filterKey = delRes.parent_id ? 'reply_id' : 'parent_id'
         const { deletedCount } = await Comment.deleteMany({ [filterKey]: delRes.id })
-        console.log(deletedCount)
         const followAct = FollowAction.getAction('DELETE', 'Comment')
         if (followAct) {
             followAct.forEach(async item => {

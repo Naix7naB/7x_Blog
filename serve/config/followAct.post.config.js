@@ -1,5 +1,6 @@
 const Article = require('../models/Article')
 const Category = require('../models/Category')
+const Comment = require('../models/Comment')
 const Site = require('../models/Site')
 const Tag = require('../models/Tag')
 
@@ -95,6 +96,20 @@ module.exports = {
                 return {
                     $inc: {
                         message_count: 1
+                    }
+                }
+            }
+        },
+        {
+            _model_: Comment,
+            action: 'findByIdAndUpdate',
+            condition(res) {
+                return res.parent_id
+            },
+            opt(cid) {
+                return {
+                    $push: {
+                        replies: cid
                     }
                 }
             }

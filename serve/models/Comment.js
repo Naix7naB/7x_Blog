@@ -41,6 +41,12 @@ const schema = new mongoose.Schema(
             type: String,
             default: null
         },
+        replies: [
+            {
+                ref: 'Comment',
+                type: mongoose.SchemaTypes.ObjectId
+            }
+        ],
         created_at: Number,
         updated_at: Number
     },

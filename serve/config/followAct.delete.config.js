@@ -150,6 +150,20 @@ module.exports = {
             }
         },
         {
+            _model_: Comment,
+            action: 'findByIdAndUpdate',
+            condition(res) {
+                return res.parent_id
+            },
+            opt(cid) {
+                return {
+                    $pull: {
+                        replies: cid
+                    }
+                }
+            }
+        },
+        {
             _model_: Article,
             action: 'findByIdAndUpdate',
             condition(res) {
