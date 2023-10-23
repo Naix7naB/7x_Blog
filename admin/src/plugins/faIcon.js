@@ -40,4 +40,8 @@ library.add([
     faGear
 ])
 
-export default FontAwesomeIcon
+export default {
+    install(Vue) {
+        Vue.component('fa-icon', FontAwesomeIcon)
+    }
+}

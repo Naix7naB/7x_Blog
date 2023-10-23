@@ -22,4 +22,8 @@ echarts.use([
     CanvasRenderer
 ])
 
-export default echarts
+export default {
+    install(Vue) {
+        Vue.prototype.$chart = echarts
+    }
+}
