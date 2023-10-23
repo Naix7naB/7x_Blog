@@ -14,15 +14,11 @@ export default {
     methods: {
         clear() {
             this.value = ''
-            this.$bus.$emit('setQuery', null)
+            this.$bus.$emit('setFilter', null)
         },
         search() {
-            const query = this.value ? {
-                title: this.value,
-                description: this.value,
-                content: this.value
-            } : null
-            this.$bus.$emit('setQuery', query)
+            const filter = this.value ? { q: this.value } : null
+            this.$bus.$emit('setFilter', filter)
         }
     }
 }

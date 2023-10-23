@@ -12,17 +12,12 @@ export default {
         filter: {
             type: Object,
             default: () => null
-        },
-        query: {
-            type: Object,
-            default: () => null
         }
     },
     computed: {
         requestParams() {
             return {
-                condition: this.filter,
-                query: this.query
+                condition: this.filter
             }
         }
     },

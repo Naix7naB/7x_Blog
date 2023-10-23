@@ -8,7 +8,10 @@ function getArticleList({ page = 1, size = 10, condition, query }) {
         data: {
             page,
             size,
-            condition,
+            condition: {
+                ...condition,
+                published: true
+            },
             query,
             populate: [
                 {
@@ -20,7 +23,7 @@ function getArticleList({ page = 1, size = 10, condition, query }) {
                     select: 'name'
                 }
             ],
-            select: '-author -comments'
+            select: '-author -comments -published'
         }
     })
 }
@@ -33,6 +36,9 @@ function getRecommendArticles() {
         data: {
             page: 1,
             size: 3,
+            condition: {
+                published: true
+            },
             sort: {
                 view_count: -1
             },
@@ -48,12 +54,15 @@ function getArticlesAndSortedByDate(condition) {
         methodType: Request.GET,
         url: '/api/article',
         data: {
-            condition,
+            condition: {
+                ...condition,
+                published: true
+            },
             populate: '',
             sort: {
                 created_at: -1
             },
-            select: '-author -content -category -tags -comments -state'
+            select: '-author -content -category -tags -comments -published'
         }
     })
 }

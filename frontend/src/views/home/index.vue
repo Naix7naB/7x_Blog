@@ -8,16 +8,16 @@ export default {
     components: { Banner, Sidebar, ArticleList },
     data() {
         return {
-            query: null
+            filter: null
         }
     },
     methods: {
-        setQuery(query) {
-            this.query = query
+        setFilter(filter) {
+            this.filter = filter
         }
     },
     created() {
-        this.$bus.$on('setQuery', this.setQuery)
+        this.$bus.$on('setFilter', this.setFilter)
     }
 }
 </script>
@@ -30,7 +30,7 @@ export default {
                 <Sidebar />
             </div>
             <div class="home-content">
-                <ArticleList :query="query" />
+                <ArticleList :filter="filter" />
             </div>
         </div>
     </div>
