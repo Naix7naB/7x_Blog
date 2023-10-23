@@ -158,7 +158,6 @@ export default {
                     }
                 })
                 this.refreshData()
-                this.resetQuery()
             })
         },
         /* 操作选项按钮的执行函数 */
@@ -183,6 +182,7 @@ export default {
         /* 更改页码时 */
         changePage(page) {
             this.currentPage = page
+            this.getDatasource()
         },
         /* 打开弹窗 */
         openPopup() {
@@ -195,9 +195,15 @@ export default {
         },
         /* 重置查询表单的数据 */
         resetQueryForm() {
+            const rawData = this.$refs.query.raw
+            const queryData = this.$refs.query.showing
+            const isQueried = !isEmpty(this.condition) || !isEmpty(this.query)
+            if (isEqual(queryData, rawData)) return false
             this.$refs.query.resetFormData()
-            this.resetQuery()
-            this.refreshData()
+            if (isQueried) {
+                this.resetQuery()
+                this.refreshData()
+            }
         },
         /* 刷新数据 */
         refreshData() {
