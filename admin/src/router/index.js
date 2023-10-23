@@ -19,7 +19,7 @@ const routes = [
                     icon: 'house',
                     title: '首页'
                 },
-                component: () => import('@/views/dashboard')
+                component: () => import(/* webpackChunkName: "Dashboard" */ '@/views/dashboard')
             }
         ]
     },
@@ -39,7 +39,7 @@ const routes = [
                 meta: {
                     title: '文章列表'
                 },
-                component: () => import('@/views/article/list')
+                component: () => import(/* webpackChunkName: "Article" */ '@/views/article/list')
             },
             {
                 path: 'category',
@@ -47,7 +47,8 @@ const routes = [
                 meta: {
                     title: '文章分类'
                 },
-                component: () => import('@/views/article/category')
+                component: () =>
+                    import(/* webpackChunkName: "Article" */ '@/views/article/category')
             },
             {
                 path: 'tag',
@@ -55,7 +56,7 @@ const routes = [
                 meta: {
                     title: '文章标签'
                 },
-                component: () => import('@/views/article/tag')
+                component: () => import(/* webpackChunkName: "Article" */ '@/views/article/tag')
             }
         ]
     },
@@ -74,7 +75,7 @@ const routes = [
                 meta: {
                     title: '评论管理'
                 },
-                component: () => import('@/views/news/comment')
+                component: () => import(/* webpackChunkName: "News" */ '@/views/news/comment')
             },
             {
                 path: 'message',
@@ -82,7 +83,7 @@ const routes = [
                 meta: {
                     title: '留言管理'
                 },
-                component: () => import('@/views/news/message')
+                component: () => import(/* webpackChunkName: "News" */ '@/views/news/message')
             }
         ]
     },
@@ -102,7 +103,7 @@ const routes = [
                 meta: {
                     title: '用户列表'
                 },
-                component: () => import('@/views/user/list')
+                component: () => import(/* webpackChunkName: "User" */ '@/views/user/list')
             },
             {
                 path: 'role',
@@ -110,7 +111,7 @@ const routes = [
                 meta: {
                     title: '角色列表'
                 },
-                component: () => import('@/views/user/role')
+                component: () => import(/* webpackChunkName: "User" */ '@/views/user/role')
             }
         ]
     },
@@ -130,7 +131,7 @@ const routes = [
                 meta: {
                     title: '网站配置'
                 },
-                component: () => import('@/views/site/webConfig')
+                component: () => import(/* webpackChunkName: "Site" */ '@/views/site/webConfig')
             },
             {
                 path: 'friendLink',
@@ -138,7 +139,7 @@ const routes = [
                 meta: {
                     title: '友情链接'
                 },
-                component: () => import('@/views/site/friendLink')
+                component: () => import(/* webpackChunkName: "Site" */ '@/views/site/friendLink')
             }
         ]
     },
@@ -146,7 +147,7 @@ const routes = [
         hidden: true,
         path: '/login',
         name: 'Login',
-        component: () => import('@/views/login')
+        component: () => import(/* webpackChunkName: "Login" */ '@/views/login')
     }
 ]
 

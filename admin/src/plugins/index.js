@@ -1,7 +1,7 @@
 import ElementUI from './elementUI'
 import Echarts from './echarts'
 import FontAwesomeIcon from './faIcon'
-import MavonEditor from './mavonEditor'
+import MavonEditor from 'mavon-editor'
 
 export default {
     install(Vue) {
