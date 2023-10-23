@@ -1,5 +1,3 @@
-import echarts from '@/plugins/echarts'
-
 import { debounce } from 'lodash-es'
 
 export default {
@@ -20,7 +18,7 @@ export default {
     },
     methods: {
         $_initChart() {
-            this.$_chart = echarts.init(this.$refs.chart)
+            this.$_chart = this.$chart.init(this.$refs.chart)
         },
         $_setChartOption(opt) {
             this.$_chart.setOption(opt)

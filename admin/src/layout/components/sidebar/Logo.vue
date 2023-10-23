@@ -7,7 +7,7 @@ export default {
 </script>
 
 <template>
-    <div class="sidebar-logo">Site—Logo</div>
+    <div class="sidebar-logo">博客后台管理系统</div>
 </template>
 
 <style lang="scss" scoped>
