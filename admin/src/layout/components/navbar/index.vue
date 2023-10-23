@@ -140,8 +140,7 @@ export default {
         /* 查看用户个人资料 */
         checkPersonalInfo() {
             const modifyInfo = () => {
-                this.$refs.form.submitForm((data, hasModify) => {
-                    if (hasModify === false) return false
+                this.$refs.form.submitForm(data => {
                     modifyUserById(data.uid, data).then(res => {
                         this.setUserInfo(data)
                         this.$message.success(res.errMsg)

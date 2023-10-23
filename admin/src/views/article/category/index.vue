@@ -49,8 +49,7 @@ export default {
         },
         /* 修改文章分类 */
         modifyExecution(id) {
-            this.submitPopupForm((data, hasModify) => {
-                if (hasModify === false) return false
+            this.submitPopupForm(data => {
                 modifyCategoryById(id, data).then(res => {
                     this.refreshTableData()
                     this.$message.success(res.errMsg)

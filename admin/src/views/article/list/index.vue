@@ -58,8 +58,7 @@ export default {
         },
         /* 编辑文章 */
         modifyExecution(id) {
-            this.submitPopupForm((data, hasModify) => {
-                if (hasModify === false) return false
+            this.submitPopupForm(data => {
                 modifyArticleById(id, data).then(res => {
                     this.refreshTableData()
                     this.$message.success(res.errMsg)

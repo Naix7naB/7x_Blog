@@ -63,7 +63,7 @@ export default {
         },
         /* 提交弹窗表单数据 */
         submitPopupForm(callback) {
-            this.popup && this.popup.submitForm((data, hasModify) => callback(data, hasModify))
+            this.popup && this.popup.submitForm(data => callback(data))
         },
         /* 触发弹窗取消按钮 */
         onBeforePopupCancel(done) {

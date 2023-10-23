@@ -66,8 +66,7 @@ export default {
         },
         /* 修改用户信息 */
         modifyExecution(id) {
-            this.submitPopupForm((data, hasModify) => {
-                if (hasModify === false) return false
+            this.submitPopupForm(data => {
                 modifyUserById(id, data).then(res => {
                     this.refreshTableData()
                     this.$message.success(res.errMsg)

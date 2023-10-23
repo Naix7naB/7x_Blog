@@ -47,8 +47,7 @@ export default {
         },
         /* 修改角色信息 */
         modifyExecution(id) {
-            this.submitPopupForm((data, hasModify) => {
-                if (hasModify === false) return false
+            this.submitPopupForm(data => {
                 modifyRoleById(id, data).then(res => {
                     this.refreshTableData()
                     this.$message.success(res.errMsg)

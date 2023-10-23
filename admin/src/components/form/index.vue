@@ -1,5 +1,5 @@
 <script>
-import { assignIn, isEmpty, isEqual, keys, pick } from 'lodash-es'
+import { assignIn, isEmpty, isEqual, keys, pick, toPairsIn } from 'lodash-es'
 import { uploadFile, deleteFile } from '@/apis/upload'
 import { parseUrl } from '@/utils'
 
@@ -84,7 +84,21 @@ export default {
                         message: '表单校验失败'
                     })
                 }
-                callback(assignIn({}, this.showing), !isEqual(this.raw, this.showing))
+                const modifiedKeys = []
+                toPairsIn(this.raw).forEach(([key, val]) => {
+                    let isModified = false
+                    if (typeof val === 'object') {
+                        isModified = !isEqual(this.showing[key], val)
+                    } else {
+                        isModified = this.showing[key] !== val
+                    }
+                    isModified && modifiedKeys.push(key)
+                })
+                if (isEmpty(modifiedKeys)) {
+                    this.$message.warning('数据未修改')
+                    return false
+                }
+                callback(pick(this.showing, modifiedKeys))
             })
         },
         /* 设置表单数据 */
