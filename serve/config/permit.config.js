@@ -25,7 +25,7 @@ module.exports = {
     PUT: {
         Site: {
             authField: 'host',
-            revisableFields: ['*']
+            revisableFields: ['name', 'logo', 'background', 'summary', 'bulletin', 'about_me', 'record_num']
         },
         User: {
             authField: 'id',
