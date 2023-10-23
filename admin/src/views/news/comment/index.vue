@@ -34,6 +34,7 @@ export default {
         /* 批量删除 */
         bulkDeleteExecution(selection) {
             console.log(selection)
+            this.$message.warning('功能暂未开放')
         }
     },
     render(h, ctx) {

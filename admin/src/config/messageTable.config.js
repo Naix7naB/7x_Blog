@@ -14,17 +14,17 @@ const columns = [
         minWidth: 100
     },
     {
-        prop: 'mention.nickname',
-        label: '回复用户',
-        minWidth: 100
-    },
-    {
         prop: 'content',
         label: '评论内容',
         minWidth: 180
     },
     {
-        prop: 'reply_id.content',
+        prop: 'mention.nickname',
+        label: '回复用户',
+        minWidth: 100
+    },
+    {
+        prop: 'reply_content',
         label: '回复内容',
         minWidth: 180
     },
@@ -47,8 +47,7 @@ const columns = [
 /* 留言管理页查询表单配置内容 */
 const queryForm = {
     data: {
-        dateRange: null,
-        nickname: ''
+        dateRange: null
     },
     items: [
         {
@@ -61,12 +60,6 @@ const queryForm = {
                 endPlaceholder: '结束日期',
                 rangeSeparator: '至'
             }
-        },
-        {
-            type: 'input',
-            prop: 'nickname',
-            label: '评论用户',
-            placeholder: '输入评论用户'
         }
     ]
 }

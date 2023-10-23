@@ -9,19 +9,14 @@ const columns = [
         minWidth: 100
     },
     {
-        prop: 'reviewer.nickname',
-        label: '评论用户',
-        minWidth: 100
-    },
-    {
-        prop: 'mention.nickname',
-        label: '回复用户',
-        minWidth: 100
-    },
-    {
         prop: 'topic_title',
         label: '所属文章',
         minWidth: 180
+    },
+    {
+        prop: 'reviewer.nickname',
+        label: '评论用户',
+        minWidth: 100
     },
     {
         prop: 'content',
@@ -29,7 +24,12 @@ const columns = [
         minWidth: 180
     },
     {
-        prop: 'reply_id.content',
+        prop: 'mention.nickname',
+        label: '回复用户',
+        minWidth: 100
+    },
+    {
+        prop: 'reply_content',
         label: '回复内容',
         minWidth: 180
     },
@@ -53,7 +53,6 @@ const columns = [
 const queryForm = {
     data: {
         dateRange: null,
-        nickname: '',
         topic_title: ''
     },
     items: [
@@ -67,12 +66,6 @@ const queryForm = {
                 endPlaceholder: '结束日期',
                 rangeSeparator: '至'
             }
-        },
-        {
-            type: 'input',
-            prop: 'nickname',
-            label: '评论用户',
-            placeholder: '输入评论用户'
         },
         {
             type: 'input',

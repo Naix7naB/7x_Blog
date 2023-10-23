@@ -1,7 +1,7 @@
 import Request from '@/utils/request'
 
 /* 获取文章评论列表 */
-function getArticleComments({ page, size } = {}) {
+function getArticleComments({ page, size, condition, query }) {
     return Request.requestForm({
         methodType: Request.GET,
         url: '/api/comment',
@@ -9,14 +9,16 @@ function getArticleComments({ page, size } = {}) {
             page,
             size,
             condition: {
-                topic_type: 'article_comment'
-            }
+                topic_type: 'article',
+                ...condition
+            },
+            query
         }
     })
 }
 
 /* 获取留言列表 */
-function getMessageComments({ page, size }) {
+function getMessageComments({ page, size, condition, query }) {
     return Request.requestForm({
         methodType: Request.GET,
         url: '/api/comment',
@@ -24,8 +26,10 @@ function getMessageComments({ page, size }) {
             page,
             size,
             condition: {
-                topic_type: 'message_comment'
-            }
+                topic_type: 'message',
+                ...condition
+            },
+            query
         }
     })
 }
