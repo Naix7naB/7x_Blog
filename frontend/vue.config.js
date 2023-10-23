@@ -5,6 +5,7 @@ const path = require('path')
 const resolve = dir => path.join(__dirname, dir)
 
 const port = process.env.port || process.env.npm_config_port || 8000
+const cdnPath = process.env.VUE_APP_CDN_PATH
 
 const externals = {
     'vue': 'Vue',
@@ -15,25 +16,27 @@ const externals = {
     'showdown': 'showdown',
     'highlight.js': 'hljs',
     'typed.js': 'Typed',
-    'viewerjs': 'Viewer'
+    'viewerjs': 'Viewer',
+    'emoji-mart-vue-fast': 'EmojiMart'
 }
 
 const cdn = {
     css: [
-        'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/styles/atom-one-dark.min.css',
-        'https://cdn.jsdelivr.net/npm/viewerjs@1.11.6/dist/viewer.min.css',
-        'https://cdn.jsdelivr.net/npm/emoji-mart-vue-fast@15.0.0/css/emoji-mart.min.css'
+        `${cdnPath}/@highlightjs/cdn-assets@11.9.0/styles/atom-one-dark.min.css`,
+        `${cdnPath}/viewerjs@1.11.6/dist/viewer.min.css`,
+        `${cdnPath}/emoji-mart-vue-fast@15.0.0/css/emoji-mart.css`
     ],
     js: [
-        'https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.min.js',
-        'https://cdn.jsdelivr.net/npm/vue-router@3.6.5/dist/vue-router.min.js',
-        'https://cdn.jsdelivr.net/npm/vuex@3.6.2/dist/vuex.min.js',
-        'https://cdn.jsdelivr.net/npm/axios@1.5.1/dist/axios.min.js',
-        'https://cdn.jsdelivr.net/npm/jsencrypt@3.3.2/bin/jsencrypt.min.js',
-        'https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js',
-        'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js',
-        'https://cdn.jsdelivr.net/npm/typed.js@2.0.16/dist/typed.umd.min.js',
-        'https://cdn.jsdelivr.net/npm/viewerjs@1.11.6/dist/viewer.min.js'
+        `${cdnPath}/vue@2.7.14/dist/vue.min.js`,
+        `${cdnPath}/vue-router@3.6.5/dist/vue-router.min.js`,
+        `${cdnPath}/vuex@3.6.2/dist/vuex.min.js`,
+        `${cdnPath}/axios@1.5.1/dist/axios.min.js`,
+        `${cdnPath}/jsencrypt@3.3.2/bin/jsencrypt.min.js`,
+        `${cdnPath}/showdown@2.1.0/dist/showdown.min.js`,
+        `${cdnPath}/@highlightjs/cdn-assets@11.9.0/highlight.min.js`,
+        `${cdnPath}/typed.js@2.0.16/dist/typed.umd.js`,
+        `${cdnPath}/viewerjs@1.11.6/dist/viewer.min.js`,
+        `${cdnPath}/emoji-mart-vue-fast@15.0.0/dist/emoji-mart.js`
     ]
 }
 
