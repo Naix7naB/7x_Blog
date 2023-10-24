@@ -1,0 +1,26 @@
+@import 'variable.scss';
+
+$themes: (
+    light: (
+        text-primary: $cl-dark-3,
+        text-secondary: $cl-dark-1,
+        text-muted: $cl-gray-7,
+        border-primary: $cl-gray-1,
+        bg-primary: $cl-light-3,
+        bg-accent: $cl-accent-l,
+        bg-highlight: $cl-light-1,
+        shadow: $cl-gray-1,
+        shadow-hover: $cl-gray-7
+    ),
+    dark: (
+        text-primary: $cl-light-3,
+        text-secondary: $cl-light-5,
+        text-muted: $cl-gray-7,
+        border-primary: $cl-gray-7,
+        bg-primary: $cl-dark-4,
+        bg-accent: $cl-accent-d,
+        bg-highlight: $cl-dark-5,
+        shadow: $cl-dark-1,
+        shadow-hover: $cl-dark-7
+    )
+);

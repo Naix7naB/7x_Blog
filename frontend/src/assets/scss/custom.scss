@@ -1,0 +1,120 @@
+/* Custom VueScroll 样式 */
+.__rail-is-vertical {
+    z-index: 900 !important;
+}
+
+/* Cutom TypedCursor 样式 */
+.typed-cursor{
+    opacity: 1;
+}
+
+.typed-cursor.typed-cursor--blink{
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink{
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Custom ElementUI 样式 */
+.el-avatar {
+    display: block !important;
+}
+
+.el-image {
+    display: block !important;
+    height: 100% !important;
+}
+
+.el-image .el-image__inner {
+    object-position: center !important;
+}
+
+.el-image.is-background {
+    @include image-mask();
+}
+
+.el-pagination {
+    text-align: center;
+}
+
+.el-pagination.is-background button[type='button']:disabled {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.el-pagination.is-background button[type='button'],
+.el-pagination.is-background .el-pager li.number {
+    @include bg-color(text-primary, 0.8);
+    @include text-color(bg-primary, 0.8);
+    border-radius: 50%;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.el-pagination.is-background button[type='button']:not(:disabled):hover,
+.el-pagination.is-background .el-pager li.number.active,
+.el-pagination.is-background .el-pager li.number:hover {
+    color: $cl-light-3;
+    background-color: $cl-orangered-l;
+}
+
+.el-collapse {
+    border: none;
+}
+
+.el-collapse .el-collapse-item {
+    overflow: hidden;
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba($color: $cl-dark-1, $alpha: 0.8);
+}
+
+.el-collapse .el-collapse-item:not(:first-of-type) {
+    margin-top: 20px;
+}
+
+.el-collapse .el-collapse-item .el-collapse-item__header {
+    padding: 0 20px;
+    border: none;
+    color: rgba($color: $cl-light-3, $alpha: 0.8);
+    background-color: $cl-dark-5;
+    transition: padding 0.3s ease, background-color 0.3s ease;
+}
+
+.el-collapse .el-collapse-item .el-collapse-item__header.is-active,
+.el-collapse .el-collapse-item .el-collapse-item__header:hover {
+    padding: 0 32px;
+    background-color: $cl-accent-d;
+}
+
+.el-collapse .el-collapse-item .el-collapse-item__arrow {
+    margin: 0 0 0 auto;
+}
+
+.el-collapse .el-collapse-item .el-collapse-item__wrap {
+    border: none;
+    color: rgba($color: $cl-light-3, $alpha: 0.8);
+    background-color: $cl-dark-2;
+}
+
+.el-collapse .el-collapse-item .el-collapse-item__content {
+    padding: 20px 24px;
+    color: rgba($color: $cl-light-3, $alpha: 0.8);
+}
+
+.el-radio-group {
+    line-height: inherit;
+    font-size: inherit;
+}
+
+.el-radio .el-radio__inner::after {
+    transform: translate(-50%, -50%) scale(1);
+}
