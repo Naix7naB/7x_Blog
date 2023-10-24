@@ -1,9 +1,17 @@
+const multer = require('multer')
 const Response = require('../core/response')
 const UniqueField = require('../plugins/uniqueField')
 
+const { MAX_FILE_COUNT, MAX_FILE_SIZE } = require('../config/base.config')
+
+const MULTER_ERROR_CODE = {
+    LIMIT_FILE_SIZE: '上传文件超出限制大小',
+    LIMIT_FILE_COUNT: '超出文件上传数量',
+    LIMIT_UNEXPECTED_FILE: '上传文件发生错误'
+}
+
 module.exports = () => {
     return (err, req, res, next) => {
-        console.dir(err, { depth: null })
         let statusCode = 'FAIL',
             message,
             data
@@ -19,6 +27,15 @@ module.exports = () => {
         } else if (err.name === 'UnprocessableEntityError') {
             // 422 客户端操作错误
             message = err.message
+        } else if (err instanceof multer.MulterError) {
+            // 上传文件错误
+            message = MULTER_ERROR_CODE[err.code]
+            data = {
+                limit: {
+                    size: MAX_FILE_SIZE,
+                    count: MAX_FILE_COUNT
+                }
+            }
         } else if (err.message.indexOf('duplicate key error') !== -1) {
             // 数据库字段重复错误处理
             const regexp = new RegExp(/collection:\sblog\.(\w+)\s/, 'i')

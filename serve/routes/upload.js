@@ -5,7 +5,7 @@ const assert = require('http-assert')
 const multer = require('multer')
 
 const Response = require('../core/response')
-const { UPLOAD_PATH } = require('../config/base.config')
+const { UPLOAD_PATH, MAX_FILE_COUNT, MAX_FILE_SIZE } = require('../config/base.config')
 const { parseUrl } = require('../utils/helpers')
 
 const categories = ['user', 'article', 'site', 'other']
@@ -44,7 +44,8 @@ const Router = express.Router()
 const upload = multer({
     storage,
     limits: {
-        fileSize: 1024 * 1024 // 1MB
+        files: MAX_FILE_COUNT,
+        fileSize: MAX_FILE_SIZE
     }
 })
 
