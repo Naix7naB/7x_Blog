@@ -2,12 +2,11 @@ const express = require('express')
 const assert = require('http-assert')
 
 const Response = require('../core/response')
+const Comment = require('../models/Comment')
 const ResourceBody = require('../plugins/resourceBody')
 const FollowAction = require('../plugins/followAction')
 const permitConf = require('../config/permit.config')
 const permit = require('../utils/permit')
-
-const Comment = require('../models/Comment')
 
 const Router = express.Router()
 
