@@ -2,23 +2,22 @@ const mongoose = require('mongoose')
 const createError = require('http-errors')
 const dbConf = require('../config/db.config')
 
-const DB_URL = dbConf.ORIGIN + '/' + dbConf.DB_NAME
-
-mongoose.connect(DB_URL, {
+mongoose.connect(dbConf.DB_PATH, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
-    useCreateIndex: true
+    useCreateIndex: true,
+    w: 'majority'
 })
 
 module.exports = {
     run() {
         const mongodb = mongoose.connection
         mongodb.on('connected', () => {
-            console.log(`==> ${DB_URL} | 数据库已连接...`)
+            console.log(`==> ${dbConf.DB_URI} | 数据库已连接...`)
         })
         mongodb.on('disconnected', () => {
-            console.log(`==> ${DB_URL} | 数据库已断开...`)
+            console.log(`==> ${dbConf.DB_URI} | 数据库已断开...`)
         })
         mongodb.on('error', err => {
             createError(err)
