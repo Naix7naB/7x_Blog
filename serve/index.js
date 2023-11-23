@@ -1,7 +1,7 @@
-const app = require('../app')
+const app = require('./app')
 const http = require('http')
 const debug = require('debug')('server:server')
-const serConf = require('../config/server.config')
+const serConf = require('./config/server.config')
 const serPort = normalizePort(process.env.PORT || serConf.PORT)
 const server = http.createServer(app)
 

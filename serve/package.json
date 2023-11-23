@@ -3,7 +3,8 @@
     "version": "1.0.0",
     "private": true,
     "scripts": {
-        "start": "nodemon ./bin/www",
+        "start:dev": "cross-env NODE_ENV=development nodemon index.js",
+        "start:prod": "cross-env NODE_ENV=production nodemon index.js",
         "lint": "npx eslint --ext .js config/ middleware/ models/ plugins/ routes/ utils/ --ignore-path .gitignore",
         "lint:fix": "npx eslint --fix --ext .js config/ middleware/ models/ plugins/ routes/ utils/ --ignore-path .gitignore"
     },
@@ -25,6 +26,7 @@
         "qs": "^6.11.2"
     },
     "devDependencies": {
+        "cross-env": "^7.0.3",
         "eslint": "^8.41.0",
         "eslint-config-prettier": "^8.8.0",
         "eslint-plugin-prettier": "^4.2.1",

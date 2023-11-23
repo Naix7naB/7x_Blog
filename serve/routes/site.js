@@ -39,9 +39,7 @@ Router.put('/info', async (req, res, next) => {
         })
         assert(isPermit, 403)
         // 对比数据
-        const revisableData = Object.fromEntries(
-            Object.entries(site.toJSON()).filter(([key, val]) => revisableFields.includes(key))
-        )
+        const revisableData = Object.fromEntries(Object.entries(site.toJSON()).filter(([key, val]) => revisableFields.includes(key)))
         const diff = dataDiff(revisableData, req.body)
         const updates = Object.fromEntries(Object.entries(diff).map(([key, val]) => [key, val.current]))
         assert(!isEmptyObj(updates), 422, '资源未变动')

@@ -106,9 +106,7 @@ Router.put('/:id', async (req, res, next) => {
         // 对比数据
         let revisableData = resource.toJSON()
         if (!revisableFields.includes('*')) {
-            revisableData = Object.fromEntries(
-                Object.entries(revisableData).filter(([key, val]) => revisableFields.includes(key))
-            )
+            revisableData = Object.fromEntries(Object.entries(revisableData).filter(([key, val]) => revisableFields.includes(key)))
         }
         const diff = dataDiff(revisableData, req.body)
         const updates = Object.fromEntries(Object.entries(diff).map(([key, val]) => [key, val.current]))
